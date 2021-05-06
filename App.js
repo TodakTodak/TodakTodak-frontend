@@ -17,7 +17,7 @@ function App() {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <Home />
+      <Signup />
     </ImageBackground>
   );
 }
