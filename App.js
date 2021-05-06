@@ -1,23 +1,22 @@
 import React from "react";
 import {
   StyleSheet,
-  Text,
-  View,
   ImageBackground
 } from "react-native";
 
 import backgroundImage from "./assets/pngs/background.png";
+
+import Login from "./screens/Login/Login";
+import Intro from "./screens/Intro/Intro";
 
 function App() {
   return (
     <ImageBackground
     source={backgroundImage}
     style={styles.backgroundContainer}
-  >
-    <View>
-      <Text>안녕</Text>
-    </View>
-  </ImageBackground>
+    >
+      <Login />
+    </ImageBackground>
   );
 }
 

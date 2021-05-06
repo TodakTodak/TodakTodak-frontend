@@ -29,8 +29,8 @@ function Title({
 
 const styles = StyleSheet.create({
   title: {
-    flex: 1,
     position: "relative",
+    alignItems: "center",
     height: 100,
     marginTop: "50%"
   },
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
     height: 60,
     position: "absolute",
     top: "-5%",
-    left: "-7%"
+    left: "25%"
   },
 });
 
