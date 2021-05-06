@@ -1,15 +1,14 @@
 import React from "react";
 import {
-  StyleSheet,
-  Text,
-  View,
   ImageBackground,
-  TouchableOpacity,
-  Image
+  StyleSheet,
+  View
 } from "react-native";
 
-import backgroundImage from "./assets/pngs/background.png";
-import titleImage from "./assets/pngs/moon.png";
+import Button from "../../components/Button/Button";
+import Title from "../../components/Title/Title";
+
+import backgroundImage from "../../assets/pngs/background.png";
 
 function Intro() {
   return (
@@ -18,26 +17,10 @@ function Intro() {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <View style={styles.title}>
-          <Image
-            style={styles.titleImage}
-            source={titleImage}
-          />
-          <Text style={styles.titleText}>
-            토닥 토닥
-          </Text>
-        </View>
+        <Title text="토닥 토닥" />
         <View style={styles.buttonContainer}>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>
-              로그인
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.button}>
-            <Text style={styles.buttonText}>
-              회원 가입
-            </Text>
-          </TouchableOpacity>
+          <Button text="로그인" />
+          <Button text="회원가입" />
         </View>
       </ImageBackground>
     </View>
@@ -48,44 +31,13 @@ const styles = StyleSheet.create({
   backgroundContainer: {
     width: "100%",
     height: "100%",
-    alignItems: "center",
-  },
-  title: {
-    flex: 1,
-    position: "relative",
-    height: 100,
-    marginTop: "50%"
-  },
-  titleText: {
-    color: "#ffffff",
-    fontSize: 40,
-    fontWeight: "bold"
-  },
-  titleImage: {
-    width: 60,
-    height: 60,
-    position: "absolute",
-    top: "-5%",
-    left: "-7%"
+    alignItems: "center"
   },
   buttonContainer: {
     flexDirection: "row",
     width: "100%",
-    justifyContent: "center",
+    justifyContent: "space-evenly",
     marginBottom: 20
-  },
-  button: {
-    width: "45%",
-    height: "auto",
-    alignItems: "center",
-    margin: 10,
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: "#8997DA",
-  },
-  buttonText: {
-    color: "#ffffff",
-    fontWeight: "bold"
   }
 });
 
