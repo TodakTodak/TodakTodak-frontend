@@ -8,13 +8,14 @@ import {
 } from "react-native";
 
 function Button({
+  handleClick,
   buttonStyle,
   textStyle,
   image,
   text
 }) {
   return (
-    <TouchableOpacity style={[ styles.button, buttonStyle ]}>
+    <TouchableOpacity style={[ styles.button, buttonStyle ]} onPress={handleClick}>
       <View style={styles.buttonContents}>
         { image && <Image style={styles.image} source={image} /> }
         <Text style={[ styles.buttonText, textStyle ]}>
