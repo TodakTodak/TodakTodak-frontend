@@ -5,9 +5,10 @@ import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 
-function Login() {
+function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [nickname, setNickname] = useState("");
 
   return (
     <View style={styles.loginContainer}>
@@ -26,9 +27,16 @@ function Login() {
           value={password}
           type="password"
         />
+        <TextInput
+          placeholder="닉네임을 입력해주세요"
+          isPassword={true}
+          handleInputChange={setNickname}
+          value={nickname}
+          type="nickname"
+        />
       </View>
       <View style={styles.buttonContainer}>
-        <Button text="로그인" buttonStyle={styles.loginButton} />
+        <Button text="회원 가입" buttonStyle={styles.loginButton} />
       </View>
     </View>
   );
@@ -53,4 +61,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Login;
+export default Signup;

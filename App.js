@@ -8,6 +8,7 @@ import backgroundImage from "./assets/pngs/background.png";
 
 import Login from "./screens/Login/Login";
 import Intro from "./screens/Intro/Intro";
+import Signup from "./screens/Signup/Signup";
 
 function App() {
   return (
@@ -15,7 +16,7 @@ function App() {
     source={backgroundImage}
     style={styles.backgroundContainer}
     >
-      <Login />
+      <Signup />
     </ImageBackground>
   );
 }

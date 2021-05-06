@@ -6,7 +6,8 @@ function TextInputBox({
   handleInputChange,
   placeholder = "",
   style,
-  value
+  value,
+  type
 }) {
   return (
     <View style={styles.textInputContainer}>
@@ -16,6 +17,7 @@ function TextInputBox({
         style={[ styles.textInput, style ]}
         value={value}
         onChangeText={handleInputChange}
+        textContentType={type}
       />
     </View>
   );
