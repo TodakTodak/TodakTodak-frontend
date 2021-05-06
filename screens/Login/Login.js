@@ -10,7 +10,7 @@ function Login() {
   const [password, setPassword] = useState("");
 
   return (
-    <View style={styles.loginContainer}>
+    <View>
       <Title text="토닥 토닥" imageStyle={styles.titleImage} />
       <View style={styles.textInputContainer}>
         <TextInput

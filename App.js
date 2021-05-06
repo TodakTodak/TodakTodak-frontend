@@ -9,14 +9,15 @@ import backgroundImage from "./assets/pngs/background.png";
 import Login from "./screens/Login/Login";
 import Intro from "./screens/Intro/Intro";
 import Signup from "./screens/Signup/Signup";
+import Home from "./screens/Home/Home";
 
 function App() {
   return (
     <ImageBackground
-    source={backgroundImage}
-    style={styles.backgroundContainer}
+      source={backgroundImage}
+      style={styles.backgroundContainer}
     >
-      <Signup />
+      <Home />
     </ImageBackground>
   );
 }
