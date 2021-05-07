@@ -31,8 +31,8 @@ const styles = StyleSheet.create({
   title: {
     position: "relative",
     alignItems: "center",
-    height: 100,
-    marginTop: "50%"
+    height: 50,
+    marginTop: "30%"
   },
   titleText: {
     color: "#ffffff",
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     width: 60,
     height: 60,
     position: "absolute",
-    top: "-5%",
+    top: "-65%",
     left: "25%"
   },
 });

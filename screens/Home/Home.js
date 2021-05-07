@@ -14,13 +14,17 @@ import mySoundLogo from "../../assets/pngs/mySoundLogo.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function Home({ navigation }) {
+  const handleWriteButtonClick = () => {
+    navigation.navigate("WriteWorry");
+  };
+
   return (
     <ImageBackground
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
       <View style={styles.homeContainer}>
-        <Title text="토닥 토닥" imageStyle={styles.titleImage} />
+        <Title text="토닥 토닥" />
         <View style={styles.buttonContainer}>
           <Button
             text="내 마음의 소리 저장소"
@@ -36,6 +40,7 @@ function Home({ navigation }) {
             text="고민을 써주세요"
             buttonStyle={styles.writeButton}
             image={feather}
+            handleClick={handleWriteButtonClick}
           />
         </View>
       </View>
@@ -51,9 +56,7 @@ const styles = StyleSheet.create({
   },
   homeContainer: {
     width: "100%",
-  },
-  titleImage: {
-    top: "-30%"
+    height: "100%",
   },
   buttonContainer: {
     flexDirection: "column",
@@ -61,7 +64,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     width: "100%",
     height: "50%",
-    marginBottom: 20,
+    marginTop: 100,
+    marginBottom: 20
   },
   roomButton: {
     width: "90%",
