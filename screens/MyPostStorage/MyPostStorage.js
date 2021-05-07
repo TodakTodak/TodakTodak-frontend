@@ -15,7 +15,7 @@ import { getMyPosts } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MyPostStorage() {
+function MyPostStorage({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [errorMessage, setErrorMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
@@ -29,7 +29,7 @@ function MyPostStorage() {
           setErrorMessage(errorMessage);
           return;
         }
-        console.log(postsInfo);
+
         setPosts(postsInfo);
       } catch (err) {
         console.log("에러발생");
@@ -43,14 +43,26 @@ function MyPostStorage() {
     if (!posts) return;
 
     return posts.map((post) => {
-      const { _id, title, catagory } = post;
+      const {
+        _id,
+        title,
+        contents,
+        category
+      } = post;
+
+      const handlePostClick = () => {
+        navigation.navigate("DetailPost", {
+          contents,
+          category
+        });
+      };
 
       return (
         <PostCard
           key={_id}
-          postCategory={catagory}
+          postCategory={category}
           postTitle={title}
-          postId={_id}
+          handleClick={handlePostClick}
         />
       );
     });
@@ -63,12 +75,13 @@ function MyPostStorage() {
     >
       <View style={styles.container}>
         <Title
-          text="고민 작성소"
+          text="고민 저장소"
           textStyle={styles.title}
           imageStyle={styles.titleImage}
         />
         <View style={styles.categorysWrapper}>
           <Category title="토닥 토닥" />
+          <Category title="쓰담 쓰담" categoryStyle={styles.thudamCategory} />
         </View>
         <ScrollView styles={styles.postsWrapper}>
           {renderMyPosts()}
@@ -100,9 +113,12 @@ const styles = StyleSheet.create({
   },
   categorysWrapper: {
     width: "100%",
-    justifyContent: "center",
+    flexDirection: "row",
     alignItems: "center",
     marginTop: 40
+  },
+  thudamCategory: {
+    backgroundColor: "rgba(239, 255, 56, 0.3)"
   },
   postsWrapper: {
     width: "100%",

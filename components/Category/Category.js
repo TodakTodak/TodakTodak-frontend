@@ -12,20 +12,24 @@ function Category({
   bottomBarStyle
 }) {
   return (
-    <>
+    <View style={styles.categoryContainer}>
       <View style={[ styles.categoryWrapper, categoryStyle ]}>
         <Text style={[ styles.categoryTitle, titleStyle ]}>
           {title}
         </Text>
       </View>
       <View style={[ styles.titleBottomBar, bottomBarStyle ]} />
-    </>
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
+  categoryContainer: {
+    width: "50%",
+    alignItems: "center"
+  },
   categoryWrapper: {
-    width: "25%",
+    width: "50%",
     height: 30,
     justifyContent: "center",
     alignItems: "center",
@@ -36,7 +40,7 @@ const styles = StyleSheet.create({
     color: "#ffffff"
   },
   titleBottomBar: {
-    width: "25%",
+    width: 100,
     height: 8,
     justifyContent: "center",
     alignItems: "center",
