@@ -11,3 +11,11 @@ export async function postNewWorryPost(postInfo) {
 
   return await response.json();
 }
+
+export async function getMyPosts(userEmail) {
+  const response = await fetch(`${SERVER_URL}/post/${userEmail}`, {
+    method: "GET"
+  });
+
+  return await response.json();
+}

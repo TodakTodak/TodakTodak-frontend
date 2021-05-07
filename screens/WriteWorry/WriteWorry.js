@@ -15,7 +15,7 @@ import { postNewWorryPost } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry() {
+function WriteWorry({ navigation }) {
   const [postType, setPostType] = useState("");
   const [anonymousType, setAnonymousType] = useState("");
   const [category, setCategory] = useState("");
@@ -72,6 +72,8 @@ function WriteWorry() {
       await postNewWorryPost(postInfo);
     } catch (err) {
       console.log(err.message);
+    } finally {
+      navigation.navigate("MyPostStorage");
     }
   };
 
@@ -82,7 +84,7 @@ function WriteWorry() {
     >
       <View style={styles.container}>
         <Title
-          text="토닥 토닥"
+          text="고민 작성소"
           textStyle={styles.title}
           imageStyle={styles.titleImage}
         />
@@ -138,10 +140,12 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   title: {
-    height: 50
+    height: 50,
+    fontSize: 30
   },
   titleImage: {
-    top: "-70%"
+    top: "-70%",
+    left: "25%"
   },
   sendButton: {
     left: "70%",

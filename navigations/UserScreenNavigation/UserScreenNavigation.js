@@ -11,7 +11,7 @@ const Stack = createStackNavigator();
 function UserScreenNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="MyPostStorage" headerMode="none">
+      <Stack.Navigator initialRouteName="Home" headerMode="none">
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="WriteWorry" component={WriteWorry} />
         <Stack.Screen name="MyPostStorage" component={MyPostStorage} />
