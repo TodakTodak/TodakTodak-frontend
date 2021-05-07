@@ -25,7 +25,10 @@ function Intro({ navigation }) {
       style={styles.backgroundContainer}
     >
       <View>
-        <Title text="토닥 토닥" titleStyle={styles.titleContainer} />
+        <Title text="토닥 토닥"
+          titleStyle={styles.titleContainer}
+          imageStyle={styles.titleImage}
+        />
         <View style={styles.buttonContainer}>
           <Button text="로그인" handleClick={handleLoginClick} />
           <Button text="회원가입" handleClick={handleSignupClick} />
@@ -43,6 +46,9 @@ const styles = StyleSheet.create({
   },
   titleContainer: {
     flex: 1
+  },
+  titleImage: {
+    top: "-5%"
   },
   buttonContainer: {
     flexDirection: "row",

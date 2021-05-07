@@ -44,7 +44,7 @@ function Signup({ navigation }) {
       style={styles.backgroundContainer}
     >
       <View style={styles.loginContainer}>
-        <Title text="토닥 토닥" imageStyle={styles.titleImage} />
+        <Title text="토닥 토닥" />
         <View style={styles.textInputContainer}>
           <TextInput
             placeholder="이메일을 입력해주세요"
@@ -87,8 +87,9 @@ const styles = StyleSheet.create({
   loginButton: {
     width: "90%"
   },
-  titleImage: {
-    top: "-30%"
+  loginContainer: {
+    width: "100%",
+    height: "100%"
   },
   buttonContainer: {
     flexDirection: "row",

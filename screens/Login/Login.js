@@ -4,7 +4,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
@@ -30,8 +30,8 @@ function Login() {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <View>
-        <Title text="토닥 토닥" imageStyle={styles.titleImage} />
+      <View style={styles.container}>
+        <Title text="토닥 토닥" />
         <View style={styles.textInputContainer}>
           <TextInput
             placeholder="이메일을 입력해주세요"
@@ -65,11 +65,12 @@ const styles = StyleSheet.create({
     height: "100%",
     alignItems: "center"
   },
+  container: {
+    width: "100%",
+    height: "100%"
+  },
   loginButton: {
     width: "90%"
-  },
-  titleImage: {
-    top: "-30%"
   },
   buttonContainer: {
     flexDirection: "row",

@@ -5,6 +5,7 @@ function TextInputBox({
   isPassword = false,
   handleInputChange,
   placeholder = "",
+  isMultiline = false,
   style,
   value,
   type
@@ -12,6 +13,7 @@ function TextInputBox({
   return (
     <View style={styles.textInputContainer}>
       <TextInput
+        multiline={isMultiline}
         placeholder={placeholder}
         secureTextEntry={isPassword}
         style={[ styles.textInput, style ]}
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: "#ffffff",
     borderRadius: 10,
-    paddingHorizontal: 10,
+    padding: 10
   }
 });
 
