@@ -1,9 +1,16 @@
 import React from "react";
+import { Provider } from "react-redux";
 
-import AuthStackNavigation from "./navigations/AuthStackNavigation/AuthStackNavigation";
+import MainStackNavigation from "./navigations/MainStackNavigation/MainStackNavigation";
+
+import store from "./reducers/store";
 
 function App() {
-  return <AuthStackNavigation />;
+  return (
+    <Provider store={store}>
+      <MainStackNavigation />
+    </Provider>
+  );
 }
 
 export default App;

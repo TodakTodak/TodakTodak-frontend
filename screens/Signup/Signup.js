@@ -61,7 +61,6 @@ function Signup({ navigation }) {
           />
           <TextInput
             placeholder="닉네임을 입력해주세요"
-            isPassword={true}
             handleInputChange={setNickname}
             value={nickname}
             type="nickname"
