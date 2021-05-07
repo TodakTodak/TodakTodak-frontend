@@ -4,6 +4,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
@@ -11,9 +12,18 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Login({ navigation }) {
+import { userLogin } from "../../actions/userActions";
+
+function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const dispatch = useDispatch();
+
+  const handleLoginClick = () => {
+    const userInfo = { email, password };
+
+    dispatch(userLogin(userInfo));
+  };
 
   return (
     <ImageBackground
@@ -38,7 +48,11 @@ function Login({ navigation }) {
           />
         </View>
         <View style={styles.buttonContainer}>
-          <Button text="로그인" buttonStyle={styles.loginButton} />
+          <Button
+            text="로그인"
+            buttonStyle={styles.loginButton}
+            handleClick={handleLoginClick}
+          />
         </View>
       </View>
     </ImageBackground>
