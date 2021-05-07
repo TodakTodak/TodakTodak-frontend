@@ -32,11 +32,11 @@ function WriteWorry({ navigation }) {
     { label: "nickname", value: "nickname" }
   ];
   const categoryTypes = [
-    { label: "love", value: "love" },
-    { label: "course", value: "course" },
-    { label: "employment", value: "employment" },
-    { label: "friend", value: "friend" },
-    { label: "pain", value: "pain" }
+    { label: "사랑", value: "사랑" },
+    { label: "진로", value: "진로" },
+    { label: "취업", value: "취업" },
+    { label: "친구", value: "친구" },
+    { label: "고통", value: "고통" }
   ];
 
   const handlePostPickerChange = (item) => {

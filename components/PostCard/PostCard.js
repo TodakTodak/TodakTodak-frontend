@@ -7,14 +7,17 @@ import {
 } from "react-native";
 
 function PostCard({
-  postId,
   cardStyle,
   textStyle,
   postTitle,
+  handleClick,
   postCategory
 }) {
   return (
-    <TouchableOpacity style={[ styles.postCard, cardStyle ]}>
+    <TouchableOpacity
+      style={[ styles.postCard, cardStyle ]}
+      onPress={handleClick}
+    >
       <View>
         <Text style={[ styles.postContent, textStyle ]}>
           고민 유형: {postCategory}

@@ -6,6 +6,7 @@ function TextInputBox({
   handleInputChange,
   placeholder = "",
   isMultiline = false,
+  editable = true,
   style,
   value,
   type
@@ -13,6 +14,7 @@ function TextInputBox({
   return (
     <View style={styles.textInputContainer}>
       <TextInput
+        editable={editable}
         multiline={isMultiline}
         placeholder={placeholder}
         secureTextEntry={isPassword}

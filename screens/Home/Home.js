@@ -17,6 +17,9 @@ function Home({ navigation }) {
   const handleWriteButtonClick = () => {
     navigation.navigate("WriteWorry");
   };
+  const handleMyPostStorageClick = () => {
+    navigation.navigate("MyPostStorage");
+  };
 
   return (
     <ImageBackground
@@ -30,6 +33,7 @@ function Home({ navigation }) {
             text="내 마음의 소리 저장소"
             buttonStyle={styles.roomButton}
             image={mySoundLogo}
+            handleClick={handleMyPostStorageClick}
           />
           <Button
             text="고민 상담소"
