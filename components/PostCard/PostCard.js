@@ -7,6 +7,7 @@ import {
 } from "react-native";
 
 function PostCard({
+  postId,
   cardStyle,
   textStyle,
   postTitle,
@@ -22,14 +23,13 @@ function PostCard({
           고민 제목: {postTitle}
         </Text>
       </View>
-  </TouchableOpacity>
+    </TouchableOpacity>
   );
 }
 
 const styles = StyleSheet.create({
   postCard: {
     width: "90%",
-    height: "30%",
     justifyContent: "center",
     marginTop: 0,
     marginRight: "auto",

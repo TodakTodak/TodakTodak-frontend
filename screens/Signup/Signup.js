@@ -98,7 +98,7 @@ const styles = StyleSheet.create({
     marginBottom: 20
   },
   textInputContainer: {
-    marginTop: 20,
+    marginTop: 150,
     marginBottom: 20
   }
 });
