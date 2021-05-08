@@ -32,7 +32,7 @@ function CategoryPostCard({
         </View>
         <View>
           <Text style={[ styles.postContent, textStyle ]}>
-            제목: {title}
+            제목: {9 < title.length ? `${title.substring(0, 8)}...` : title}
           </Text>
           <Text style={[ styles.postContent, textStyle ]}>
             답글 수: {comments.length}
@@ -58,10 +58,10 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center"
+    justifyContent: "space-around"
   },
   postContent: {
+    minWidth: "40%",
     margin: 10,
     color: "#ffffff",
     fontSize: 15,

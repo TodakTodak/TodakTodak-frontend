@@ -7,7 +7,7 @@ import {
 } from "react-native";
 
 import Title from "../../components/Title/Title";
-import Category from "../../components/Category/Category";
+import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
 import { getCategoryPosts } from "../../api/postApi";
@@ -16,7 +16,7 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 function CounselingCenter() {
   const [posts, setPosts] = useState([]);
-  const [category, setCategory] = useState("진로");
+  const [postCategory, setpostCategory] = useState("취업");
   const [errorMessage, setErrorMessage] = useState("");
 
   const categorys = [
@@ -30,7 +30,7 @@ function CounselingCenter() {
   useEffect(() => {
     (async function getCategorys() {
       try {
-        const { categoryPosts, errorMessage } = await getCategoryPosts(category);
+        const { categoryPosts, errorMessage } = await getCategoryPosts(postCategory);
 
         if (errorMessage) {
           setErrorMessage(errorMessage);
@@ -44,13 +44,15 @@ function CounselingCenter() {
         setErrorMessage("포스트를 가져오는데 실패했습니다");
       }
     })();
-  }, [category]);
+  }, [postCategory]);
 
   const renderCategorys = () => {
     return categorys.map((category) =>
-      <Category
+      <CategoryButton
         key={category.title}
         title={category.title}
+        focusValue={postCategory}
+        handleClick={setpostCategory}
         categoryColor={category.color}
         categoryContainerStyle={styles.catagoryContainer}
         categoryStyle={styles.categoryStyle}
@@ -125,6 +127,7 @@ const styles = StyleSheet.create({
     left: "27%"
   },
   categoryWrapper: {
+    maxHeight: 60,
     flexDirection: "row",
     marginTop: 30
   },
@@ -145,8 +148,7 @@ const styles = StyleSheet.create({
     marginTop: 0,
     marginRight: "auto",
     marginBottom: 0,
-    marginLeft: "auto",
-    marginTop: 40
+    marginLeft: "auto"
   }
 });
 

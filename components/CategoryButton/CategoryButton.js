@@ -1,13 +1,16 @@
 import React from "react";
 import {
+  TouchableOpacity,
   StyleSheet,
   View,
   Text
 } from "react-native";
 
-function Category({
+function CategoryButton({
   title,
   titleStyle,
+  focusValue,
+  handleClick,
   categoryColor = "rgba(255, 56, 56, 0.3)",
   categoryStyle,
   bottomBarStyle,
@@ -15,7 +18,8 @@ function Category({
 }) {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
-      <View
+      <TouchableOpacity
+        onPress={() => handleClick(title)}
         accessibilityRole="button"
         style={[
           styles.categoryWrapper,
@@ -26,8 +30,18 @@ function Category({
         <Text style={[ styles.categoryTitle, titleStyle ]}>
           {title}
         </Text>
-      </View>
-      <View style={[ styles.titleBottomBar, bottomBarStyle ]} />
+      </TouchableOpacity>
+      <View
+        style={[
+          styles.titleBottomBar,
+          bottomBarStyle,
+          { backgroundColor:
+              focusValue === title ?
+                "rgb(255, 255, 255)" :
+                "rgba(255, 255, 255, 0.1)"
+          }
+        ]}
+      />
     </View>
   );
 }
@@ -52,9 +66,8 @@ const styles = StyleSheet.create({
     height: 8,
     justifyContent: "center",
     alignItems: "center",
-    marginTop: 10,
-    backgroundColor: "rgb(255, 255, 255)"
+    marginTop: 10
   }
 });
 
-export default Category;
+export default CategoryButton;
