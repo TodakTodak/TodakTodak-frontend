@@ -8,12 +8,20 @@ import {
 function Category({
   title,
   titleStyle,
+  categoryColor = "rgba(255, 56, 56, 0.3)",
   categoryStyle,
-  bottomBarStyle
+  bottomBarStyle,
+  categoryContainerStyle
 }) {
   return (
-    <View style={styles.categoryContainer}>
-      <View style={[ styles.categoryWrapper, categoryStyle ]}>
+    <View style={[styles.categoryContainer, categoryContainerStyle]}>
+      <View
+        style={[
+          styles.categoryWrapper,
+          { backgroundColor: categoryColor },
+          categoryStyle
+        ]}
+      >
         <Text style={[ styles.categoryTitle, titleStyle ]}>
           {title}
         </Text>
@@ -34,7 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderRadius: 10,
-    backgroundColor: "rgba(255, 56, 56, 0.3)"
   },
   categoryTitle: {
     color: "#ffffff"
