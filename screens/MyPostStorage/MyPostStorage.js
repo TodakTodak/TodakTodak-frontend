@@ -60,8 +60,8 @@ function MyPostStorage({ navigation }) {
       return (
         <PostCard
           key={_id}
-          postCategory={category}
           postTitle={title}
+          postCategory={category}
           handleClick={handlePostClick}
         />
       );

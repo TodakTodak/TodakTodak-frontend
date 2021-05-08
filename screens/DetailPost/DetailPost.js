@@ -12,7 +12,13 @@ import TextInput from "../../components/TextInput/TextInput";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
-  const { contents, category } = route.params;
+  const {
+    userId,
+    contents,
+    category,
+    postOwner,
+    inputStyle
+  } = route.params;
 
   return (
     <ImageBackground
@@ -20,16 +26,29 @@ function DetailPost({ route }) {
       style={styles.backgroundContainer}
     >
       <View style={styles.container}>
-        <Title text="나의 고민" imageStyle={styles.titleImage} />
+        <Title
+          text={userId ? `${postOwner}의 고민` : "나의 고민"}
+          imageStyle={styles.titleImage}
+        />
         <View style={styles.categoryWrapper}>
           <Category title={category} />
           <TextInput
-            style={styles.contents}
+            style={[styles.contents, inputStyle]}
             editable={false}
             value={contents}
             isMultiline={true}
           />
         </View>
+      {userId &&
+        <View>
+          <TextInput
+            style={[styles.contents, inputStyle]}
+            editable={true}
+            isMultiline={true}
+            placeholder="본인의 이야기 혹은 위로를 적어주세요"
+          />
+        </View>
+      }
       </View>
     </ImageBackground>
   );

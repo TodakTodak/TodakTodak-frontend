@@ -15,7 +15,10 @@ function Button({
   text
 }) {
   return (
-    <TouchableOpacity style={[ styles.button, buttonStyle ]} onPress={handleClick}>
+    <TouchableOpacity
+      style={[ styles.button, buttonStyle ]}
+      onPress={handleClick}
+    >
       <View style={styles.buttonContents}>
         { image && <Image style={styles.image} source={image} /> }
         <Text style={[ styles.buttonText, textStyle ]}>
