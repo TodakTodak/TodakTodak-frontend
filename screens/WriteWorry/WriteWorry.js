@@ -144,8 +144,10 @@ const styles = StyleSheet.create({
     fontSize: 30
   },
   titleImage: {
-    top: "-70%",
-    left: "25%"
+    width: 50,
+    height: 50,
+    top: "-55%",
+    left: "27%"
   },
   sendButton: {
     left: "70%",

@@ -17,8 +17,13 @@ function Home({ navigation }) {
   const handleWriteButtonClick = () => {
     navigation.navigate("WriteWorry");
   };
+
   const handleMyPostStorageClick = () => {
     navigation.navigate("MyPostStorage");
+  };
+
+  const handleCounselingCenterClick = () => {
+    navigation.navigate("CounselingCenter");
   };
 
   return (
@@ -30,20 +35,21 @@ function Home({ navigation }) {
         <Title text="토닥 토닥" />
         <View style={styles.buttonContainer}>
           <Button
+            image={mySoundLogo}
             text="내 마음의 소리 저장소"
             buttonStyle={styles.roomButton}
-            image={mySoundLogo}
             handleClick={handleMyPostStorageClick}
           />
           <Button
+            image={rabbits}
             text="고민 상담소"
             buttonStyle={styles.roomButton}
-            image={rabbits}
+            handleClick={handleCounselingCenterClick}
           />
           <Button
+            image={feather}
             text="고민을 써주세요"
             buttonStyle={styles.writeButton}
-            image={feather}
             handleClick={handleWriteButtonClick}
           />
         </View>
