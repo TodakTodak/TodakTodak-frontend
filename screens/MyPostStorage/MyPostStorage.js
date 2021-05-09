@@ -8,36 +8,60 @@ import {
 import { useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
-import Category from "../../components/Category/Category";
 import PostCard from "../../components/PostCard/PostCard";
+import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
-import { getMyPosts } from "../../api/postApi";
+import { getMyPosts, getMyComments } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
+import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
 function MyPostStorage({ navigation }) {
   const [posts, setPosts] = useState([]);
+  const [comments, setComments] = useState([]);
+  const [activeCategory, setActiveCategory] = useState("토닥 토닥");
   const [errorMessage, setErrorMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
 
   useEffect(() => {
-    (async function getPosts() {
-      try {
-        const { postsInfo, errorMessage } = await getMyPosts(user.email);
+    if (activeCategory === "토닥 토닥" && !posts.length) {
+      (async function getPosts() {
+        try {
+          const { postsInfo, errorMessage } = await getMyPosts(user.email);
 
-        if (errorMessage) {
-          setErrorMessage(errorMessage);
-          return;
+          if (errorMessage) {
+            setErrorMessage(errorMessage);
+            return;
+          }
+
+          setPosts(postsInfo);
+        } catch (err) {
+          console.log("에러발생");
+
+          setErrorMessage("포스트를 가져오는데 실패했습니다");
         }
+      })();
+    }
 
-        setPosts(postsInfo);
-      } catch (err) {
-        console.log("에러발생");
+    if (activeCategory === "쓰담 쓰담" && !comments.length) {
+      (async function getComments() {
+        try {
+          const { commentsInfo, errorMessage } = await getMyComments(user.email);
 
-        setErrorMessage("포스트를 가져오는데 실패했습니다");
-      }
-    })();
-  }, []);
+          if (errorMessage) {
+            setErrorMessage(errorMessage);
+            return;
+          }
+
+          setComments(commentsInfo);
+        } catch (err) {
+          console.log("에러발생");
+
+          setErrorMessage("포스트를 가져오는데 실패했습니다");
+        }
+      })();
+    }
+  }, [activeCategory]);
 
   const renderMyPosts = () => {
     if (!posts) return;
@@ -70,6 +94,31 @@ function MyPostStorage({ navigation }) {
     });
   };
 
+  const renderMyComments = () => {
+    if (!comments) return;
+
+    return comments.map((comment) => {
+      const {
+        _id,
+        post,
+        user,
+        likes,
+        createdAt
+      } = comment;
+
+      return (
+        <CategoryPostCard
+          key={_id}
+          isComment={true}
+          comments={likes}
+          title={post.title}
+          ownerNickname={user}
+          createdAt={createdAt}
+        />
+      );
+    });
+  };
+
   return (
     <ImageBackground
       source={backgroundImage}
@@ -82,11 +131,23 @@ function MyPostStorage({ navigation }) {
           imageStyle={styles.titleImage}
         />
         <View style={styles.categorysWrapper}>
-          <Category title="토닥 토닥" />
-          <Category title="쓰담 쓰담" categoryStyle={styles.thudamCategory} />
+          <CategoryButton
+            title="토닥 토닥"
+            focusValue={activeCategory}
+            handleClick={setActiveCategory}
+          />
+          <CategoryButton
+            title="쓰담 쓰담"
+            focusValue={activeCategory}
+            handleClick={setActiveCategory}
+            categoryStyle={styles.thudamCategory}
+          />
         </View>
         <ScrollView styles={styles.postsWrapper}>
-          {renderMyPosts()}
+          {activeCategory === "토닥 토닥" ?
+            renderMyPosts() :
+            renderMyComments()
+          }
         </ScrollView>
       </View>
     </ImageBackground>
