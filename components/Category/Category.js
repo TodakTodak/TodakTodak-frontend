@@ -16,7 +16,6 @@ function Category({
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <View
-        accessibilityRole="button"
         style={[
           styles.categoryWrapper,
           { backgroundColor: categoryColor },

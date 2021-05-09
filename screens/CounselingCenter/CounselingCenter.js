@@ -85,6 +85,7 @@ function CounselingCenter({ navigation }) {
       const handlePostClick = () => {
         navigation.navigate("DetailPost", {
           contents,
+          postId: _id,
           category: postCategory,
           userId: currentUser.email,
           inputStyle: styles.postStyle,
@@ -108,6 +109,7 @@ function CounselingCenter({ navigation }) {
 
   const handleBestPostClick = () => {
     navigation.navigate("DetailPost", {
+      postId: bestPost._id,
       category: postCategory,
       userId: currentUser.email,
       contents: bestPost.contents,
@@ -216,7 +218,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   postStyle: {
-    height: 200
+    height: 150
   }
 });
 
