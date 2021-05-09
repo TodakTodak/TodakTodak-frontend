@@ -28,11 +28,18 @@ function DetailPost({ route }) {
     comments,
     category,
     postOwner,
+    myComment,
     inputStyle
   } = route.params;
 
   useEffect(() => {
     setPostComments(comments);
+  }, []);
+
+  useEffect(() => {
+    if (myComment) {
+      setContent(myComment);
+    }
   }, []);
 
   const handleSympathyButtonClick = async () => {
@@ -51,7 +58,7 @@ function DetailPost({ route }) {
       }
 
       const newComment = {
-        user,
+        user: user.email,
         likes: [],
         content: content.trim(),
       };
