@@ -15,6 +15,7 @@ function CategoryPostCard({
   handleClick,
   isAnonymous,
   ownerNickname,
+  isComment = false
 }) {
   return (
     <TouchableOpacity
@@ -35,7 +36,7 @@ function CategoryPostCard({
             제목: {9 < title.length ? `${title.substring(0, 8)}...` : title}
           </Text>
           <Text style={[ styles.postContent, textStyle ]}>
-            답글 수: {comments.length}
+            {isComment ? "쓰담" : "답글 수"}: {comments.length}
           </Text>
         </View>
       </View>

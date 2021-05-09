@@ -2,26 +2,26 @@ import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 
 function TextInputBox({
-  isPassword = false,
-  handleInputChange,
-  placeholder = "",
-  isMultiline = false,
-  editable = true,
+  type,
   style,
   value,
-  type
+  editable = true,
+  placeholder = "",
+  handleInputChange,
+  isPassword = false,
+  isMultiline = false
 }) {
   return (
     <View style={styles.textInputContainer}>
       <TextInput
+        value={value}
         editable={editable}
+        textContentType={type}
         multiline={isMultiline}
         placeholder={placeholder}
         secureTextEntry={isPassword}
-        style={[ styles.textInput, style ]}
-        value={value}
         onChangeText={handleInputChange}
-        textContentType={type}
+        style={[ styles.textInput, style ]}
       />
     </View>
   );
