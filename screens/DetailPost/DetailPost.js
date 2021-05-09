@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
+  ScrollView,
   View
 } from "react-native";
 import { useSelector } from "react-redux";
@@ -10,6 +11,7 @@ import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
+import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import { postComment } from "../../api/postApi";
 
@@ -17,25 +19,53 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
   const [content, setContent] = useState("");
+  const [postsComments, setPostComments] = useState([]);
   const user = useSelector((state) => state.userReducer);
   const {
     postId,
     userId,
     contents,
+    comments,
     category,
     postOwner,
     inputStyle
   } = route.params;
 
+  useEffect(() => {
+    setPostComments(comments);
+  }, []);
+
   const handleSympathyButtonClick = async () => {
-    const commentInfo = { user, postId, content };
+    const commentInfo = {
+      user,
+      postId,
+      content: content.trim()
+    };
 
     try {
       const response = await postComment(commentInfo);
-      
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      const newComment = {
+        user,
+        likes: [],
+        content: content.trim(),
+      };
+
+      setPostComments((postsComments) => [...postsComments, newComment]);
     } catch (err) {
       console.log(err.message);
     }
+  };
+
+  const renderComments = () => {
+    return postsComments.map((postComment) =>
+      <SimpleComment key={postComment._id} postComment={postComment} />
+    );
   };
 
   return (
@@ -77,6 +107,11 @@ function DetailPost({ route }) {
             </View>
           }
         </View>
+        <ScrollView>
+          <View style={styles.commentContainer}>
+            {0 < postsComments.length && renderComments()}
+          </View>
+        </ScrollView>
       </View>
     </ImageBackground>
   );
@@ -113,6 +148,11 @@ const styles = StyleSheet.create({
     color: "yellow",
     fontSize: 15
   },
+  commentContainer: {
+    width: "100%",
+    alignItems: "center",
+    margin: 5
+  }
 });
 
 export default DetailPost;

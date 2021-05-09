@@ -85,6 +85,7 @@ function CounselingCenter({ navigation }) {
       const handlePostClick = () => {
         navigation.navigate("DetailPost", {
           contents,
+          comments,
           postId: _id,
           category: postCategory,
           userId: currentUser.email,
@@ -113,6 +114,7 @@ function CounselingCenter({ navigation }) {
       category: postCategory,
       userId: currentUser.email,
       contents: bestPost.contents,
+      comments: bestPost.comments,
       inputStyle: styles.postStyle,
       postOwner: bestPost.isAnonymous ? "익명" : bestPost.ownerNickname
     });
