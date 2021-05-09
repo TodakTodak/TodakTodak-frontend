@@ -6,6 +6,7 @@ import {
   View
 } from "react-native";
 
+import { NANUM_REGULAR } from "../../constants/font";
 import titleImage from "../../assets/pngs/moon.png";
 
 function Title({
@@ -36,8 +37,9 @@ const styles = StyleSheet.create({
   },
   titleText: {
     color: "#ffffff",
-    fontSize: 40,
-    fontWeight: "bold"
+    fontSize: 50,
+    fontWeight: "bold",
+    fontFamily: NANUM_REGULAR
   },
   titleImage: {
     width: 60,

@@ -79,13 +79,13 @@ const styles = StyleSheet.create({
   },
   roomButton: {
     width: "90%",
-    height: "20%",
+    height: "15%",
     marginBottom: 50,
     backgroundColor: "rgba(249, 255, 180, 0.8)"
   },
   writeButton: {
     width: "90%",
-    height: "20%",
+    height: "15%",
     marginTop: 50,
     backgroundColor: "rgba(252, 221, 236, 0.8)"
   },

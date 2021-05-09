@@ -16,6 +16,7 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 import { postComment } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
+import { NANUM_REGULAR } from "../../constants/font";
 
 function DetailPost({ route }) {
   const [content, setContent] = useState("");
@@ -82,6 +83,7 @@ function DetailPost({ route }) {
     >
       <View style={styles.container}>
         <Title
+          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
           text={userId ? `${postOwner}의 고민` : "나의 고민"}
         />
@@ -138,6 +140,15 @@ const styles = StyleSheet.create({
     borderBottomWidth: 3,
     borderBottomColor: "#ffffff"
   },
+  titleText: {
+    fontSize: 50
+  },
+  titleImage: {
+    width: 50,
+    height: 50,
+    top: "-25%",
+    left: "28%"
+  },
   categoryWrapper: {
     alignItems: "center",
     marginTop: 50
@@ -153,7 +164,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "yellow",
-    fontSize: 15
+    fontSize: 20
   },
   commentContainer: {
     width: "100%",

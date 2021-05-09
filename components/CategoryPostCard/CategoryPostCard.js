@@ -6,6 +6,8 @@ import {
   Text
 } from "react-native";
 
+import { NANUM_REGULAR } from "../../constants/font";
+
 function CategoryPostCard({
   title,
   comments,
@@ -65,8 +67,9 @@ const styles = StyleSheet.create({
     minWidth: "40%",
     margin: 10,
     color: "#ffffff",
-    fontSize: 15,
-    fontWeight: "bold"
+    fontSize: 17,
+    fontWeight: "bold",
+    fontFamily: NANUM_REGULAR
   }
 });
 
