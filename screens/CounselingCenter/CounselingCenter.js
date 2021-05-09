@@ -85,6 +85,8 @@ function CounselingCenter({ navigation }) {
       const handlePostClick = () => {
         navigation.navigate("DetailPost", {
           contents,
+          comments,
+          postId: _id,
           category: postCategory,
           userId: currentUser.email,
           inputStyle: styles.postStyle,
@@ -108,9 +110,11 @@ function CounselingCenter({ navigation }) {
 
   const handleBestPostClick = () => {
     navigation.navigate("DetailPost", {
+      postId: bestPost._id,
       category: postCategory,
       userId: currentUser.email,
       contents: bestPost.contents,
+      comments: bestPost.comments,
       inputStyle: styles.postStyle,
       postOwner: bestPost.isAnonymous ? "익명" : bestPost.ownerNickname
     });
@@ -216,7 +220,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold"
   },
   postStyle: {
-    height: 200
+    height: 150
   }
 });
 

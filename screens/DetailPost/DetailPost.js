@@ -1,24 +1,72 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
+  ScrollView,
   View
 } from "react-native";
+import { useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
+import SimpleComment from "../../components/SimpleComment/SimpleComment";
+
+import { postComment } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
+  const [content, setContent] = useState("");
+  const [postsComments, setPostComments] = useState([]);
+  const user = useSelector((state) => state.userReducer);
   const {
+    postId,
     userId,
     contents,
+    comments,
     category,
     postOwner,
     inputStyle
   } = route.params;
+
+  useEffect(() => {
+    setPostComments(comments);
+  }, []);
+
+  const handleSympathyButtonClick = async () => {
+    const commentInfo = {
+      user,
+      postId,
+      content: content.trim()
+    };
+
+    try {
+      const response = await postComment(commentInfo);
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      const newComment = {
+        user,
+        likes: [],
+        content: content.trim(),
+      };
+
+      setPostComments((postsComments) => [...postsComments, newComment]);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const renderComments = () => {
+    return postsComments.map((postComment) =>
+      <SimpleComment key={postComment._id} postComment={postComment} />
+    );
+  };
 
   return (
     <ImageBackground
@@ -27,28 +75,43 @@ function DetailPost({ route }) {
     >
       <View style={styles.container}>
         <Title
-          text={userId ? `${postOwner}의 고민` : "나의 고민"}
           imageStyle={styles.titleImage}
+          text={userId ? `${postOwner}의 고민` : "나의 고민"}
         />
-        <View style={styles.categoryWrapper}>
-          <Category title={category} />
-          <TextInput
-            style={[styles.contents, inputStyle]}
-            editable={false}
-            value={contents}
-            isMultiline={true}
-          />
+        <View style={styles.postContentsWrapper}>
+          <View style={styles.categoryWrapper}>
+            <Category title={category} />
+            <TextInput
+              value={contents}
+              editable={false}
+              isMultiline={true}
+              style={[styles.contents, inputStyle]}
+            />
+          </View>
+          {userId &&
+            <View>
+              <TextInput
+                value={content}
+                editable={true}
+                isMultiline={true}
+                handleInputChange={setContent}
+                style={[styles.contents, inputStyle]}
+                placeholder="본인의 이야기 혹은 위로를 적어주세요"
+              />
+              <Button
+                text="공감하기"
+                textStyle={styles.buttonText}
+                buttonStyle={styles.sendButton}
+                handleClick={handleSympathyButtonClick}
+              />
+            </View>
+          }
         </View>
-      {userId &&
-        <View>
-          <TextInput
-            style={[styles.contents, inputStyle]}
-            editable={true}
-            isMultiline={true}
-            placeholder="본인의 이야기 혹은 위로를 적어주세요"
-          />
-        </View>
-      }
+        <ScrollView>
+          <View style={styles.commentContainer}>
+            {0 < postsComments.length && renderComments()}
+          </View>
+        </ScrollView>
       </View>
     </ImageBackground>
   );
@@ -64,6 +127,10 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
+  postContentsWrapper: {
+    borderBottomWidth: 3,
+    borderBottomColor: "#ffffff"
+  },
   categoryWrapper: {
     alignItems: "center",
     marginTop: 50
@@ -71,6 +138,20 @@ const styles = StyleSheet.create({
   contents: {
     height: 400,
     marginTop: 30
+  },
+  sendButton: {
+    left: "70%",
+    width: "30%",
+    backgroundColor: "rgba(0, 0, 0, 0)"
+  },
+  buttonText: {
+    color: "yellow",
+    fontSize: 15
+  },
+  commentContainer: {
+    width: "100%",
+    alignItems: "center",
+    margin: 5
   }
 });
 

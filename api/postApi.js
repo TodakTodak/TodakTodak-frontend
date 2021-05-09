@@ -27,3 +27,15 @@ export async function getCategoryPosts(category) {
 
   return await response.json();
 }
+
+export async function postComment(commentInfo) {
+  const response = await fetch(`${SERVER_URL}/comment`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(commentInfo)
+  });
+
+  return await response.json();
+}

@@ -47,13 +47,15 @@ function MyPostStorage({ navigation }) {
         _id,
         title,
         contents,
-        category
+        category,
+        comments
       } = post;
 
       const handlePostClick = () => {
         navigation.navigate("DetailPost", {
           contents,
-          category
+          category,
+          comments
         });
       };
 
