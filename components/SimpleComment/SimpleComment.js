@@ -10,13 +10,14 @@ import {
 import love from "../../assets/pngs/love.png";
 
 function SimpleComment({ postComment }) {
+  console.log(postComment)
   return (
     <TouchableOpacity
       key={postComment._id}
       style={styles.commentWrapper}
     >
       <View style={styles.comment}>
-        <Text>{`달래꽃: 답글 작성자`}</Text>
+        <Text>{`달래꽃: ${postComment.user}`}</Text>
         <Text>
           {`답변: ${
               9 < postComment.content.length ?

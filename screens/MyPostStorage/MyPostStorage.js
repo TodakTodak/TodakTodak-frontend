@@ -103,8 +103,31 @@ function MyPostStorage({ navigation }) {
         post,
         user,
         likes,
+        content,
         createdAt
       } = comment;
+
+      const handleCommentClick = () => {
+        const {
+          _id,
+          comments,
+          contents,
+          category,
+          isAnonymous,
+          ownerNickname,
+        } = post;
+
+        navigation.navigate("DetailPost", {
+          contents,
+          comments,
+          postId: _id,
+          userId: user,
+          category: category,
+          myComment: content,
+          inputStyle: styles.postStyle,
+          postOwner: isAnonymous ? "익명" : ownerNickname
+        });
+      };
 
       return (
         <CategoryPostCard
@@ -114,6 +137,7 @@ function MyPostStorage({ navigation }) {
           title={post.title}
           ownerNickname={user}
           createdAt={createdAt}
+          handleClick={handleCommentClick}
         />
       );
     });
@@ -192,6 +216,9 @@ const styles = StyleSheet.create({
     marginBottom: 0,
     marginLeft: "auto",
     marginTop: 40
+  },
+  postStyle: {
+    height: 150
   }
 });
 
