@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 17,
     top: 15,
-    color: "#ffffff",
+    color: "#000000",
     fontWeight: "bold",
     fontFamily: NANUM_REGULAR
   },
