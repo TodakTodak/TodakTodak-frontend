@@ -151,7 +151,7 @@ function MyPostStorage({ navigation }) {
       <View style={styles.container}>
         <Title
           text="고민 저장소"
-          textStyle={styles.title}
+          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
         />
         <View style={styles.categorysWrapper}>
@@ -188,14 +188,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  title: {
+  titleText: {
     height: 50,
-    fontSize: 30
+    fontSize: 40
   },
   titleImage: {
     width: 50,
     height: 50,
-    top: "-60%",
+    top: "-45%",
     left: "27%"
   },
   categorysWrapper: {

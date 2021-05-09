@@ -15,6 +15,7 @@ import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard
 import { getCategoryPosts } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
+import { NANUM_REGULAR } from "../../constants/font";
 
 function CounselingCenter({ navigation }) {
   const [posts, setPosts] = useState([]);
@@ -128,7 +129,7 @@ function CounselingCenter({ navigation }) {
       <View style={styles.container}>
         <Title
           text="고민 상담소"
-          textStyle={styles.title}
+          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
         />
         <ScrollView
@@ -171,14 +172,13 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  title: {
-    height: 50,
-    fontSize: 30
+  titleText: {
+    fontSize: 40
   },
   titleImage: {
     width: 50,
     height: 50,
-    top: "-55%",
+    top: "-45%",
     left: "27%"
   },
   categoryWrapper: {
@@ -213,11 +213,13 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     borderColor: "#ffffff",
-    borderBottomWidth: 3,
+    borderBottomWidth: 3
   },
   bestTitle: {
     color: "rgb(235, 255, 0)",
-    fontWeight: "bold"
+    fontWeight: "bold",
+    fontFamily: NANUM_REGULAR,
+    fontSize: 20
   },
   postStyle: {
     height: 150

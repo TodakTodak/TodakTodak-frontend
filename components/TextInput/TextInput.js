@@ -1,6 +1,8 @@
 import React from "react";
 import { StyleSheet, TextInput, View } from "react-native";
 
+import { NANUM_REGULAR } from "../../constants/font";
+
 function TextInputBox({
   type,
   style,
@@ -39,7 +41,9 @@ const styles = StyleSheet.create({
     height: 45,
     backgroundColor: "#ffffff",
     borderRadius: 20,
-    padding: 10
+    paddingLeft: 10,
+    fontSize: 18,
+    fontFamily: NANUM_REGULAR
   }
 });
 

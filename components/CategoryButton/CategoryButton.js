@@ -6,6 +6,8 @@ import {
   Text
 } from "react-native";
 
+import { NANUM_REGULAR } from "../../constants/font";
+
 function CategoryButton({
   title,
   titleStyle,
@@ -59,7 +61,9 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   categoryTitle: {
-    color: "#ffffff"
+    color: "#ffffff",
+    fontSize: 20,
+    fontFamily: NANUM_REGULAR
   },
   titleBottomBar: {
     width: 100,

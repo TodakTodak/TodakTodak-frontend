@@ -13,6 +13,7 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import { postNewWorryPost } from "../../api/postApi";
 
+import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function WriteWorry({ navigation }) {
@@ -85,7 +86,7 @@ function WriteWorry({ navigation }) {
       <View style={styles.container}>
         <Title
           text="고민 작성소"
-          textStyle={styles.title}
+          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
         />
         <Button
@@ -95,34 +96,39 @@ function WriteWorry({ navigation }) {
           handleClick={handleSubmitButtonClick}
         />
         <View style={styles.writeWrapper}>
-          <Picker
-            handleChange={handlePostPickerChange}
-            itemList={postTypes}
-            label="공개 여부"
-          />
-          <Picker
-            handleChange={handleAnonymousePickerChange}
-            itemList={anonymousTypes}
-            label="익명 여부"
-          />
-          <Picker
-            handleChange={handleCategoryPickerChange}
-            itemList={categoryTypes}
-            label="고민 카테고리"
-          />
-          <TextInput
-            style={styles.postTitle}
-            handleInputChange={handlePostTitleChange}
-            value={postTitle}
-            placeholder="고민의 제목을 적어주세요"
-          />
-          <TextInput
-            style={styles.contents}
-            isMultiline={true}
-            handleInputChange={handleWorryContentsChange}
-            value={worryContents}
-            placeholder="고민 거리를 작성해보세요"
-          />
+          <ImageBackground
+            style={styles.letter}
+            source={letterPage}
+          >
+            <Picker
+              handleChange={handlePostPickerChange}
+              itemList={postTypes}
+              label="공개 여부"
+            />
+            <Picker
+              handleChange={handleAnonymousePickerChange}
+              itemList={anonymousTypes}
+              label="익명 여부"
+            />
+            <Picker
+              handleChange={handleCategoryPickerChange}
+              itemList={categoryTypes}
+              label="고민 카테고리"
+            />
+            <TextInput
+              style={styles.postTitle}
+              handleInputChange={handlePostTitleChange}
+              value={postTitle}
+              placeholder="고민의 제목을 적어주세요"
+            />
+            <TextInput
+              style={styles.contents}
+              isMultiline={true}
+              handleInputChange={handleWorryContentsChange}
+              value={worryContents}
+              placeholder="고민 거리를 작성해보세요"
+            />
+          </ImageBackground>
         </View>
       </View>
     </ImageBackground>
@@ -139,15 +145,15 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%",
   },
-  title: {
+  titleText: {
     height: 50,
-    fontSize: 30
+    fontSize: 40
   },
   titleImage: {
     width: 50,
     height: 50,
-    top: "-55%",
-    left: "27%"
+    top: "-50%",
+    left: "28%"
   },
   sendButton: {
     left: "70%",
@@ -156,7 +162,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: "yellow",
-    fontSize: 15
+    fontSize: 20
   },
   writeWrapper: {
     width: "90%",
@@ -167,7 +173,12 @@ const styles = StyleSheet.create({
     marginLeft: "auto",
     alignItems: "center",
     borderRadius: 20,
+    overflow: "hidden",
     backgroundColor: "rgba(255, 255, 255, 0.2)"
+  },
+  letter: {
+    width: "100%",
+    height: "100%"
   },
   postTitle: {
     height: 35,

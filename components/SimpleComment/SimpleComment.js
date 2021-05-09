@@ -8,6 +8,7 @@ import {
 } from "react-native";
 
 import love from "../../assets/pngs/love.png";
+import { NANUM_REGULAR } from "../../constants/font";
 
 function SimpleComment({ postComment }) {
   console.log(postComment)
@@ -17,8 +18,10 @@ function SimpleComment({ postComment }) {
       style={styles.commentWrapper}
     >
       <View style={styles.comment}>
-        <Text>{`달래꽃: ${postComment.user}`}</Text>
-        <Text>
+        <Text style={styles.commentText}>
+          {`달래꽃: ${postComment.user}`}
+        </Text>
+        <Text style={styles.commentText}>
           {`답변: ${
               9 < postComment.content.length ?
               `${postComment.content.substring(0, 8)}...` :
@@ -28,7 +31,9 @@ function SimpleComment({ postComment }) {
       </View>
       <View style={styles.commentLike}>
         <Image style={styles.commentImage} source={love} />
-        <Text>{`${postComment.likes.length}쓰담`}</Text>
+        <Text style={styles.commentText}>
+          {`${postComment.likes.length}쓰담`}
+        </Text>
       </View>
     </TouchableOpacity>
   );
@@ -60,6 +65,10 @@ const styles = StyleSheet.create({
     width: 30,
     height: 30,
     marginRight: 5
+  },
+  commentText: {
+    fontSize: 18,
+    fontFamily: NANUM_REGULAR
   }
 });
 

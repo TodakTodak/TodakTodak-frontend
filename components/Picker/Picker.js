@@ -1,7 +1,8 @@
 import React from "react";
 import { StyleSheet, Text, View } from "react-native";
-
 import PickerSelect from "react-native-picker-select";
+
+import { NANUM_REGULAR } from "../../constants/font";
 
 function Picker({ handleChange, itemList, label }) {
   return (
@@ -27,8 +28,9 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 17,
     top: 15,
-    color: "#ffffff",
-    fontWeight: "bold"
+    color: "#000000",
+    fontWeight: "bold",
+    fontFamily: NANUM_REGULAR
   },
   selector: {
     width: "90%",

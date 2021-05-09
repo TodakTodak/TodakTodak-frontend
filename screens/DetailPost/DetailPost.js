@@ -15,6 +15,7 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import { postComment } from "../../api/postApi";
 
+import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
@@ -82,37 +83,43 @@ function DetailPost({ route }) {
     >
       <View style={styles.container}>
         <Title
+          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
           text={userId ? `${postOwner}의 고민` : "나의 고민"}
         />
         <View style={styles.postContentsWrapper}>
-          <View style={styles.categoryWrapper}>
-            <Category title={category} />
-            <TextInput
-              value={contents}
-              editable={false}
-              isMultiline={true}
-              style={[styles.contents, inputStyle]}
-            />
-          </View>
-          {userId &&
-            <View>
+          <ImageBackground
+            style={styles.letterPage}
+            source={letterPage}
+          >
+            <View style={styles.categoryWrapper}>
+              <Category title={category} />
               <TextInput
-                value={content}
-                editable={true}
+                value={contents}
+                editable={false}
                 isMultiline={true}
-                handleInputChange={setContent}
                 style={[styles.contents, inputStyle]}
-                placeholder="본인의 이야기 혹은 위로를 적어주세요"
-              />
-              <Button
-                text="공감하기"
-                textStyle={styles.buttonText}
-                buttonStyle={styles.sendButton}
-                handleClick={handleSympathyButtonClick}
               />
             </View>
-          }
+            {userId &&
+              <View>
+                <TextInput
+                  value={content}
+                  editable={true}
+                  isMultiline={true}
+                  handleInputChange={setContent}
+                  style={[styles.contents, inputStyle]}
+                  placeholder="본인의 이야기 혹은 위로를 적어주세요"
+                />
+                <Button
+                  text="공감하기"
+                  textStyle={styles.buttonText}
+                  buttonStyle={styles.sendButton}
+                  handleClick={handleSympathyButtonClick}
+                />
+              </View>
+            }
+          </ImageBackground>
         </View>
         <ScrollView>
           <View style={styles.commentContainer}>
@@ -132,19 +139,34 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
-    height: "100%"
+    height: "100%",
+    alignItems: "center"
   },
   postContentsWrapper: {
-    borderBottomWidth: 3,
-    borderBottomColor: "#ffffff"
+    width: "90%",
+    marginTop: 10,
+    borderRadius: 20,
+    overflow: "hidden"
+  },
+  titleText: {
+    fontSize: 50
+  },
+  titleImage: {
+    width: 50,
+    height: 50,
+    top: "-25%",
+    left: "-7%"
   },
   categoryWrapper: {
     alignItems: "center",
-    marginTop: 50
+    marginTop: 10
   },
   contents: {
     height: 400,
     marginTop: 30
+  },
+  letterPage: {
+    width: "100%"
   },
   sendButton: {
     left: "70%",
@@ -152,13 +174,13 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
-    color: "yellow",
-    fontSize: 15
+    color: "#000000",
+    fontSize: 20
   },
   commentContainer: {
     width: "100%",
     alignItems: "center",
-    margin: 5
+    marginTop: 5
   }
 });
 
