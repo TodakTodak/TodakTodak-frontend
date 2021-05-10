@@ -6,6 +6,7 @@ import {
   View
 } from "react-native";
 import { useSelector } from "react-redux";
+import { Entypo } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -13,16 +14,22 @@ import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
-import { postComment } from "../../api/postApi";
+import {
+  patchComment,
+  patchPost,
+  patchPostCommentLike
+} from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
   const [content, setContent] = useState("");
+  const [isPostLike, setIsPostLike] = useState(false);
   const [postsComments, setPostComments] = useState([]);
   const user = useSelector((state) => state.userReducer);
   const {
+    likes,
     postId,
     userId,
     contents,
@@ -43,6 +50,18 @@ function DetailPost({ route }) {
     }
   }, []);
 
+  useEffect(() => {
+    if (likes) {
+      if (likes.includes(user.email)) {
+        setIsPostLike(true);
+
+        return;
+      }
+
+      setIsPostLike(false);
+    }
+  }, []);
+
   const handleSympathyButtonClick = async () => {
     const commentInfo = {
       user,
@@ -51,28 +70,67 @@ function DetailPost({ route }) {
     };
 
     try {
-      const response = await postComment(commentInfo);
+      const response = await patchComment(commentInfo);
 
       if (response.errorMessage) {
         console.log("에러 발생");
         return;
       }
 
-      const newComment = {
-        user: user.email,
-        likes: [],
-        content: content.trim(),
-      };
-
-      setPostComments((postsComments) => [...postsComments, newComment]);
+      setPostComments(response.postComments);
     } catch (err) {
       console.log(err.message);
     }
   };
 
+  const handleLikeButtonClick = async () => {
+    const likeInfo = {
+      postId,
+      user: user.email
+    };
+
+    try {
+      const response = await patchPost(likeInfo);
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      setIsPostLike((isPostLike) => !isPostLike);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleCommentLikeClick = async (commentId) => {
+    const likeInfo = {
+      user: user.email,
+      commentId,
+      postId
+    };
+
+    try {
+      const response = await patchPostCommentLike(likeInfo);
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      setPostComments(response.postComments);
+    } catch (err) {
+      console.log("에러 발생");
+    }
+  };
+
   const renderComments = () => {
     return postsComments.map((postComment) =>
-      <SimpleComment key={postComment._id} postComment={postComment} />
+      <SimpleComment
+        key={postComment._id}
+        postComment={postComment}
+        handleLikeIconClick={handleCommentLikeClick}
+      />
     );
   };
 
@@ -111,12 +169,27 @@ function DetailPost({ route }) {
                   style={[styles.contents, inputStyle]}
                   placeholder="본인의 이야기 혹은 위로를 적어주세요"
                 />
-                <Button
-                  text="공감하기"
-                  textStyle={styles.buttonText}
-                  buttonStyle={styles.sendButton}
-                  handleClick={handleSympathyButtonClick}
-                />
+                <View style={styles.buttonWrapper}>
+                  <View style={styles.goodButtonContainer}>
+                    <Entypo
+                      size={25}
+                      color="yellow"
+                      name={isPostLike ? "star" : "star-outlined"}
+                    />
+                    <Button
+                      text="토닥 토닥"
+                      textStyle={styles.buttonText}
+                      buttonStyle={styles.sendButton}
+                      handleClick={handleLikeButtonClick}
+                    />
+                  </View>
+                  <Button
+                    text="공감하기"
+                    textStyle={styles.buttonText}
+                    buttonStyle={styles.sendButton}
+                    handleClick={handleSympathyButtonClick}
+                  />
+                </View>
               </View>
             }
           </ImageBackground>
@@ -155,7 +228,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     top: "-25%",
-    left: "-7%"
+    left: "-8%"
   },
   categoryWrapper: {
     alignItems: "center",
@@ -168,9 +241,18 @@ const styles = StyleSheet.create({
   letterPage: {
     width: "100%"
   },
+  buttonWrapper: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    alignItems: "center"
+  },
+  goodButtonContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center"
+  },
   sendButton: {
-    left: "70%",
-    width: "30%",
+    width: "45%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {

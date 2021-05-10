@@ -9,8 +9,8 @@ import {
 import { NANUM_REGULAR } from "../../constants/font";
 
 function CategoryPostCard({
+  likes,
   title,
-  comments,
   createdAt,
   cardStyle,
   textStyle,
@@ -38,7 +38,7 @@ function CategoryPostCard({
             제목: {9 < title.length ? `${title.substring(0, 8)}...` : title}
           </Text>
           <Text style={[ styles.postContent, textStyle ]}>
-            {isComment ? "쓰담" : "답글 수"}: {comments.length}
+            {isComment ? "쓰담" : "토닥"}: {likes.length}
           </Text>
         </View>
       </View>

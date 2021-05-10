@@ -114,7 +114,7 @@ function MyPostStorage({ navigation }) {
           contents,
           category,
           isAnonymous,
-          ownerNickname,
+          ownerNickname
         } = post;
 
         navigation.navigate("DetailPost", {
@@ -122,6 +122,7 @@ function MyPostStorage({ navigation }) {
           comments,
           postId: _id,
           userId: user,
+          likes: post.likes,
           category: category,
           myComment: content,
           inputStyle: styles.postStyle,
@@ -132,8 +133,8 @@ function MyPostStorage({ navigation }) {
       return (
         <CategoryPostCard
           key={_id}
+          likes={likes}
           isComment={true}
-          comments={likes}
           title={post.title}
           ownerNickname={user}
           createdAt={createdAt}

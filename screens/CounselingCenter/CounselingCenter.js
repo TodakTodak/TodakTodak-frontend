@@ -76,6 +76,7 @@ function CounselingCenter({ navigation }) {
       const {
         _id,
         title,
+        likes,
         comments,
         contents,
         createdAt,
@@ -85,21 +86,22 @@ function CounselingCenter({ navigation }) {
 
       const handlePostClick = () => {
         navigation.navigate("DetailPost", {
+          likes,
           contents,
           comments,
           postId: _id,
           category: postCategory,
           userId: currentUser.email,
           inputStyle: styles.postStyle,
-          postOwner: isAnonymous ? "익명" : ownerNickname,
+          postOwner: isAnonymous ? "익명" : ownerNickname
         });
       };
 
       return (
         <CategoryPostCard
           key={_id}
+          likes={likes}
           title={title}
-          comments={comments}
           createdAt={createdAt}
           isAnonymous={isAnonymous}
           handleClick={handlePostClick}
@@ -112,6 +114,7 @@ function CounselingCenter({ navigation }) {
   const handleBestPostClick = () => {
     navigation.navigate("DetailPost", {
       postId: bestPost._id,
+      likes: bestPost.likes,
       category: postCategory,
       userId: currentUser.email,
       contents: bestPost.contents,
@@ -145,7 +148,7 @@ function CounselingCenter({ navigation }) {
           {bestPost &&
             <CategoryPostCard
               title={bestPost.title}
-              comments={bestPost.comments}
+              likes={bestPost.likes}
               createdAt={bestPost.createdAt}
               cardStyle={styles.bestPostCard}
               handleClick={handleBestPostClick}

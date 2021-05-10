@@ -12,6 +12,7 @@ import { NANUM_REGULAR } from "../../constants/font";
 function Button({
   handleClick,
   buttonStyle,
+  imageStyle,
   textStyle,
   image,
   text
@@ -22,7 +23,7 @@ function Button({
       onPress={handleClick}
     >
       <View style={styles.buttonContents}>
-        { image && <Image style={styles.image} source={image} /> }
+        { image && <Image style={[styles.image, imageStyle]} source={image} /> }
         <Text style={[ styles.buttonText, textStyle ]}>
           {text}
         </Text>
