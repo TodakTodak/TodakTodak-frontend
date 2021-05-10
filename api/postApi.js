@@ -36,9 +36,9 @@ export async function getCategoryPosts(category) {
   return await response.json();
 }
 
-export async function postComment(commentInfo) {
-  const response = await fetch(`${SERVER_URL}/comment`, {
-    method: "POST",
+export async function patchComment(commentInfo) {
+  const response = await fetch(`${SERVER_URL}/post/comments`, {
+    method: "PATCH",
     headers: {
       "Content-Type": "application/json"
     },
@@ -50,6 +50,18 @@ export async function postComment(commentInfo) {
 
 export async function patchPost(likeInfo) {
   const response = await fetch(`${SERVER_URL}/post`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(likeInfo)
+  });
+
+  return await response.json();
+}
+
+export async function patchPostCommentLike(likeInfo) {
+  const response = await fetch(`${SERVER_URL}/post/comments/like`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"

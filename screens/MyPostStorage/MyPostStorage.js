@@ -133,8 +133,8 @@ function MyPostStorage({ navigation }) {
       return (
         <CategoryPostCard
           key={_id}
+          likes={likes}
           isComment={true}
-          comments={likes}
           title={post.title}
           ownerNickname={user}
           createdAt={createdAt}

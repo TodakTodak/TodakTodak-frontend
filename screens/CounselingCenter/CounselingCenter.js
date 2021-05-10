@@ -100,8 +100,8 @@ function CounselingCenter({ navigation }) {
       return (
         <CategoryPostCard
           key={_id}
+          likes={likes}
           title={title}
-          comments={likes}
           createdAt={createdAt}
           isAnonymous={isAnonymous}
           handleClick={handlePostClick}
@@ -148,7 +148,7 @@ function CounselingCenter({ navigation }) {
           {bestPost &&
             <CategoryPostCard
               title={bestPost.title}
-              comments={bestPost.likes}
+              likes={bestPost.likes}
               createdAt={bestPost.createdAt}
               cardStyle={styles.bestPostCard}
               handleClick={handleBestPostClick}

@@ -14,18 +14,22 @@ import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
-import { postComment, patchPost } from "../../api/postApi";
+import {
+  patchComment,
+  patchPost,
+  patchPostCommentLike
+} from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailPost({ route }) {
   const [content, setContent] = useState("");
-  const [isLike, setIsLike] = useState(false);
+  const [isPostLike, setIsPostLike] = useState(false);
   const [postsComments, setPostComments] = useState([]);
   const user = useSelector((state) => state.userReducer);
   const {
-    likes, // 좋아요 기능용 prop
+    likes,
     postId,
     userId,
     contents,
@@ -49,12 +53,12 @@ function DetailPost({ route }) {
   useEffect(() => {
     if (likes) {
       if (likes.includes(user.email)) {
-        setIsLike(true);
+        setIsPostLike(true);
 
         return;
       }
 
-      setIsLike(false);
+      setIsPostLike(false);
     }
   }, []);
 
@@ -66,26 +70,20 @@ function DetailPost({ route }) {
     };
 
     try {
-      const response = await postComment(commentInfo);
+      const response = await patchComment(commentInfo);
 
       if (response.errorMessage) {
         console.log("에러 발생");
         return;
       }
 
-      const newComment = {
-        likes: [],
-        user: user.email,
-        content: content.trim()
-      };
-
-      setPostComments((postsComments) => [...postsComments, newComment]);
+      setPostComments(response.postComments);
     } catch (err) {
       console.log(err.message);
     }
   };
 
-  const handleClickLikeButton = async () => {
+  const handleLikeButtonClick = async () => {
     const likeInfo = {
       postId,
       user: user.email
@@ -99,15 +97,40 @@ function DetailPost({ route }) {
         return;
       }
 
-      setIsLike((isLike) => !isLike);
+      setIsPostLike((isPostLike) => !isPostLike);
     } catch (err) {
       console.log(err.message);
     }
   };
 
+  const handleCommentLikeClick = async (commentId) => {
+    const likeInfo = {
+      user: user.email,
+      commentId,
+      postId
+    };
+
+    try {
+      const response = await patchPostCommentLike(likeInfo);
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      setPostComments(response.postComments);
+    } catch (err) {
+      console.log("에러 발생");
+    }
+  };
+
   const renderComments = () => {
     return postsComments.map((postComment) =>
-      <SimpleComment key={postComment._id} postComment={postComment} />
+      <SimpleComment
+        key={postComment._id}
+        postComment={postComment}
+        handleLikeIconClick={handleCommentLikeClick}
+      />
     );
   };
 
@@ -151,13 +174,13 @@ function DetailPost({ route }) {
                     <Entypo
                       size={25}
                       color="yellow"
-                      name={isLike ? "star" : "star-outlined"}
+                      name={isPostLike ? "star" : "star-outlined"}
                     />
                     <Button
                       text="토닥 토닥"
                       textStyle={styles.buttonText}
                       buttonStyle={styles.sendButton}
-                      handleClick={handleClickLikeButton}
+                      handleClick={handleLikeButtonClick}
                     />
                   </View>
                   <Button
@@ -205,7 +228,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     top: "-25%",
-    left: "-7%"
+    left: "-8%"
   },
   categoryWrapper: {
     alignItems: "center",
@@ -220,7 +243,7 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flexDirection: "row",
-    justifyContent: "space-between",
+    justifyContent: "space-around",
     alignItems: "center"
   },
   goodButtonContainer: {

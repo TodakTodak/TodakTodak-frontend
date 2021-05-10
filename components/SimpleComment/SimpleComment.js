@@ -2,16 +2,20 @@ import React from "react";
 import {
   TouchableOpacity,
   StyleSheet,
-  Image,
   View,
   Text
 } from "react-native";
 
+import Button from "../Button/Button";
+
 import love from "../../assets/pngs/love.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
-function SimpleComment({ postComment }) {
-  console.log(postComment)
+function SimpleComment({
+  postComment,
+  handleCommentClick,
+  handleLikeIconClick
+}) {
   return (
     <TouchableOpacity
       key={postComment._id}
@@ -29,12 +33,14 @@ function SimpleComment({ postComment }) {
             }
         </Text>
       </View>
-      <View style={styles.commentLike}>
-        <Image style={styles.commentImage} source={love} />
-        <Text style={styles.commentText}>
-          {`${postComment.likes.length}쓰담`}
-        </Text>
-      </View>
+      <Button
+        image={love}
+        textStyle={styles.commentText}
+        buttonStyle={styles.commentLike}
+        imageStyle={styles.commentImage}
+        handleClick={() => handleLikeIconClick(postComment._id)}
+        text={`${postComment.likes.length}쓰담`}
+      />
     </TouchableOpacity>
   );
 }
@@ -59,7 +65,8 @@ const styles = StyleSheet.create({
     width: "40%",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "rgba(0, 0, 0, 0)"
   },
   commentImage: {
     width: 30,
@@ -68,7 +75,8 @@ const styles = StyleSheet.create({
   },
   commentText: {
     fontSize: 18,
-    fontFamily: NANUM_REGULAR
+    fontFamily: NANUM_REGULAR,
+    color: "#000000"
   }
 });
 
