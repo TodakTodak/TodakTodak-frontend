@@ -5,6 +5,7 @@ import {
   ScrollView,
   View
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
@@ -16,12 +17,13 @@ import { getMyPosts, getMyComments } from "../../api/postApi";
 import backgroundImage from "../../assets/pngs/background.png";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
-function MyPostStorage({ navigation }) {
+function MyPostStorage() {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [activeCategory, setActiveCategory] = useState("토닥 토닥");
   const [errorMessage, setErrorMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
+  const navigation = useNavigation();
 
   useEffect(() => {
     if (activeCategory === "토닥 토닥" && !posts.length) {

@@ -4,6 +4,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
@@ -13,7 +14,9 @@ import rabbits from "../../assets/pngs/rabbits.png";
 import mySoundLogo from "../../assets/pngs/mySoundLogo.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Home({ navigation }) {
+function Home() {
+  const navigation = useNavigation();
+
   const handleWriteButtonClick = () => {
     navigation.navigate("WriteWorry");
   };

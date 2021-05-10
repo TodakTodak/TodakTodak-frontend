@@ -4,6 +4,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import Button from "../../components/Button/Button";
@@ -16,13 +17,14 @@ import { postNewWorryPost } from "../../api/postApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry({ navigation }) {
+function WriteWorry() {
   const [postType, setPostType] = useState("");
   const [anonymousType, setAnonymousType] = useState("");
   const [category, setCategory] = useState("");
   const [worryContents, setWorryContents] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const user = useSelector((state) => state.userReducer);
+  const navigation = useNavigation();
 
   const postTypes = [
     { label: "Public", value: "Public" },

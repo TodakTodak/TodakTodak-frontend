@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   title: {
     position: "relative",
     alignItems: "center",
-    height: 50,
+    height: 55,
     marginTop: "30%"
   },
   titleText: {

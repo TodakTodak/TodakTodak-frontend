@@ -4,13 +4,16 @@ import {
   View,
   ImageBackground
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Intro({ navigation }) {
+function Intro() {
+  const navigation = useNavigation();
+
   const handleLoginClick = () => {
     navigation.navigate("Login");
   };

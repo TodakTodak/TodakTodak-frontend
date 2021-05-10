@@ -7,6 +7,7 @@ import {
   Text
 } from "react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
@@ -17,12 +18,13 @@ import { getCategoryPosts } from "../../api/postApi";
 import backgroundImage from "../../assets/pngs/background.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
-function CounselingCenter({ navigation }) {
+function CounselingCenter() {
   const [posts, setPosts] = useState([]);
   const [bestPost, setBestPost] = useState(null);
   const [postCategory, setpostCategory] = useState("취업");
   const [errorMessage, setErrorMessage] = useState("");
   const currentUser = useSelector((state) => state.userReducer);
+  const navigation = useNavigation();
 
   const categorys = [
     { title: "취업", color: "rgba(255, 56, 56, 0.3)" },
