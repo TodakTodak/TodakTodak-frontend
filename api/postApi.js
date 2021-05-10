@@ -47,3 +47,15 @@ export async function postComment(commentInfo) {
 
   return await response.json();
 }
+
+export async function patchPost(likeInfo) {
+  const response = await fetch(`${SERVER_URL}/post`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(likeInfo)
+  });
+
+  return await response.json();
+}
