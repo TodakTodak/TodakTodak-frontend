@@ -20,6 +20,7 @@ function SimpleComment({
     <TouchableOpacity
       key={postComment._id}
       style={styles.commentWrapper}
+      onPress={() => handleCommentClick(postComment)}
     >
       <View style={styles.comment}>
         <Text style={styles.commentText}>

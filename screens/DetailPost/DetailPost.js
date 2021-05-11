@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Entypo } from "@expo/vector-icons";
+import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -28,6 +29,7 @@ function DetailPost({ route }) {
   const [isPostLike, setIsPostLike] = useState(false);
   const [postsComments, setPostComments] = useState([]);
   const user = useSelector((state) => state.userReducer);
+  const navigation = useNavigation();
   const {
     likes,
     postId,
@@ -103,6 +105,14 @@ function DetailPost({ route }) {
     }
   };
 
+  const handleCommentClick = (commentInfo) => {
+    navigation.navigate("Answer", {
+      category,
+      commentInfo,
+      postContent: contents
+    });
+  };
+
   const handleCommentLikeClick = async (commentId) => {
     const likeInfo = {
       user: user.email,
@@ -129,6 +139,7 @@ function DetailPost({ route }) {
       <SimpleComment
         key={postComment._id}
         postComment={postComment}
+        handleCommentClick={handleCommentClick}
         handleLikeIconClick={handleCommentLikeClick}
       />
     );
