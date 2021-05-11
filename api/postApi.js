@@ -28,9 +28,12 @@ export async function getMyComments(userEmail) {
   return await response.json();
 }
 
-export async function getCategoryPosts(category) {
+export async function getCategoryPosts(category, page) {
   const response = await fetch(`${SERVER_URL}/post/category/${category}`, {
-    method: "GET"
+    method: "GET",
+    headers: {
+      "page": page
+    }
   });
 
   return await response.json();

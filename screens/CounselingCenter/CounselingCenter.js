@@ -3,6 +3,7 @@ import {
   ImageBackground,
   ScrollView,
   StyleSheet,
+  FlatList,
   View,
   Text
 } from "react-native";
@@ -20,6 +21,7 @@ import { NANUM_REGULAR } from "../../constants/font";
 
 function CounselingCenter() {
   const [posts, setPosts] = useState([]);
+  const [page, setPage] = useState(0);
   const [bestPost, setBestPost] = useState(null);
   const [postCategory, setpostCategory] = useState("취업");
   const [errorMessage, setErrorMessage] = useState("");
@@ -35,28 +37,37 @@ function CounselingCenter() {
   ];
 
   useEffect(() => {
-    (async function getCategorys() {
-      try {
-        const {
-          errorMessage,
-          categoryPosts,
-          highestLikesPost
-        } = await getCategoryPosts(postCategory);
+    setPage(0);
+    getCategorys();
+  }, [postCategory]);
 
-        if (errorMessage) {
-          setErrorMessage(errorMessage);
-          return;
-        }
+  async function getCategorys(page = 0) {
+    try {
+      const {
+        errorMessage,
+        categoryPosts,
+        highestLikesPost
+      } = await getCategoryPosts(postCategory, page);
 
+      if (errorMessage) {
+        setErrorMessage(errorMessage);
+        return;
+      }
+
+      if (!page) {
         setPosts(categoryPosts);
         setBestPost(highestLikesPost);
-      } catch (err) {
-        console.log("에러발생");
-
-        setErrorMessage("포스트를 가져오는데 실패했습니다");
+      } else {
+        setPosts([ ...posts, ...categoryPosts ]);
       }
-    })();
-  }, [postCategory]);
+
+      setPage((page) => page + 1);
+    } catch (err) {
+      console.log(err.message, "에러 터짐");
+
+      setErrorMessage("포스트를 가져오는데 실패했습니다");
+    }
+  }
 
   const renderCategorys = () => {
     return categorys.map((category) =>
@@ -71,46 +82,6 @@ function CounselingCenter() {
         categoryContainerStyle={styles.catagoryContainer}
       />
     );
-  };
-
-  const renderCategoryPosts = () => {
-    return posts.map((post) => {
-      const {
-        _id,
-        title,
-        likes,
-        comments,
-        contents,
-        createdAt,
-        isAnonymous,
-        ownerNickname,
-      } = post;
-
-      const handlePostClick = () => {
-        navigation.navigate("DetailPost", {
-          likes,
-          contents,
-          comments,
-          postId: _id,
-          category: postCategory,
-          userId: currentUser.email,
-          inputStyle: styles.postStyle,
-          postOwner: isAnonymous ? "익명" : ownerNickname
-        });
-      };
-
-      return (
-        <CategoryPostCard
-          key={_id}
-          likes={likes}
-          title={title}
-          createdAt={createdAt}
-          isAnonymous={isAnonymous}
-          handleClick={handlePostClick}
-          ownerNickname={ownerNickname}
-        />
-      );
-    });
   };
 
   const handleBestPostClick = () => {
@@ -159,9 +130,50 @@ function CounselingCenter() {
             />
           }
         </View>
-        <ScrollView styles={styles.postsWrapper}>
-          {renderCategoryPosts()}
-        </ScrollView>
+        <FlatList
+          onEndReached={() => getCategorys(page)}
+          onEndReachedThreshold={0.9}
+          keyExtractor={(item) => item._id}
+          styles={styles.postsWrapper}
+          data={posts}
+          renderItem={({ item, index }) => {
+            const {
+              _id,
+              title,
+              likes,
+              comments,
+              contents,
+              createdAt,
+              isAnonymous,
+              ownerNickname
+            } = item;
+
+            const handlePostClick = () => {
+              navigation.navigate("DetailPost", {
+                likes,
+                contents,
+                comments,
+                postId: _id,
+                category: postCategory,
+                userId: currentUser.email,
+                inputStyle: styles.postStyle,
+                postOwner: isAnonymous ? "익명" : ownerNickname
+              });
+            };
+
+            return (
+              <CategoryPostCard
+                key={_id}
+                likes={likes}
+                title={title}
+                createdAt={createdAt}
+                isAnonymous={isAnonymous}
+                handleClick={handlePostClick}
+                ownerNickname={ownerNickname}
+              />
+            );
+          }}
+        />
       </View>
     </ImageBackground>
   );
@@ -187,6 +199,7 @@ const styles = StyleSheet.create({
     left: "27%"
   },
   categoryWrapper: {
+    minHeight: 60,
     maxHeight: 60,
     flexDirection: "row",
     marginTop: 30
@@ -211,16 +224,18 @@ const styles = StyleSheet.create({
     marginLeft: "auto"
   },
   bestPostCard: {
+    marginTop: 10,
     marginBottom: 30
   },
   bestPost: {
     width: "100%",
-    justifyContent: "center",
+    maxHeight: 200,
     alignItems: "center",
     borderColor: "#ffffff",
     borderBottomWidth: 3
   },
   bestTitle: {
+    height: 30,
     color: "rgb(235, 255, 0)",
     fontWeight: "bold",
     fontFamily: NANUM_REGULAR,

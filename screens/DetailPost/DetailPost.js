@@ -15,8 +15,8 @@ import TextInput from "../../components/TextInput/TextInput";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
-  patchComment,
   patchPost,
+  patchComment,
   patchPostCommentLike
 } from "../../api/postApi";
 
