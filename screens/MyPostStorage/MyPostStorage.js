@@ -26,7 +26,7 @@ function MyPostStorage() {
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (activeCategory === "토닥 토닥" && !posts.length) {
+    if (activeCategory === "토닥 토닥") {
       (async function getPosts() {
         try {
           const { postsInfo, errorMessage } = await getMyPosts(user.email);
@@ -45,7 +45,7 @@ function MyPostStorage() {
       })();
     }
 
-    if (activeCategory === "쓰담 쓰담" && !comments.length) {
+    if (activeCategory === "쓰담 쓰담") {
       (async function getComments() {
         try {
           const { commentsInfo, errorMessage } = await getMyComments(user.email);
