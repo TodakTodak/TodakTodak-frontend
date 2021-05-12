@@ -10,6 +10,7 @@ import {
 import { NANUM_REGULAR } from "../../constants/font";
 
 function Button({
+  disabled = false,
   handleClick,
   buttonStyle,
   imageStyle,
@@ -21,6 +22,7 @@ function Button({
     <TouchableOpacity
       style={[ styles.button, buttonStyle ]}
       onPress={handleClick}
+      disabled={disabled}
     >
       <View style={styles.buttonContents}>
         { image && <Image style={[styles.image, imageStyle]} source={image} /> }
