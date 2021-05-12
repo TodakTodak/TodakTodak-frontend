@@ -2,17 +2,20 @@ import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
-  View
+  View,
+  Text,
+  Modal
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Entypo } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { patchCommentLike } from "../../api/commentApi";
+import { addFriend } from "../../api/userApi";
 
 import love from "../../assets/pngs/love.png";
 import letterPage from "../../assets/pngs/letterPage.png";
@@ -20,8 +23,9 @@ import backgroundImage from "../../assets/pngs/background.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
 function Answer({ route }) {
-  const [isPostLike, setIsPostLike] = useState(false);
   const [likes, setLikes] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [message, setMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
   const {
     category,
@@ -39,7 +43,6 @@ function Answer({ route }) {
         user: user.email,
         commentId: commentInfo._id
       };
-
       const response = await patchCommentLike(commentLikeInfo);
 
       if (response.errorMessage) {
@@ -50,6 +53,30 @@ function Answer({ route }) {
     } catch (err) {
       console.log(err.message);
     }
+  };
+
+  const handleAddFriendClick = async () => {
+    try {
+      const friendInfo = {
+        currentUser: user.email,
+        targetUser: commentInfo.user
+      };
+      const response = await addFriend(friendInfo);
+
+      if (response.errorMessage) {
+        setMessage(response.errorMessage);
+      } else {
+        setMessage("친구 요청을 했습니다!");
+      }
+
+      setIsModalVisible(true);
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
+  const handleModalCloseButton = () => {
+    setIsModalVisible(false);
   };
 
   return (
@@ -89,6 +116,7 @@ function Answer({ route }) {
                   text="친구 추가"
                   textStyle={styles.buttonText}
                   buttonStyle={styles.sendButton}
+                  handleClick={handleAddFriendClick}
                 />
                 <Button
                   image={love}
@@ -102,6 +130,11 @@ function Answer({ route }) {
             </View>
           </ImageBackground>
         </View>
+        <AlertModal
+          message={message}
+          modalVisable={isModalVisible}
+          handleModalVisable={handleModalCloseButton}
+        />
       </View>
     </ImageBackground>
   );
