@@ -94,6 +94,7 @@ function Friends() {
         </View>
         <ScrollView styles={styles.friendsContainer}>
           {renderFriends()}
+          <View style={{ height: 400 }} />
         </ScrollView>
       </View>
     </ImageBackground>

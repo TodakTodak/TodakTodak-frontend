@@ -29,6 +29,10 @@ function FriendCard({ friendInfo, user }) {
         setFriendStatus("수락 여부 체크");
         break;
 
+      case "ReceiveReject":
+        setFriendStatus("친구 거절");
+        break;
+
       default:
         setFriendStatus("친구");
         break;
@@ -101,13 +105,23 @@ function FriendCard({ friendInfo, user }) {
           <Button
             text="수락"
             textStyle={styles.buttonText}
-            buttonStyle={styles.firendButton}
+            buttonStyle={styles.friendButton}
             handleClick={() => acceptFriend(friendInfo.userId.email)}
           />
           <Button
             text="거절"
             textStyle={styles.buttonText}
-            buttonStyle={styles.firendButton}
+            buttonStyle={styles.friendButton}
+            handleClick={() => rejectFriend(friendInfo.userId.email)}
+          />
+        </View>
+      }
+      {friendStatus === "친구 거절" &&
+        <View style={styles.buttons}>
+          <Button
+            text="삭제"
+            buttonStyle={styles.friendButton}
+            textStyle={styles.buttonText}
             handleClick={() => rejectFriend(friendInfo.userId.email)}
           />
         </View>
@@ -116,7 +130,7 @@ function FriendCard({ friendInfo, user }) {
         <View style={styles.buttons}>
           <Button
             text="채팅하기"
-            buttonStyle={styles.firendButton}
+            buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
           />
         </View>
@@ -128,7 +142,8 @@ function FriendCard({ friendInfo, user }) {
 const styles = StyleSheet.create({
   friend: {
     width: "90%",
-    minHeight: "10%",
+    height: "10%",
+    maxHeight: "15%",
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -140,14 +155,15 @@ const styles = StyleSheet.create({
   friendInfoWrapper: {
     width: "60%",
     marginLeft: 15,
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center"
   },
   friendInfo: {
     justifyContent: "center"
   },
   friendAvatar: {
-    width: 40,
-    height: 40,
+    width: 30,
+    height: 30,
     borderRadius: 50,
     backgroundColor: "yellow",
     marginRight: 10
@@ -164,7 +180,7 @@ const styles = StyleSheet.create({
   buttons: {
     flexDirection: "row"
   },
-  firendButton: {
+  friendButton: {
     width: "20%",
     minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
