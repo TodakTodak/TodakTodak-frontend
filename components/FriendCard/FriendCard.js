@@ -6,17 +6,18 @@ import {
   Text
 } from "react-native";
 
-import { patchPendingFriend } from "../../api/userApi";
-
 import Button from "../../components/Button/Button";
 
-import avatar from "../../assets/pngs/avatar.png";
+import {
+  patchPendingFriend,
+  rejectPendingFriend
+} from "../../api/userApi";
 
+import avatar from "../../assets/pngs/avatar.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
 function FriendCard({ friendInfo, user }) {
-  const [friendStatus, setFriendStatus] = useState("친구");
-  const [acceptText, setAcceptText] = useState("수락");
+  const [friendStatus, setFriendStatus] = useState("");
 
   useEffect(() => {
     switch (friendInfo.status) {
@@ -28,21 +29,13 @@ function FriendCard({ friendInfo, user }) {
         setFriendStatus("수락 여부 체크");
         break;
 
-      case "SendReject":
-        setFriendStatus("거부 했음");
-        break;
-
-      case "ReceiveReject":
-        setFriendStatus("거부 당함");
-        break;
-
       default:
         setFriendStatus("친구");
         break;
     }
   }, [friendInfo]);
 
-  const acceptPendingFriend = async (friendEmail) => {
+  const acceptFriend = async (friendEmail) => {
     const friendInfo = {
       friendEmail,
       user: user.email
@@ -56,7 +49,29 @@ function FriendCard({ friendInfo, user }) {
         return;
       }
 
-      setAcceptText("수락했습니다!");
+      setFriendStatus("수락");
+    } catch (err) {
+      console.log(err.message, "에러 터짐");
+
+      setErrorMessage("요청에 실패했습니다");
+    }
+  };
+
+  const rejectFriend = async (friendEmail) => {
+    const friendInfo = {
+      friendEmail,
+      user: user.email
+    };
+
+    try {
+      const response = await rejectPendingFriend(friendInfo);
+
+      if (response.errorMessage) {
+        console.log("에러 발생");
+        return;
+      }
+
+      setFriendStatus("삭제 조치");
     } catch (err) {
       console.log(err.message, "에러 터짐");
 
@@ -84,17 +99,16 @@ function FriendCard({ friendInfo, user }) {
       {friendStatus === "수락 여부 체크" &&
         <View style={styles.buttons}>
           <Button
-            text={acceptText}
+            text="수락"
             textStyle={styles.buttonText}
             buttonStyle={styles.firendButton}
-            disabled={acceptText === "수락" ? false : true}
-            handleClick={() => acceptPendingFriend(friendInfo.userId.email)}
+            handleClick={() => acceptFriend(friendInfo.userId.email)}
           />
           <Button
             text="거절"
-            buttonStyle={styles.firendButton}
             textStyle={styles.buttonText}
-            handleClick={() => handleRejectButtonClick(friendInfo.userId.email)}
+            buttonStyle={styles.firendButton}
+            handleClick={() => rejectFriend(friendInfo.userId.email)}
           />
         </View>
       }
@@ -151,7 +165,8 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   firendButton: {
-    minWidth: "30%",
+    width: "20%",
+    minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {

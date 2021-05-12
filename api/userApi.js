@@ -59,6 +59,18 @@ export async function patchPendingFriend(friendInfo) {
   return await response.json();
 }
 
+export async function rejectPendingFriend(friendInfo) {
+  const response = await fetch(`${SERVER_URL}/auth/rejectFriend`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(friendInfo)
+  });
+
+  return await response.json();
+}
+
 export async function getFriends(userEmail) {
   const response = await fetch(`${SERVER_URL}/auth/friend`, {
     method: "GET",

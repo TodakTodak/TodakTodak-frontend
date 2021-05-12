@@ -44,7 +44,7 @@ function Friends() {
       })();
     }
 
-    if (activeCategory === "맺혀질 인연들") {
+    if (activeCategory === "요청한 인연들") {
       (async function getMyWaitingFriends() {
         try {
           const response = await getWaitingFriends(user.email);
@@ -86,7 +86,7 @@ function Friends() {
             handleClick={setActiveCategory}
           />
           <CategoryButton
-            title="맺혀질 인연들"
+            title="요청한 인연들"
             focusValue={activeCategory}
             handleClick={setActiveCategory}
             categoryStyle={styles.waitingFriendCategory}
