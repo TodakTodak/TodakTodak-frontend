@@ -188,7 +188,7 @@ const styles = StyleSheet.create({
     marginBottom: 0
   },
   contents: {
-    height: 300
+    height: 250
   }
 });
 
