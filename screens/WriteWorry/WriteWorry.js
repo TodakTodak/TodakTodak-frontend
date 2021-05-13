@@ -151,24 +151,14 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  titleText: {
-    height: 50,
-    fontSize: 40
-  },
-  titleImage: {
-    width: 50,
-    height: 50,
-    top: "-50%",
-    left: "28%"
-  },
   sendButton: {
-    left: "70%",
-    width: "30%",
+    left: "64%",
+    width: "35%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
     color: "yellow",
-    fontSize: 20
+    fontSize: 15
   },
   writeWrapper: {
     width: "90%",

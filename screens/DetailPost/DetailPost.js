@@ -6,8 +6,7 @@ import {
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Entypo } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
+import { AntDesign } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -151,13 +150,13 @@ function DetailPost({ route, navigation }) {
               </View>
               <View style={styles.buttonWrapper}>
                 <View style={styles.goodButtonContainer}>
-                  <Entypo
+                  <AntDesign
                     size={25}
                     color="red"
-                    name={isPostLike ? "heart" : "heart-outlined"}
+                    name={isPostLike ? "like1" : "like2"}
                   />
                   <Button
-                    text="고민 위로하기"
+                    text="위로하기"
                     textStyle={styles.buttonText}
                     buttonStyle={styles.sendButton}
                     handleClick={handleLikeButtonClick}
@@ -197,15 +196,6 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden"
   },
-  titleText: {
-    fontSize: 50
-  },
-  titleImage: {
-    width: 50,
-    height: 50,
-    top: "-25%",
-    left: "25%"
-  },
   categoryWrapper: {
     alignItems: "center",
     marginTop: 10
@@ -213,7 +203,7 @@ const styles = StyleSheet.create({
   contents: {
     height: 550,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    fontSize: 30
+    fontSize: 20
   },
   letterPage: {
     width: "100%"
@@ -221,8 +211,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#ffffff"
+    alignItems: "center"
   },
   goodButtonContainer: {
     flexDirection: "row",

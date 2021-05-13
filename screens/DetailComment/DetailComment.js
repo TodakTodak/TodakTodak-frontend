@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     overflow: "hidden"
   },
   titleText: {
-    fontSize: 50
+    fontSize: 40
   },
   titleImage: {
     width: 50,

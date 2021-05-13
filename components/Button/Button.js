@@ -7,8 +7,6 @@ import {
   View
 } from "react-native";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function Button({
   handleClick,
   buttonStyle,
@@ -50,13 +48,12 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
-    marginRight: 5
+    marginRight: 20
   },
   buttonText: {
     color: "#ffffff",
     fontWeight: "bold",
-    fontSize: 30,
-    fontFamily: NANUM_REGULAR
+    fontSize: 20
   }
 });
 

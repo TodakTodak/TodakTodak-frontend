@@ -5,14 +5,11 @@ import {
   Text
 } from "react-native";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function Category({
   title,
   titleStyle,
-  categoryColor = "rgba(255, 56, 56, 0.3)",
+  categoryColor = "rgba(255, 56, 56, 0.8)",
   categoryStyle,
-  bottomBarStyle,
   categoryContainerStyle
 }) {
   return (
@@ -28,7 +25,6 @@ function Category({
           {title}
         </Text>
       </View>
-      <View style={[ styles.titleBottomBar, bottomBarStyle ]} />
     </View>
   );
 }
@@ -47,8 +43,7 @@ const styles = StyleSheet.create({
   },
   categoryTitle: {
     color: "#ffffff",
-    fontSize: 20,
-    fontFamily: NANUM_REGULAR
+    fontSize: 20
   },
   titleBottomBar: {
     width: 100,

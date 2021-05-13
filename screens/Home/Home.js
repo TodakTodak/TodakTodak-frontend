@@ -83,13 +83,17 @@ const styles = StyleSheet.create({
   roomButton: {
     width: "90%",
     height: "15%",
+    alignItems: "flex-start",
     marginBottom: 50,
+    paddingLeft: 20,
     backgroundColor: "rgba(249, 255, 180, 0.8)"
   },
   writeButton: {
     width: "90%",
     height: "15%",
+    alignItems: "flex-start",
     marginTop: 50,
+    paddingLeft: 20,
     backgroundColor: "rgba(252, 221, 236, 0.8)"
   },
 });

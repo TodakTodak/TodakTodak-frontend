@@ -15,7 +15,6 @@ import {
 } from "../../api/userApi";
 
 import avatar from "../../assets/pngs/avatar.png";
-import { NANUM_REGULAR } from "../../constants/font";
 
 function FriendCard({ friendInfo, user }) {
   const [friendStatus, setFriendStatus] = useState("");
@@ -98,7 +97,7 @@ function FriendCard({ friendInfo, user }) {
         <Image source={avatar} style={styles.friendAvatar} />
         <View style={styles.friendInfo}>
           <Text style={styles.friendName}>
-            {friendStatus === "대기 중" ? "요청 친구" : "나의 친구"}:{" "}
+            {friendStatus === "대기 중:" ? "요청 친구:" : ""}{" "}
             {friendInfo.userId ? friendInfo.userId.nickname : friendInfo.nickname}
           </Text>
           {friendStatus !== "친구" &&
@@ -154,9 +153,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
-    margin: 20,
+    margin: 10,
+    marginLeft: 20,
     padding: 5,
-    borderRadius: 30,
+    borderRadius: 20,
     backgroundColor: "#ffffff",
   },
   friendInfoWrapper: {
@@ -176,20 +176,18 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   friendName: {
-    fontSize: 20,
-    fontFamily: NANUM_REGULAR
+    fontSize: 20
   },
   friendStatusText: {
     color: "coral",
-    fontSize: 20,
-    fontFamily: NANUM_REGULAR
+    fontSize: 20
   },
   buttons: {
     flexDirection: "row"
   },
   friendButton: {
-    width: "20%",
-    minWidth: "20%",
+    width: "25%",
+    minWidth: "25%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {

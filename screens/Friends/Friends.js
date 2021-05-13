@@ -89,7 +89,6 @@ function Friends() {
             title="요청한 인연들"
             focusValue={activeCategory}
             handleClick={setActiveCategory}
-            categoryStyle={styles.waitingFriendCategory}
           />
         </View>
         <ScrollView styles={styles.friendsContainer}>
@@ -122,8 +121,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     marginTop: 40
   },
-  waitingFriendCategory: {
-    backgroundColor: "rgba(239, 255, 56, 0.3)"
+  activeCategoryBackground: {
+    backgroundColor: "rgba(255, 56, 56, 0.3)"
   }
 });
 

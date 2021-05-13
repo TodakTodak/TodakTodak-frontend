@@ -6,11 +6,9 @@ import {
   Text
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 import Button from "../Button/Button";
-
-import { NANUM_REGULAR } from "../../constants/font";
 
 function SimpleComment({
   postComment,
@@ -29,19 +27,12 @@ function SimpleComment({
         <Text style={styles.commentText}>
           {`답변자: ${postComment.user}`}
         </Text>
-        <Text style={styles.commentText}>
-          {`내용: ${
-              9 < postComment.content.length ?
-              `${postComment.content.substring(0, 8)}...` :
-              postComment.content}`
-            }
-        </Text>
       </View>
       <View style={styles.goodButtonContainer}>
-        <Entypo
+        <AntDesign
           size={25}
           color="red"
-          name={postComment.likes.includes(user.email) ? "heart" : "heart-outlined"}
+          name={postComment.likes.includes(user.email) ? "like1" : "like2"}
         />
         <Button
           textStyle={styles.commentText}
@@ -64,7 +55,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
-    borderRadius: 40
+    borderRadius: 10
   },
   comment: {
     width: "40%",
@@ -84,8 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   commentText: {
-    fontSize: 20,
-    fontFamily: NANUM_REGULAR,
+    fontSize: 15,
     color: "#000000"
   }
 });

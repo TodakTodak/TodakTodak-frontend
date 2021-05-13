@@ -6,17 +6,13 @@ import {
   Text
 } from "react-native";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function CategoryButton({
   title,
   titleStyle,
   focusValue,
   handleClick,
-  categoryColor = "rgba(255, 56, 56, 0.3)",
-  categoryStyle,
-  bottomBarStyle,
-  categoryContainerStyle
+  categoryContainerStyle,
+  categoryColor = "rgba(255, 56, 56, 0.3)"
 }) {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
@@ -25,25 +21,18 @@ function CategoryButton({
         accessibilityRole="button"
         style={[
           styles.categoryWrapper,
-          { backgroundColor: categoryColor },
-          categoryStyle
+          {
+            backgroundColor:
+              focusValue === title ?
+                categoryColor :
+                "rgba(255, 255, 255, 0.3)"
+          }
         ]}
       >
         <Text style={[ styles.categoryTitle, titleStyle ]}>
           {title}
         </Text>
       </TouchableOpacity>
-      <View
-        style={[
-          styles.titleBottomBar,
-          bottomBarStyle,
-          { backgroundColor:
-              focusValue === title ?
-                "rgb(255, 255, 255)" :
-                "rgba(255, 255, 255, 0.1)"
-          }
-        ]}
-      />
     </View>
   );
 }
@@ -51,19 +40,21 @@ function CategoryButton({
 const styles = StyleSheet.create({
   categoryContainer: {
     width: "50%",
-    alignItems: "center"
+    alignItems: "center",
+    marginBottom: 30
   },
   categoryWrapper: {
-    width: "50%",
-    height: 30,
+    width: "75%",
+    height: 40,
     justifyContent: "center",
     alignItems: "center",
+    padding: 5,
     borderRadius: 10,
+    backgroundColor: "rgba(255, 255, 255, 0.3)"
   },
   categoryTitle: {
     color: "#ffffff",
-    fontSize: 20,
-    fontFamily: NANUM_REGULAR
+    fontSize: 15
   },
   titleBottomBar: {
     width: 100,
