@@ -23,11 +23,11 @@ function CounselingCenter({ navigation }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   const categorys = [
-    { title: "취업", color: "rgba(255, 56, 56, 0.3)" },
+    { title: "취업", color: "rgba(56, 136, 255, 0.3)" },
     { title: "사랑", color: "rgba(249, 157, 20, 0.3)" },
     { title: "진로", color: "rgba(239, 255, 56, 0.3)" },
     { title: "친구", color: "rgba(120, 255, 56, 0.3)" },
-    { title: "고통", color: "rgba(56, 136, 255, 0.3)" }
+    { title: "고통", color: "rgba(255, 56, 56, 0.3)" }
   ];
 
   useEffect(() => {

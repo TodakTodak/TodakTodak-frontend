@@ -7,7 +7,6 @@ import {
   View
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Entypo } from "@expo/vector-icons";
 import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
