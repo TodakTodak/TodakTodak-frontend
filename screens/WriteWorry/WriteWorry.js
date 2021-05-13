@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import {
-  StyleSheet,
   View,
-  ImageBackground
+  Keyboard,
+  StyleSheet,
+  ImageBackground,
+  TouchableWithoutFeedback
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
@@ -85,54 +87,56 @@ function WriteWorry() {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <View style={styles.container}>
-        <Title
-          text="고민 작성소"
-          textStyle={styles.titleText}
-          imageStyle={styles.titleImage}
-        />
-        <Button
-          text="고민 제출하기"
-          buttonStyle={styles.sendButton}
-          textStyle={styles.buttonText}
-          handleClick={handleSubmitButtonClick}
-        />
-        <View style={styles.writeWrapper}>
-          <ImageBackground
-            style={styles.letter}
-            source={letterPage}
-          >
-            <Picker
-              handleChange={handlePostPickerChange}
-              itemList={postTypes}
-              label="공개 여부"
-            />
-            <Picker
-              handleChange={handleAnonymousePickerChange}
-              itemList={anonymousTypes}
-              label="익명 여부"
-            />
-            <Picker
-              handleChange={handleCategoryPickerChange}
-              itemList={categoryTypes}
-              label="고민 카테고리"
-            />
-            <TextInput
-              style={styles.postTitle}
-              handleInputChange={handlePostTitleChange}
-              value={postTitle}
-              placeholder="고민의 제목을 적어주세요"
-            />
-            <TextInput
-              style={styles.contents}
-              isMultiline={true}
-              handleInputChange={handleWorryContentsChange}
-              value={worryContents}
-              placeholder="고민 거리를 작성해보세요"
-            />
-          </ImageBackground>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.container}>
+          <Title
+            text="고민 작성소"
+            textStyle={styles.titleText}
+            imageStyle={styles.titleImage}
+          />
+          <Button
+            text="고민 제출하기"
+            buttonStyle={styles.sendButton}
+            textStyle={styles.buttonText}
+            handleClick={handleSubmitButtonClick}
+          />
+          <View style={styles.writeWrapper}>
+            <ImageBackground
+              style={styles.letter}
+              source={letterPage}
+            >
+              <TextInput
+                style={styles.postTitle}
+                handleInputChange={handlePostTitleChange}
+                value={postTitle}
+                placeholder="고민의 제목을 적어주세요"
+              />
+              <TextInput
+                style={styles.contents}
+                isMultiline={true}
+                handleInputChange={handleWorryContentsChange}
+                value={worryContents}
+                placeholder="고민 거리를 작성해보세요"
+              />
+              <Picker
+                handleChange={handlePostPickerChange}
+                itemList={postTypes}
+                label="공개 여부"
+              />
+              <Picker
+                handleChange={handleAnonymousePickerChange}
+                itemList={anonymousTypes}
+                label="익명 여부"
+              />
+              <Picker
+                handleChange={handleCategoryPickerChange}
+                itemList={categoryTypes}
+                label="고민 카테고리"
+              />
+            </ImageBackground>
+          </View>
         </View>
-      </View>
+      </TouchableWithoutFeedback>
     </ImageBackground>
   );
 }
@@ -145,7 +149,7 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
-    height: "100%",
+    height: "100%"
   },
   titleText: {
     height: 50,
@@ -188,7 +192,7 @@ const styles = StyleSheet.create({
     marginBottom: 0
   },
   contents: {
-    height: 250
+    height: 220
   }
 });
 

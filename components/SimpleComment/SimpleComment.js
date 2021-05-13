@@ -48,7 +48,7 @@ function SimpleComment({
           buttonStyle={styles.commentLike}
           imageStyle={styles.commentImage}
           handleClick={() => handleLikeIconClick(postComment._id)}
-          text={`댓글 추천: ${postComment.likes.length}번`}
+          text={`댓글 추천: ${postComment.likes.length}`}
         />
       </View>
     </TouchableOpacity>

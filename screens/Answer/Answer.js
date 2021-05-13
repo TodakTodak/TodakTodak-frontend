@@ -137,7 +137,7 @@ function Answer({ route }) {
         <AlertModal
           message={message}
           modalVisable={isModalVisible}
-          handleModalVisable={handleModalCloseButton}
+          handleModalClose={handleModalCloseButton}
         />
       </ImageBackground>
     </TouchableWithoutFeedback>
@@ -182,7 +182,8 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#ffffff"
   },
   goodButtonContainer: {
     flexDirection: "row",

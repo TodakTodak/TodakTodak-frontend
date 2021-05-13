@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,  } from "react";
 import {
   ImageBackground,
   StyleSheet,
   ScrollView,
-  View
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Entypo } from "@expo/vector-icons";
@@ -24,15 +24,14 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route }) {
+function DetailPost({ route, navigation }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const user = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
   const { postId } = route.params;
 
   useEffect(() => {
-    (async function getPostInfo() {
+    const unsubscribe = navigation.addListener("focus", async () => {
       try {
         const response = await getDetailPost(postId);
 
@@ -45,8 +44,10 @@ function DetailPost({ route }) {
       } catch (err) {
         console.log(err.message);
       }
-    })();
-  }, []);
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
     if (postInfo.likes) {
@@ -210,7 +211,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   contents: {
-    height: 520,
+    height: 550,
     backgroundColor: "rgba(0, 0, 0, 0)",
     fontSize: 30
   },
@@ -220,7 +221,8 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#ffffff"
   },
   goodButtonContainer: {
     flexDirection: "row",

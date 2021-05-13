@@ -5,7 +5,6 @@ import {
   ScrollView,
   View
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
@@ -17,53 +16,56 @@ import { getMyPosts, getMyComments } from "../../api/postApi";
 import backgroundImage from "../../assets/pngs/background.png";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
-function MyPostStorage() {
+function MyPostStorage({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
   const [errorMessage, setErrorMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
 
   useEffect(() => {
-    if (activeCategory === "나의 고민들") {
-      (async function getPosts() {
-        try {
-          const response = await getMyPosts(user.email);
+    const unSubscribe = navigation.addListener("focus", () => {
+      if (activeCategory === "나의 고민들") {
+        (async function getPosts() {
+          try {
+            const response = await getMyPosts(user.email);
 
-          if (response.errorMessage) {
-            setErrorMessage(response.errorMessage);
-            return;
+            if (response.errorMessage) {
+              setErrorMessage(response.errorMessage);
+              return;
+            }
+
+            setPosts(response.postsInfo);
+          } catch (err) {
+            console.log("에러발생");
+
+            setErrorMessage("포스트를 가져오는데 실패했습니다");
           }
+        })();
+      }
 
-          setPosts(response.postsInfo);
-        } catch (err) {
-          console.log("에러발생");
+      if (activeCategory === "나의 위로들") {
+        (async function getComments() {
+          try {
+            const response = await getMyComments(user.email);
 
-          setErrorMessage("포스트를 가져오는데 실패했습니다");
-        }
-      })();
-    }
+            if (response.errorMessage) {
+              setErrorMessage(response.errorMessage);
+              return;
+            }
 
-    if (activeCategory === "나의 위로들") {
-      (async function getComments() {
-        try {
-          const response = await getMyComments(user.email);
+            setComments(response.commentsInfo);
+          } catch (err) {
+            console.log("에러발생");
 
-          if (response.errorMessage) {
-            setErrorMessage(response.errorMessage);
-            return;
+            setErrorMessage("포스트를 가져오는데 실패했습니다");
           }
+        })();
+      }
 
-          setComments(response.commentsInfo);
-        } catch (err) {
-          console.log("에러발생");
-
-          setErrorMessage("포스트를 가져오는데 실패했습니다");
-        }
-      })();
-    }
-  }, [activeCategory]);
+      return unSubscribe;
+    });
+  }, [activeCategory, navigation]);
 
   const renderMyPosts = () => {
     if (!posts) return;

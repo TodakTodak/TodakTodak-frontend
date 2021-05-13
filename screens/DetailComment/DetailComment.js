@@ -78,7 +78,7 @@ function DetailComment({ route }) {
         <Title
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
-          text="답글 달기"
+          text="댓글 작성"
         />
         <View style={styles.postContentsWrapper}>
           <ImageBackground
@@ -159,8 +159,9 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   sendButton: {
-    width: "50%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    width: "30%",
+    margin: 20,
+    backgroundColor: "#ffffff"
   },
   buttonText: {
     color: "#000000",

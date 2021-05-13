@@ -19,14 +19,12 @@ import { getCategoryPosts } from "../../api/postApi";
 import backgroundImage from "../../assets/pngs/background.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
-function CounselingCenter() {
+function CounselingCenter({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
   const [bestPost, setBestPost] = useState(null);
   const [postCategory, setpostCategory] = useState("취업");
   const [errorMessage, setErrorMessage] = useState("");
-  const currentUser = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
 
   const categorys = [
     { title: "취업", color: "rgba(255, 56, 56, 0.3)" },
