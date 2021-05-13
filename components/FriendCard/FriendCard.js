@@ -5,6 +5,7 @@ import {
   View,
   Text
 } from "react-native";
+import { useNavigation } from "@react-navigation/native"
 
 import Button from "../../components/Button/Button";
 
@@ -18,6 +19,7 @@ import { NANUM_REGULAR } from "../../constants/font";
 
 function FriendCard({ friendInfo, user }) {
   const [friendStatus, setFriendStatus] = useState("");
+  const navigation = useNavigation();
 
   useEffect(() => {
     switch (friendInfo.status) {
@@ -38,6 +40,10 @@ function FriendCard({ friendInfo, user }) {
         break;
     }
   }, [friendInfo]);
+
+  const handleEnterChatRoomClick = () => {
+    navigation.navigate("ChatRoom");
+  };
 
   const acceptFriend = async (friendEmail) => {
     const friendInfo = {
@@ -132,6 +138,7 @@ function FriendCard({ friendInfo, user }) {
             text="채팅하기"
             buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
+            handleClick={handleEnterChatRoomClick}
           />
         </View>
       }

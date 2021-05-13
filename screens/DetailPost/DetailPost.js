@@ -17,7 +17,6 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
   patchPost,
-  patchComment,
   patchPostCommentLike
 } from "../../api/postApi";
 
@@ -64,25 +63,8 @@ function DetailPost({ route }) {
     }
   }, []);
 
-  const handleSympathyButtonClick = async () => {
-    const commentInfo = {
-      user,
-      postId,
-      content: content.trim()
-    };
-
-    try {
-      const response = await patchComment(commentInfo);
-
-      if (response.errorMessage) {
-        console.log("에러 발생");
-        return;
-      }
-
-      setPostComments(response.postComments);
-    } catch (err) {
-      console.log(err.message);
-    }
+  const handleAddCommentButtonClick = () => {
+    navigation.navigate("DetailComment", { postId });
   };
 
   const handleLikeButtonClick = async () => {
@@ -106,11 +88,7 @@ function DetailPost({ route }) {
   };
 
   const handleCommentClick = (commentInfo) => {
-    navigation.navigate("Answer", {
-      category,
-      commentInfo,
-      postContent: contents
-    });
+    navigation.navigate("Answer", { commentInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {
@@ -150,7 +128,8 @@ function DetailPost({ route }) {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <View style={styles.container}>
+      <ScrollView style={styles.container} contentContainerStyle="center">
+        <View>
         <Title
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
@@ -171,46 +150,35 @@ function DetailPost({ route }) {
               />
             </View>
             {userId &&
-              <View>
-                <TextInput
-                  value={content}
-                  editable={true}
-                  isMultiline={true}
-                  handleInputChange={setContent}
-                  style={[styles.contents, inputStyle]}
-                  placeholder="본인의 이야기 혹은 위로를 적어주세요"
-                />
-                <View style={styles.buttonWrapper}>
-                  <View style={styles.goodButtonContainer}>
-                    <Entypo
-                      size={25}
-                      color="yellow"
-                      name={isPostLike ? "star" : "star-outlined"}
-                    />
-                    <Button
-                      text="토닥 토닥"
-                      textStyle={styles.buttonText}
-                      buttonStyle={styles.sendButton}
-                      handleClick={handleLikeButtonClick}
-                    />
-                  </View>
+              <View style={styles.buttonWrapper}>
+                <View style={styles.goodButtonContainer}>
+                  <Entypo
+                    size={25}
+                    color="red"
+                    name={isPostLike ? "heart" : "heart-outlined"}
+                  />
                   <Button
-                    text="공감하기"
+                    text="고민 위로하기"
                     textStyle={styles.buttonText}
                     buttonStyle={styles.sendButton}
-                    handleClick={handleSympathyButtonClick}
+                    handleClick={handleLikeButtonClick}
                   />
                 </View>
+                <Button
+                  text="댓글 달기"
+                  textStyle={styles.buttonText}
+                  buttonStyle={styles.sendButton}
+                  handleClick={handleAddCommentButtonClick}
+                />
               </View>
             }
           </ImageBackground>
         </View>
-        <ScrollView>
           <View style={styles.commentContainer}>
             {0 < postsComments.length && renderComments()}
           </View>
-        </ScrollView>
-      </View>
+        </View>
+      </ScrollView>
     </ImageBackground>
   );
 }
@@ -223,12 +191,11 @@ const styles = StyleSheet.create({
   },
   container: {
     width: "100%",
-    height: "100%",
-    alignItems: "center"
+    height: "100%"
   },
   postContentsWrapper: {
     width: "90%",
-    marginTop: 10,
+    margin: 20,
     borderRadius: 20,
     overflow: "hidden"
   },
@@ -239,7 +206,7 @@ const styles = StyleSheet.create({
     width: 50,
     height: 50,
     top: "-25%",
-    left: "-8%"
+    left: "25%"
   },
   categoryWrapper: {
     alignItems: "center",
@@ -263,7 +230,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   sendButton: {
-    width: "45%",
+    width: "50%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {

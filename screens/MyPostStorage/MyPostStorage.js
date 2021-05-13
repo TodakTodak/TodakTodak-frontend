@@ -20,13 +20,13 @@ import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard
 function MyPostStorage() {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("토닥 토닥");
+  const [activeCategory, setActiveCategory] = useState("나의 고민들");
   const [errorMessage, setErrorMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
   const navigation = useNavigation();
 
   useEffect(() => {
-    if (activeCategory === "토닥 토닥") {
+    if (activeCategory === "나의 고민들") {
       (async function getPosts() {
         try {
           const { postsInfo, errorMessage } = await getMyPosts(user.email);
@@ -45,7 +45,7 @@ function MyPostStorage() {
       })();
     }
 
-    if (activeCategory === "쓰담 쓰담") {
+    if (activeCategory === "나의 위로들") {
       (async function getComments() {
         try {
           const { commentsInfo, errorMessage } = await getMyComments(user.email);
@@ -81,7 +81,8 @@ function MyPostStorage() {
         navigation.navigate("DetailPost", {
           contents,
           category,
-          comments
+          comments,
+          inputStyle: styles.postStyle
         });
       };
 
@@ -159,19 +160,19 @@ function MyPostStorage() {
         />
         <View style={styles.categorysWrapper}>
           <CategoryButton
-            title="토닥 토닥"
+            title="나의 고민들"
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />
           <CategoryButton
-            title="쓰담 쓰담"
+            title="나의 위로들"
             focusValue={activeCategory}
             handleClick={setActiveCategory}
             categoryStyle={styles.thudamCategory}
           />
         </View>
         <ScrollView styles={styles.postsWrapper}>
-          {activeCategory === "토닥 토닥" ?
+          {activeCategory === "나의 고민들" ?
             renderMyPosts() :
             renderMyComments()
           }
@@ -212,16 +213,12 @@ const styles = StyleSheet.create({
   },
   postsWrapper: {
     width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 0,
-    marginRight: "auto",
-    marginBottom: 0,
-    marginLeft: "auto",
-    marginTop: 40
+    flexDirection: "row"
   },
   postStyle: {
-    height: 150
+    height: 520,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    fontSize: 30
   }
 });
 

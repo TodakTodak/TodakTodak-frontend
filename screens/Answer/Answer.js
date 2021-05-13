@@ -1,40 +1,46 @@
 import React, { useEffect, useState } from "react";
 import {
+  TouchableWithoutFeedback,
   ImageBackground,
+  Keyboard,
   StyleSheet,
-  View,
-  Text,
-  Modal
+  View
 } from "react-native";
 import { useSelector } from "react-redux";
+import { Entypo } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
-import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { patchCommentLike } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
-import love from "../../assets/pngs/love.png";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
 function Answer({ route }) {
-  const [likes, setLikes] = useState([]);
+  const [comment, setComment] = useState("");
+  const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.userReducer);
-  const {
-    category,
-    commentInfo,
-    postContent
-  } = route.params;
+  const { commentInfo } = route.params;
 
   useEffect(() => {
-    setLikes(commentInfo.likes);
+    setComment(commentInfo.content);
+  }, []);
+
+  useEffect(() => {
+    if (commentInfo.likes.includes(user.email)) {
+      setIsCommentLike(true);
+
+      return;
+    }
+
+    setIsCommentLike(false);
   }, []);
 
   const handleCommentLikeClick = async () => {
@@ -49,7 +55,7 @@ function Answer({ route }) {
         console.log("에러발생");
       }
 
-      setLikes(response.commentLikeList);
+      setIsCommentLike((isCommentLike) => !isCommentLike);
     } catch (err) {
       console.log(err.message);
     }
@@ -80,35 +86,27 @@ function Answer({ route }) {
   };
 
   return (
-    <ImageBackground
-      source={backgroundImage}
-      style={styles.backgroundContainer}
-    >
-      <View style={styles.container}>
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <ImageBackground
+        source={backgroundImage}
+        style={styles.backgroundContainer}
+      >
         <Title
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
           text={`${commentInfo.user}님의 답변`}
         />
         <View style={styles.postContentsWrapper}>
-          <ImageBackground
-            style={styles.letterPage}
-            source={letterPage}
-          >
-            <View style={styles.categoryWrapper}>
-              <Category title={category} />
+          <View>
+            <ImageBackground
+              style={styles.letterPage}
+              source={letterPage}
+            >
               <TextInput
-                value={postContent}
-                editable={false}
+                value={comment}
+                editable={commentInfo.user === user.email}
                 isMultiline={true}
-                style={styles.contents}
-              />
-            </View>
-            <View>
-              <TextInput
-                value={commentInfo.content}
-                editable={false}
-                isMultiline={true}
+                handleInputChange={setComment}
                 style={styles.contents}
               />
               <View style={styles.buttonWrapper}>
@@ -118,25 +116,31 @@ function Answer({ route }) {
                   buttonStyle={styles.sendButton}
                   handleClick={handleAddFriendClick}
                 />
-                <Button
-                  image={love}
-                  textStyle={styles.commentText}
-                  buttonStyle={styles.commentLike}
-                  imageStyle={styles.commentImage}
-                  handleClick={handleCommentLikeClick}
-                  text={`${likes.length}쓰담`}
-                />
+                <View style={styles.goodButtonContainer}>
+                  <Entypo
+                    size={25}
+                    color="red"
+                    name={isCommentLike ? "heart" : "heart-outlined"}
+                  />
+                  <Button
+                    textStyle={styles.commentText}
+                    buttonStyle={styles.commentLike}
+                    imageStyle={styles.commentImage}
+                    handleClick={handleCommentLikeClick}
+                    text="쓰담쓰담"
+                  />
+                </View>
               </View>
-            </View>
-          </ImageBackground>
+            </ImageBackground>
+          </View>
         </View>
         <AlertModal
           message={message}
           modalVisable={isModalVisible}
           handleModalVisable={handleModalCloseButton}
         />
-      </View>
-    </ImageBackground>
+      </ImageBackground>
+    </TouchableWithoutFeedback>
   );
 }
 
@@ -153,7 +157,7 @@ const styles = StyleSheet.create({
   },
   postContentsWrapper: {
     width: "90%",
-    marginTop: 10,
+    marginTop: 30,
     borderRadius: 20,
     overflow: "hidden"
   },
@@ -166,13 +170,11 @@ const styles = StyleSheet.create({
     top: "-25%",
     left: "-8%"
   },
-  categoryWrapper: {
-    alignItems: "center",
-    marginTop: 10
-  },
   contents: {
-    height: 200,
-    marginTop: 30
+    height: 530,
+    marginTop: 30,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    fontSize: 25
   },
   letterPage: {
     width: "100%"
@@ -195,11 +197,6 @@ const styles = StyleSheet.create({
     color: "#000000",
     fontSize: 20
   },
-  commentContainer: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 5
-  },
   commentLike: {
     width: "40%",
     flexDirection: "row",
@@ -210,7 +207,7 @@ const styles = StyleSheet.create({
   commentImage: {
     width: 30,
     height: 30,
-    marginRight: 5
+    marginRight: 10
   },
   commentText: {
     fontSize: 18,
