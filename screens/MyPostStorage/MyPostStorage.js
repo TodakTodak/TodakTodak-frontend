@@ -29,14 +29,14 @@ function MyPostStorage() {
     if (activeCategory === "나의 고민들") {
       (async function getPosts() {
         try {
-          const { postsInfo, errorMessage } = await getMyPosts(user.email);
+          const response = await getMyPosts(user.email);
 
-          if (errorMessage) {
-            setErrorMessage(errorMessage);
+          if (response.errorMessage) {
+            setErrorMessage(response.errorMessage);
             return;
           }
 
-          setPosts(postsInfo);
+          setPosts(response.postsInfo);
         } catch (err) {
           console.log("에러발생");
 
@@ -48,14 +48,14 @@ function MyPostStorage() {
     if (activeCategory === "나의 위로들") {
       (async function getComments() {
         try {
-          const { commentsInfo, errorMessage } = await getMyComments(user.email);
+          const response = await getMyComments(user.email);
 
-          if (errorMessage) {
-            setErrorMessage(errorMessage);
+          if (response.errorMessage) {
+            setErrorMessage(response.errorMessage);
             return;
           }
 
-          setComments(commentsInfo);
+          setComments(response.commentsInfo);
         } catch (err) {
           console.log("에러발생");
 
@@ -72,19 +72,12 @@ function MyPostStorage() {
       const {
         _id,
         title,
-        contents,
-        category,
-        comments
+        category
       } = post;
 
-      const handlePostClick = () => {
-        navigation.navigate("DetailPost", {
-          contents,
-          category,
-          comments,
-          inputStyle: styles.postStyle
-        });
-      };
+      const handlePostClick = () => (
+        navigation.navigate("DetailPost", { postId: _id })
+      );
 
       return (
         <PostCard

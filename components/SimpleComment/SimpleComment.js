@@ -5,10 +5,11 @@ import {
   View,
   Text
 } from "react-native";
+import { useSelector } from "react-redux";
+import { Entypo } from "@expo/vector-icons";
 
 import Button from "../Button/Button";
 
-import love from "../../assets/pngs/love.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
 function SimpleComment({
@@ -16,6 +17,8 @@ function SimpleComment({
   handleCommentClick,
   handleLikeIconClick
 }) {
+  const user = useSelector((state) => state.userReducer);
+
   return (
     <TouchableOpacity
       key={postComment._id}
@@ -34,14 +37,20 @@ function SimpleComment({
             }
         </Text>
       </View>
-      <Button
-        image={love}
-        textStyle={styles.commentText}
-        buttonStyle={styles.commentLike}
-        imageStyle={styles.commentImage}
-        handleClick={() => handleLikeIconClick(postComment._id)}
-        text={`${postComment.likes.length} 댓글 쓰담`}
-      />
+      <View style={styles.goodButtonContainer}>
+        <Entypo
+          size={25}
+          color="red"
+          name={postComment.likes.includes(user.email) ? "heart" : "heart-outlined"}
+        />
+        <Button
+          textStyle={styles.commentText}
+          buttonStyle={styles.commentLike}
+          imageStyle={styles.commentImage}
+          handleClick={() => handleLikeIconClick(postComment._id)}
+          text={`댓글 추천: ${postComment.likes.length}번`}
+        />
+      </View>
     </TouchableOpacity>
   );
 }
@@ -51,28 +60,28 @@ const styles = StyleSheet.create({
     width: "90%",
     height: 50,
     minHeight: 50,
-    margin: 5,
+    margin: 10,
     flexDirection: "row",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     backgroundColor: "rgba(255, 255, 255, 0.8)",
     borderRadius: 40
   },
   comment: {
     width: "40%",
+    justifyContent: "space-evenly",
+    paddingLeft: 30
+  },
+  goodButtonContainer: {
+    flexDirection: "row",
     justifyContent: "center",
-    alignItems: "flex-start"
+    alignItems: "center"
   },
   commentLike: {
-    width: "40%",
+    width: "50%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
     backgroundColor: "rgba(0, 0, 0, 0)"
-  },
-  commentImage: {
-    width: 30,
-    height: 30,
-    marginRight: 10
   },
   commentText: {
     fontSize: 20,
