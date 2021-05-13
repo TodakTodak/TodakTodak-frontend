@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
-  ScrollView,
   StyleSheet,
   FlatList,
   View,
   Text
 } from "react-native";
-import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
@@ -17,7 +14,6 @@ import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard
 import { getCategoryPosts } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
-import { NANUM_REGULAR } from "../../constants/font";
 
 function CounselingCenter({ navigation }) {
   const [posts, setPosts] = useState([]);
@@ -76,7 +72,6 @@ function CounselingCenter({ navigation }) {
         handleClick={setpostCategory}
         categoryColor={category.color}
         categoryStyle={styles.categoryStyle}
-        bottomBarStyle={styles.bottomBarStyle}
         categoryContainerStyle={styles.catagoryContainer}
       />
     );
@@ -97,15 +92,15 @@ function CounselingCenter({ navigation }) {
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
         />
-        <ScrollView
+        <View
           style={styles.categoryWrapper}
           horizontal={true}
         >
           {renderCategorys()}
-        </ScrollView>
+        </View>
         <View style={styles.bestPost}>
           <Text style={styles.bestTitle}>
-            {postCategory} 토닥토닥을 많이 받은 고민
+            {postCategory} 카테고리 위로를 많이 받은 고민
           </Text>
           {bestPost &&
             <CategoryPostCard
@@ -121,7 +116,7 @@ function CounselingCenter({ navigation }) {
         </View>
         <FlatList
           onEndReached={() => getCategorys(page)}
-        onEndReachedThreshold={0.9}
+          onEndReachedThreshold={0.9}
           keyExtractor={(item) => item._id}
           styles={styles.postsWrapper}
           data={posts}
@@ -132,7 +127,7 @@ function CounselingCenter({ navigation }) {
               title,
               createdAt,
               isAnonymous,
-              ownerNickname,
+              ownerNickname
             } = item;
 
             const handlePostClick = () => (
@@ -167,15 +162,6 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  titleText: {
-    fontSize: 40
-  },
-  titleImage: {
-    width: 50,
-    height: 50,
-    top: "-45%",
-    left: "27%"
-  },
   categoryWrapper: {
     minHeight: 60,
     maxHeight: 60,
@@ -183,14 +169,10 @@ const styles = StyleSheet.create({
     marginTop: 30
   },
   catagoryContainer: {
-    width: "20%",
-    margin: 1
+    width: "20%"
   },
   categoryStyle: {
     width: "90%"
-  },
-  bottomBarStyle: {
-    width: 90
   },
   postsWrapper: {
     width: "100%",
@@ -203,20 +185,18 @@ const styles = StyleSheet.create({
   },
   bestPostCard: {
     marginTop: 10,
-    marginBottom: 30
+    borderColor: "yellow",
+    borderWidth: 1
   },
   bestPost: {
     width: "100%",
     maxHeight: 200,
-    alignItems: "center",
-    borderColor: "#ffffff",
-    borderBottomWidth: 3
+    alignItems: "center"
   },
   bestTitle: {
     height: 30,
     color: "rgb(235, 255, 0)",
     fontWeight: "bold",
-    fontFamily: NANUM_REGULAR,
     fontSize: 20
   }
 });

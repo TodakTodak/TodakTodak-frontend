@@ -65,7 +65,7 @@ function MyPostStorage({ navigation }) {
 
       return unSubscribe;
     });
-  }, [activeCategory, navigation]);
+  }, [activeCategory]);
 
   const renderMyPosts = () => {
     if (!posts) return;
@@ -186,16 +186,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%"
-  },
-  titleText: {
-    height: 50,
-    fontSize: 40
-  },
-  titleImage: {
-    width: 50,
-    height: 50,
-    top: "-45%",
-    left: "27%"
   },
   categorysWrapper: {
     width: "100%",

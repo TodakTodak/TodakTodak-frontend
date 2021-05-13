@@ -8,8 +8,6 @@ import {
 
 import Button from "../../components/Button/Button";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function AlertModal({
   message,
   textStyles,
@@ -53,8 +51,7 @@ const styles = StyleSheet.create({
     shadowColor: "rgb(50, 50, 50)"
   },
   text: {
-    fontSize: 30,
-    fontFamily: NANUM_REGULAR
+    fontSize: 20
   },
   modalButton: {
     backgroundColor: "rgba(0, 0, 0, 0)"

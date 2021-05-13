@@ -6,8 +6,6 @@ import {
   Text
 } from "react-native";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function PostCard({
   cardStyle,
   textStyle,
@@ -49,8 +47,7 @@ const styles = StyleSheet.create({
     margin: 10,
     color: "#ffffff",
     fontSize: 18,
-    fontWeight: "bold",
-    fontFamily: NANUM_REGULAR
+    fontWeight: "bold"
   }
 });
 

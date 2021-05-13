@@ -7,7 +7,7 @@ import {
   View
 } from "react-native";
 import { useSelector } from "react-redux";
-import { Entypo } from "@expo/vector-icons";
+import { AntDesign } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -19,7 +19,6 @@ import { addFriend } from "../../api/userApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
-import { NANUM_REGULAR } from "../../constants/font";
 
 function Answer({ route }) {
   const [comment, setComment] = useState("");
@@ -110,17 +109,24 @@ function Answer({ route }) {
                 style={styles.contents}
               />
               <View style={styles.buttonWrapper}>
-                <Button
-                  text="친구 추가"
-                  textStyle={styles.buttonText}
-                  buttonStyle={styles.sendButton}
-                  handleClick={handleAddFriendClick}
-                />
                 <View style={styles.goodButtonContainer}>
-                  <Entypo
+                  <AntDesign
                     size={25}
                     color="red"
-                    name={isCommentLike ? "heart" : "heart-outlined"}
+                    name="adduser"
+                  />
+                  <Button
+                    text="친구추가"
+                    textStyle={styles.buttonText}
+                    buttonStyle={styles.sendButton}
+                    handleClick={handleAddFriendClick}
+                  />
+                </View>
+                <View style={styles.goodButtonContainer}>
+                  <AntDesign
+                    size={25}
+                    color="red"
+                    name={isCommentLike ? "like1" : "like2"}
                   />
                   <Button
                     textStyle={styles.commentText}
@@ -174,7 +180,7 @@ const styles = StyleSheet.create({
     height: 530,
     marginTop: 30,
     backgroundColor: "rgba(0, 0, 0, 0)",
-    fontSize: 25
+    fontSize: 20
   },
   letterPage: {
     width: "100%"
@@ -182,8 +188,7 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center",
-    backgroundColor: "#ffffff"
+    alignItems: "center"
   },
   goodButtonContainer: {
     flexDirection: "row",
@@ -191,7 +196,7 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   sendButton: {
-    width: "45%",
+    width: "50%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
@@ -199,7 +204,7 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   commentLike: {
-    width: "40%",
+    width: "48%",
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
@@ -212,7 +217,6 @@ const styles = StyleSheet.create({
   },
   commentText: {
     fontSize: 18,
-    fontFamily: NANUM_REGULAR,
     color: "#000000"
   }
 });

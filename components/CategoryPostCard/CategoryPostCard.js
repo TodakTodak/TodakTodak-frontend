@@ -6,18 +6,14 @@ import {
   Text
 } from "react-native";
 
-import { NANUM_REGULAR } from "../../constants/font";
-
 function CategoryPostCard({
   likes,
   title,
   createdAt,
   cardStyle,
-  textStyle,
   handleClick,
   isAnonymous,
-  ownerNickname,
-  isComment = false
+  ownerNickname
 }) {
   return (
     <TouchableOpacity
@@ -26,20 +22,20 @@ function CategoryPostCard({
     >
       <View style={styles.cardWrapper}>
         <View>
-          <Text style={[ styles.postContent, textStyle ]}>
-            작성자: {isAnonymous ? "익명" : ownerNickname}
+          <Text style={styles.postTitle}>
+            {9 < title.length ? `${title.substring(0, 8)}...` : title}
           </Text>
-          <Text style={[ styles.postContent, textStyle ]}>
-            작성일: {createdAt.substring(0, 10)}
-          </Text>
-        </View>
-        <View>
-          <Text style={[ styles.postContent, textStyle ]}>
-            제목: {9 < title.length ? `${title.substring(0, 8)}...` : title}
-          </Text>
-          <Text style={[ styles.postContent, textStyle ]}>
-            {isComment ? "쓰담" : "토닥"}: {likes.length}
-          </Text>
+          <View style={styles.postContentsWrapper}>
+            <Text style={styles.postContent}>
+              {isAnonymous ? "익명" : ownerNickname}
+            </Text>
+            <Text style={styles.postContent}>
+              {createdAt.substring(0, 10)}
+            </Text>
+            <Text style={styles.postContent}>
+              추천: {likes.length}
+            </Text>
+          </View>
         </View>
       </View>
     </TouchableOpacity>
@@ -49,6 +45,7 @@ function CategoryPostCard({
 const styles = StyleSheet.create({
   postCard: {
     width: "90%",
+    minHeight: 70,
     justifyContent: "center",
     marginTop: 0,
     marginRight: "auto",
@@ -61,15 +58,22 @@ const styles = StyleSheet.create({
   },
   cardWrapper: {
     flexDirection: "row",
-    justifyContent: "space-around"
+    alignItems: "flex-start",
   },
-  postContent: {
+  postTitle: {
     minWidth: "40%",
     margin: 10,
     color: "#ffffff",
     fontSize: 17,
-    fontWeight: "bold",
-    fontFamily: NANUM_REGULAR
+    fontWeight: "bold"
+  },
+  postContentsWrapper: {
+    flexDirection: "row"
+  },
+  postContent: {
+    color: "#ffffff",
+    margin: 10,
+    marginRight: 10
   }
 });
 
