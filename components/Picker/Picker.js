@@ -26,10 +26,11 @@ const styles = StyleSheet.create({
   },
   pickerLabel: {
     position: "absolute",
-    left: 17,
-    top: 15,
+    left: 20,
+    top: 10,
     color: "#000000",
     fontWeight: "bold",
+    fontSize: 20,
     fontFamily: NANUM_REGULAR
   },
   selector: {

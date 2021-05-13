@@ -92,7 +92,7 @@ function WriteWorry() {
           imageStyle={styles.titleImage}
         />
         <Button
-          text="떠나보내기"
+          text="고민 제출하기"
           buttonStyle={styles.sendButton}
           textStyle={styles.buttonText}
           handleClick={handleSubmitButtonClick}

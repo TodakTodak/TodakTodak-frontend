@@ -24,10 +24,10 @@ function SimpleComment({
     >
       <View style={styles.comment}>
         <Text style={styles.commentText}>
-          {`달래꽃: ${postComment.user}`}
+          {`답변자: ${postComment.user}`}
         </Text>
         <Text style={styles.commentText}>
-          {`답변: ${
+          {`내용: ${
               9 < postComment.content.length ?
               `${postComment.content.substring(0, 8)}...` :
               postComment.content}`
@@ -40,7 +40,7 @@ function SimpleComment({
         buttonStyle={styles.commentLike}
         imageStyle={styles.commentImage}
         handleClick={() => handleLikeIconClick(postComment._id)}
-        text={`${postComment.likes.length}쓰담`}
+        text={`${postComment.likes.length} 댓글 쓰담`}
       />
     </TouchableOpacity>
   );
@@ -72,10 +72,10 @@ const styles = StyleSheet.create({
   commentImage: {
     width: 30,
     height: 30,
-    marginRight: 5
+    marginRight: 10
   },
   commentText: {
-    fontSize: 18,
+    fontSize: 20,
     fontFamily: NANUM_REGULAR,
     color: "#000000"
   }

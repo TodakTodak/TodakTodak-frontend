@@ -242,7 +242,9 @@ const styles = StyleSheet.create({
     fontSize: 20
   },
   postStyle: {
-    height: 150
+    height: 520,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    fontSize: 30
   }
 });
 

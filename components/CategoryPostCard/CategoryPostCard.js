@@ -27,7 +27,7 @@ function CategoryPostCard({
       <View style={styles.cardWrapper}>
         <View>
           <Text style={[ styles.postContent, textStyle ]}>
-            달래미: {isAnonymous ? "익명" : ownerNickname}
+            작성자: {isAnonymous ? "익명" : ownerNickname}
           </Text>
           <Text style={[ styles.postContent, textStyle ]}>
             작성일: {createdAt.substring(0, 10)}
