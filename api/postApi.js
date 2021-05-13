@@ -13,8 +13,11 @@ export async function postNewWorryPost(postInfo) {
 }
 
 export async function getMyPosts(userEmail) {
-  const response = await fetch(`${SERVER_URL}/post/${userEmail}`, {
-    method: "GET"
+  const response = await fetch(`${SERVER_URL}/post/user`, {
+    method: "GET",
+    headers: {
+      "usereMail": userEmail
+    }
   });
 
   return await response.json();
@@ -70,6 +73,14 @@ export async function patchPostCommentLike(likeInfo) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify(likeInfo)
+  });
+
+  return await response.json();
+}
+
+export async function getDetailPost(postId) {
+  const response = await fetch(`${SERVER_URL}/post/${postId}`, {
+    method: "GET"
   });
 
   return await response.json();

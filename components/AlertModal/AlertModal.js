@@ -15,13 +15,13 @@ function AlertModal({
   textStyles,
   ModalStyle,
   modalVisable,
-  handleModalVisable
+  handleModalClose
 }) {
 
   return (
     <Modal
       visible={modalVisable}
-      animationType="fade"
+      animationType="slide"
       transparent={true}
     >
       <View style={[styles.friendModal, ModalStyle]}>
@@ -29,10 +29,10 @@ function AlertModal({
           {message}
         </Text>
         <Button
-          handleClick={handleModalVisable}
+          handleClick={handleModalClose}
           buttonStyle={styles.modalButton}
           textStyle={styles.modalButtonText}
-          text="모달 닫기"
+          text="닫기"
         />
       </View>
     </Modal>
@@ -41,15 +41,16 @@ function AlertModal({
 
 const styles = StyleSheet.create({
   friendModal: {
-    width: "90%",
+    width: "60%",
     height: "15%",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "130%",
+    marginTop: "100%",
     marginRight: "auto",
     marginLeft: "auto",
     backgroundColor: "#F9FFB4",
-    borderRadius: 30
+    borderRadius: 30,
+    shadowColor: "rgb(50, 50, 50)"
   },
   text: {
     fontSize: 30,

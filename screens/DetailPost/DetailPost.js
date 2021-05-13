@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,  } from "react";
 import {
   ImageBackground,
   StyleSheet,
   ScrollView,
-  View
+  View,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { Entypo } from "@expo/vector-icons";
@@ -17,46 +17,44 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
   patchPost,
-  patchPostCommentLike
+  patchPostCommentLike,
+  getDetailPost
 } from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route }) {
-  const [content, setContent] = useState("");
+function DetailPost({ route, navigation }) {
+  const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
-  const [postsComments, setPostComments] = useState([]);
   const user = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
-  const {
-    likes,
-    postId,
-    userId,
-    contents,
-    comments,
-    category,
-    postOwner,
-    myComment,
-    inputStyle
-  } = route.params;
+  const { postId } = route.params;
 
   useEffect(() => {
-    setPostComments(comments);
-  }, []);
+    const unsubscribe = navigation.addListener("focus", async () => {
+      try {
+        const response = await getDetailPost(postId);
+
+        if (response.errorMessage) {
+          console.log("에러발생");
+          return;
+        }
+
+        setPostInfo(response.post);
+      } catch (err) {
+        console.log(err.message);
+      }
+    });
+
+    return unsubscribe;
+  }, [navigation]);
 
   useEffect(() => {
-    if (myComment) {
-      setContent(myComment);
-    }
-  }, []);
+    if (postInfo.likes) {
+      const isLikedUser = postInfo.likes.includes(user.email);
 
-  useEffect(() => {
-    if (likes) {
-      if (likes.includes(user.email)) {
-        setIsPostLike(true);
-
-        return;
+      if (isLikedUser) {
+        return setIsPostLike(true);
       }
 
       setIsPostLike(false);
@@ -106,14 +104,16 @@ function DetailPost({ route }) {
         return;
       }
 
-      setPostComments(response.postComments);
+      setPostInfo(response.populatedPost);
     } catch (err) {
       console.log("에러 발생");
     }
   };
 
   const renderComments = () => {
-    return postsComments.map((postComment) =>
+    const postComments = postInfo.comments;
+
+    return postComments.map((postComment) =>
       <SimpleComment
         key={postComment._id}
         postComment={postComment}
@@ -130,26 +130,25 @@ function DetailPost({ route }) {
     >
       <ScrollView style={styles.container} contentContainerStyle="center">
         <View>
-        <Title
-          textStyle={styles.titleText}
-          imageStyle={styles.titleImage}
-          text={userId ? `${postOwner}의 고민` : "나의 고민"}
-        />
-        <View style={styles.postContentsWrapper}>
-          <ImageBackground
-            style={styles.letterPage}
-            source={letterPage}
-          >
-            <View style={styles.categoryWrapper}>
-              <Category title={category} />
-              <TextInput
-                value={contents}
-                editable={false}
-                isMultiline={true}
-                style={[styles.contents, inputStyle]}
-              />
-            </View>
-            {userId &&
+          <Title
+            textStyle={styles.titleText}
+            imageStyle={styles.titleImage}
+            text={`${postInfo.owner}의 고민`}
+          />
+          <View style={styles.postContentsWrapper}>
+            <ImageBackground
+              style={styles.letterPage}
+              source={letterPage}
+            >
+              <View style={styles.categoryWrapper}>
+                <Category title={postInfo.category} />
+                <TextInput
+                  value={postInfo.contents}
+                  editable={user.email === postInfo.owner}
+                  isMultiline={true}
+                  style={styles.contents}
+                />
+              </View>
               <View style={styles.buttonWrapper}>
                 <View style={styles.goodButtonContainer}>
                   <Entypo
@@ -171,11 +170,10 @@ function DetailPost({ route }) {
                   handleClick={handleAddCommentButtonClick}
                 />
               </View>
-            }
-          </ImageBackground>
-        </View>
+            </ImageBackground>
+          </View>
           <View style={styles.commentContainer}>
-            {0 < postsComments.length && renderComments()}
+            {postInfo.comments && renderComments()}
           </View>
         </View>
       </ScrollView>
@@ -213,8 +211,9 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   contents: {
-    height: 400,
-    marginTop: 30
+    height: 550,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    fontSize: 30
   },
   letterPage: {
     width: "100%"
@@ -222,7 +221,8 @@ const styles = StyleSheet.create({
   buttonWrapper: {
     flexDirection: "row",
     justifyContent: "space-around",
-    alignItems: "center"
+    alignItems: "center",
+    backgroundColor: "#ffffff"
   },
   goodButtonContainer: {
     flexDirection: "row",

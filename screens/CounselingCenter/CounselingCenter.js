@@ -19,14 +19,12 @@ import { getCategoryPosts } from "../../api/postApi";
 import backgroundImage from "../../assets/pngs/background.png";
 import { NANUM_REGULAR } from "../../constants/font";
 
-function CounselingCenter() {
+function CounselingCenter({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [page, setPage] = useState(0);
   const [bestPost, setBestPost] = useState(null);
   const [postCategory, setpostCategory] = useState("취업");
   const [errorMessage, setErrorMessage] = useState("");
-  const currentUser = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
 
   const categorys = [
     { title: "취업", color: "rgba(255, 56, 56, 0.3)" },
@@ -85,16 +83,7 @@ function CounselingCenter() {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate("DetailPost", {
-      postId: bestPost._id,
-      likes: bestPost.likes,
-      category: postCategory,
-      userId: currentUser.email,
-      contents: bestPost.contents,
-      comments: bestPost.comments,
-      inputStyle: styles.postStyle,
-      postOwner: bestPost.isAnonymous ? "익명" : bestPost.ownerNickname
-    });
+    navigation.navigate("DetailPost", { postId: bestPost._id });
   };
 
   return (
@@ -132,34 +121,23 @@ function CounselingCenter() {
         </View>
         <FlatList
           onEndReached={() => getCategorys(page)}
-          onEndReachedThreshold={0.9}
+        onEndReachedThreshold={0.9}
           keyExtractor={(item) => item._id}
           styles={styles.postsWrapper}
           data={posts}
-          renderItem={({ item, index }) => {
+          renderItem={({ item }) => {
             const {
               _id,
-              title,
               likes,
-              comments,
-              contents,
+              title,
               createdAt,
               isAnonymous,
-              ownerNickname
+              ownerNickname,
             } = item;
 
-            const handlePostClick = () => {
-              navigation.navigate("DetailPost", {
-                likes,
-                contents,
-                comments,
-                postId: _id,
-                category: postCategory,
-                userId: currentUser.email,
-                inputStyle: styles.postStyle,
-                postOwner: isAnonymous ? "익명" : ownerNickname
-              });
-            };
+            const handlePostClick = () => (
+              navigation.navigate("DetailPost", { postId: _id })
+            );
 
             return (
               <CategoryPostCard
@@ -240,11 +218,6 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     fontFamily: NANUM_REGULAR,
     fontSize: 20
-  },
-  postStyle: {
-    height: 520,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    fontSize: 30
   }
 });
 
