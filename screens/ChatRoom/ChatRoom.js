@@ -28,7 +28,11 @@ function ChatRoom({ route }) {
   const { userEmail, friendEmail } = route.params;
 
   useEffect(() => {
+    const joinUserInfo = { userEmail, friendEmail };
+
     socket = io.connect(SERVER_URL);
+
+    socket.emit("join room", joinUserInfo);
 
     socket.on("receive chat", (data) =>
       setChats((chats) => [...chats, data])
