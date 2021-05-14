@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
   Text,
   View,
@@ -8,6 +8,7 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
@@ -25,10 +26,12 @@ function ChatRoom({ route }) {
   const [comment, setComment] = useState("");
   const [chats, setChats] = useState([]);
   const navigation = useNavigation();
-  const { userNickname, friendNickname, chatRoomId } = route.params;
+  const scrollRef = useRef();
+  const currentUser = useSelector((state) => state.userReducer);
+  const { userNickname, chatRoomId } = route.params;
 
   useEffect(() => {
-    const joinUserInfo = { userNickname, friendNickname };
+    const joinUserInfo = { userNickname, chatRoomId };
 
     socket = io.connect(SERVER_URL);
 
@@ -42,14 +45,27 @@ function ChatRoom({ route }) {
       setChats(data)
     );
 
-    return () => socket.emit("leave user", joinUserInfo);
+    return () => {
+      socket.emit("leave user", joinUserInfo);
+      socket.off("receive chat");
+      socket.off("receive inital chats");
+    };
   }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats]);
+
+  const scrollToBottom = () => (
+    scrollRef.current.scrollToEnd({ animated: true })
+  );
 
   const handleSendChatClick = () => {
     if (socket) {
       const chatInfo = { userNickname, comment, chatRoomId };
 
       socket.emit("send chat", chatInfo);
+      setComment("");
     }
   };
 
@@ -62,9 +78,23 @@ function ChatRoom({ route }) {
       const { createdAt, userNickname, comment } = chat;
 
       return (
-        <View key={createdAt} style={{ flexDirection: "row" }}>
-          <Text>{userNickname}{createdAt}</Text>
-          <Text>{comment}</Text>
+        <View key={createdAt}
+          style={
+            userNickname === currentUser.nickname ?
+              styles.myChatInfo :
+              styles.friendChatInfo
+          }
+        >
+          <Text>{userNickname}</Text>
+          <View
+            style={
+              userNickname === currentUser.nickname ?
+                styles.myChatBox :
+                styles.friendChatBox
+            }
+          >
+            <Text style={styles.chatText}>{comment}</Text>
+          </View>
         </View>
       );
     });
@@ -88,7 +118,11 @@ function ChatRoom({ route }) {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <Title text="소통방" imageStyle={styles.titleImage} />
-          <ScrollView style={styles.contentsWrapper}>
+          <ScrollView
+            ref={scrollRef}
+            onContentSizeChange={scrollToBottom}
+            style={styles.contentsWrapper}
+          >
             {renderChats()}
           </ScrollView>
           <View style={styles.inputWrapper}>
@@ -120,8 +154,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   homeButton: {
+    position: "absolute",
     width: "30%",
-    height: "10%"
+    height: "10%",
+    top: 20,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    zIndex: 1
   },
   homeButtonImage: {
     width: 30,
@@ -132,6 +170,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%"
+  },
+  titleImage: {
+    left: "27%",
   },
   contentsWrapper: {
     flex: 1,
@@ -158,6 +199,42 @@ const styles = StyleSheet.create({
   },
   sendButtonText: {
     fontSize: 15,
+  },
+  myChatInfo: {
+    justifyContent: "flex-end",
+    alignItems: "flex-end",
+    margin: 5,
+    padding: 10
+  },
+  friendChatInfo: {
+    justifyContent: "flex-start",
+    alignItems: "flex-start",
+    margin: 5,
+    padding: 10,
+  },
+  myChatBox: {
+    minWidth: "20%",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "flex-end",
+    marginTop: 5,
+    padding: 5,
+    backgroundColor: "pink",
+    borderRadius: 7
+  },
+  friendChatBox: {
+    minWidth: "20%",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "flex-start",
+    marginTop: 5,
+    padding: 5,
+    backgroundColor: "#BE79DF",
+    borderRadius: 7
+  },
+  chatText: {
+    fontWeight: "bold",
+    color: "black"
   }
 });
 
