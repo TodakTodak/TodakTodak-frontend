@@ -44,8 +44,9 @@ function FriendCard({ friend, user }) {
 
   const handleEnterChatRoomClick = () => {
     navigation.navigate("ChatRoom", {
-      userEmail: user.email,
-      friendEmail: friendInfo.email
+      userNickname: user.nickname,
+      friendNickname: friendInfo.nickname,
+      chatRoomId
     });
   };
 

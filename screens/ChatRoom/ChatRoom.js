@@ -25,10 +25,10 @@ function ChatRoom({ route }) {
   const [comment, setComment] = useState("");
   const [chats, setChats] = useState([]);
   const navigation = useNavigation();
-  const { userEmail, friendEmail } = route.params;
+  const { userNickname, friendNickname, chatRoomId } = route.params;
 
   useEffect(() => {
-    const joinUserInfo = { userEmail, friendEmail };
+    const joinUserInfo = { userNickname, friendNickname };
 
     socket = io.connect(SERVER_URL);
 
@@ -37,11 +37,17 @@ function ChatRoom({ route }) {
     socket.on("receive chat", (data) =>
       setChats((chats) => [...chats, data])
     );
+
+    socket.on("receive inital chats", (data) =>
+      setChats(data)
+    );
+
+    return () => socket.emit("leave user", joinUserInfo);
   }, []);
 
   const handleSendChatClick = () => {
     if (socket) {
-      const chatInfo = { userEmail, comment };
+      const chatInfo = { userNickname, comment, chatRoomId };
 
       socket.emit("send chat", chatInfo);
     }
@@ -53,11 +59,11 @@ function ChatRoom({ route }) {
 
   const renderChats = () => {
     return chats.map((chat) => {
-      const { createdAt, userEmail, comment } = chat;
+      const { createdAt, userNickname, comment } = chat;
 
       return (
         <View key={createdAt} style={{ flexDirection: "row" }}>
-          <Text>{userEmail}{createdAt}</Text>
+          <Text>{userNickname}{createdAt}</Text>
           <Text>{comment}</Text>
         </View>
       );
