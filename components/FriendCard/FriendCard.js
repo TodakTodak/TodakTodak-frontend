@@ -41,7 +41,10 @@ function FriendCard({ friendInfo, user }) {
   }, [friendInfo]);
 
   const handleEnterChatRoomClick = () => {
-    navigation.navigate("ChatRoom");
+    navigation.navigate("ChatRoom", {
+      userEmail: user.email,
+      friendEmail: friendInfo.email
+    });
   };
 
   const acceptFriend = async (friendEmail) => {
@@ -180,18 +183,19 @@ const styles = StyleSheet.create({
   },
   friendStatusText: {
     color: "coral",
-    fontSize: 20
+    fontSize: 15
   },
   buttons: {
+    width: "50%",
     flexDirection: "row"
   },
   friendButton: {
-    width: "25%",
-    minWidth: "25%",
+    width: "20%",
+    minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 15,
     color: "#000000"
   }
 });

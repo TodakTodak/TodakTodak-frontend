@@ -1,24 +1,63 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import {
+  Text,
   View,
   StyleSheet,
+  ScrollView,
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
 
+import { SERVER_URL } from "@env";
+
 import backgroundImage from "../../assets/pngs/background.png";
 import home from "../../assets/pngs/home.png";
 
-function ChatRoom() {
+let socket;
+
+function ChatRoom({ route }) {
+  const [comment, setComment] = useState("");
+  const [chats, setChats] = useState([]);
   const navigation = useNavigation();
+  const { userEmail, friendEmail } = route.params;
+
+  useEffect(() => {
+    socket = io.connect(SERVER_URL);
+
+    socket.on("receive chat", (data) =>
+      setChats((chats) => [...chats, data])
+    );
+  }, []);
+
+  const handleSendChatClick = () => {
+    if (socket) {
+      const chatInfo = { userEmail, comment };
+
+      socket.emit("send chat", chatInfo);
+    }
+  };
 
   const handleHomeButtonClick = () => {
     navigation.navigate("Home");
+  };
+
+  const renderChats = () => {
+    return chats.map((chat) => {
+      const { createdAt, userEmail, comment } = chat;
+
+      return (
+        <View key={createdAt} style={{ flexDirection: "row" }}>
+          <Text>{userEmail}{createdAt}</Text>
+          <Text>{comment}</Text>
+        </View>
+      );
+    });
   };
 
   return (
@@ -39,16 +78,21 @@ function ChatRoom() {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <Title text="소통방" imageStyle={styles.titleImage} />
-          <View style={styles.contentsWrapper}></View>
+          <ScrollView style={styles.contentsWrapper}>
+            {renderChats()}
+          </ScrollView>
           <View style={styles.inputWrapper}>
             <TextInput
-              style={styles.textInput}
+              value={comment}
               placeholder="채팅 치는 창"
+              style={styles.textInput}
+              handleInputChange={setComment}
             />
             <Button
               text="SEND"
               buttonStyle={styles.sendButton}
               textStyle={styles.sendButtonText}
+              handleClick={handleSendChatClick}
             />
           </View>
         </KeyboardAvoidingView>
@@ -103,7 +147,7 @@ const styles = StyleSheet.create({
     minHeight: 45
   },
   sendButtonText: {
-    fontSize: 20,
+    fontSize: 15,
   }
 });
 
