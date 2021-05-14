@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   Keyboard,
@@ -6,7 +6,6 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
 
 import Button from "../../components/Button/Button";
@@ -19,14 +18,25 @@ import { postNewWorryPost } from "../../api/postApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry() {
+function WriteWorry({ navigation }) {
   const [postType, setPostType] = useState("");
   const [anonymousType, setAnonymousType] = useState("");
   const [category, setCategory] = useState("");
   const [worryContents, setWorryContents] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const user = useSelector((state) => state.userReducer);
-  const navigation = useNavigation();
+
+  useEffect(() => {
+    const unSubscribe = navigation.addListener("focus", () => {
+      setPostType("");
+      setAnonymousType("");
+      setCategory("");
+      setWorryContents("");
+      setPostTitle("");
+    });
+
+    return unSubscribe;
+  }, [navigation]);
 
   const postTypes = [
     { label: "Public", value: "Public" },
@@ -122,16 +132,19 @@ function WriteWorry() {
                 handleChange={handlePostPickerChange}
                 itemList={postTypes}
                 label="공개 여부"
+                value={postType}
               />
               <Picker
                 handleChange={handleAnonymousePickerChange}
                 itemList={anonymousTypes}
                 label="익명 여부"
+                value={anonymousType}
               />
               <Picker
                 handleChange={handleCategoryPickerChange}
                 itemList={categoryTypes}
                 label="고민 카테고리"
+                value={category}
               />
             </ImageBackground>
           </View>

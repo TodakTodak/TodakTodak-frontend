@@ -68,7 +68,7 @@ function Friends() {
     return friendList.map((friend, index) =>
       <FriendCard
         key={index}
-        friendInfo={friend} user={user}
+        friend={friend} user={user}
       />
     )};
 

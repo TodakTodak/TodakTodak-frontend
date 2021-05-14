@@ -1,24 +1,95 @@
-import React from "react";
+import React, { useEffect, useState, useRef } from "react";
 import {
+  Text,
   View,
   StyleSheet,
+  ScrollView,
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
+import ChatLog from "../../components/ChatLog/ChatLog";
+
+import { SERVER_URL } from "@env";
 
 import backgroundImage from "../../assets/pngs/background.png";
 import home from "../../assets/pngs/home.png";
 
-function ChatRoom() {
+let socket;
+
+function ChatRoom({ route }) {
+  const [comment, setComment] = useState("");
+  const [chats, setChats] = useState([]);
   const navigation = useNavigation();
+  const scrollRef = useRef();
+  const { userNickname, chatRoomId } = route.params;
+
+  useEffect(() => {
+    const joinUserInfo = { userNickname, chatRoomId };
+
+    socket = io.connect(SERVER_URL);
+
+    socket.emit("join room", joinUserInfo);
+
+    socket.on("receive chat", (data) =>
+      setChats((chats) => [...chats, data])
+    );
+
+    socket.on("receive inital chats", (data) =>
+      setChats(data)
+    );
+
+    return () => {
+      socket.emit("leave user", joinUserInfo);
+      socket.off("receive chat");
+      socket.off("receive inital chats");
+    };
+  }, []);
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [chats]);
+
+  const scrollToBottom = () => (
+    scrollRef.current.scrollToEnd({ animated: true })
+  );
+
+  const handleSendChatClick = () => {
+    if (socket) {
+      const chatInfo = {
+        userNickname,
+        comment: comment.trim(),
+        chatRoomId
+      };
+
+      if (!comment) return;
+
+      socket.emit("send chat", chatInfo);
+      setComment("");
+    }
+  };
 
   const handleHomeButtonClick = () => {
     navigation.navigate("Home");
+  };
+
+  const renderChats = () => {
+    return chats.map((chat) => {
+      const { createdAt, userNickname, comment } = chat;
+
+      return (
+        <ChatLog
+          key={createdAt}
+          comment={comment}
+          userNickname={userNickname}
+        />
+      );
+    });
   };
 
   return (
@@ -39,16 +110,25 @@ function ChatRoom() {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <Title text="소통방" imageStyle={styles.titleImage} />
-          <View style={styles.contentsWrapper}></View>
+          <ScrollView
+            ref={scrollRef}
+            onContentSizeChange={scrollToBottom}
+            style={styles.contentsWrapper}
+          >
+            {renderChats()}
+          </ScrollView>
           <View style={styles.inputWrapper}>
             <TextInput
-              style={styles.textInput}
+              value={comment}
               placeholder="채팅 치는 창"
+              style={styles.textInput}
+              handleInputChange={setComment}
             />
             <Button
               text="SEND"
               buttonStyle={styles.sendButton}
               textStyle={styles.sendButtonText}
+              handleClick={handleSendChatClick}
             />
           </View>
         </KeyboardAvoidingView>
@@ -66,8 +146,12 @@ const styles = StyleSheet.create({
     flex: 1
   },
   homeButton: {
+    position: "absolute",
     width: "30%",
-    height: "10%"
+    height: "10%",
+    top: 20,
+    backgroundColor: "rgba(0, 0, 0, 0)",
+    zIndex: 1
   },
   homeButtonImage: {
     width: 30,
@@ -78,6 +162,9 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "100%",
     height: "100%"
+  },
+  titleImage: {
+    left: "27%",
   },
   contentsWrapper: {
     flex: 1,
@@ -103,7 +190,7 @@ const styles = StyleSheet.create({
     minHeight: 45
   },
   sendButtonText: {
-    fontSize: 20,
+    fontSize: 15,
   }
 });
 

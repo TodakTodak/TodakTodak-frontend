@@ -16,12 +16,14 @@ import {
 
 import avatar from "../../assets/pngs/avatar.png";
 
-function FriendCard({ friendInfo, user }) {
+function FriendCard({ friend, user }) {
   const [friendStatus, setFriendStatus] = useState("");
   const navigation = useNavigation();
 
+  const { friendInfo, chatRoomId, status } = friend;
+
   useEffect(() => {
-    switch (friendInfo.status) {
+    switch (status) {
       case "SendPending":
         setFriendStatus("대기 중");
         break;
@@ -38,10 +40,13 @@ function FriendCard({ friendInfo, user }) {
         setFriendStatus("친구");
         break;
     }
-  }, [friendInfo]);
+  }, [friend]);
 
   const handleEnterChatRoomClick = () => {
-    navigation.navigate("ChatRoom");
+    navigation.navigate("ChatRoom", {
+      userNickname: user.nickname,
+      chatRoomId
+    });
   };
 
   const acceptFriend = async (friendEmail) => {
@@ -90,7 +95,7 @@ function FriendCard({ friendInfo, user }) {
 
   return (
     <View
-      key={friendInfo.nickname ? friendInfo.nickname : friendInfo.userId.nickname}
+      key={friendInfo.nickname}
       style={styles.friend}
     >
       <View style={styles.friendInfoWrapper}>
@@ -98,7 +103,7 @@ function FriendCard({ friendInfo, user }) {
         <View style={styles.friendInfo}>
           <Text style={styles.friendName}>
             {friendStatus === "대기 중:" ? "요청 친구:" : ""}{" "}
-            {friendInfo.userId ? friendInfo.userId.nickname : friendInfo.nickname}
+            {friendInfo.nickname}
           </Text>
           {friendStatus !== "친구" &&
             <Text style={styles.friendStatusText}>{friendStatus}</Text>
@@ -111,13 +116,13 @@ function FriendCard({ friendInfo, user }) {
             text="수락"
             textStyle={styles.buttonText}
             buttonStyle={styles.friendButton}
-            handleClick={() => acceptFriend(friendInfo.userId.email)}
+            handleClick={() => acceptFriend(friendInfo.email)}
           />
           <Button
             text="거절"
             textStyle={styles.buttonText}
             buttonStyle={styles.friendButton}
-            handleClick={() => rejectFriend(friendInfo.userId.email)}
+            handleClick={() => rejectFriend(friendInfo.email)}
           />
         </View>
       }
@@ -127,7 +132,7 @@ function FriendCard({ friendInfo, user }) {
             text="삭제"
             buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
-            handleClick={() => rejectFriend(friendInfo.userId.email)}
+            handleClick={() => rejectFriend(friendInfo.email)}
           />
         </View>
       }
@@ -180,18 +185,19 @@ const styles = StyleSheet.create({
   },
   friendStatusText: {
     color: "coral",
-    fontSize: 20
+    fontSize: 15
   },
   buttons: {
+    width: "50%",
     flexDirection: "row"
   },
   friendButton: {
-    width: "25%",
-    minWidth: "25%",
+    width: "20%",
+    minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
-    fontSize: 20,
+    fontSize: 15,
     color: "#000000"
   }
 });

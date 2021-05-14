@@ -2,7 +2,12 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import PickerSelect from "react-native-picker-select";
 
-function Picker({ handleChange, itemList, label }) {
+function Picker({
+  handleChange,
+  itemList,
+  label,
+  value
+}) {
   return (
     <View style={styles.pickerContainer}>
       <Text style={styles.pickerLabel}>
@@ -10,6 +15,7 @@ function Picker({ handleChange, itemList, label }) {
       </Text>
       <View style={styles.selector}>
         <PickerSelect
+          value={value}
           onValueChange={(value) => handleChange(value)}
           items={itemList}
         />

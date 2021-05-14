@@ -4,7 +4,8 @@ import {
   ImageBackground,
   Keyboard,
   StyleSheet,
-  View
+  View,
+  ScrollView
 } from "react-native";
 import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
@@ -90,6 +91,7 @@ function Answer({ route }) {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
+        <ScrollView>
         <Title
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
@@ -140,6 +142,7 @@ function Answer({ route }) {
             </ImageBackground>
           </View>
         </View>
+        </ScrollView>
         <AlertModal
           message={message}
           modalVisable={isModalVisible}
