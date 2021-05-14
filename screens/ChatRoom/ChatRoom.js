@@ -8,12 +8,12 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import { useSelector } from "react-redux";
 import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
+import ChatLog from "../../components/ChatLog/ChatLog";
 
 import { SERVER_URL } from "@env";
 
@@ -27,7 +27,6 @@ function ChatRoom({ route }) {
   const [chats, setChats] = useState([]);
   const navigation = useNavigation();
   const scrollRef = useRef();
-  const currentUser = useSelector((state) => state.userReducer);
   const { userNickname, chatRoomId } = route.params;
 
   useEffect(() => {
@@ -62,7 +61,13 @@ function ChatRoom({ route }) {
 
   const handleSendChatClick = () => {
     if (socket) {
-      const chatInfo = { userNickname, comment, chatRoomId };
+      const chatInfo = {
+        userNickname,
+        comment: comment.trim(),
+        chatRoomId
+      };
+
+      if (!comment) return;
 
       socket.emit("send chat", chatInfo);
       setComment("");
@@ -78,24 +83,11 @@ function ChatRoom({ route }) {
       const { createdAt, userNickname, comment } = chat;
 
       return (
-        <View key={createdAt}
-          style={
-            userNickname === currentUser.nickname ?
-              styles.myChatInfo :
-              styles.friendChatInfo
-          }
-        >
-          <Text>{userNickname}</Text>
-          <View
-            style={
-              userNickname === currentUser.nickname ?
-                styles.myChatBox :
-                styles.friendChatBox
-            }
-          >
-            <Text style={styles.chatText}>{comment}</Text>
-          </View>
-        </View>
+        <ChatLog
+          key={createdAt}
+          comment={comment}
+          userNickname={userNickname}
+        />
       );
     });
   };
@@ -199,42 +191,6 @@ const styles = StyleSheet.create({
   },
   sendButtonText: {
     fontSize: 15,
-  },
-  myChatInfo: {
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-    margin: 5,
-    padding: 10
-  },
-  friendChatInfo: {
-    justifyContent: "flex-start",
-    alignItems: "flex-start",
-    margin: 5,
-    padding: 10,
-  },
-  myChatBox: {
-    minWidth: "20%",
-    height: 30,
-    justifyContent: "center",
-    alignItems: "flex-end",
-    marginTop: 5,
-    padding: 5,
-    backgroundColor: "pink",
-    borderRadius: 7
-  },
-  friendChatBox: {
-    minWidth: "20%",
-    height: 30,
-    justifyContent: "center",
-    alignItems: "flex-start",
-    marginTop: 5,
-    padding: 5,
-    backgroundColor: "#BE79DF",
-    borderRadius: 7
-  },
-  chatText: {
-    fontWeight: "bold",
-    color: "black"
   }
 });
 
