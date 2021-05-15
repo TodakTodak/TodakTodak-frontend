@@ -5,7 +5,7 @@ import AuthStackNavigation from "../AuthStackNavigation/AuthStackNavigation";
 import UserScreenNavigation from "../UserScreenNavigation/UserScreenNavigation";
 
 function MainStackNavigation() {
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   return (
     <>

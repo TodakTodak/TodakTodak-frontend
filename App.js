@@ -3,7 +3,7 @@ import { Provider } from "react-redux";
 
 import MainStackNavigation from "./navigations/MainStackNavigation/MainStackNavigation";
 
-import store from "./reducers/store";
+import store from "./redux/store";
 
 function App() {
   return (
