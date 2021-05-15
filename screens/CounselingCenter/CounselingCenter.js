@@ -9,6 +9,7 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
+import Loading from "../../screens/Loading/Loading";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
@@ -159,55 +160,62 @@ function CounselingCenter({ navigation }) {
         >
           {renderCategorys()}
         </View>
-        <View style={styles.bestPost}>
-          <Text style={styles.bestTitle}>
-            {postCategory} 카테고리 위로를 많이 받은 고민
-          </Text>
-          {bestPost[postCategory] &&
-            <CategoryPostCard
-              title={bestPost[postCategory].title}
-              likes={bestPost[postCategory].likes}
-              createdAt={bestPost[postCategory].createdAt}
-              cardStyle={styles.bestPostCard}
-              handleClick={handleBestPostClick}
-              isAnonymous={bestPost[postCategory].isAnonymous}
-              ownerNickname={bestPost[postCategory].ownerNickname}
+        {isLoading && !isFetched[postCategory] ?
+          <View style={styles.loadingWrapper}>
+            <Loading style={styles.loading} />
+          </View> :
+          <>
+            <View style={styles.bestPost}>
+              <Text style={styles.bestTitle}>
+                {postCategory} 카테고리 위로를 많이 받은 고민
+              </Text>
+              {bestPost[postCategory] &&
+                <CategoryPostCard
+                  cardStyle={styles.bestPostCard}
+                  handleClick={handleBestPostClick}
+                  title={bestPost[postCategory].title}
+                  likes={bestPost[postCategory].likes}
+                  createdAt={bestPost[postCategory].createdAt}
+                  isAnonymous={bestPost[postCategory].isAnonymous}
+                  ownerNickname={bestPost[postCategory].ownerNickname}
+                />
+              }
+            </View>
+            <FlatList
+              onEndReached={getCategorys}
+              onEndReachedThreshold={0.9}
+              keyExtractor={(item) => item._id}
+              styles={styles.postsWrapper}
+              data={post[postCategory]}
+              renderItem={({ item }) => {
+                const {
+                  _id,
+                  likes,
+                  title,
+                  createdAt,
+                  isAnonymous,
+                  ownerNickname
+                } = item;
+
+                const handlePostClick = () => (
+                  navigation.navigate("DetailPost", { postId: _id })
+                );
+
+                return (
+                  <CategoryPostCard
+                    key={_id}
+                    likes={likes}
+                    title={title}
+                    createdAt={createdAt}
+                    isAnonymous={isAnonymous}
+                    handleClick={handlePostClick}
+                    ownerNickname={ownerNickname}
+                  />
+                );
+              }}
             />
-          }
-        </View>
-        <FlatList
-          onEndReached={getCategorys}
-          onEndReachedThreshold={0.9}
-          keyExtractor={(item) => item._id}
-          styles={styles.postsWrapper}
-          data={post[postCategory]}
-          renderItem={({ item }) => {
-            const {
-              _id,
-              likes,
-              title,
-              createdAt,
-              isAnonymous,
-              ownerNickname
-            } = item;
-
-            const handlePostClick = () => (
-              navigation.navigate("DetailPost", { postId: _id })
-            );
-
-            return (
-              <CategoryPostCard
-                key={_id}
-                likes={likes}
-                title={title}
-                createdAt={createdAt}
-                isAnonymous={isAnonymous}
-                handleClick={handlePostClick}
-                ownerNickname={ownerNickname}
-              />
-            );
-          }}
-        />
+          </>
+        }
       </View>
     </ImageBackground>
   );
@@ -259,6 +267,14 @@ const styles = StyleSheet.create({
     color: "rgb(235, 255, 0)",
     fontWeight: "bold",
     fontSize: 20
+  },
+  loadingWrapper: {
+    width: "80%",
+    height: "80%",
+    marginLeft: 30
+  },
+  loading: {
+    backgroundColor: "rgba(0, 0, 0, 0)"
   }
 });
 

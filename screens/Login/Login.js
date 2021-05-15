@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
+import Loading from "../Loading/Loading";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -26,6 +27,10 @@ function Login() {
 
     dispatch(fetchLogin(userInfo));
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <ImageBackground
