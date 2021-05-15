@@ -6,21 +6,36 @@ import {
   View,
   Text
 } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 
 import Title from "../../components/Title/Title";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
-import { getCategoryPosts } from "../../api/postApi";
+import {
+  fetchEmploymentPosts,
+  fetchCoursePosts,
+  fetchFriendPosts,
+  fetchLovePosts,
+  fetchPainPosts,
+} from "../../redux/categoryPostSlice";
+
+import { categoryPostSlice } from "../../redux/categoryPostSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 function CounselingCenter({ navigation }) {
-  const [posts, setPosts] = useState([]);
-  const [page, setPage] = useState(0);
-  const [bestPost, setBestPost] = useState(null);
-  const [postCategory, setpostCategory] = useState("취업");
-  const [errorMessage, setErrorMessage] = useState("");
+  const [page, setPage] = useState(1);
+  const [postCategory, setPostCategory] = useState("취업");
+
+  const {
+    post,
+    message,
+    bestPost,
+    isLoading,
+    isFetched
+  } = useSelector((state) => state.post);
+  const dispatch = useDispatch();
 
   const categorys = [
     { title: "취업", color: "rgba(56, 136, 255, 0.3)" },
@@ -31,37 +46,83 @@ function CounselingCenter({ navigation }) {
   ];
 
   useEffect(() => {
-    setPage(0);
-    getCategorys();
+    const unSubscribe = navigation.addListener("focus" , () => {
+      const initialCategoryInfo = {
+        category: postCategory,
+        page: 0
+      };
+
+      setPage(0);
+      dispatch(categoryPostSlice.actions.resetPostState());
+      dispatch(fetchEmploymentPosts(initialCategoryInfo));
+    });
+
+    return unSubscribe;
+  }, []);
+
+  useEffect(() => {
+    const categoryInfo = {
+      category: postCategory,
+      page: 0
+    };
+
+    if (!isFetched[postCategory]) {
+      switch (postCategory) {
+        case "사랑":
+          dispatch(fetchLovePosts(categoryInfo));
+          break;
+
+        case "진로":
+          dispatch(fetchCoursePosts(categoryInfo));
+          break;
+
+        case "친구":
+          dispatch(fetchFriendPosts(categoryInfo));
+          break;
+
+        case "고통":
+          dispatch(fetchPainPosts(categoryInfo));
+          break;
+
+        default:
+          break;
+      }
+    }
   }, [postCategory]);
 
-  async function getCategorys(page = 0) {
-    try {
-      const {
-        errorMessage,
-        categoryPosts,
-        highestLikesPost
-      } = await getCategoryPosts(postCategory, page);
+  const getCategorys = () => {
+    const categoryInfo = {
+      category: postCategory,
+      page,
+    };
 
-      if (errorMessage) {
-        setErrorMessage(errorMessage);
-        return;
-      }
+    switch (postCategory) {
+      case "취업":
+        dispatch(fetchEmploymentPosts(categoryInfo));
+        break;
 
-      if (!page) {
-        setPosts(categoryPosts);
-        setBestPost(highestLikesPost);
-      } else {
-        setPosts([ ...posts, ...categoryPosts ]);
-      }
+      case "사랑":
+        dispatch(fetchLovePosts(categoryInfo));
+        break;
 
-      setPage((page) => page + 1);
-    } catch (err) {
-      console.log(err.message, "에러 터짐");
+      case "진로":
+        dispatch(fetchCoursePosts(categoryInfo));
+        break;
 
-      setErrorMessage("포스트를 가져오는데 실패했습니다");
+      case "친구":
+        dispatch(fetchFriendPosts(categoryInfo));
+        break;
+
+      case "고통":
+        dispatch(fetchPainPosts(categoryInfo));
+        break;
+
+      default:
+        break;
     }
-  }
+
+    setPage((page) => page + 1);
+  };
 
   const renderCategorys = () => {
     return categorys.map((category) =>
@@ -69,7 +130,7 @@ function CounselingCenter({ navigation }) {
         key={category.title}
         title={category.title}
         focusValue={postCategory}
-        handleClick={setpostCategory}
+        handleClick={setPostCategory}
         categoryColor={category.color}
         categoryStyle={styles.categoryStyle}
         categoryContainerStyle={styles.catagoryContainer}
@@ -78,7 +139,7 @@ function CounselingCenter({ navigation }) {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate("DetailPost", { postId: bestPost._id });
+    navigation.navigate("DetailPost", { postId: bestPost[postCategory]._id });
   };
 
   return (
@@ -102,24 +163,24 @@ function CounselingCenter({ navigation }) {
           <Text style={styles.bestTitle}>
             {postCategory} 카테고리 위로를 많이 받은 고민
           </Text>
-          {bestPost &&
+          {bestPost[postCategory] &&
             <CategoryPostCard
-              title={bestPost.title}
-              likes={bestPost.likes}
-              createdAt={bestPost.createdAt}
+              title={bestPost[postCategory].title}
+              likes={bestPost[postCategory].likes}
+              createdAt={bestPost[postCategory].createdAt}
               cardStyle={styles.bestPostCard}
               handleClick={handleBestPostClick}
-              isAnonymous={bestPost.isAnonymous}
-              ownerNickname={bestPost.ownerNickname}
+              isAnonymous={bestPost[postCategory].isAnonymous}
+              ownerNickname={bestPost[postCategory].ownerNickname}
             />
           }
         </View>
         <FlatList
-          onEndReached={() => getCategorys(page)}
+          onEndReached={getCategorys}
           onEndReachedThreshold={0.9}
           keyExtractor={(item) => item._id}
           styles={styles.postsWrapper}
-          data={posts}
+          data={post[postCategory]}
           renderItem={({ item }) => {
             const {
               _id,

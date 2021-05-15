@@ -15,7 +15,7 @@ function SimpleComment({
   handleCommentClick,
   handleLikeIconClick
 }) {
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   return (
     <TouchableOpacity

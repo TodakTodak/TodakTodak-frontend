@@ -26,7 +26,7 @@ function Answer({ route }) {
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [message, setMessage] = useState("");
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
   const { commentInfo } = route.params;
 
   useEffect(() => {

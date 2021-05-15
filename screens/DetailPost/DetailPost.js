@@ -26,7 +26,7 @@ import backgroundImage from "../../assets/pngs/background.png";
 function DetailPost({ route, navigation }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
   const { postId } = route.params;
 
   useEffect(() => {

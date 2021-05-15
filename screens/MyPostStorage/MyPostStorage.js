@@ -21,7 +21,7 @@ function MyPostStorage({ navigation }) {
   const [comments, setComments] = useState([]);
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
   const [errorMessage, setErrorMessage] = useState("");
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus", () => {

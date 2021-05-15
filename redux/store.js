@@ -3,9 +3,11 @@ import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
 
 import { userSlice } from "./userSlice";
+import { categoryPostSlice } from "./categoryPostSlice";
 
 const reducer = {
-  user: userSlice.reducer
+  user: userSlice.reducer,
+  post: categoryPostSlice.reducer
 };
 
 const middleware = [thunk, createLogger()];

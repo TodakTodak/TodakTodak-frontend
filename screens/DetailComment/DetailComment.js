@@ -21,7 +21,7 @@ import backgroundImage from "../../assets/pngs/background.png";
 function DetailComment({ route }) {
   const [content, setContent] = useState("");
   const [isPostLike, setIsPostLike] = useState(false);
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
   const navigation = useNavigation();
   const {
     likes,
