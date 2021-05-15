@@ -10,7 +10,7 @@ function ChatLog({
   comment,
   userNickname,
 }) {
-  const currentUser = useSelector((state) => state.userReducer);
+  const currentUser = useSelector((state) => state.user);
 
   return (
     <View

@@ -24,7 +24,7 @@ function WriteWorry({ navigation }) {
   const [category, setCategory] = useState("");
   const [worryContents, setWorryContents] = useState("");
   const [postTitle, setPostTitle] = useState("");
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus", () => {

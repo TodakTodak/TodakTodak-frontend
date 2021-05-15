@@ -22,7 +22,7 @@ function Friends() {
   const [friendList, setFriendList] = useState([]);
   const [activeCategory, setActiveCategory] = useState("나의 인연들");
   const [errorMessage, setErrorMessage] = useState("");
-  const user = useSelector((state) => state.userReducer);
+  const user = useSelector((state) => state.user);
 
   useEffect(() => {
     if (activeCategory === "나의 인연들") {

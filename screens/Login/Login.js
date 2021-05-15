@@ -4,7 +4,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
@@ -12,17 +12,19 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-import { userLogin } from "../../actions/userActions";
+import { fetchLogin } from "../../redux/userSlice";
 
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+
+  const { isLoading } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleLoginClick = () => {
     const userInfo = { email, password };
 
-    dispatch(userLogin(userInfo));
+    dispatch(fetchLogin(userInfo));
   };
 
   return (
