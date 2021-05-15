@@ -8,9 +8,19 @@ import { useSelector } from "react-redux";
 
 function ChatLog({
   comment,
+  createdAt,
   userNickname,
+  systemMessage
 }) {
   const currentUser = useSelector((state) => state.user);
+
+  if (systemMessage) {
+    return (
+      <View style={styles.systemMessage}>
+        <Text>{systemMessage}</Text>
+      </View>
+    );
+  }
 
   return (
     <View
@@ -20,7 +30,9 @@ function ChatLog({
           styles.friendChatInfo
       }
     >
-      <Text>{userNickname}</Text>
+      <Text style={styles.nickname}>
+        {userNickname}
+      </Text>
       <View
         style={
           userNickname === currentUser.nickname ?
@@ -28,7 +40,12 @@ function ChatLog({
             styles.friendChatBox
         }
       >
-        <Text style={styles.chatText}>{comment}</Text>
+        <Text style={styles.chatText}>
+          {comment}
+        </Text>
+        <Text style={styles.chatDate}>
+          {Date(createdAt).substring(16, 21)}
+        </Text>
       </View>
     </View>
   );
@@ -47,29 +64,41 @@ const styles = StyleSheet.create({
     margin: 5,
     padding: 10,
   },
+  nickname: {
+    fontSize: 15,
+    fontWeight: "bold"
+  },
   myChatBox: {
     minWidth: "20%",
-    height: 30,
-    justifyContent: "center",
+    minHeight: 40,
+    justifyContent: "flex-start",
     alignItems: "flex-end",
     marginTop: 5,
-    padding: 5,
-    backgroundColor: "pink",
+    padding: 10,
+    backgroundColor: "yellow",
     borderRadius: 7
   },
   friendChatBox: {
     minWidth: "20%",
-    height: 30,
+    minHeight: 40,
     justifyContent: "center",
     alignItems: "flex-start",
     marginTop: 5,
     padding: 5,
-    backgroundColor: "#BE79DF",
+    backgroundColor: "#FBCFFC",
     borderRadius: 7
   },
   chatText: {
+    fontSize: 15,
     fontWeight: "bold",
     color: "black"
+  },
+  chatDate: {
+    fontSize: 10
+  },
+  systemMessage: {
+    alignItems: "center",
+    fontWeight: "bold"
   }
 });
 

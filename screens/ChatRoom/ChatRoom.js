@@ -43,10 +43,20 @@ function ChatRoom({ route }) {
       setChats(data)
     );
 
+    socket.on("join user message", (data) =>
+      setChats((chats) => [...chats, data])
+    );
+
+    socket.on("leave user message", (data) =>
+      setChats((chats) => [...chats, data])
+    );
+
     return () => {
       socket.emit("leave user", joinUserInfo);
       socket.off("receive chat");
       socket.off("receive inital chats");
+      socket.off("join user message");
+      socket.off("leave user message");
     };
   }, []);
 
@@ -79,13 +89,20 @@ function ChatRoom({ route }) {
 
   const renderChats = () => {
     return chats.map((chat) => {
-      const { createdAt, userNickname, comment } = chat;
+      const {
+        comment,
+        createdAt,
+        userNickname,
+        systemMessage
+      } = chat;
 
       return (
         <ChatLog
           key={createdAt}
           comment={comment}
+          createdAt={createdAt}
           userNickname={userNickname}
+          systemMessage={systemMessage}
         />
       );
     });
