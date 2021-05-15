@@ -3,6 +3,7 @@ import {
   View,
   Keyboard,
   StyleSheet,
+  ScrollView,
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
@@ -98,7 +99,7 @@ function WriteWorry({ navigation }) {
       style={styles.backgroundContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Title
             text="고민 작성소"
             textStyle={styles.titleText}
@@ -148,7 +149,7 @@ function WriteWorry({ navigation }) {
               />
             </ImageBackground>
           </View>
-        </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </ImageBackground>
   );

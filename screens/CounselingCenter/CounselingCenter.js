@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
+  RefreshControl,
+  ScrollView,
   StyleSheet,
   FlatList,
+  Image,
   View,
   Text
 } from "react-native";
@@ -23,6 +26,7 @@ import {
 
 import { categoryPostSlice } from "../../redux/categoryPostSlice";
 
+import emptyBox from "../../assets/pngs/emptyBox.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function CounselingCenter({ navigation }) {
@@ -48,12 +52,13 @@ function CounselingCenter({ navigation }) {
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus" , () => {
+      setPostCategory("취업");
       const initialCategoryInfo = {
-        category: postCategory,
+        category: "취업",
         page: 0
       };
 
-      setPage(0);
+      setPage(1);
       dispatch(categoryPostSlice.actions.resetPostState());
       dispatch(fetchEmploymentPosts(initialCategoryInfo));
     });
@@ -181,39 +186,79 @@ function CounselingCenter({ navigation }) {
                 />
               }
             </View>
-            <FlatList
-              onEndReached={getCategorys}
-              onEndReachedThreshold={0.9}
-              keyExtractor={(item) => item._id}
-              styles={styles.postsWrapper}
-              data={post[postCategory]}
-              renderItem={({ item }) => {
-                const {
-                  _id,
-                  likes,
-                  title,
-                  createdAt,
-                  isAnonymous,
-                  ownerNickname
-                } = item;
+            {0 < post[postCategory].length ?
+              <FlatList
+                refreshControl={
+                  <RefreshControl
+                    onRefresh={() => {
+                      setPostCategory(postCategory);
+                      const initialCategoryInfo = {
+                        category: postCategory,
+                        page: 0
+                      };
 
-                const handlePostClick = () => (
-                  navigation.navigate("DetailPost", { postId: _id })
-                );
-
-                return (
-                  <CategoryPostCard
-                    key={_id}
-                    likes={likes}
-                    title={title}
-                    createdAt={createdAt}
-                    isAnonymous={isAnonymous}
-                    handleClick={handlePostClick}
-                    ownerNickname={ownerNickname}
+                      setPage(1);
+                      dispatch(categoryPostSlice.actions.resetPostState());
+                      dispatch(fetchEmploymentPosts(initialCategoryInfo));
+                    }}
                   />
-                );
-              }}
-            />
+                }
+                onEndReached={getCategorys}
+                onEndReachedThreshold={0.9}
+                keyExtractor={(item) => item._id}
+                styles={styles.postsWrapper}
+                data={post[postCategory]}
+                renderItem={({ item }) => {
+                  const {
+                    _id,
+                    likes,
+                    title,
+                    createdAt,
+                    isAnonymous,
+                    ownerNickname
+                  } = item;
+
+                  const handlePostClick = () => (
+                    navigation.navigate("DetailPost", { postId: _id })
+                  );
+
+                  return (
+                    <CategoryPostCard
+                      key={_id}
+                      likes={likes}
+                      title={title}
+                      createdAt={createdAt}
+                      isAnonymous={isAnonymous}
+                      handleClick={handlePostClick}
+                      ownerNickname={ownerNickname}
+                    />
+                  );
+                }}
+              /> :
+              <ScrollView
+                contentContainerStyle={styles.emptyContainer}
+                refreshControl={
+                  <RefreshControl
+                    onRefresh={() => {
+                      setPostCategory(postCategory);
+                      const initialCategoryInfo = {
+                        category: postCategory,
+                        page: 0
+                      };
+
+                      setPage(1);
+                      dispatch(categoryPostSlice.actions.resetPostState());
+                      dispatch(fetchEmploymentPosts(initialCategoryInfo));
+                    }}
+                  />
+                }
+              >
+                <Image source={emptyBox} style={styles.emptyBoxImage} />
+                <Text style={styles.emptyText}>
+                  해당 카테고리의 고민이 없습니다.
+                </Text>
+              </ScrollView>
+            }
           </>
         }
       </View>
@@ -275,6 +320,20 @@ const styles = StyleSheet.create({
   },
   loading: {
     backgroundColor: "rgba(0, 0, 0, 0)"
+  },
+  emptyContainer: {
+    width: "100%",
+    alignItems: "center",
+    marginTop: 100
+  },
+  emptyBoxImage: {
+    width: 100,
+    height: 100
+  },
+  emptyText: {
+    marginTop: 20,
+    color: "#ffffff",
+    fontSize: 20
   }
 });
 

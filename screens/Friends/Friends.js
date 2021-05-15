@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
+import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import FriendCard from "../../components/FriendCard/FriendCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
@@ -22,9 +23,12 @@ function Friends() {
   const [friendList, setFriendList] = useState([]);
   const [activeCategory, setActiveCategory] = useState("나의 인연들");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
+    setIsLoading(true);
+
     if (activeCategory === "나의 인연들") {
       (async function getMyFrineds() {
         try {
@@ -40,6 +44,8 @@ function Friends() {
           console.log("에러발생");
 
           setErrorMessage("친구 목록을 가져오는데 실패했습니다.");
+        } finally {
+          setIsLoading(false);
         }
       })();
     }
@@ -59,6 +65,8 @@ function Friends() {
           console.log("에러 발생");
 
           setErrorMessage("친구 목록을 가져오는데 실패했습니다");
+        } finally {
+          setIsLoading(false);
         }
       })();
     }
@@ -91,10 +99,15 @@ function Friends() {
             handleClick={setActiveCategory}
           />
         </View>
-        <ScrollView styles={styles.friendsContainer}>
-          {renderFriends()}
-          <View style={{ height: 400 }} />
-        </ScrollView>
+        {isLoading ?
+          <View style={styles.loadingWrapper}>
+            <Loading style={styles.loading} />
+          </View> :
+          <ScrollView styles={styles.friendsContainer}>
+            {renderFriends()}
+            <View style={{ height: 400 }} />
+          </ScrollView>
+        }
       </View>
     </ImageBackground>
   );
@@ -123,6 +136,14 @@ const styles = StyleSheet.create({
   },
   activeCategoryBackground: {
     backgroundColor: "rgba(255, 56, 56, 0.3)"
+  },
+  loadingWrapper: {
+    width: "80%",
+    height: "80%",
+    marginLeft: 30
+  },
+  loading: {
+    backgroundColor: "rgba(0, 0, 0, 0)"
   }
 });
 
