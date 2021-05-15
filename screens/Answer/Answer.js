@@ -93,7 +93,6 @@ function Answer({ route }) {
       >
         <ScrollView>
         <Title
-          textStyle={styles.titleText}
           imageStyle={styles.titleImage}
           text={`${commentInfo.user}님의 답변`}
         />
@@ -170,14 +169,8 @@ const styles = StyleSheet.create({
     borderRadius: 20,
     overflow: "hidden"
   },
-  titleText: {
-    fontSize: 50
-  },
   titleImage: {
-    width: 50,
-    height: 50,
-    top: "-25%",
-    left: "-8%"
+    left: "15%"
   },
   contents: {
     height: 530,

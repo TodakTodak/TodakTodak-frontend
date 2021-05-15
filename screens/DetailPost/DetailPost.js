@@ -8,6 +8,7 @@ import {
 import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 
+import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
@@ -26,14 +27,15 @@ import backgroundImage from "../../assets/pngs/background.png";
 function DetailPost({ route, navigation }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
   const { postId } = route.params;
 
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
+      setIsLoading(true);
       try {
         const response = await getDetailPost(postId);
-
         if (response.errorMessage) {
           console.log("에러발생");
           return;
@@ -42,6 +44,8 @@ function DetailPost({ route, navigation }) {
         setPostInfo(response.post);
       } catch (err) {
         console.log(err.message);
+      } finally {
+        setIsLoading(false);
       }
     });
 
@@ -121,6 +125,10 @@ function DetailPost({ route, navigation }) {
       />
     );
   };
+
+  if (isLoading) {
+    return <Loading />;
+  }
 
   return (
     <ImageBackground

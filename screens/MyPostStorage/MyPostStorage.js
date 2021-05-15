@@ -7,6 +7,7 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
+import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import PostCard from "../../components/PostCard/PostCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
@@ -21,50 +22,50 @@ function MyPostStorage({ navigation }) {
   const [comments, setComments] = useState([]);
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
   const [errorMessage, setErrorMessage] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
-    const unSubscribe = navigation.addListener("focus", () => {
-      if (activeCategory === "나의 고민들") {
-        (async function getPosts() {
-          try {
-            const response = await getMyPosts(user.email);
+    if (activeCategory === "나의 고민들") {
+      (async function getPosts() {
+        try {
+          const response = await getMyPosts(user.email);
 
-            if (response.errorMessage) {
-              setErrorMessage(response.errorMessage);
-              return;
-            }
-
-            setPosts(response.postsInfo);
-          } catch (err) {
-            console.log("에러발생");
-
-            setErrorMessage("포스트를 가져오는데 실패했습니다");
+          if (response.errorMessage) {
+            setErrorMessage(response.errorMessage);
+            return;
           }
-        })();
-      }
 
-      if (activeCategory === "나의 위로들") {
-        (async function getComments() {
-          try {
-            const response = await getMyComments(user.email);
+          setPosts(response.postsInfo);
+        } catch (err) {
+          console.log("에러발생");
 
-            if (response.errorMessage) {
-              setErrorMessage(response.errorMessage);
-              return;
-            }
+          setErrorMessage("포스트를 가져오는데 실패했습니다");
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
+    if (activeCategory === "나의 위로들") {
+      (async function getComments() {
+        try {
+          const response = await getMyComments(user.email);
 
-            setComments(response.commentsInfo);
-          } catch (err) {
-            console.log("에러발생");
-
-            setErrorMessage("포스트를 가져오는데 실패했습니다");
+          if (response.errorMessage) {
+            setErrorMessage(response.errorMessage);
+            return;
           }
-        })();
-      }
 
-      return unSubscribe;
-    });
+          setComments(response.commentsInfo);
+        } catch (err) {
+          console.log("에러발생");
+
+          setErrorMessage("포스트를 가져오는데 실패했습니다");
+        } finally {
+          setIsLoading(false);
+        }
+      })();
+    }
   }, [activeCategory]);
 
   const renderMyPosts = () => {
@@ -165,12 +166,17 @@ function MyPostStorage({ navigation }) {
             categoryStyle={styles.thudamCategory}
           />
         </View>
-        <ScrollView styles={styles.postsWrapper}>
-          {activeCategory === "나의 고민들" ?
-            renderMyPosts() :
-            renderMyComments()
-          }
-        </ScrollView>
+        {isLoading ?
+          <View style={styles.loadingWrapper}>
+            <Loading style={styles.loading} />
+          </View> :
+          <ScrollView styles={styles.postsWrapper}>
+            {activeCategory === "나의 고민들" ?
+              renderMyPosts() :
+              renderMyComments()
+            }
+          </ScrollView>
+        }
       </View>
     </ImageBackground>
   );
@@ -203,6 +209,14 @@ const styles = StyleSheet.create({
     height: 520,
     backgroundColor: "rgba(0, 0, 0, 0)",
     fontSize: 30
+  },
+  loadingWrapper: {
+    width: "80%",
+    height: "80%",
+    marginLeft: 30
+  },
+  loading: {
+    backgroundColor: "rgba(0, 0, 0, 0)"
   }
 });
 

@@ -53,10 +53,7 @@ function ChatRoom({ route }) {
 
     return () => {
       socket.emit("leave user", joinUserInfo);
-      socket.off("receive chat");
-      socket.off("receive inital chats");
-      socket.off("join user message");
-      socket.off("leave user message");
+      socket.removeAllListeners();
     };
   }, []);
 
