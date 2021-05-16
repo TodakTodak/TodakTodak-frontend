@@ -1,4 +1,4 @@
-import React, { useEffect, useState,  } from "react";
+import React, { useEffect, useState } from "react";
 import {
   ImageBackground,
   StyleSheet,
@@ -6,7 +6,11 @@ import {
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
-import { AntDesign } from "@expo/vector-icons";
+import {
+  Ionicons,
+  AntDesign,
+  FontAwesome
+} from "@expo/vector-icons";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -16,9 +20,9 @@ import TextInput from "../../components/TextInput/TextInput";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
-  patchPost,
-  patchPostCommentLike,
-  getDetailPost
+  patchPostLike,
+  getDetailPost,
+  patchPostCommentLike
 } from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
@@ -75,7 +79,7 @@ function DetailPost({ route, navigation }) {
     };
 
     try {
-      const response = await patchPost(likeInfo);
+      const response = await patchPostLike(likeInfo);
 
       if (response.errorMessage) {
         console.log("에러 발생");
@@ -90,6 +94,10 @@ function DetailPost({ route, navigation }) {
 
   const handleCommentClick = (commentInfo) => {
     navigation.navigate("Answer", { commentInfo });
+  };
+
+  const handleModifyButtonClick = () => {
+    navigation.navigate("WriteWorry", { postInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {
@@ -150,14 +158,14 @@ function DetailPost({ route, navigation }) {
               <View style={styles.categoryWrapper}>
                 <Category title={postInfo.category} />
                 <TextInput
-                  value={postInfo.contents}
-                  editable={user.email === postInfo.owner}
+                  editable={false}
                   isMultiline={true}
                   style={styles.contents}
+                  value={postInfo.contents}
                 />
               </View>
               <View style={styles.buttonWrapper}>
-                <View style={styles.goodButtonContainer}>
+                <View style={styles.buttonContainer}>
                   <AntDesign
                     size={25}
                     color="red"
@@ -165,17 +173,39 @@ function DetailPost({ route, navigation }) {
                   />
                   <Button
                     text="위로하기"
+                    buttonStyle={styles.button}
                     textStyle={styles.buttonText}
-                    buttonStyle={styles.sendButton}
                     handleClick={handleLikeButtonClick}
                   />
                 </View>
-                <Button
-                  text="댓글 달기"
-                  textStyle={styles.buttonText}
-                  buttonStyle={styles.sendButton}
-                  handleClick={handleAddCommentButtonClick}
-                />
+                <View style={styles.buttonContainer}>
+                  <FontAwesome
+                    size={25}
+                    color="red"
+                    name="comment-o"
+                  />
+                  <Button
+                    text="댓글 달기"
+                    buttonStyle={styles.button}
+                    textStyle={styles.buttonText}
+                    handleClick={handleAddCommentButtonClick}
+                  />
+                </View>
+                {postInfo.owner === user.email &&
+                  <View style={styles.buttonContainer}>
+                    <Ionicons
+                      size={25}
+                      color="red"
+                      name="document"
+                    />
+                    <Button
+                      text="수정 하기"
+                      buttonStyle={styles.button}
+                      textStyle={styles.buttonText}
+                      handleClick={handleModifyButtonClick}
+                    />
+                  </View>
+                }
               </View>
             </ImageBackground>
           </View>
@@ -221,18 +251,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center"
   },
-  goodButtonContainer: {
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
   },
-  sendButton: {
-    width: "50%",
+  button: {
+    minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
     color: "#000000",
-    fontSize: 20
+    fontSize: 18
   },
   commentContainer: {
     width: "100%",

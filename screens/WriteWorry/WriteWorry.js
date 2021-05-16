@@ -3,7 +3,6 @@ import {
   View,
   Keyboard,
   StyleSheet,
-  ScrollView,
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
@@ -14,26 +13,43 @@ import Title from "../../components/Title/Title";
 import Picker from "../../components/Picker/Picker";
 import TextInput from "../../components/TextInput/TextInput";
 
-import { postNewWorryPost } from "../../api/postApi";
+import { postNewWorryPost, patchPost } from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry({ navigation }) {
+function WriteWorry({ navigation, route }) {
   const [postType, setPostType] = useState("");
   const [anonymousType, setAnonymousType] = useState("");
   const [category, setCategory] = useState("");
   const [worryContents, setWorryContents] = useState("");
   const [postTitle, setPostTitle] = useState("");
   const user = useSelector((state) => state.user);
+  const { postInfo } = route.params;
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus", () => {
-      setPostType("");
-      setAnonymousType("");
-      setCategory("");
-      setWorryContents("");
-      setPostTitle("");
+      if (0 < Object.keys(postInfo).length) {
+        const {
+          title,
+          category,
+          isPublic,
+          contents,
+          isAnonymous
+        } = postInfo;
+
+        setPostTitle(title);
+        setCategory(category);
+        setWorryContents(contents);
+        setPostType(isPublic ? "Public" : "Private");
+        setAnonymousType(isAnonymous ? "anonymouns" : "nickname");
+      } else {
+        setPostType("");
+        setCategory("");
+        setPostTitle("");
+        setWorryContents("");
+        setAnonymousType("");
+      }
     });
 
     return unSubscribe;
@@ -77,12 +93,12 @@ function WriteWorry({ navigation }) {
 
   const handleSubmitButtonClick = async () => {
     const postInfo = {
+      user,
       postType,
-      anonymousType,
       category,
-      worryContents,
       postTitle,
-      user
+      anonymousType,
+      worryContents
     };
     try {
       await postNewWorryPost(postInfo);
@@ -90,6 +106,26 @@ function WriteWorry({ navigation }) {
       console.log(err.message);
     } finally {
       navigation.navigate("MyPostStorage");
+    }
+  };
+
+  const handleModifyButtonClick = async () => {
+    const modifyPostInfo = {
+      user,
+      postType,
+      category,
+      postTitle,
+      anonymousType,
+      worryContents,
+      postId: postInfo._id
+    };
+
+    try {
+      await patchPost(modifyPostInfo);
+    } catch (err) {
+      console.log(err.message);
+    } finally {
+      navigation.navigate("DetailPost", { postId: postInfo._id });
     }
   };
 
@@ -105,12 +141,20 @@ function WriteWorry({ navigation }) {
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
           />
-          <Button
-            text="고민 제출하기"
-            buttonStyle={styles.sendButton}
-            textStyle={styles.buttonText}
-            handleClick={handleSubmitButtonClick}
-          />
+          {0 < Object.keys(postInfo).length ?
+            <Button
+              text="고민 수정하기"
+              textStyle={styles.buttonText}
+              buttonStyle={styles.sendButton}
+              handleClick={handleModifyButtonClick}
+            /> :
+            <Button
+              text="고민 제출하기"
+              textStyle={styles.buttonText}
+              buttonStyle={styles.sendButton}
+              handleClick={handleSubmitButtonClick}
+            />
+          }
           <View style={styles.writeWrapper}>
             <ImageBackground
               style={styles.letter}

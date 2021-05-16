@@ -54,8 +54,8 @@ export async function patchComment(commentInfo) {
   return await response.json();
 }
 
-export async function patchPost(likeInfo) {
-  const response = await fetch(`${SERVER_URL}/post`, {
+export async function patchPostLike(likeInfo) {
+  const response = await fetch(`${SERVER_URL}/post/like`, {
     method: "PATCH",
     headers: {
       "Content-Type": "application/json"
@@ -81,6 +81,18 @@ export async function patchPostCommentLike(likeInfo) {
 export async function getDetailPost(postId) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
     method: "GET"
+  });
+
+  return await response.json();
+}
+
+export async function patchPost(postInfo) {
+  const response = await fetch(`${SERVER_URL}/post`, {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json"
+    },
+    body: JSON.stringify(postInfo)
   });
 
   return await response.json();
