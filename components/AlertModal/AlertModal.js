@@ -51,14 +51,14 @@ const styles = StyleSheet.create({
     shadowColor: "rgb(50, 50, 50)"
   },
   text: {
-    fontSize: 20
+    fontSize: 15
   },
   modalButton: {
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   modalButtonText: {
     marginTop: 15,
-    fontSize: 20,
+    fontSize: 17,
     color: "#000000"
   }
 });

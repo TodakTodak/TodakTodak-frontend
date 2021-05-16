@@ -6,12 +6,14 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
-import Button from "../../components/Button/Button";
-import Title from "../../components/Title/Title";
-import TextInput from "../../components/TextInput/TextInput";
-import Loading from "../Loading/Loading";
 
-import { fetchLogin } from "../../redux/userSlice";
+import Loading from "../Loading/Loading";
+import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
+import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
+
+import { fetchLogin, userSlice } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -19,13 +21,17 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isLoading } = useSelector((state) => state.user);
+  const { isLoading, message } = useSelector((state) => state.user);
   const dispatch = useDispatch();
 
   const handleLoginClick = () => {
     const userInfo = { email, password };
 
     dispatch(fetchLogin(userInfo));
+  };
+
+  const handleModalCloseButton = () => {
+    dispatch(userSlice.actions.clearMessage());
   };
 
   if (isLoading) {
@@ -41,27 +47,33 @@ function Login() {
         <Title text="토닥 토닥" />
         <View style={styles.textInputContainer}>
           <TextInput
-            placeholder="이메일을 입력해주세요"
-            handleInputChange={setEmail}
             value={email}
             type="emailAddress"
+            handleInputChange={setEmail}
+            placeholder="이메일을 입력해주세요"
           />
           <TextInput
-            placeholder="비밀번호를 입력해주세요"
+            type="password"
+            value={password}
             isPassword={true}
             handleInputChange={setPassword}
-            value={password}
-            type="password"
+            placeholder="비밀번호를 입력해주세요"
           />
         </View>
         <View style={styles.buttonContainer}>
           <Button
             text="로그인"
-            buttonStyle={styles.loginButton}
             handleClick={handleLoginClick}
+            buttonStyle={styles.loginButton}
           />
         </View>
       </View>
+      {message &&
+        <AlertModal
+          message={message}
+          handleModalClose={handleModalCloseButton}
+        />
+      }
     </ImageBackground>
   );
 }

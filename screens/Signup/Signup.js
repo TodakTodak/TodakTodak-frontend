@@ -4,21 +4,22 @@ import {
   View,
   ImageBackground
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 
-import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { postSignup } from "../../api/userApi";
+import { validateSignupInfo } from "../../validation/authValidation";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Signup() {
+function Signup({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
-  const navigation = useNavigation();
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const handleSignupButtonClick = async () => {
     try {
@@ -27,17 +28,29 @@ function Signup() {
         password,
         nickname
       };
+
+      const incorrectMessage = validateSignupInfo(signupInfo);
+
+      if (incorrectMessage) {
+        setErrorMessage(incorrectMessage);
+        return;
+      }
+
       const response = await postSignup(signupInfo);
 
       if (response.errorMessage) {
-        console.log(response.errorMessage);
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       navigation.navigate("Login");
     } catch (error) {
-      console.log("에러 발생");
+      setErrorMessage("에러가 발생했습니다");
     }
+  };
+
+  const clearErrorMessage = () => {
+    setErrorMessage(null);
   };
 
   return (
@@ -76,6 +89,12 @@ function Signup() {
           />
         </View>
       </View>
+      {errorMessage &&
+        <AlertModal
+          message={errorMessage}
+          handleModalClose={clearErrorMessage}
+        />
+      }
     </ImageBackground>
   );
 }
