@@ -3,7 +3,8 @@ import {
   ImageBackground,
   StyleSheet,
   ScrollView,
-  View
+  View,
+  Text
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -15,14 +16,14 @@ import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import { getMyPosts, getMyComments } from "../../api/postApi";
 
 import backgroundImage from "../../assets/pngs/background.png";
-import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
 function MyPostStorage({ navigation }) {
   const [posts, setPosts] = useState([]);
   const [comments, setComments] = useState([]);
-  const [activeCategory, setActiveCategory] = useState("나의 고민들");
-  const [errorMessage, setErrorMessage] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [errorMessage, setErrorMessage] = useState("");
+  const [activeCategory, setActiveCategory] = useState("나의 고민들");
+
   const user = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -56,7 +57,7 @@ function MyPostStorage({ navigation }) {
             return;
           }
 
-          setComments(response.commentsInfo);
+          setComments(response.comments);
         } catch (err) {
           console.log("에러발생");
 
@@ -69,8 +70,6 @@ function MyPostStorage({ navigation }) {
   }, [activeCategory]);
 
   const renderMyPosts = () => {
-    if (!posts) return;
-
     return posts.map((post) => {
       const {
         _id,
@@ -85,59 +84,52 @@ function MyPostStorage({ navigation }) {
       return (
         <PostCard
           key={_id}
-          postTitle={title}
-          postCategory={category}
           handleClick={handlePostClick}
-        />
+        >
+          <View>
+            <Text style={styles.postContent}>
+              고민 유형: {category}
+            </Text>
+            <Text style={styles.postContent}>
+              고민 제목: {title}
+            </Text>
+          </View>
+        </PostCard>
       );
     });
   };
 
   const renderMyComments = () => {
-    if (!comments) return;
-
     return comments.map((comment) => {
       const {
         _id,
         post,
-        user,
         likes,
         content,
         createdAt
       } = comment;
 
       const handleCommentClick = () => {
-        const {
-          _id,
-          comments,
-          contents,
-          category,
-          isAnonymous,
-          ownerNickname
-        } = post;
-
-        navigation.navigate("DetailPost", {
-          contents,
-          comments,
-          postId: _id,
-          userId: user,
-          likes: post.likes,
-          category: category,
-          myComment: content,
-          inputStyle: styles.postStyle,
-          postOwner: isAnonymous ? "익명" : ownerNickname
+        navigation.navigate("Answer", {
+          postId: post,
+          commentInfo: comment
         });
       };
 
       return (
-        <CategoryPostCard
+        <PostCard
           key={_id}
-          likes={likes}
-          title={post.title}
-          ownerNickname={user}
-          createdAt={createdAt}
           handleClick={handleCommentClick}
-        />
+        >
+          <View>
+            <Text style={styles.postContent}>
+              답변: {content.substring(0, 8)}
+            </Text>
+            <Text style={styles.postContent}>
+              추천 수: {likes.length} / {createdAt.substring(0, 10)}
+            </Text>
+          </View>
+        </PostCard>
       );
     });
   };
@@ -217,6 +209,12 @@ const styles = StyleSheet.create({
   },
   loading: {
     backgroundColor: "rgba(0, 0, 0, 0)"
+  },
+  postContent: {
+    margin: 10,
+    color: "#ffffff",
+    fontSize: 18,
+    fontWeight: "bold"
   }
 });
 

@@ -21,13 +21,13 @@ import { addFriend } from "../../api/userApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Answer({ route }) {
+function Answer({ route, navigation }) {
   const [comment, setComment] = useState("");
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [message, setMessage] = useState("");
   const user = useSelector((state) => state.user);
-  const { commentInfo } = route.params;
+  const { commentInfo, postId } = route.params;
 
   useEffect(() => {
     setComment(commentInfo.content);
@@ -85,63 +85,81 @@ function Answer({ route }) {
     setIsModalVisible(false);
   };
 
+  const handleRoutePostButtonClick = () => {
+    navigation.navigate("DetailPost", { postId });
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <ScrollView>
-        <Title
-          imageStyle={styles.titleImage}
-          text={`${commentInfo.user}님의 답변`}
-        />
-        <View style={styles.postContentsWrapper}>
-          <View>
-            <ImageBackground
-              style={styles.letterPage}
-              source={letterPage}
-            >
-              <TextInput
-                value={comment}
-                editable={commentInfo.user === user.email}
-                isMultiline={true}
-                handleInputChange={setComment}
-                style={styles.contents}
-              />
-              <View style={styles.buttonWrapper}>
-                <View style={styles.goodButtonContainer}>
-                  <AntDesign
-                    size={25}
-                    color="red"
-                    name="adduser"
-                  />
-                  <Button
-                    text="친구추가"
-                    textStyle={styles.buttonText}
-                    buttonStyle={styles.sendButton}
-                    handleClick={handleAddFriendClick}
-                  />
+        <View>
+          <Title
+            imageStyle={styles.titleImage}
+            text={`${commentInfo.user}님의 답변`}
+          />
+          <View style={styles.postContentsWrapper}>
+            <View>
+              <ImageBackground
+                style={styles.letterPage}
+                source={letterPage}
+              >
+                <TextInput
+                  value={comment}
+                  editable={commentInfo.user === user.email}
+                  isMultiline={true}
+                  handleInputChange={setComment}
+                  style={styles.contents}
+                />
+                <View style={styles.buttonWrapper}>
+                  <View style={styles.buttonContainer}>
+                    <AntDesign
+                      size={25}
+                      color="red"
+                      name="adduser"
+                    />
+                    <Button
+                      text="친구추가"
+                      buttonStyle={styles.button}
+                      textStyle={styles.buttonText}
+                      handleClick={handleAddFriendClick}
+                    />
+                  </View>
+                  <View style={styles.buttonContainer}>
+                    <AntDesign
+                      size={25}
+                      color="red"
+                      name={isCommentLike ? "like1" : "like2"}
+                    />
+                    <Button
+                      text="쓰담쓰담"
+                      buttonStyle={styles.button}
+                      textStyle={styles.buttonText}
+                      handleClick={handleCommentLikeClick}
+                    />
+                  </View>
+                  {postId &&
+                    <View style={styles.buttonContainer}>
+                      <AntDesign
+                        size={25}
+                        color="red"
+                        name="inbox"
+                      />
+                      <Button
+                        text="게시물로"
+                        buttonStyle={styles.button}
+                        textStyle={styles.buttonText}
+                        handleClick={handleRoutePostButtonClick}
+                      />
+                    </View>
+                  }
                 </View>
-                <View style={styles.goodButtonContainer}>
-                  <AntDesign
-                    size={25}
-                    color="red"
-                    name={isCommentLike ? "like1" : "like2"}
-                  />
-                  <Button
-                    textStyle={styles.commentText}
-                    buttonStyle={styles.commentLike}
-                    imageStyle={styles.commentImage}
-                    handleClick={handleCommentLikeClick}
-                    text="쓰담쓰담"
-                  />
-                </View>
-              </View>
-            </ImageBackground>
+              </ImageBackground>
+            </View>
           </View>
         </View>
-        </ScrollView>
         <AlertModal
           message={message}
           modalVisable={isModalVisible}
@@ -186,34 +204,18 @@ const styles = StyleSheet.create({
     justifyContent: "space-around",
     alignItems: "center"
   },
-  goodButtonContainer: {
+  buttonContainer: {
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
   },
-  sendButton: {
-    width: "50%",
+  button: {
+    minWidth: "20%",
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   buttonText: {
     color: "#000000",
-    fontSize: 20
-  },
-  commentLike: {
-    width: "48%",
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0)"
-  },
-  commentImage: {
-    width: 30,
-    height: 30,
-    marginRight: 10
-  },
-  commentText: {
-    fontSize: 18,
-    color: "#000000"
+    fontSize: 18
   }
 });
 

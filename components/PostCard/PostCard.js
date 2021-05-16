@@ -1,31 +1,19 @@
 import React from "react";
 import {
   TouchableOpacity,
-  StyleSheet,
-  View,
-  Text
+  StyleSheet
 } from "react-native";
 
 function PostCard({
-  cardStyle,
-  textStyle,
-  postTitle,
+  children,
   handleClick,
-  postCategory
 }) {
   return (
     <TouchableOpacity
-      style={[ styles.postCard, cardStyle ]}
+      style={styles.postCard}
       onPress={handleClick}
     >
-      <View>
-        <Text style={[ styles.postContent, textStyle ]}>
-          고민 유형: {postCategory}
-        </Text>
-        <Text style={[ styles.postContent, textStyle ]}>
-          고민 제목: {postTitle}
-        </Text>
-      </View>
+      {children}
     </TouchableOpacity>
   );
 }
@@ -42,12 +30,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     borderRadius: 10,
     backgroundColor: "rgba(255, 255, 255, 0.3)"
-  },
-  postContent: {
-    margin: 10,
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold"
   }
 });
 
