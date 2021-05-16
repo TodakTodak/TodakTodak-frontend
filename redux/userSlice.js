@@ -45,9 +45,9 @@ export const fetchSignup = createAsyncThunk(
 
 const initialState = {
   email: "",
+  message: "",
   nickname: "",
   accessToken: "",
-  message: "",
   isLoading: false,
   waitingFriendList: [],
   friendList: []
