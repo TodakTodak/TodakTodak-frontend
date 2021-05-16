@@ -23,14 +23,6 @@ export async function getMyPosts(userEmail) {
   return await response.json();
 }
 
-export async function getMyComments(userEmail) {
-  const response = await fetch(`${SERVER_URL}/comment/${userEmail}`, {
-    method: "GET"
-  });
-
-  return await response.json();
-}
-
 export async function getCategoryPosts(category, page) {
   const response = await fetch(`${SERVER_URL}/post/category/${category}`, {
     method: "GET",

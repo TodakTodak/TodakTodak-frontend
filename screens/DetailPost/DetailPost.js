@@ -32,6 +32,7 @@ function DetailPost({ route, navigation }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+
   const user = useSelector((state) => state.user);
   const { postId } = route.params;
 
