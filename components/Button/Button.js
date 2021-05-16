@@ -2,7 +2,6 @@ import React from "react";
 import {
   TouchableOpacity,
   StyleSheet,
-  Image,
   Text,
   View
 } from "react-native";
@@ -10,9 +9,7 @@ import {
 function Button({
   handleClick,
   buttonStyle,
-  imageStyle,
   textStyle,
-  image,
   text
 }) {
   return (
@@ -21,7 +18,6 @@ function Button({
       onPress={handleClick}
     >
       <View style={styles.buttonContents}>
-        { image && <Image style={[styles.image, imageStyle]} source={image} /> }
         <Text style={[ styles.buttonText, textStyle ]}>
           {text}
         </Text>

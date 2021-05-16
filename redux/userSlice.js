@@ -45,7 +45,7 @@ export const fetchSignup = createAsyncThunk(
 
 const initialState = {
   email: "",
-  message: "",
+  message: null,
   nickname: "",
   accessToken: "",
   isLoading: false,
@@ -59,6 +59,9 @@ export const userSlice = createSlice({
   reducers: {
     resetUserState: () => {
       return initialState;
+    },
+    clearMessage: (state) => {
+      state.message = null;
     }
   },
   extraReducers: {
