@@ -4,18 +4,20 @@ import {
   ImageBackground,
   Keyboard,
   StyleSheet,
-  View,
-  ScrollView
+  View
 } from "react-native";
 import { useSelector } from "react-redux";
-import { AntDesign } from "@expo/vector-icons";
+import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 
-import { patchCommentLike } from "../../api/commentApi";
+import {
+  patchComment,
+  patchCommentLike
+} from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
@@ -26,6 +28,7 @@ function Answer({ route, navigation }) {
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [message, setMessage] = useState("");
+
   const user = useSelector((state) => state.user);
   const { commentInfo, postId } = route.params;
 
@@ -36,11 +39,9 @@ function Answer({ route, navigation }) {
   useEffect(() => {
     if (commentInfo.likes.includes(user.email)) {
       setIsCommentLike(true);
-
-      return;
+    } else {
+      setIsCommentLike(false);
     }
-
-    setIsCommentLike(false);
   }, []);
 
   const handleCommentLikeClick = async () => {
@@ -89,6 +90,20 @@ function Answer({ route, navigation }) {
     navigation.navigate("DetailPost", { postId });
   };
 
+  const handleModifyButtonClick = async () => {
+    const modifyCommentInfo = {
+      comment,
+      commentId: commentInfo._id
+    };
+    try {
+      await patchComment(modifyCommentInfo);
+
+      navigation.navigate(navigation.goBack());
+    } catch (err) {
+      console.log(err.message);
+    }
+  };
+
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
       <ImageBackground
@@ -115,17 +130,34 @@ function Answer({ route, navigation }) {
                 />
                 <View style={styles.buttonWrapper}>
                   <View style={styles.buttonContainer}>
-                    <AntDesign
-                      size={25}
-                      color="red"
-                      name="adduser"
-                    />
-                    <Button
-                      text="친구추가"
-                      buttonStyle={styles.button}
-                      textStyle={styles.buttonText}
-                      handleClick={handleAddFriendClick}
-                    />
+                    {commentInfo.user === user.email ?
+                      <>
+                        <Ionicons
+                          size={25}
+                          color="red"
+                          name="document"
+                        />
+                        <Button
+                          text="수정 하기"
+                          buttonStyle={styles.button}
+                          textStyle={styles.buttonText}
+                          handleClick={handleModifyButtonClick}
+                        />
+                      </> :
+                      <>
+                        <AntDesign
+                          size={25}
+                          color="red"
+                          name="adduser"
+                        />
+                        <Button
+                          text="친구추가"
+                          buttonStyle={styles.button}
+                          textStyle={styles.buttonText}
+                          handleClick={handleAddFriendClick}
+                        />
+                      </>
+                    }
                   </View>
                   <View style={styles.buttonContainer}>
                     <AntDesign

@@ -13,7 +13,9 @@ import Title from "../../components/Title/Title";
 import PostCard from "../../components/PostCard/PostCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
-import { getMyPosts, getMyComments } from "../../api/postApi";
+import { getMyPosts } from "../../api/postApi";
+import { getMyComments } from "../../api/commentApi";
+
 
 import backgroundImage from "../../assets/pngs/background.png";
 
