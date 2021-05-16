@@ -117,7 +117,7 @@ function ChatRoom({ route }) {
           imageStyle={styles.homeButtonImage}
           buttonStyle={styles.homeButton}
           handleClick={handleHomeButtonClick}
-      />
+        />
         <KeyboardAvoidingView
           style={styles.container}
           behavior={Platform.OS === "ios" ? "padding" : "height"}
