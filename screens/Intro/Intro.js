@@ -1,18 +1,38 @@
-import React from "react";
+import React, { useEffect } from "react";
 import {
   StyleSheet,
   View,
   ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { useDispatch } from "react-redux";
+import * as SecureStore from "expo-secure-store";
 
 import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
+
+import { fetchLogin } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 function Intro() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    (async function authLogin() {
+      try {
+        const userInfo = await SecureStore.getItemAsync("userInfo");
+        const parsedUserInfo = JSON.parse(userInfo);
+
+        if (parsedUserInfo.email) {
+          dispatch(fetchLogin(parsedUserInfo));
+        }
+      } catch (err) {
+        console.log(err.message);
+      }
+    })();
+  }, []);
 
   const handleLoginClick = () => {
     navigation.navigate("Login");

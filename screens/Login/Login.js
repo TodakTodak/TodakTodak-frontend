@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import {
-  StyleSheet,
   View,
+  StyleSheet,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,9 +11,9 @@ import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import Loading from "../Loading/Loading";
 
-import backgroundImage from "../../assets/pngs/background.png";
-
 import { fetchLogin } from "../../redux/userSlice";
+
+import backgroundImage from "../../assets/pngs/background.png";
 
 function Login() {
   const [email, setEmail] = useState("");
