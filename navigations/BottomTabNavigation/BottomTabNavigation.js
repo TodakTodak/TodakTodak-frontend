@@ -2,9 +2,9 @@ import React from "react";
 import { StyleSheet, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
-import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
 import Friends from "../../screens/Friends/Friends";
 import WriteWorry from "../../screens/WriteWorry/WriteWorry";
+import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
 import MyPostStorage from "../../screens/MyPostStorage/MyPostStorage";
 import CounselingCenter from "../../screens/CounselingCenter/CounselingCenter";
 
@@ -68,6 +68,7 @@ function BottomTabNavigation() {
       <Tab.Screen
         name="WriteWorry"
         component={WriteWorry}
+        initialParams={{ postInfo: {} }}
         options={{
           tabBarLabel: "글 쓰기",
           tabBarIcon: () => (
@@ -81,8 +82,8 @@ function BottomTabNavigation() {
 
 const styles = StyleSheet.create({
   imageStyle: {
-    width: 30,
-    height: 30
+    width: 25,
+    height: 25
   }
 });
 
