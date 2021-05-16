@@ -298,9 +298,7 @@ const styles = StyleSheet.create({
     marginLeft: "auto"
   },
   bestPostCard: {
-    marginTop: 10,
-    borderColor: "yellow",
-    borderWidth: 1
+    marginTop: 10
   },
   bestPost: {
     width: "100%",
@@ -311,7 +309,7 @@ const styles = StyleSheet.create({
     height: 30,
     color: "rgb(235, 255, 0)",
     fontWeight: "bold",
-    fontSize: 20
+    fontSize: 17
   },
   loadingWrapper: {
     width: "80%",

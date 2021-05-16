@@ -7,6 +7,7 @@ import {
   Text
 } from "react-native";
 import { useSelector } from "react-redux";
+import { AntDesign } from "@expo/vector-icons";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -15,7 +16,6 @@ import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
 import { getMyPosts } from "../../api/postApi";
 import { getMyComments } from "../../api/commentApi";
-
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -75,8 +75,10 @@ function MyPostStorage({ navigation }) {
     return posts.map((post) => {
       const {
         _id,
+        likes,
         title,
-        category
+        category,
+        createdAt
       } = post;
 
       const handlePostClick = () => (
@@ -88,13 +90,26 @@ function MyPostStorage({ navigation }) {
           key={_id}
           handleClick={handlePostClick}
         >
-          <View>
-            <Text style={styles.postContent}>
-              고민 유형: {category}
-            </Text>
-            <Text style={styles.postContent}>
-              고민 제목: {title}
-            </Text>
+          <View style={styles.postContainer}>
+            <View>
+              <Text style={styles.postTitle}>
+                {title}
+              </Text>
+              <Text style={styles.postContent}>
+                {category} / {createdAt.substring(0, 10)}
+              </Text>
+            </View>
+            <View style={styles.likeWrapper}>
+              <AntDesign
+                style={styles.likeIcon}
+                size={15}
+                color="red"
+                name="heart"
+              />
+              <Text style={styles.postContent}>
+                {likes.length}
+              </Text>
+            </View>
           </View>
         </PostCard>
       );
@@ -212,11 +227,27 @@ const styles = StyleSheet.create({
   loading: {
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
+  postContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between"
+  },
+  postTitle: {
+    margin: 10,
+    color: "#9e0031",
+    fontSize: 17,
+    fontWeight: "bold"
+  },
   postContent: {
     margin: 10,
-    color: "#ffffff",
-    fontSize: 18,
-    fontWeight: "bold"
+    color: "#000000",
+    fontSize: 15,
+    fontWeight: "600"
+  },
+  likeWrapper: {
+    flexDirection: "row"
+  },
+  likeIcon: {
+    paddingTop: 11
   }
 });
 

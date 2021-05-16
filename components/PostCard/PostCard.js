@@ -29,8 +29,15 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.3)"
-  }
+    backgroundColor: "#fcd0a1",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 4
+  },
 });
 
 export default PostCard;

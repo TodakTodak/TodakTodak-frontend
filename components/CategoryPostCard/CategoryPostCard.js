@@ -5,6 +5,7 @@ import {
   View,
   Text
 } from "react-native";
+import { AntDesign } from "@expo/vector-icons";
 
 function CategoryPostCard({
   likes,
@@ -32,10 +33,18 @@ function CategoryPostCard({
             <Text style={styles.postContent}>
               {createdAt.substring(0, 10)}
             </Text>
-            <Text style={styles.postContent}>
-              추천: {likes.length}
-            </Text>
           </View>
+        </View>
+        <View style={styles.likeWrapper}>
+          <AntDesign
+            style={styles.likeIcon}
+            size={15}
+            color="red"
+            name="heart"
+          />
+          <Text style={styles.postContent}>
+            {likes.length}
+          </Text>
         </View>
       </View>
     </TouchableOpacity>
@@ -54,16 +63,24 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.3)"
+    backgroundColor: "#fcd0a1",
+    shadowColor: "#000000",
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 4
   },
   cardWrapper: {
     flexDirection: "row",
+    justifyContent: "space-between",
     alignItems: "flex-start",
   },
   postTitle: {
     minWidth: "40%",
     margin: 10,
-    color: "#ffffff",
+    color: "#9e0031",
     fontSize: 17,
     fontWeight: "bold"
   },
@@ -71,9 +88,16 @@ const styles = StyleSheet.create({
     flexDirection: "row"
   },
   postContent: {
-    color: "#ffffff",
     margin: 10,
-    marginRight: 10
+    marginRight: 10,
+    color: "#000000",
+    fontWeight: "600"
+  },
+  likeWrapper: {
+    flexDirection: "row"
+  },
+  likeIcon: {
+    paddingTop: 11
   }
 });
 
