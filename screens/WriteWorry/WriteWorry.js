@@ -99,7 +99,7 @@ function WriteWorry({ navigation }) {
       style={styles.backgroundContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <Title
             text="고민 작성소"
             textStyle={styles.titleText}
@@ -149,7 +149,7 @@ function WriteWorry({ navigation }) {
               />
             </ImageBackground>
           </View>
-        </ScrollView>
+        </View>
       </TouchableWithoutFeedback>
     </ImageBackground>
   );
