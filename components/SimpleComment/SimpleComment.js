@@ -1,14 +1,19 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet,
   View,
-  Text
+  Text,
+  StyleSheet,
+  TouchableOpacity,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 
 import Button from "../Button/Button";
+
+import {
+  TRANSPARENCY,
+  COMMENT_BACKGROUND
+} from "../../constants/color";
 
 function SimpleComment({
   postComment,
@@ -54,7 +59,7 @@ const styles = StyleSheet.create({
     margin: 10,
     flexDirection: "row",
     justifyContent: "space-between",
-    backgroundColor: "rgba(255, 255, 255, 0.8)",
+    backgroundColor: COMMENT_BACKGROUND,
     borderRadius: 10
   },
   comment: {
@@ -72,7 +77,7 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   commentText: {
     fontSize: 15,

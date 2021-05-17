@@ -8,16 +8,16 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 
-import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
 
 import { userSlice } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function userInfoRoom() {
-  const user = useSelector((state) => state.user);
+function UserInfoRoom() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.user);
 
   const handleLogoutButtonClick = async () => {
     await SecureStore.deleteItemAsync("userInfo");
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default userInfoRoom;
+export default UserInfoRoom;

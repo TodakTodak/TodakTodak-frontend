@@ -1,23 +1,25 @@
 import React, { useEffect } from "react";
 import {
-  StyleSheet,
   View,
+  StyleSheet,
   ImageBackground
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 
-import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
 
 import { fetchLogin } from "../../redux/userSlice";
+
+import { LOGIN, SIGNUP } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 function Intro() {
-  const navigation = useNavigation();
   const dispatch = useDispatch();
+  const navigation = useNavigation();
 
   useEffect(() => {
     (async function authLogin() {
@@ -35,11 +37,11 @@ function Intro() {
   }, []);
 
   const handleLoginClick = () => {
-    navigation.navigate("Login");
+    navigation.navigate(LOGIN);
   };
 
   const handleSignupClick = () => {
-    navigation.navigate("Signup");
+    navigation.navigate(SIGNUP);
   };
 
   return (

@@ -8,69 +8,83 @@ import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
 import MyPostStorage from "../../screens/MyPostStorage/MyPostStorage";
 import CounselingCenter from "../../screens/CounselingCenter/CounselingCenter";
 
-import userInfoRoom from "../../assets/pngs/home.png";
+import {
+  FRIENDS,
+  WRITE_WORRY,
+  FRIENDS_LABEL,
+  USER_INFO_ROOM,
+  MY_POST_STORAGE,
+  WRITE_WORRYLABEL,
+  COUNSELING_CENTER,
+  USER_INFO_ROOMLABEL,
+  MY_POST_STORAGELABEL,
+  COUNSELING_CENTERLABEL
+} from "../../constants/navigationName";
+import { BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR } from "../../constants/color";
+
 import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
 import friends from "../../assets/pngs/friends.png";
 import feather from "../../assets/pngs/feather.png";
+import home from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabNavigation() {
+function BOTTOM_TAB_NAVIGATION() {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
-      initialRouteName="MyPostStorage"
+      initialRouteName={MY_POST_STORAGE}
       tabBarOptions={{
-        activeTintColor: "#e91e63"
+        activeTintColor: BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR
       }}
     >
       <Tab.Screen
-        name="UserInfoRoom"
+        name={USER_INFO_ROOM}
         component={UserInfoRoom}
         options={{
-          tabBarLabel: "내 정보",
+          tabBarLabel: USER_INFO_ROOMLABEL,
           tabBarIcon: () => (
-            <Image source={userInfoRoom} style={styles.imageStyle} />
+            <Image source={home} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="MyPostStorage"
+        name={MY_POST_STORAGE}
         component={MyPostStorage}
         options={{
-          tabBarLabel: "내 마음 저장소",
+          tabBarLabel: MY_POST_STORAGELABEL,
           tabBarIcon: () => (
             <Image source={letter} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="Friends"
+        name={FRIENDS}
         component={Friends}
         options={{
-          tabBarLabel: "나의 인연들",
+          tabBarLabel: FRIENDS_LABEL,
           tabBarIcon: () => (
             <Image source={friends} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="CounselingCenter"
+        name={COUNSELING_CENTER}
         component={CounselingCenter}
         options={{
-          tabBarLabel: "고민 상담소",
+          tabBarLabel: COUNSELING_CENTERLABEL,
           tabBarIcon: () => (
             <Image source={love} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="WriteWorry"
+        name={WRITE_WORRY}
         component={WriteWorry}
         initialParams={{ postInfo: {} }}
         options={{
-          tabBarLabel: "글 쓰기",
+          tabBarLabel: WRITE_WORRYLABEL,
           tabBarIcon: () => (
             <Image source={feather} style={styles.imageStyle} />
           )
@@ -87,4 +101,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BottomTabNavigation;
+export default BOTTOM_TAB_NAVIGATION;

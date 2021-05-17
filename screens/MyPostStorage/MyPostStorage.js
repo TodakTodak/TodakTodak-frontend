@@ -24,6 +24,8 @@ import {
   fetchMyComments,
 } from "../../redux/userSlice";
 
+import { ANSWER, DETAIL_POST } from "../../constants/navigationName";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
 function MyPostStorage() {
@@ -73,7 +75,7 @@ function MyPostStorage() {
       } = post;
 
       const handlePostClick = () => (
-        navigation.navigate("DetailPost", { postId: _id })
+        navigation.navigate(DETAIL_POST, { postId: _id })
       );
 
       const handleDeleteButtonClick = () => (
@@ -134,7 +136,7 @@ function MyPostStorage() {
       } = comment;
 
       const handleCommentClick = () => {
-        navigation.navigate("Answer", {
+        navigation.navigate(ANSWER, {
           postId: post,
           commentInfo: comment
         });

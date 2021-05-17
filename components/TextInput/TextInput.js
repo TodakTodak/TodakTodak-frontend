@@ -1,9 +1,11 @@
 import React from "react";
 import {
-  StyleSheet,
+  View,
   TextInput,
-  View
+  StyleSheet
 } from "react-native";
+
+import { WHITE } from "../../constants/color";
 
 function TextInputBox({
   type,
@@ -41,7 +43,7 @@ const styles = StyleSheet.create({
   textInput: {
     width: "90%",
     height: 45,
-    backgroundColor: "#ffffff",
+    backgroundColor: WHITE,
     borderRadius: 20,
     paddingLeft: 10,
     fontSize: 18

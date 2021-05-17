@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
-  Image,
   View,
-  Text
+  Text,
+  Image,
+  StyleSheet
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +14,8 @@ import {
   rejectWaitingFriend,
   acceptWaitingFriend
 } from "../../redux/userSlice";
+
+import { CHAT_ROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
 
@@ -46,8 +48,8 @@ function FriendCard({ friend }) {
     }
   }, [friend]);
 
-  const handleEnterChatRoomClick = () => {
-    navigation.navigate("ChatRoom", {
+  const handleEnterCHAT_ROOMClick = () => {
+    navigation.navigate(CHAT_ROOM, {
       userNickname: user.nickname,
       chatRoomId
     });
@@ -120,7 +122,7 @@ function FriendCard({ friend }) {
             text="채팅하기"
             buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
-            handleClick={handleEnterChatRoomClick}
+            handleClick={handleEnterCHAT_ROOMClick}
           />
         </View>
       }

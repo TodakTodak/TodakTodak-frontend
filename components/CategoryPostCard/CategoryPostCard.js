@@ -1,11 +1,18 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet,
   View,
-  Text
+  Text,
+  StyleSheet,
+  TouchableOpacity
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
+
+import {
+  RED,
+  BLACK,
+  CATEGORY_CARD_TITLE,
+  CATEGORY_CARD_BACKGROUND
+} from "../../constants/color";
 
 function CategoryPostCard({
   likes,
@@ -40,7 +47,7 @@ function CategoryPostCard({
           <AntDesign
             style={styles.likeIcon}
             size={15}
-            color="red"
+            color={RED}
             name="heart"
           />
           <Text style={styles.postContent}>
@@ -64,8 +71,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: "#fcd0a1",
-    shadowColor: "#000000",
+    backgroundColor: CATEGORY_CARD_BACKGROUND,
+    shadowColor: BLACK,
     shadowOffset: {
       width: 10,
       height: 10
@@ -81,7 +88,7 @@ const styles = StyleSheet.create({
   postTitle: {
     minWidth: "40%",
     margin: 10,
-    color: "#9e0031",
+    color: CATEGORY_CARD_TITLE,
     fontSize: 17,
     fontWeight: "bold"
   },
@@ -91,7 +98,7 @@ const styles = StyleSheet.create({
   postContent: {
     margin: 10,
     marginRight: 10,
-    color: "#000000",
+    color: BLACK,
     fontWeight: "600"
   },
   likeWrapper: {

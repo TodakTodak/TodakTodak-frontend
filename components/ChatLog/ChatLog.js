@@ -6,6 +6,12 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
+import {
+  BLACK,
+  YELLOW,
+  FRIEND_CHAT_BACKGROUND
+} from "../../constants/color";
+
 function ChatLog({
   comment,
   createdAt,
@@ -75,7 +81,7 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     marginTop: 5,
     padding: 10,
-    backgroundColor: "yellow",
+    backgroundColor: YELLOW,
     borderRadius: 7
   },
   friendChatBox: {
@@ -85,13 +91,13 @@ const styles = StyleSheet.create({
     alignItems: "flex-start",
     marginTop: 5,
     padding: 5,
-    backgroundColor: "#FBCFFC",
+    backgroundColor: FRIEND_CHAT_BACKGROUND,
     borderRadius: 7
   },
   chatText: {
     fontSize: 15,
     fontWeight: "bold",
-    color: "black"
+    color: BLACK
   },
   chatDate: {
     fontSize: 10

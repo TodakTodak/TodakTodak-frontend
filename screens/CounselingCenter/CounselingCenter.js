@@ -24,14 +24,33 @@ import {
   fetchFriendPosts,
   fetchEmploymentPosts
 } from "../../redux/categoryPostSlice";
-
 import { categoryPostSlice } from "../../redux/categoryPostSlice";
+
+import {
+  PAIN,
+  LOVE,
+  COURSE,
+  FRIEND,
+  EMPLOYMENT
+} from "../../constants/category";
+import {
+  LOVE_COLOR,
+  PAIN_COLOR,
+  FRIEND_COLOR,
+  COURSE_COLOR,
+  EMPLOYMENT_COLOR,
+  TRANSPARENCY,
+  BEST_TITLE_TEXT,
+  BEST_POST_CARD_TITLE,
+  BEST_POST_CARD_BACKGROUND
+} from "../../constants/color";
+import { DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function CounselingCenter() {
+function COUNSELING_CENTER() {
   const [page, setPage] = useState(1);
-  const [postCategory, setPostCategory] = useState("취업");
+  const [postCategory, setPostCategory] = useState(EMPLOYMENT);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -44,17 +63,17 @@ function CounselingCenter() {
   } = useSelector((state) => state.post);
 
   const categorys = [
-    { title: "취업", color: "rgba(56, 136, 255, 0.3)" },
-    { title: "사랑", color: "rgba(249, 157, 20, 0.3)" },
-    { title: "진로", color: "rgba(239, 255, 56, 0.3)" },
-    { title: "친구", color: "rgba(120, 255, 56, 0.3)" },
-    { title: "고통", color: "rgba(255, 56, 56, 0.3)" }
+    { title: PAIN, color: PAIN_COLOR },
+    { title: LOVE, color: LOVE_COLOR },
+    { title: COURSE, color: COURSE_COLOR },
+    { title: FRIEND, color: FRIEND_COLOR },
+    { title: EMPLOYMENT, color: EMPLOYMENT_COLOR }
   ];
 
   useEffect(() => {
     const categoryInfo = {
-      category: postCategory,
-      page: 0
+      page: 0,
+      category: postCategory
     };
 
     if (!isFetched[postCategory]) {
@@ -64,23 +83,23 @@ function CounselingCenter() {
 
   const dispatchCategoryInfo = (category, info) => {
     switch (category) {
-      case "취업":
+      case EMPLOYMENT:
         dispatch(fetchEmploymentPosts(info));
         break;
 
-      case "사랑":
+      case LOVE:
         dispatch(fetchLovePosts(info));
         break;
 
-      case "진로":
+      case COURSE:
         dispatch(fetchCoursePosts(info));
         break;
 
-      case "친구":
+      case FRIEND:
         dispatch(fetchFriendPosts(info));
         break;
 
-      case "고통":
+      case PAIN:
         dispatch(fetchPainPosts(info));
         break;
 
@@ -114,7 +133,7 @@ function CounselingCenter() {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate("DetailPost", { postId: bestPost[postCategory]._id });
+    navigation.navigate(DETAIL_POST, { postId: bestPost[postCategory]._id });
   };
 
   return (
@@ -188,7 +207,7 @@ function CounselingCenter() {
                   } = item;
 
                   const handlePostClick = () => (
-                    navigation.navigate("DetailPost", { postId: _id })
+                    navigation.navigate(DETAIL_POST, { postId: _id })
                   );
 
                   return (
@@ -268,10 +287,10 @@ const styles = StyleSheet.create({
   },
   bestPostCard: {
     marginTop: 10,
-    backgroundColor: "#FF6392"
+    backgroundColor: BEST_POST_CARD_BACKGROUND
   },
   bestPostTitle: {
-    color: "#C0FDFB"
+    color: BEST_POST_CARD_TITLE
   },
   bestPost: {
     width: "100%",
@@ -280,7 +299,7 @@ const styles = StyleSheet.create({
   },
   bestText: {
     height: 30,
-    color: "rgb(235, 255, 0)",
+    color: BEST_TITLE_TEXT,
     fontWeight: "bold",
     fontSize: 17
   },
@@ -290,11 +309,11 @@ const styles = StyleSheet.create({
     marginLeft: 30
   },
   loading: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   emptyContainer: {
     marginTop: "15%"
   }
 });
 
-export default CounselingCenter;
+export default COUNSELING_CENTER;

@@ -14,6 +14,12 @@ import ChatLog from "../../components/ChatLog/ChatLog";
 import TextInput from "../../components/TextInput/TextInput";
 
 import { SERVER_URL } from "@env";
+import { FRIENDS } from "../../constants/navigationName";
+
+import {
+  TRANSPARENCY,
+  OPACITY_BACKGROUND
+} from "../../constants/color";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -79,7 +85,7 @@ function ChatRoom({ route, navigation }) {
   };
 
   const handleFriendsButtonClick = () => {
-    navigation.navigate("Friends");
+    navigation.navigate(FRIENDS);
   };
 
   const renderChats = () => {
@@ -160,7 +166,7 @@ const styles = StyleSheet.create({
     width: "30%",
     height: "10%",
     top: 20,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     zIndex: 1
   },
   friendsRouteImage: {
@@ -180,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     margin: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: OPACITY_BACKGROUND,
     borderRadius: 30
   },
   inputWrapper: {

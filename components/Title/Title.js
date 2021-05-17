@@ -1,18 +1,20 @@
 import React from "react";
 import {
-  StyleSheet,
-  Image,
   Text,
-  View
+  View,
+  Image,
+  StyleSheet
 } from "react-native";
+
+import { WHITE } from "../../constants/color";
 
 import titleImage from "../../assets/pngs/moon.png";
 
 function Title({
-  titleStyle,
-  imageStyle,
+  text,
   textStyle,
-  text
+  titleStyle,
+  imageStyle
 }) {
   return (
     <View style={[ styles.title, titleStyle ]}>
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     marginTop: "30%"
   },
   titleText: {
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 40,
     fontWeight: "bold"
   },

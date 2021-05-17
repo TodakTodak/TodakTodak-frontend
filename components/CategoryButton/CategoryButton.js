@@ -1,10 +1,16 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet,
   View,
-  Text
+  Text,
+  StyleSheet,
+  TouchableOpacity
 } from "react-native";
+
+import {
+  WHITE,
+  CATEGORY_ACTIVE_COLOR,
+  OPACITY_BACKGROUND
+} from "../../constants/color";
 
 function CategoryButton({
   title,
@@ -12,20 +18,20 @@ function CategoryButton({
   focusValue,
   handleClick,
   categoryContainerStyle,
-  categoryColor = "rgba(255, 56, 56, 0.3)"
+  categoryColor = CATEGORY_ACTIVE_COLOR
 }) {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <TouchableOpacity
-        onPress={() => handleClick(title)}
         accessibilityRole="button"
+        onPress={() => handleClick(title)}
         style={[
           styles.categoryWrapper,
           {
             backgroundColor:
               focusValue === title ?
                 categoryColor :
-                "rgba(255, 255, 255, 0.3)"
+                OPACITY_BACKGROUND
           }
         ]}
       >
@@ -49,11 +55,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
-    borderRadius: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.3)"
+    borderRadius: 10
   },
   categoryTitle: {
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 15
   },
   titleBottomBar: {

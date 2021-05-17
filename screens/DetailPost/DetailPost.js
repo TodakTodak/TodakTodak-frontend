@@ -26,6 +26,17 @@ import {
   patchPostCommentLike
 } from "../../api/postApi";
 
+import {
+  ANSWER,
+  WRITE_WORRY,
+  DETAIL_COMMENT
+} from  "../../constants/navigationName";
+import {
+  RED,
+  BLACK,
+  TRANSPARENCY
+} from "../../constants/color";
+
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -69,7 +80,7 @@ function DetailPost({ route }) {
   }, [navigation]);
 
   const handleAddCommentButtonClick = () => {
-    navigation.navigate("DetailComment", { postId });
+    navigation.navigate(DETAIL_COMMENT, { postId });
   };
 
   const handleLikeButtonClick = async () => {
@@ -93,11 +104,11 @@ function DetailPost({ route }) {
   };
 
   const handleCommentClick = (commentInfo) => {
-    navigation.navigate("Answer", { commentInfo });
+    navigation.navigate(ANSWER, { commentInfo });
   };
 
   const handleModifyButtonClick = () => {
-    navigation.navigate("WriteWorry", { postInfo });
+    navigation.navigate(WRITE_WORRY, { postInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {
@@ -168,7 +179,7 @@ function DetailPost({ route }) {
                 <View style={styles.buttonContainer}>
                   <AntDesign
                     size={25}
-                    color="red"
+                    color={RED}
                     name={isPostLike ? "like1" : "like2"}
                   />
                   <Button
@@ -181,7 +192,7 @@ function DetailPost({ route }) {
                 <View style={styles.buttonContainer}>
                   <FontAwesome
                     size={25}
-                    color="red"
+                    color={RED}
                     name="comment-o"
                   />
                   <Button
@@ -195,7 +206,7 @@ function DetailPost({ route }) {
                   <View style={styles.buttonContainer}>
                     <Ionicons
                       size={25}
-                      color="red"
+                      color={RED}
                       name="document"
                     />
                     <Button
@@ -240,7 +251,7 @@ const styles = StyleSheet.create({
   },
   contents: {
     height: 550,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     fontSize: 20
   },
   letterPage: {
@@ -258,10 +269,10 @@ const styles = StyleSheet.create({
   },
   button: {
     minWidth: "20%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   buttonText: {
-    color: "#000000",
+    color: BLACK,
     fontSize: 18
   },
   commentContainer: {

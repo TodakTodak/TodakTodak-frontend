@@ -6,15 +6,21 @@ import Intro from "../../screens/Intro/Intro";
 import Login from "../../screens/Login/Login";
 import Signup from "../../screens/Signup/Signup";
 
+import {
+  INTRO,
+  LOGIN,
+  SIGNUP
+} from "../../constants/navigationName";
+
 const Stack = createStackNavigator();
 
 function AuthStackNavigation() {
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Intro" headerMode="none">
-        <Stack.Screen name="Intro" component={Intro} />
-        <Stack.Screen name="Login" component={Login} />
-        <Stack.Screen name="Signup" component={Signup} />
+      <Stack.Navigator initialRouteName={INTRO} headerMode="none">
+        <Stack.Screen name={INTRO} component={Intro} />
+        <Stack.Screen name={LOGIN} component={Login} />
+        <Stack.Screen name={SIGNUP} component={Signup} />
       </Stack.Navigator>
     </NavigationContainer>
   );

@@ -3,10 +3,16 @@ import {
   View,
   Text,
   Modal,
-  StyleSheet,
+  StyleSheet
 } from "react-native";
 
 import Button from "../../components/Button/Button";
+
+import {
+  BLACK,
+  TRANSPARENCY,
+  MODALBACKGROUND
+} from "../../constants/color";
 
 function AlertModal({
   message,
@@ -46,20 +52,19 @@ const styles = StyleSheet.create({
     marginTop: "100%",
     marginRight: "auto",
     marginLeft: "auto",
-    backgroundColor: "#F9FFB4",
-    borderRadius: 30,
-    shadowColor: "rgb(50, 50, 50)"
+    backgroundColor: MODALBACKGROUND,
+    borderRadius: 30
   },
   text: {
     fontSize: 15
   },
   modalButton: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   modalButtonText: {
     marginTop: 15,
     fontSize: 17,
-    color: "#000000"
+    color: BLACK
   }
 });
 
