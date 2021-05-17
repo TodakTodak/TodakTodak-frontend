@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
   View,
-  ImageBackground,
-  ScrollView
+  StyleSheet,
+  ScrollView,
+  ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +15,7 @@ import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import {
   userSlice,
   fetchMyFriends,
-  fetchWaitingFriends,
+  fetchWaitingFriends
 } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
@@ -35,7 +35,7 @@ function Friends({ navigation }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(userSlice.actions.resetFetchedStatus);
+    dispatch(userSlice.actions.resetFriendFetchedStatus);
 
     const unSubscribe = navigation.addListener("focus", () => {
       if (activeCategory === "나의 인연들") {

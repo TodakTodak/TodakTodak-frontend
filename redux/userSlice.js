@@ -4,10 +4,13 @@ import {
   putLogin,
   postSignup,
   getFriends,
+  getMyPosts,
   getWaitingFriends,
   rejectPendingFriend,
   acceptPendingFriend
 } from "../api/userApi";
+
+import { getMyComments } from "../api/commentApi";
 
 export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
@@ -118,16 +121,54 @@ export const acceptWaitingFriend = createAsyncThunk(
   }
 );
 
+export const fetchMyPosts = createAsyncThunk(
+  "user/fetchMyPosts",
+  async (userEmail, thunkAPI) => {
+    try {
+      const response = await getMyPosts(userEmail);
+
+      if (!response.errorMessage) {
+        return response;
+      }
+
+      return thunkAPI.rejectWithValue(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+);
+
+export const fetchMyComments = createAsyncThunk(
+  "user/fetchMyComments",
+  async (userEmail, thunkAPI) => {
+    try {
+      const response = await getMyComments(userEmail);
+
+      if (!response.errorMessage) {
+        return response;
+      }
+
+      return thunkAPI.rejectWithValue(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+);
+
 const initialState = {
   email: "",
   message: null,
   nickname: "",
   accessToken: "",
   isLoading: false,
-  isFetchedFriendList: false,
-  isFetchedWaitingFriendList: false,
+  posts: [],
+  comments: [],
   friendList: [],
-  waitingFriendList: []
+  waitingFriendList: [],
+  isFetchedPosts: false,
+  isFetchedComments: false,
+  isFetchedFriendList: false,
+  isFetchedWaitingFriendList: false
 };
 
 export const userSlice = createSlice({
@@ -140,9 +181,13 @@ export const userSlice = createSlice({
     clearMessage: (state) => {
       state.message = null;
     },
-    resetFetchedStatus: (state) => {
+    resetFriendFetchedStatus: (state) => {
       state.isFetchedFriendList = false;
       state.isFetchedWaitingFriendList = false;
+    },
+    resetFetched: (state) => {
+      state.isFetchedPosts = false;
+      state.isFetchedComments = false;
     }
   },
   extraReducers: {
@@ -216,6 +261,30 @@ export const userSlice = createSlice({
       state.isLoading = true;
     },
     [rejectWaitingFriend.rejected]: (state, { payload }) => {
+      state.message = payload.errorMessage;
+      state.isLoading = false;
+    },
+    [fetchMyPosts.fulfilled]: (state, { payload }) => {
+      state.posts = payload.postsInfo;
+      state.isFetchedPosts = true;
+      state.isLoading = false;
+    },
+    [fetchMyPosts.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchMyPosts.rejected]: (state, { payload }) => {
+      state.message = payload.errorMessage;
+      state.isLoading = false;
+    },
+    [fetchMyComments.fulfilled]: (state, { payload }) => {
+      state.comments = payload.comments;
+      state.isFetchedComments = true;
+      state.isLoading = false;
+    },
+    [fetchMyComments.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [fetchMyComments.rejected]: (state, { payload }) => {
       state.message = payload.errorMessage;
       state.isLoading = false;
     }

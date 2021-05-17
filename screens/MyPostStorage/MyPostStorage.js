@@ -6,7 +6,8 @@ import {
   View,
   Text
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign } from "@expo/vector-icons";
 
 import Loading from "../../screens/Loading/Loading";
@@ -14,61 +15,43 @@ import Title from "../../components/Title/Title";
 import PostCard from "../../components/PostCard/PostCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
-import { getMyPosts } from "../../api/postApi";
-import { getMyComments } from "../../api/commentApi";
+import { fetchMyPosts, fetchMyComments } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MyPostStorage({ navigation }) {
-  const [posts, setPosts] = useState([]);
-  const [comments, setComments] = useState([]);
-  const [isLoading, setIsLoading] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+function MyPostStorage() {
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
-  const [] = useState("");
 
-  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
+  const {
+    email,
+    posts,
+    comments,
+    isLoading,
+    isFetchedPosts,
+    isFetchedComments
+  } = useSelector((state) => state.user);
 
   useEffect(() => {
-    if (activeCategory === "나의 고민들") {
-      (async function getPosts() {
-        try {
-          const response = await getMyPosts(user.email);
+    const unSubscribe = navigation.addListener("focus", () => {
+      if (activeCategory === "나의 고민들") {
+        dispatch(fetchMyPosts(email));
+      }
+      if (activeCategory === "나의 위로들") {
+        dispatch(fetchMyComments(email));
+      }
+    });
 
-          if (response.errorMessage) {
-            setErrorMessage(response.errorMessage);
-            return;
-          }
+    return unSubscribe;
+  }, [navigation]);
 
-          setPosts(response.postsInfo);
-        } catch (err) {
-          console.log("에러발생");
-
-          setErrorMessage("포스트를 가져오는데 실패했습니다");
-        } finally {
-          setIsLoading(false);
-        }
-      })();
+  useEffect(() => {
+    if (activeCategory === "나의 고민들" && !isFetchedPosts) {
+      dispatch(fetchMyPosts(email));
     }
-    if (activeCategory === "나의 위로들") {
-      (async function getComments() {
-        try {
-          const response = await getMyComments(user.email);
-
-          if (response.errorMessage) {
-            setErrorMessage(response.errorMessage);
-            return;
-          }
-
-          setComments(response.comments);
-        } catch (err) {
-          console.log("에러발생");
-
-          setErrorMessage("포스트를 가져오는데 실패했습니다");
-        } finally {
-          setIsLoading(false);
-        }
-      })();
+    if (activeCategory === "나의 위로들" && !isFetchedComments) {
+      dispatch(fetchMyComments(email));
     }
   }, [activeCategory]);
 
