@@ -149,7 +149,7 @@ function DetailPost({ route, navigation }) {
           <Title
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
-            text={`${postInfo.owner}의 고민`}
+            text={`${postInfo.ownerNickname}의 고민`}
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground

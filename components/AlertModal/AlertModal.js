@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  StyleSheet,
-  Modal,
+  View,
   Text,
-  View
+  Modal,
+  StyleSheet,
 } from "react-native";
 
 import Button from "../../components/Button/Button";
@@ -18,19 +18,19 @@ function AlertModal({
 
   return (
     <Modal
-      visible={modalVisable}
-      animationType="slide"
       transparent={true}
+      animationType="slide"
+      visible={modalVisable}
     >
       <View style={[styles.friendModal, ModalStyle]}>
         <Text style={[styles.text, textStyles]}>
           {message}
         </Text>
         <Button
+          text="닫기"
           handleClick={handleModalClose}
           buttonStyle={styles.modalButton}
           textStyle={styles.modalButtonText}
-          text="닫기"
         />
       </View>
     </Modal>

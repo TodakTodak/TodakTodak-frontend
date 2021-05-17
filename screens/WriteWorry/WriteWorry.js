@@ -8,22 +8,26 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
-import Button from "../../components/Button/Button";
 import Title from "../../components/Title/Title";
 import Picker from "../../components/Picker/Picker";
+import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { postNewWorryPost, patchPost } from "../../api/postApi";
+import { validatePostInfo } from "../../validation/postValidation";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function WriteWorry({ navigation, route }) {
   const [postType, setPostType] = useState("");
-  const [anonymousType, setAnonymousType] = useState("");
   const [category, setCategory] = useState("");
-  const [worryContents, setWorryContents] = useState("");
   const [postTitle, setPostTitle] = useState("");
+  const [anonymousType, setAnonymousType] = useState("");
+  const [worryContents, setWorryContents] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
+
   const user = useSelector((state) => state.user);
   const { postInfo } = route.params;
 
@@ -91,6 +95,10 @@ function WriteWorry({ navigation, route }) {
     setPostTitle(title);
   };
 
+  const clearErrorMessage = () => {
+    setErrorMessage(null);
+  };
+
   const handleSubmitButtonClick = async () => {
     const postInfo = {
       user,
@@ -100,6 +108,14 @@ function WriteWorry({ navigation, route }) {
       anonymousType,
       worryContents
     };
+
+    const incorrectMessage = validatePostInfo(postInfo);
+
+    if (incorrectMessage) {
+      setErrorMessage(incorrectMessage);
+      return;
+    }
+
     try {
       await postNewWorryPost(postInfo);
     } catch (err) {
@@ -193,6 +209,12 @@ function WriteWorry({ navigation, route }) {
               />
             </ImageBackground>
           </View>
+          {errorMessage &&
+            <AlertModal
+              message={errorMessage}
+              handleModalClose={clearErrorMessage}
+            />
+          }
         </View>
       </TouchableWithoutFeedback>
     </ImageBackground>
