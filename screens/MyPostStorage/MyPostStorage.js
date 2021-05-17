@@ -19,6 +19,7 @@ import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import {
   deleteMyPost,
   fetchMyPosts,
+  deleteMyComment,
   fetchMyComments,
 } from "../../redux/userSlice";
 
@@ -134,6 +135,10 @@ function MyPostStorage() {
         });
       };
 
+      const handleDeleteButtonClick = () => (
+        dispatch(deleteMyComment(_id))
+      );
+
       return (
         <PostCard
           key={_id}
@@ -164,6 +169,7 @@ function MyPostStorage() {
                 text="삭제"
                 buttonStyle={styles.deleteButton}
                 textStyle={styles.deleteButtonText}
+                handleClick={handleDeleteButtonClick}
               />
             </View>
           </View>

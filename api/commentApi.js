@@ -31,3 +31,11 @@ export async function patchComment(commentInfo) {
 
   return await response.json();
 }
+
+export async function deleteComment(commentId) {
+  const response = await fetch(`${SERVER_URL}/comment/${commentId}`, {
+    method: "DELETE"
+  });
+
+  return await response.json();
+}
