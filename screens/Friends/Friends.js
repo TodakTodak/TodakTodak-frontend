@@ -5,7 +5,7 @@ import {
   ImageBackground,
   ScrollView
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -13,72 +13,70 @@ import FriendCard from "../../components/FriendCard/FriendCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
 import {
-  getFriends,
-  getWaitingFriends
-} from "../../api/userApi";
+  userSlice,
+  fetchMyFriends,
+  fetchWaitingFriends,
+} from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Friends() {
-  const [friendList, setFriendList] = useState([]);
+function Friends({ navigation }) {
   const [activeCategory, setActiveCategory] = useState("나의 인연들");
-  const [errorMessage, setErrorMessage] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const user = useSelector((state) => state.user);
+
+  const {
+    email,
+    isLoading,
+    friendList,
+    errorMessage,
+    waitingFriendList,
+    isFetchedFriendList,
+    isFetchedWaitingFriendList
+  } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    setIsLoading(true);
+    dispatch(userSlice.actions.resetFetchedStatus);
 
-    if (activeCategory === "나의 인연들") {
-      (async function getMyFrineds() {
-        try {
-          const response = await getFriends(user.email);
+    const unSubscribe = navigation.addListener("focus", () => {
+      if (activeCategory === "나의 인연들") {
+        dispatch(fetchMyFriends(email));
+      }
 
-          if (response.errorMessage) {
-            return console.log("에러");
-          }
+      if (activeCategory === "요청한 인연들") {
+        dispatch(fetchWaitingFriends(email));
+      }
+    });
 
-          setFriendList(response.friends);
-        } catch (err) {
-          console.log(err.message);
-          console.log("에러발생");
+    return unSubscribe;
+  }, [navigation]);
 
-          setErrorMessage("친구 목록을 가져오는데 실패했습니다.");
-        } finally {
-          setIsLoading(false);
-        }
-      })();
+  useEffect(() => {
+    if (activeCategory === "나의 인연들" && !isFetchedFriendList) {
+      dispatch(fetchMyFriends(email));
     }
 
-    if (activeCategory === "요청한 인연들") {
-      (async function getMyWaitingFriends() {
-        try {
-          const response = await getWaitingFriends(user.email);
-
-          if (response.errorMessage) {
-            return console.log("에러");
-          }
-
-          setFriendList(response.friends);
-        } catch (err) {
-          console.log(err.message);
-          console.log("에러 발생");
-
-          setErrorMessage("친구 목록을 가져오는데 실패했습니다");
-        } finally {
-          setIsLoading(false);
-        }
-      })();
+    if (activeCategory === "요청한 인연들" && !isFetchedWaitingFriendList) {
+      dispatch(fetchWaitingFriends(email));
     }
   }, [activeCategory]);
 
   const renderFriends = () => {
-    return friendList.map((friend, index) =>
+    if (activeCategory === "나의 인연들") {
+      return friendList.map((friend, index) =>
+        <FriendCard
+          key={index}
+          friend={friend}
+        />
+      );
+    }
+
+    return waitingFriendList.map((friend, index) =>
       <FriendCard
         key={index}
-        friend={friend} user={user}
+        friend={friend}
       />
-    )};
+    );
+  };
 
   return (
     <ImageBackground

@@ -64,7 +64,7 @@ function CounselingCenter({ navigation }) {
     });
 
     return unSubscribe;
-  }, []);
+  }, [navigation]);
 
   useEffect(() => {
     const categoryInfo = {
