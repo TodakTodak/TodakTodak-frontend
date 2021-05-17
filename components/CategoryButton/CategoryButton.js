@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet,
   View,
-  Text
+  Text,
+  StyleSheet,
+  TouchableOpacity
 } from "react-native";
 
 function CategoryButton({
@@ -17,8 +17,8 @@ function CategoryButton({
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <TouchableOpacity
-        onPress={() => handleClick(title)}
         accessibilityRole="button"
+        onPress={() => handleClick(title)}
         style={[
           styles.categoryWrapper,
           {

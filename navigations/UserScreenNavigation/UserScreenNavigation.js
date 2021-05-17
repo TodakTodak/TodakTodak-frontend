@@ -4,12 +4,18 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import BottomTabNavigation from "../BottomTabNavigation/BottomTabNavigation";
 
-import Friends from "../../screens/Friends/Friends";
-import WriteWorry from "../../screens/WriteWorry/WriteWorry";
-import DetailPost from "../../screens/DetailPost/DetailPost";
 import Answer from "../../screens/Answer/Answer";
 import ChatRoom from "../../screens/ChatRoom/ChatRoom";
+import DetailPost from "../../screens/DetailPost/DetailPost";
 import DetailComment from "../../screens/DetailComment/DetailComment";
+
+import {
+  ANSWER,
+  CHATROOM,
+  DETAILPOST,
+  DETAILCOMMENT,
+  BOTTOMTABNAVIGATION
+} from "../../constants/navigationName";
 
 const Stack = createStackNavigator();
 
@@ -17,13 +23,11 @@ function UserScreenNavigation() {
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
-        <Stack.Screen name="BottomTabNavigation" component={BottomTabNavigation} />
-        <Stack.Screen name="Friends" component={Friends} />
-        <Stack.Screen name="WriteWorry" component={WriteWorry} />
-        <Stack.Screen name="DetailPost" component={DetailPost} />
-        <Stack.Screen name="Answer" component={Answer} />
-        <Stack.Screen name="ChatRoom" component={ChatRoom} />
-        <Stack.Screen name="DetailComment" component={DetailComment} />
+        <Stack.Screen name={BOTTOMTABNAVIGATION} component={BottomTabNavigation} />
+        <Stack.Screen name={ANSWER} component={Answer} />
+        <Stack.Screen name={CHATROOM} component={ChatRoom} />
+        <Stack.Screen name={DETAILPOST} component={DetailPost} />
+        <Stack.Screen name={DETAILCOMMENT} component={DetailComment} />
       </Stack.Navigator>
     </NavigationContainer>
   );

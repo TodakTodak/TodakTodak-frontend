@@ -22,6 +22,8 @@ import {
 } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
+import { DETAILPOST } from "../../constants/navigationName";
+
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -91,7 +93,7 @@ function Answer({ route }) {
   };
 
   const handleRoutePostButtonClick = () => {
-    navigation.navigate("DetailPost", { postId });
+    navigation.navigate(DETAILPOST, { postId });
   };
 
   const handleModifyButtonClick = async () => {

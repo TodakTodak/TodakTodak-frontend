@@ -1,0 +1,19 @@
+export const INTRO = "Intro";
+export const LOGIN = "Login";
+export const SIGNUP = "Signup"
+export const ANSWER = "Answer";
+export const FRIENDS = "Friends";
+export const CHATROOM = "ChatRoom";
+export const WRITEWORRY = "WriteWorry";
+export const DETAILPOST = "DetailPost";
+export const USERINFOROOM = "UserInfoRoom";
+export const DETAILCOMMENT = "DetailComment";
+export const MYPOSTSTORAGE = "MyPostStorage";
+export const COUNSELINGCENTER = "CounselingCenter";
+export const BOTTOMTABNAVIGATION = "BottomTabNavigation";
+
+export const FRIENDSLABEL = "나의 인연들";
+export const WRITEWORRYLABEL = "글 쓰기";
+export const USERINFOROOMLABEL = "내 정보";
+export const MYPOSTSTORAGELABEL = "내 마음 저장소";
+export const COUNSELINGCENTERLABEL = "고민 상담소";

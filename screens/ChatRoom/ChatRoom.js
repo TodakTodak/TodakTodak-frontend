@@ -14,6 +14,7 @@ import ChatLog from "../../components/ChatLog/ChatLog";
 import TextInput from "../../components/TextInput/TextInput";
 
 import { SERVER_URL } from "@env";
+import { FRIENDS } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -79,7 +80,7 @@ function ChatRoom({ route, navigation }) {
   };
 
   const handleFriendsButtonClick = () => {
-    navigation.navigate("Friends");
+    navigation.navigate(FRIENDS);
   };
 
   const renderChats = () => {

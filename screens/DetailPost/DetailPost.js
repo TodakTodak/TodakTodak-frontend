@@ -26,6 +26,12 @@ import {
   patchPostCommentLike
 } from "../../api/postApi";
 
+import {
+  ANSWER,
+  WRITEWORRY,
+  DETAILCOMMENT
+} from  "../../constants/navigationName";
+
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -69,7 +75,7 @@ function DetailPost({ route }) {
   }, [navigation]);
 
   const handleAddCommentButtonClick = () => {
-    navigation.navigate("DetailComment", { postId });
+    navigation.navigate(DETAILCOMMENT, { postId });
   };
 
   const handleLikeButtonClick = async () => {
@@ -93,11 +99,11 @@ function DetailPost({ route }) {
   };
 
   const handleCommentClick = (commentInfo) => {
-    navigation.navigate("Answer", { commentInfo });
+    navigation.navigate(ANSWER, { commentInfo });
   };
 
   const handleModifyButtonClick = () => {
-    navigation.navigate("WriteWorry", { postInfo });
+    navigation.navigate(WRITEWORRY, { postInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {

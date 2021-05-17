@@ -1,7 +1,7 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet
+  StyleSheet,
+  TouchableOpacity
 } from "react-native";
 
 function PostCard({

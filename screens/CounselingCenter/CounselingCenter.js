@@ -24,14 +24,22 @@ import {
   fetchFriendPosts,
   fetchEmploymentPosts
 } from "../../redux/categoryPostSlice";
-
 import { categoryPostSlice } from "../../redux/categoryPostSlice";
+
+import {
+  PAIN,
+  LOVE,
+  COURSE,
+  FRIEND,
+  EMPLOYMENT
+} from "../../constants/category";
+import { DETAILPOST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 function CounselingCenter() {
   const [page, setPage] = useState(1);
-  const [postCategory, setPostCategory] = useState("취업");
+  const [postCategory, setPostCategory] = useState(EMPLOYMENT);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -44,11 +52,11 @@ function CounselingCenter() {
   } = useSelector((state) => state.post);
 
   const categorys = [
-    { title: "취업", color: "rgba(56, 136, 255, 0.3)" },
-    { title: "사랑", color: "rgba(249, 157, 20, 0.3)" },
-    { title: "진로", color: "rgba(239, 255, 56, 0.3)" },
-    { title: "친구", color: "rgba(120, 255, 56, 0.3)" },
-    { title: "고통", color: "rgba(255, 56, 56, 0.3)" }
+    { title: EMPLOYMENT, color: "rgba(56, 136, 255, 0.3)" },
+    { title: LOVE, color: "rgba(249, 157, 20, 0.3)" },
+    { title: COURSE, color: "rgba(239, 255, 56, 0.3)" },
+    { title: FRIEND, color: "rgba(120, 255, 56, 0.3)" },
+    { title: PAIN, color: "rgba(255, 56, 56, 0.3)" }
   ];
 
   useEffect(() => {
@@ -64,23 +72,23 @@ function CounselingCenter() {
 
   const dispatchCategoryInfo = (category, info) => {
     switch (category) {
-      case "취업":
+      case EMPLOYMENT:
         dispatch(fetchEmploymentPosts(info));
         break;
 
-      case "사랑":
+      case LOVE:
         dispatch(fetchLovePosts(info));
         break;
 
-      case "진로":
+      case COURSE:
         dispatch(fetchCoursePosts(info));
         break;
 
-      case "친구":
+      case FRIEND:
         dispatch(fetchFriendPosts(info));
         break;
 
-      case "고통":
+      case PAIN:
         dispatch(fetchPainPosts(info));
         break;
 
@@ -114,7 +122,7 @@ function CounselingCenter() {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate("DetailPost", { postId: bestPost[postCategory]._id });
+    navigation.navigate(DETAILPOST, { postId: bestPost[postCategory]._id });
   };
 
   return (
@@ -188,7 +196,7 @@ function CounselingCenter() {
                   } = item;
 
                   const handlePostClick = () => (
-                    navigation.navigate("DetailPost", { postId: _id })
+                    navigation.navigate(DETAILPOST, { postId: _id })
                   );
 
                   return (

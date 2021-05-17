@@ -1,9 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
-  StyleSheet,
-  Image,
   View,
-  Text
+  Text,
+  Image,
+  StyleSheet
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -14,6 +14,8 @@ import {
   rejectWaitingFriend,
   acceptWaitingFriend
 } from "../../redux/userSlice";
+
+import { CHATROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
 
@@ -47,7 +49,7 @@ function FriendCard({ friend }) {
   }, [friend]);
 
   const handleEnterChatRoomClick = () => {
-    navigation.navigate("ChatRoom", {
+    navigation.navigate(CHATROOM, {
       userNickname: user.nickname,
       chatRoomId
     });

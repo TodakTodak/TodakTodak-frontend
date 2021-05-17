@@ -8,11 +8,24 @@ import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
 import MyPostStorage from "../../screens/MyPostStorage/MyPostStorage";
 import CounselingCenter from "../../screens/CounselingCenter/CounselingCenter";
 
-import userInfoRoom from "../../assets/pngs/home.png";
+import {
+  FRIENDS,
+  WRITEWORRY,
+  USERINFOROOM,
+  FRIENDSLABEL,
+  MYPOSTSTORAGE,
+  WRITEWORRYLABEL,
+  COUNSELINGCENTER,
+  USERINFOROOMLABEL,
+  MYPOSTSTORAGELABEL,
+  COUNSELINGCENTERLABEL
+} from "../../constants/navigationName";
+
 import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
 import friends from "../../assets/pngs/friends.png";
 import feather from "../../assets/pngs/feather.png";
+import userInfoRoom from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -20,57 +33,57 @@ function BottomTabNavigation() {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
-      initialRouteName="MyPostStorage"
+      initialRouteName={MYPOSTSTORAGE}
       tabBarOptions={{
         activeTintColor: "#e91e63"
       }}
     >
       <Tab.Screen
-        name="UserInfoRoom"
+        name={USERINFOROOM}
         component={UserInfoRoom}
         options={{
-          tabBarLabel: "내 정보",
+          tabBarLabel: USERINFOROOMLABEL,
           tabBarIcon: () => (
             <Image source={userInfoRoom} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="MyPostStorage"
+        name={MYPOSTSTORAGE}
         component={MyPostStorage}
         options={{
-          tabBarLabel: "내 마음 저장소",
+          tabBarLabel: MYPOSTSTORAGELABEL,
           tabBarIcon: () => (
             <Image source={letter} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="Friends"
+        name={FRIENDS}
         component={Friends}
         options={{
-          tabBarLabel: "나의 인연들",
+          tabBarLabel: FRIENDSLABEL,
           tabBarIcon: () => (
             <Image source={friends} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="CounselingCenter"
+        name={COUNSELINGCENTER}
         component={CounselingCenter}
         options={{
-          tabBarLabel: "고민 상담소",
+          tabBarLabel: COUNSELINGCENTERLABEL,
           tabBarIcon: () => (
             <Image source={love} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name="WriteWorry"
+        name={WRITEWORRY}
         component={WriteWorry}
         initialParams={{ postInfo: {} }}
         options={{
-          tabBarLabel: "글 쓰기",
+          tabBarLabel: WRITEWORRYLABEL,
           tabBarIcon: () => (
             <Image source={feather} style={styles.imageStyle} />
           )

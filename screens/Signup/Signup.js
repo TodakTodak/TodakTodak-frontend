@@ -13,6 +13,8 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 import { postSignup } from "../../api/userApi";
 import { validateSignupInfo } from "../../validation/authValidation";
 
+import { LOGIN } from "../../constants/navigationName";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
 function Signup({ navigation }) {
@@ -43,7 +45,7 @@ function Signup({ navigation }) {
         return;
       }
 
-      navigation.navigate("Login");
+      navigation.navigate(LOGIN);
     } catch (error) {
       setErrorMessage("에러가 발생했습니다");
     }
@@ -62,23 +64,23 @@ function Signup({ navigation }) {
         <Title text="토닥 토닥" />
         <View style={styles.textInputContainer}>
           <TextInput
-            placeholder="이메일을 입력해주세요"
-            handleInputChange={setEmail}
             value={email}
             type="emailAddress"
+            handleInputChange={setEmail}
+            placeholder="이메일을 입력해주세요"
           />
           <TextInput
-            placeholder="비밀번호를 입력해주세요"
-            isPassword={true}
-            handleInputChange={setPassword}
             value={password}
             type="password"
+            isPassword={true}
+            handleInputChange={setPassword}
+            placeholder="비밀번호를 입력해주세요"
           />
           <TextInput
-            placeholder="닉네임을 입력해주세요"
-            handleInputChange={setNickname}
             value={nickname}
             type="nickname"
+            handleInputChange={setNickname}
+            placeholder="닉네임을 입력해주세요"
           />
         </View>
         <View style={styles.buttonContainer}>

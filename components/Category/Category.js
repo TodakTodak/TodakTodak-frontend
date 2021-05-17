@@ -1,8 +1,8 @@
 import React from "react";
 import {
-  StyleSheet,
   View,
-  Text
+  Text,
+  StyleSheet
 } from "react-native";
 
 function Category({

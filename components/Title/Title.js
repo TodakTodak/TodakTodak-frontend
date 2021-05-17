@@ -1,18 +1,18 @@
 import React from "react";
 import {
-  StyleSheet,
-  Image,
   Text,
-  View
+  View,
+  Image,
+  StyleSheet
 } from "react-native";
 
 import titleImage from "../../assets/pngs/moon.png";
 
 function Title({
-  titleStyle,
-  imageStyle,
+  text,
   textStyle,
-  text
+  titleStyle,
+  imageStyle
 }) {
   return (
     <View style={[ styles.title, titleStyle ]}>

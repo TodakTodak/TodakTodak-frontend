@@ -1,9 +1,9 @@
 import React from "react";
 import {
-  TouchableOpacity,
-  StyleSheet,
   Text,
-  View
+  View,
+  StyleSheet,
+  TouchableOpacity
 } from "react-native";
 
 function Button({

@@ -18,6 +18,18 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
 
+import {
+  DETAILPOST,
+  MYPOSTSTORAGE
+} from "../../constants/navigationName";
+import {
+  PAIN,
+  LOVE,
+  COURSE,
+  FRIEND,
+  EMPLOYMENT
+} from "../../constants/category";
+
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -69,11 +81,11 @@ function WriteWorry({ navigation, route }) {
     { label: "nickname", value: "nickname" }
   ];
   const categoryTypes = [
-    { label: "사랑", value: "사랑" },
-    { label: "진로", value: "진로" },
-    { label: "취업", value: "취업" },
-    { label: "친구", value: "친구" },
-    { label: "고통", value: "고통" }
+    { label: LOVE, value: LOVE },
+    { label: COURSE, value: COURSE },
+    { label: EMPLOYMENT, value: EMPLOYMENT },
+    { label: FRIEND, value: FRIEND },
+    { label: PAIN, value: PAIN }
   ];
 
   const handlePostPickerChange = (item) => {
@@ -122,7 +134,7 @@ function WriteWorry({ navigation, route }) {
     } catch (err) {
       console.log(err.message);
     } finally {
-      navigation.navigate("MyPostStorage");
+      navigation.navigate(MYPOSTSTORAGE);
     }
   };
 
@@ -142,7 +154,7 @@ function WriteWorry({ navigation, route }) {
     } catch (err) {
       console.log(err.message);
     } finally {
-      navigation.navigate("DetailPost", { postId: postInfo._id });
+      navigation.navigate(DETAILPOST, { postId: postInfo._id });
     }
   };
 
@@ -152,7 +164,7 @@ function WriteWorry({ navigation, route }) {
       style={styles.backgroundContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView style={styles.container}>
+        <View style={styles.container}>
           <Title
             text="고민 작성소"
             textStyle={styles.titleText}
@@ -216,7 +228,7 @@ function WriteWorry({ navigation, route }) {
               handleModalClose={clearErrorMessage}
             />
           }
-        </ScrollView>
+        </View>
       </TouchableWithoutFeedback>
     </ImageBackground>
   );

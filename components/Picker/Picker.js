@@ -3,10 +3,10 @@ import { StyleSheet, Text, View } from "react-native";
 import PickerSelect from "react-native-picker-select";
 
 function Picker({
-  handleChange,
-  itemList,
   label,
-  value
+  value,
+  itemList,
+  handleChange
 }) {
   return (
     <View style={styles.pickerContainer}>
