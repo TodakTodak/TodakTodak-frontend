@@ -78,3 +78,11 @@ export async function patchPost(postInfo) {
 
   return await response.json();
 }
+
+export async function deletePost(postId) {
+  const response = await fetch(`${SERVER_URL}/post/${postId}`, {
+    method: "DELETE"
+  });
+
+  return await response.json();
+}

@@ -21,8 +21,8 @@ function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const { isLoading, message } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const { isLoading, message } = useSelector((state) => state.user);
 
   const handleLoginClick = () => {
     const userInfo = { email, password };
