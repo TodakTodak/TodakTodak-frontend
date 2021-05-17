@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
-  Image,
   FlatList,
   ScrollView,
   StyleSheet,
@@ -12,8 +11,9 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import Title from "../../components/Title/Title";
 import Loading from "../../screens/Loading/Loading";
+import Title from "../../components/Title/Title";
+import EmptyView from "../../components/EmptyView/EmptyView";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
@@ -27,7 +27,6 @@ import {
 
 import { categoryPostSlice } from "../../redux/categoryPostSlice";
 
-import emptyBox from "../../assets/pngs/emptyBox.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
 function CounselingCenter() {
@@ -222,10 +221,10 @@ function CounselingCenter() {
                   />
                 }
               >
-                <Image source={emptyBox} style={styles.emptyBoxImage} />
-                <Text style={styles.emptyText}>
-                  해당 카테고리의 고민이 없습니다.
-                </Text>
+                <EmptyView
+                  text="해당 카테고리의 고민이 없습니다."
+                  viewStyle={styles.emptyContainer}
+                />
               </ScrollView>
             }
           </>
@@ -289,19 +288,8 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0)"
   },
   emptyContainer: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 100
+    marginTop: "15%"
   },
-  emptyBoxImage: {
-    width: 100,
-    height: 100
-  },
-  emptyText: {
-    marginTop: 20,
-    color: "#ffffff",
-    fontSize: 20
-  }
 });
 
 export default CounselingCenter;

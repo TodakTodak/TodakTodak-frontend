@@ -9,8 +9,8 @@ import {
   rejectPendingFriend,
   acceptPendingFriend
 } from "../api/userApi";
-import { getMyComments, deleteComment } from "../api/commentApi";
 import { deletePost } from "../api/postApi";
+import { getMyComments, deleteComment } from "../api/commentApi";
 
 export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
