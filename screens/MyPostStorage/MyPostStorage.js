@@ -42,12 +42,8 @@ function MyPostStorage() {
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus", () => {
-      if (activeCategory === "나의 고민들") {
-        dispatch(fetchMyPosts(email));
-      }
-      if (activeCategory === "나의 위로들") {
-        dispatch(fetchMyComments(email));
-      }
+      setActiveCategory("나의 고민들");
+      dispatch(fetchMyPosts(email));
     });
 
     return unSubscribe;

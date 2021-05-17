@@ -92,7 +92,7 @@ function CounselingCenter() {
   const getCategorys = () => {
     const categoryInfo = {
       category: postCategory,
-      page,
+      page
     };
 
     dispatchCategoryInfo(postCategory, categoryInfo);
@@ -140,12 +140,13 @@ function CounselingCenter() {
           </View> :
           <>
             <View style={styles.bestPost}>
-              <Text style={styles.bestTitle}>
+              <Text style={styles.bestText}>
                 {postCategory} 카테고리 위로를 많이 받은 고민
               </Text>
               {bestPost[postCategory] &&
                 <CategoryPostCard
                   cardStyle={styles.bestPostCard}
+                  titleStyle={styles.bestPostTitle}
                   handleClick={handleBestPostClick}
                   title={bestPost[postCategory].title}
                   likes={bestPost[postCategory].likes}
@@ -266,14 +267,18 @@ const styles = StyleSheet.create({
     marginLeft: "auto"
   },
   bestPostCard: {
-    marginTop: 10
+    marginTop: 10,
+    backgroundColor: "#FF6392"
+  },
+  bestPostTitle: {
+    color: "#C0FDFB"
   },
   bestPost: {
     width: "100%",
     maxHeight: 200,
     alignItems: "center"
   },
-  bestTitle: {
+  bestText: {
     height: 30,
     color: "rgb(235, 255, 0)",
     fontWeight: "bold",
@@ -289,7 +294,7 @@ const styles = StyleSheet.create({
   },
   emptyContainer: {
     marginTop: "15%"
-  },
+  }
 });
 
 export default CounselingCenter;

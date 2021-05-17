@@ -131,7 +131,7 @@ function FriendCard({ friend }) {
 const styles = StyleSheet.create({
   friend: {
     width: "90%",
-    height: "10%",
+    minHeight: "20%",
     maxHeight: "15%",
     justifyContent: "space-between",
     alignItems: "center",
@@ -139,7 +139,7 @@ const styles = StyleSheet.create({
     margin: 10,
     marginLeft: 20,
     padding: 5,
-    borderRadius: 20,
+    borderRadius: 10,
     backgroundColor: "#ffffff",
   },
   friendInfoWrapper: {
@@ -152,14 +152,14 @@ const styles = StyleSheet.create({
     justifyContent: "center"
   },
   friendAvatar: {
-    width: 30,
-    height: 30,
+    width: 35,
+    height: 35,
     borderRadius: 50,
     backgroundColor: "yellow",
     marginRight: 10
   },
   friendName: {
-    fontSize: 20
+    fontSize: 15
   },
   friendStatusText: {
     color: "coral",

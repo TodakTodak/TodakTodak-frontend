@@ -1,6 +1,14 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { getCategoryPosts } from "../api/postApi";
 
+import {
+  LOVE,
+  PAIN,
+  COURSE,
+  FRIEND,
+  EMPLOYMENT
+} from "../constants/category";
+
 export const fetchEmploymentPosts = createAsyncThunk(
   "post/fetchEmploymentPosts",
   async (categoryInfo, thunkAPI) => {
@@ -130,9 +138,9 @@ export const categoryPostSlice = createSlice({
   extraReducers: {
     [fetchEmploymentPosts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.isFetched["취업"] = true;
-      state.bestPost["취업"] = payload.highestLikesPost;
-      state.post["취업"] = [...state.post["취업"], ...payload.categoryPosts];
+      state.isFetched[EMPLOYMENT] = true;
+      state.bestPost[EMPLOYMENT] = payload.highestLikesPost;
+      state.post[EMPLOYMENT] = [...state.post[EMPLOYMENT], ...payload.categoryPosts];
     },
     [fetchEmploymentPosts.pending]: (state) => {
       state.isLoading = true;
@@ -143,9 +151,9 @@ export const categoryPostSlice = createSlice({
     },
     [fetchLovePosts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.isFetched["사랑"] = true;
-      state.bestPost["사랑"] = payload.highestLikesPost;
-      state.post["사랑"] = [...state.post["사랑"], ...payload.categoryPosts];
+      state.isFetched[LOVE] = true;
+      state.bestPost[LOVE] = payload.highestLikesPost;
+      state.post[LOVE] = [...state.post[LOVE], ...payload.categoryPosts];
     },
     [fetchLovePosts.pending]: (state) => {
       state.isLoading = true;
@@ -156,9 +164,9 @@ export const categoryPostSlice = createSlice({
     },
     [fetchCoursePosts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.isFetched["진로"] = true;
-      state.bestPost["진로"] = payload.highestLikesPost;
-      state.post["진로"] = [...state.post["진로"], ...payload.categoryPosts];
+      state.isFetched[COURSE] = true;
+      state.bestPost[COURSE] = payload.highestLikesPost;
+      state.post[COURSE] = [...state.post[COURSE], ...payload.categoryPosts];
     },
     [fetchCoursePosts.pending]: (state) => {
       state.isLoading = true;
@@ -169,9 +177,9 @@ export const categoryPostSlice = createSlice({
     },
     [fetchFriendPosts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.isFetched["친구"] = true;
-      state.bestPost["친구"] = payload.highestLikesPost;
-      state.post["친구"] = [...state.post["친구"], ...payload.categoryPosts];
+      state.isFetched[FRIEND] = true;
+      state.bestPost[FRIEND] = payload.highestLikesPost;
+      state.post[FRIEND] = [...state.post[FRIEND], ...payload.categoryPosts];
     },
     [fetchFriendPosts.pending]: (state) => {
       state.isLoading = true;
@@ -182,9 +190,9 @@ export const categoryPostSlice = createSlice({
     },
     [fetchPainPosts.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
-      state.isFetched["고통"] = true;
-      state.bestPost["고통"] = payload.highestLikesPost;
-      state.post["고통"] = [...state.post["고통"], ...payload.categoryPosts];
+      state.isFetched[PAIN] = true;
+      state.bestPost[PAIN] = payload.highestLikesPost;
+      state.post[PAIN] = [...state.post[PAIN], ...payload.categoryPosts];
     },
     [fetchPainPosts.pending]: (state) => {
       state.isLoading = true;

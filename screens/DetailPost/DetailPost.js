@@ -42,11 +42,19 @@ function DetailPost({ route }) {
   useEffect(() => {
     const unsubscribe = navigation.addListener("focus", async () => {
       setIsLoading(true);
+
       try {
         const response = await getDetailPost(postId);
+
         if (response.errorMessage) {
           console.log("에러발생");
           return;
+        }
+
+        if (response.post.likes.includes(user.email)) {
+          setIsPostLike(true);
+        } else {
+          setIsPostLike(false);
         }
 
         setPostInfo(response.post);
@@ -59,18 +67,6 @@ function DetailPost({ route }) {
 
     return unsubscribe;
   }, [navigation]);
-
-  useEffect(() => {
-    if (postInfo.likes) {
-      const isLikedUser = postInfo.likes.includes(user.email);
-
-      if (isLikedUser) {
-        return setIsPostLike(true);
-      }
-
-      setIsPostLike(false);
-    }
-  }, []);
 
   const handleAddCommentButtonClick = () => {
     navigation.navigate("DetailComment", { postId });
