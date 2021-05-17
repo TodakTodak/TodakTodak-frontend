@@ -4,7 +4,8 @@ import {
   ImageBackground,
   Keyboard,
   StyleSheet,
-  View
+  View,
+  ScrollView
 } from "react-native";
 import { useSelector } from "react-redux";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
