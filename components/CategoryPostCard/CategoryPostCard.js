@@ -12,6 +12,7 @@ function CategoryPostCard({
   title,
   createdAt,
   cardStyle,
+  titleStyle,
   handleClick,
   isAnonymous,
   ownerNickname
@@ -23,7 +24,7 @@ function CategoryPostCard({
     >
       <View style={styles.cardWrapper}>
         <View>
-          <Text style={styles.postTitle}>
+          <Text style={[styles.postTitle, titleStyle]}>
             {9 < title.length ? `${title.substring(0, 8)}...` : title}
           </Text>
           <View style={styles.postContentsWrapper}>

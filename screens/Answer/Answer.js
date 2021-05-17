@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
 import {
-  TouchableWithoutFeedback,
-  ImageBackground,
+  View,
   Keyboard,
   StyleSheet,
-  View,
-  ScrollView
+  ScrollView,
+  ImageBackground,
+  TouchableWithoutFeedback,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";

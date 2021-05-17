@@ -38,7 +38,7 @@ function Friends() {
   } = useSelector((state) => state.user);
 
   useEffect(() => {
-    dispatch(userSlice.actions.resetFriendFetchedStatus);
+    dispatch(userSlice.actions.resetFriendFetchedStatus());
 
     const unSubscribe = navigation.addListener("focus", () => {
       if (activeCategory === "나의 인연들") {
@@ -77,7 +77,7 @@ function Friends() {
       );
     }
 
-    if (!friendList.length) {
+    if (!waitingFriendList.length) {
       return <EmptyView text="요청 인연들이 없습니다." />;
     }
 
