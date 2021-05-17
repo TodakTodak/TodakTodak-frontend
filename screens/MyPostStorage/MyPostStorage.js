@@ -139,13 +139,26 @@ function MyPostStorage({ navigation }) {
           key={_id}
           handleClick={handleCommentClick}
         >
-          <View>
-            <Text style={styles.postContent}>
-              답변: {content.substring(0, 8)}
-            </Text>
-            <Text style={styles.postContent}>
-              추천 수: {likes.length} / {createdAt.substring(0, 10)}
-            </Text>
+          <View style={styles.postContainer}>
+            <View>
+              <Text style={styles.postTitle}>
+                {content.substring(0, 8)}
+              </Text>
+              <Text style={styles.postContent}>
+                {createdAt.substring(0, 10)}
+              </Text>
+            </View>
+            <View style={styles.likeWrapper}>
+              <AntDesign
+                style={styles.likeIcon}
+                size={15}
+                color="red"
+                name="heart"
+              />
+              <Text style={styles.postContent}>
+                {likes.length}
+              </Text>
+            </View>
           </View>
         </PostCard>
       );
