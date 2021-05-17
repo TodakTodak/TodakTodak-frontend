@@ -152,7 +152,7 @@ function DetailPost({ route }) {
           <Title
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
-            text={`${postInfo.ownerNickname}의 고민`}
+            text={postInfo.isAnonymous ? "익명의 고민" : `${postInfo.ownerNickname}의 고민`}
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground

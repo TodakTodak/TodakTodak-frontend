@@ -1,15 +1,16 @@
 import React, { useEffect, useState } from "react";
 import {
-  ImageBackground,
-  RefreshControl,
+  Text,
+  View,
+  Image,
+  FlatList,
   ScrollView,
   StyleSheet,
-  FlatList,
-  Image,
-  View,
-  Text
+  RefreshControl,
+  ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
 import Loading from "../../screens/Loading/Loading";
@@ -17,11 +18,11 @@ import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
 import {
-  fetchEmploymentPosts,
-  fetchCoursePosts,
-  fetchFriendPosts,
   fetchLovePosts,
   fetchPainPosts,
+  fetchCoursePosts,
+  fetchFriendPosts,
+  fetchEmploymentPosts
 } from "../../redux/categoryPostSlice";
 
 import { categoryPostSlice } from "../../redux/categoryPostSlice";
@@ -29,10 +30,12 @@ import { categoryPostSlice } from "../../redux/categoryPostSlice";
 import emptyBox from "../../assets/pngs/emptyBox.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function CounselingCenter({ navigation }) {
+function CounselingCenter() {
   const [page, setPage] = useState(1);
   const [postCategory, setPostCategory] = useState("취업");
 
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {
     post,
     message,
@@ -40,7 +43,6 @@ function CounselingCenter({ navigation }) {
     isLoading,
     isFetched
   } = useSelector((state) => state.post);
-  const dispatch = useDispatch();
 
   const categorys = [
     { title: "취업", color: "rgba(56, 136, 255, 0.3)" },
@@ -53,6 +55,7 @@ function CounselingCenter({ navigation }) {
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus" , () => {
       setPostCategory("취업");
+
       const initialCategoryInfo = {
         category: "취업",
         page: 0
@@ -73,28 +76,36 @@ function CounselingCenter({ navigation }) {
     };
 
     if (!isFetched[postCategory]) {
-      switch (postCategory) {
-        case "사랑":
-          dispatch(fetchLovePosts(categoryInfo));
-          break;
-
-        case "진로":
-          dispatch(fetchCoursePosts(categoryInfo));
-          break;
-
-        case "친구":
-          dispatch(fetchFriendPosts(categoryInfo));
-          break;
-
-        case "고통":
-          dispatch(fetchPainPosts(categoryInfo));
-          break;
-
-        default:
-          break;
-      }
+      dispatchCategoryInfo(postCategory, categoryInfo);
     }
   }, [postCategory]);
+
+  const dispatchCategoryInfo = (category, info) => {
+    switch (category) {
+      case "취업":
+        dispatch(fetchEmploymentPosts(info));
+        break;
+
+      case "사랑":
+        dispatch(fetchLovePosts(info));
+        break;
+
+      case "진로":
+        dispatch(fetchCoursePosts(info));
+        break;
+
+      case "친구":
+        dispatch(fetchFriendPosts(info));
+        break;
+
+      case "고통":
+        dispatch(fetchPainPosts(info));
+        break;
+
+      default:
+        break;
+    }
+  };
 
   const getCategorys = () => {
     const categoryInfo = {
@@ -102,31 +113,7 @@ function CounselingCenter({ navigation }) {
       page,
     };
 
-    switch (postCategory) {
-      case "취업":
-        dispatch(fetchEmploymentPosts(categoryInfo));
-        break;
-
-      case "사랑":
-        dispatch(fetchLovePosts(categoryInfo));
-        break;
-
-      case "진로":
-        dispatch(fetchCoursePosts(categoryInfo));
-        break;
-
-      case "친구":
-        dispatch(fetchFriendPosts(categoryInfo));
-        break;
-
-      case "고통":
-        dispatch(fetchPainPosts(categoryInfo));
-        break;
-
-      default:
-        break;
-    }
-
+    dispatchCategoryInfo(postCategory, categoryInfo);
     setPage((page) => page + 1);
   };
 
@@ -191,15 +178,14 @@ function CounselingCenter({ navigation }) {
                 refreshControl={
                   <RefreshControl
                     onRefresh={() => {
-                      setPostCategory(postCategory);
-                      const initialCategoryInfo = {
+                      const categoryInfo = {
                         category: postCategory,
                         page: 0
                       };
 
                       setPage(1);
                       dispatch(categoryPostSlice.actions.resetPostState());
-                      dispatch(fetchEmploymentPosts(initialCategoryInfo));
+                      dispatchCategoryInfo(postCategory, categoryInfo);
                     }}
                   />
                 }
@@ -241,14 +227,14 @@ function CounselingCenter({ navigation }) {
                   <RefreshControl
                     onRefresh={() => {
                       setPostCategory(postCategory);
-                      const initialCategoryInfo = {
+                      const categoryInfo = {
                         category: postCategory,
                         page: 0
                       };
 
                       setPage(1);
                       dispatch(categoryPostSlice.actions.resetPostState());
-                      dispatch(fetchEmploymentPosts(initialCategoryInfo));
+                      dispatchCategoryInfo(postCategory, categoryInfo);
                     }}
                   />
                 }

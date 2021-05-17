@@ -81,3 +81,14 @@ export async function getFriends(userEmail) {
 
   return await response.json();
 }
+
+export async function getMyPosts(userEmail) {
+  const response = await fetch(`${SERVER_URL}/auth/posts`, {
+    method: "GET",
+    headers: {
+      "usereMail": userEmail
+    }
+  });
+
+  return await response.json();
+}
