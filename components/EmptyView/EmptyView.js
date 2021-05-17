@@ -6,6 +6,8 @@ import {
   StyleSheet
 } from "react-native";
 
+import { WHITE } from "../../constants/color";
+
 import emptyBox from "../../assets/pngs/emptyBox.png";
 
 const EmptyView = ({ text, viewStyle }) => {
@@ -30,7 +32,7 @@ const styles = StyleSheet.create({
   },
   emptyText: {
     marginTop: 20,
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 20
   }
 });

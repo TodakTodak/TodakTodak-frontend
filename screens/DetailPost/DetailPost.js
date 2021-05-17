@@ -31,6 +31,11 @@ import {
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
+import {
+  RED,
+  BLACK,
+  TRANSPARENCY
+} from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -174,7 +179,7 @@ function DETAIL_POST({ route }) {
                 <View style={styles.buttonContainer}>
                   <AntDesign
                     size={25}
-                    color="red"
+                    color={RED}
                     name={isPostLike ? "like1" : "like2"}
                   />
                   <Button
@@ -187,7 +192,7 @@ function DETAIL_POST({ route }) {
                 <View style={styles.buttonContainer}>
                   <FontAwesome
                     size={25}
-                    color="red"
+                    color={RED}
                     name="comment-o"
                   />
                   <Button
@@ -201,7 +206,7 @@ function DETAIL_POST({ route }) {
                   <View style={styles.buttonContainer}>
                     <Ionicons
                       size={25}
-                      color="red"
+                      color={RED}
                       name="document"
                     />
                     <Button
@@ -246,7 +251,7 @@ const styles = StyleSheet.create({
   },
   contents: {
     height: 550,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     fontSize: 20
   },
   letterPage: {
@@ -264,10 +269,10 @@ const styles = StyleSheet.create({
   },
   button: {
     minWidth: "20%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   buttonText: {
-    color: "#000000",
+    color: BLACK,
     fontSize: 18
   },
   commentContainer: {

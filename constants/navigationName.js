@@ -6,13 +6,13 @@ export const FRIENDS = "Friends";
 export const CHAT_ROOM = "ChatRoom";
 export const WRITE_WORRY = "WriteWorry";
 export const DETAIL_POST = "DetailPost";
-export const USER_INFO_ROOM = "UsetInfoRoom";
+export const USER_INFO_ROOM = "UserInfoRoom";
 export const DETAIL_COMMENT = "DetailComment";
 export const MY_POST_STORAGE = "MyPostStorage";
 export const COUNSELING_CENTER = "CounselingCenter";
 export const BOTTOM_TAB_NAVIGATION = "BottomTabNavigation";
 
-export const FRIENDSLABEL = "나의 인연들";
+export const FRIENDS_LABEL = "나의 인연들";
 export const WRITE_WORRYLABEL = "글 쓰기";
 export const USER_INFO_ROOMLABEL = "내 정보";
 export const MY_POST_STORAGELABEL = "내 마음 저장소";

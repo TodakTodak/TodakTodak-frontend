@@ -4,8 +4,7 @@ import {
   Keyboard,
   StyleSheet,
   ImageBackground,
-  TouchableWithoutFeedback,
-  ScrollView
+  TouchableWithoutFeedback
 } from "react-native";
 import { useSelector } from "react-redux";
 

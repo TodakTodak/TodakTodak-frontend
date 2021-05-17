@@ -8,9 +8,10 @@ import {
 import { AntDesign } from "@expo/vector-icons";
 
 import {
+  RED,
   BLACK,
-  CATEGORYCARDTITLE,
-  CATEGORYCARDBACKGROUND
+  CATEGORY_CARD_TITLE,
+  CATEGORY_CARD_BACKGROUND
 } from "../../constants/color";
 
 function CategoryPostCard({
@@ -46,7 +47,7 @@ function CategoryPostCard({
           <AntDesign
             style={styles.likeIcon}
             size={15}
-            color="red"
+            color={RED}
             name="heart"
           />
           <Text style={styles.postContent}>
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: CATEGORYCARDBACKGROUND,
+    backgroundColor: CATEGORY_CARD_BACKGROUND,
     shadowColor: BLACK,
     shadowOffset: {
       width: 10,
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
   postTitle: {
     minWidth: "40%",
     margin: 10,
-    color: CATEGORYCARDTITLE,
+    color: CATEGORY_CARD_TITLE,
     fontSize: 17,
     fontWeight: "bold"
   },

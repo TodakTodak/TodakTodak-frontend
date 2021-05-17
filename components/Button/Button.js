@@ -6,6 +6,11 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import {
+  WHITE,
+  BUTTON_BACKGROUND
+} from "../../constants/color";
+
 function Button({
   handleClick,
   buttonStyle,
@@ -34,7 +39,7 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: 10,
     borderRadius: 10,
-    backgroundColor: "#8997DA"
+    backgroundColor: BUTTON_BACKGROUND
   },
   buttonContents: {
     flexDirection: "row",
@@ -47,7 +52,7 @@ const styles = StyleSheet.create({
     marginRight: 20
   },
   buttonText: {
-    color: "#ffffff",
+    color: WHITE,
     fontWeight: "bold",
     fontSize: 20
   }

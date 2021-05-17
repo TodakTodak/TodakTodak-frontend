@@ -6,6 +6,8 @@ import {
   StyleSheet
 } from "react-native";
 
+import { WHITE } from "../../constants/color";
+
 import titleImage from "../../assets/pngs/moon.png";
 
 function Title({
@@ -35,7 +37,7 @@ const styles = StyleSheet.create({
     marginTop: "30%"
   },
   titleText: {
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 40,
     fontWeight: "bold"
   },

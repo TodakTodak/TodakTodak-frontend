@@ -26,7 +26,7 @@ function FriendCard({ friend }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { friendInfo, CHAT_ROOMId, status } = friend;
+  const { friendInfo, chatRoomId, status } = friend;
 
   useEffect(() => {
     switch (status) {
@@ -51,7 +51,7 @@ function FriendCard({ friend }) {
   const handleEnterCHAT_ROOMClick = () => {
     navigation.navigate(CHAT_ROOM, {
       userNickname: user.nickname,
-      CHAT_ROOMId
+      chatRoomId
     });
   };
 

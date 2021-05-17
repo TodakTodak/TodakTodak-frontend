@@ -3,16 +3,16 @@ import { StyleSheet, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Friends from "../../screens/Friends/Friends";
-import WRITE_WORRY from "../../screens/WRITE_WORRY/WRITE_WORRY";
-import USER_INFO_ROOM from "../../screens/USER_INFO_ROOM/USER_INFO_ROOM";
-import MY_POST_STORAGE from "../../screens/MY_POST_STORAGE/MY_POST_STORAGE";
-import COUNSELING_CENTER from "../../screens/COUNSELING_CENTER/COUNSELING_CENTER";
+import WriteWorry from "../../screens/WriteWorry/WriteWorry";
+import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
+import MyPostStorage from "../../screens/MyPostStorage/MyPostStorage";
+import CounselingCenter from "../../screens/CounselingCenter/CounselingCenter";
 
 import {
   FRIENDS,
   WRITE_WORRY,
+  FRIENDS_LABEL,
   USER_INFO_ROOM,
-  FRIENDSLABEL,
   MY_POST_STORAGE,
   WRITE_WORRYLABEL,
   COUNSELING_CENTER,
@@ -20,12 +20,13 @@ import {
   MY_POST_STORAGELABEL,
   COUNSELING_CENTERLABEL
 } from "../../constants/navigationName";
+import { BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR } from "../../constants/color";
 
 import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
 import friends from "../../assets/pngs/friends.png";
 import feather from "../../assets/pngs/feather.png";
-import USER_INFO_ROOM from "../../assets/pngs/home.png";
+import home from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -35,22 +36,22 @@ function BOTTOM_TAB_NAVIGATION() {
       backBehavior="initialRoute"
       initialRouteName={MY_POST_STORAGE}
       tabBarOptions={{
-        activeTintColor: "#e91e63"
+        activeTintColor: BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR
       }}
     >
       <Tab.Screen
         name={USER_INFO_ROOM}
-        component={USER_INFO_ROOM}
+        component={UserInfoRoom}
         options={{
           tabBarLabel: USER_INFO_ROOMLABEL,
           tabBarIcon: () => (
-            <Image source={USER_INFO_ROOM} style={styles.imageStyle} />
+            <Image source={home} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
         name={MY_POST_STORAGE}
-        component={MY_POST_STORAGE}
+        component={MyPostStorage}
         options={{
           tabBarLabel: MY_POST_STORAGELABEL,
           tabBarIcon: () => (
@@ -62,7 +63,7 @@ function BOTTOM_TAB_NAVIGATION() {
         name={FRIENDS}
         component={Friends}
         options={{
-          tabBarLabel: FRIENDSLABEL,
+          tabBarLabel: FRIENDS_LABEL,
           tabBarIcon: () => (
             <Image source={friends} style={styles.imageStyle} />
           )
@@ -70,7 +71,7 @@ function BOTTOM_TAB_NAVIGATION() {
       />
       <Tab.Screen
         name={COUNSELING_CENTER}
-        component={COUNSELING_CENTER}
+        component={CounselingCenter}
         options={{
           tabBarLabel: COUNSELING_CENTERLABEL,
           tabBarIcon: () => (
@@ -80,7 +81,7 @@ function BOTTOM_TAB_NAVIGATION() {
       />
       <Tab.Screen
         name={WRITE_WORRY}
-        component={WRITE_WORRY}
+        component={WriteWorry}
         initialParams={{ postInfo: {} }}
         options={{
           tabBarLabel: WRITE_WORRYLABEL,

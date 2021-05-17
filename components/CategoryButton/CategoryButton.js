@@ -6,13 +6,19 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import {
+  WHITE,
+  CATEGORY_ACTIVE_COLOR,
+  OPACITY_BACKGROUND
+} from "../../constants/color";
+
 function CategoryButton({
   title,
   titleStyle,
   focusValue,
   handleClick,
   categoryContainerStyle,
-  categoryColor = "rgba(255, 56, 56, 0.3)"
+  categoryColor = CATEGORY_ACTIVE_COLOR
 }) {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
@@ -25,7 +31,7 @@ function CategoryButton({
             backgroundColor:
               focusValue === title ?
                 categoryColor :
-                "rgba(255, 255, 255, 0.3)"
+                OPACITY_BACKGROUND
           }
         ]}
       >
@@ -49,11 +55,10 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     padding: 5,
-    borderRadius: 10,
-    backgroundColor: "rgba(255, 255, 255, 0.3)"
+    borderRadius: 10
   },
   categoryTitle: {
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 15
   },
   titleBottomBar: {

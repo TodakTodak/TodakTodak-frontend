@@ -16,19 +16,24 @@ import TextInput from "../../components/TextInput/TextInput";
 import { SERVER_URL } from "@env";
 import { FRIENDS } from "../../constants/navigationName";
 
+import {
+  TRANSPARENCY,
+  OPACITY_BACKGROUND
+} from "../../constants/color";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
 let socket;
 
-function CHAT_ROOM({ route, navigation }) {
+function ChatRoom({ route, navigation }) {
   const [chats, setChats] = useState([]);
   const [comment, setComment] = useState("");
   const scrollRef = useRef();
 
-  const { userNickname, CHAT_ROOMId } = route.params;
+  const { userNickname, chatRoomId } = route.params;
 
   useEffect(() => {
-    const joinUserInfo = { userNickname, CHAT_ROOMId };
+    const joinUserInfo = { userNickname, chatRoomId };
 
     socket = io.connect(SERVER_URL);
 
@@ -69,7 +74,7 @@ function CHAT_ROOM({ route, navigation }) {
       const chatInfo = {
         userNickname,
         comment: comment.trim(),
-        CHAT_ROOMId
+        chatRoomId
       };
 
       if (!comment) return;
@@ -161,7 +166,7 @@ const styles = StyleSheet.create({
     width: "30%",
     height: "10%",
     top: 20,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     zIndex: 1
   },
   friendsRouteImage: {
@@ -181,7 +186,7 @@ const styles = StyleSheet.create({
     flex: 1,
     width: "90%",
     margin: 20,
-    backgroundColor: "rgba(255, 255, 255, 0.3)",
+    backgroundColor: OPACITY_BACKGROUND,
     borderRadius: 30
   },
   inputWrapper: {
@@ -205,4 +210,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CHAT_ROOM;
+export default ChatRoom;

@@ -5,12 +5,17 @@ import {
   StyleSheet
 } from "react-native";
 
+import {
+  WHITE,
+  CATEGORY_DEFAULT_BACKGROUND
+} from "../../constants/color";
+
 function Category({
   title,
   titleStyle,
-  categoryColor = "rgba(255, 56, 56, 0.8)",
   categoryStyle,
-  categoryContainerStyle
+  categoryContainerStyle,
+  categoryColor = CATEGORY_DEFAULT_BACKGROUND
 }) {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
@@ -42,16 +47,8 @@ const styles = StyleSheet.create({
     borderRadius: 10,
   },
   categoryTitle: {
-    color: "#ffffff",
+    color: WHITE,
     fontSize: 20
-  },
-  titleBottomBar: {
-    width: 100,
-    height: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10,
-    backgroundColor: "rgb(255, 255, 255)"
   }
 });
 

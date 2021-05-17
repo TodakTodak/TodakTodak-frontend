@@ -23,6 +23,7 @@ import {
 import { addFriend } from "../../api/userApi";
 
 import { DETAIL_POST } from "../../constants/navigationName";
+import { TRANSPARENCY, BLACK } from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -231,7 +232,7 @@ const styles = StyleSheet.create({
   contents: {
     height: 530,
     marginTop: 30,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     fontSize: 20
   },
   letterPage: {
@@ -249,10 +250,10 @@ const styles = StyleSheet.create({
   },
   button: {
     minWidth: "20%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   buttonText: {
-    color: "#000000",
+    color: BLACK,
     fontSize: 18
   }
 });

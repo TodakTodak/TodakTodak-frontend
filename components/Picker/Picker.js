@@ -2,6 +2,8 @@ import React from "react";
 import { StyleSheet, Text, View } from "react-native";
 import PickerSelect from "react-native-picker-select";
 
+import { BLACK, WHITE } from "../../constants/color";
+
 function Picker({
   label,
   value,
@@ -32,14 +34,14 @@ const styles = StyleSheet.create({
     position: "absolute",
     left: 20,
     top: 10,
-    color: "#000000",
+    color: BLACK,
     fontWeight: "bold",
     fontSize: 20
   },
   selector: {
     width: "90%",
     height: 35,
-    backgroundColor: "#ffffff",
+    backgroundColor: WHITE,
     marginTop: 40,
     marginRight: "auto",
     marginBottom: 0,

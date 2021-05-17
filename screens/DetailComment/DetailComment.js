@@ -15,6 +15,12 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import { patchComment } from "../../api/postApi";
 
+import {
+  BLACK,
+  WHITE,
+  TRANSPARENCY
+} from "../../constants/color";
+
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -120,7 +126,7 @@ const styles = StyleSheet.create({
   contents: {
     height: 500,
     marginTop: 30,
-    backgroundColor: "rgba(0, 0, 0, 0)",
+    backgroundColor: TRANSPARENCY,
     fontSize: 25,
   },
   letterPage: {
@@ -139,10 +145,10 @@ const styles = StyleSheet.create({
   sendButton: {
     width: "30%",
     margin: 20,
-    backgroundColor: "#ffffff"
+    backgroundColor: WHITE
   },
   buttonText: {
-    color: "#000000",
+    color: BLACK,
     fontSize: 20
   },
   commentContainer: {

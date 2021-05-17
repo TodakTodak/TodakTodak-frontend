@@ -3,6 +3,8 @@ import LotteView from "lottie-react-native";
 
 import loading from "../../assets/loading.json";
 
+import { LOADING_BACKGROUND } from "../../constants/color";
+
 function Loading({ style }) {
   return (
     <LotteView
@@ -10,7 +12,7 @@ function Loading({ style }) {
       autoPlay
       speed={1}
       source={loading}
-      style={[{ backgroundColor: "#222542" }, style ]}
+      style={[{ backgroundColor: LOADING_BACKGROUND }, style ]}
     />
   );
 }

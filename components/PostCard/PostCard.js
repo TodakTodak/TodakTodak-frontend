@@ -4,6 +4,11 @@ import {
   TouchableOpacity
 } from "react-native";
 
+import {
+  BLACK,
+  POST_CARD_BACKGROUND
+} from "../../constants/color";
+
 function PostCard({
   children,
   handleClick,
@@ -29,8 +34,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: "#fcd0a1",
-    shadowColor: "#000000",
+    backgroundColor: POST_CARD_BACKGROUND,
+    shadowColor: BLACK,
     shadowOffset: {
       width: 10,
       height: 10

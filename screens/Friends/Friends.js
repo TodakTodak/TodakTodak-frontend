@@ -20,6 +20,8 @@ import {
   fetchWaitingFriends
 } from "../../redux/userSlice";
 
+import { CATEGORY_ACTIVE_COLOR, TRANSPARENCY } from "../../constants/color";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
 function Friends() {
@@ -144,7 +146,7 @@ const styles = StyleSheet.create({
     marginTop: 40
   },
   activeCategoryBackground: {
-    backgroundColor: "rgba(255, 56, 56, 0.3)"
+    backgroundColor: CATEGORY_ACTIVE_COLOR
   },
   loadingWrapper: {
     width: "80%",
@@ -152,7 +154,7 @@ const styles = StyleSheet.create({
     marginLeft: 30
   },
   loading: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   }
 });
 

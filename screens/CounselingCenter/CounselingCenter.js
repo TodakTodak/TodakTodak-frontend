@@ -33,6 +33,17 @@ import {
   FRIEND,
   EMPLOYMENT
 } from "../../constants/category";
+import {
+  LOVE_COLOR,
+  PAIN_COLOR,
+  FRIEND_COLOR,
+  COURSE_COLOR,
+  EMPLOYMENT_COLOR,
+  TRANSPARENCY,
+  BEST_TITLE_TEXT,
+  BEST_POST_CARD_TITLE,
+  BEST_POST_CARD_BACKGROUND
+} from "../../constants/color";
 import { DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
@@ -52,17 +63,17 @@ function COUNSELING_CENTER() {
   } = useSelector((state) => state.post);
 
   const categorys = [
-    { title: EMPLOYMENT, color: "rgba(56, 136, 255, 0.3)" },
-    { title: LOVE, color: "rgba(249, 157, 20, 0.3)" },
-    { title: COURSE, color: "rgba(239, 255, 56, 0.3)" },
-    { title: FRIEND, color: "rgba(120, 255, 56, 0.3)" },
-    { title: PAIN, color: "rgba(255, 56, 56, 0.3)" }
+    { title: PAIN, color: PAIN_COLOR },
+    { title: LOVE, color: LOVE_COLOR },
+    { title: COURSE, color: COURSE_COLOR },
+    { title: FRIEND, color: FRIEND_COLOR },
+    { title: EMPLOYMENT, color: EMPLOYMENT_COLOR }
   ];
 
   useEffect(() => {
     const categoryInfo = {
-      category: postCategory,
-      page: 0
+      page: 0,
+      category: postCategory
     };
 
     if (!isFetched[postCategory]) {
@@ -276,10 +287,10 @@ const styles = StyleSheet.create({
   },
   bestPostCard: {
     marginTop: 10,
-    backgroundColor: "#FF6392"
+    backgroundColor: BEST_POST_CARD_BACKGROUND
   },
   bestPostTitle: {
-    color: "#C0FDFB"
+    color: BEST_POST_CARD_TITLE
   },
   bestPost: {
     width: "100%",
@@ -288,7 +299,7 @@ const styles = StyleSheet.create({
   },
   bestText: {
     height: 30,
-    color: "rgb(235, 255, 0)",
+    color: BEST_TITLE_TEXT,
     fontWeight: "bold",
     fontSize: 17
   },
@@ -298,7 +309,7 @@ const styles = StyleSheet.create({
     marginLeft: 30
   },
   loading: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   emptyContainer: {
     marginTop: "15%"
