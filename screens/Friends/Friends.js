@@ -6,9 +6,11 @@ import {
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
+import EmptyView from "../../components/EmptyView/EmptyView";
 import FriendCard from "../../components/FriendCard/FriendCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
@@ -20,9 +22,11 @@ import {
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Friends({ navigation }) {
+function Friends() {
   const [activeCategory, setActiveCategory] = useState("나의 인연들");
 
+  const dispatch = useDispatch();
+  const navigation = useNavigation();
   const {
     email,
     isLoading,
@@ -32,7 +36,6 @@ function Friends({ navigation }) {
     isFetchedFriendList,
     isFetchedWaitingFriendList
   } = useSelector((state) => state.user);
-  const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(userSlice.actions.resetFriendFetchedStatus);
@@ -62,12 +65,20 @@ function Friends({ navigation }) {
 
   const renderFriends = () => {
     if (activeCategory === "나의 인연들") {
+      if (!friendList.length) {
+        return <EmptyView text="아직 인연들이 없습니다." />;
+      }
+
       return friendList.map((friend, index) =>
         <FriendCard
           key={index}
           friend={friend}
         />
       );
+    }
+
+    if (!friendList.length) {
+      return <EmptyView text="요청 인연들이 없습니다." />;
     }
 
     return waitingFriendList.map((friend, index) =>
@@ -103,7 +114,7 @@ function Friends({ navigation }) {
           </View> :
           <ScrollView styles={styles.friendsContainer}>
             {renderFriends()}
-            <View style={{ height: 400 }} />
+            <View style={{ height: 200 }} />
           </ScrollView>
         }
       </View>

@@ -14,6 +14,7 @@ import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import PostCard from "../../components/PostCard/PostCard";
+import EmptyView from "../../components/EmptyView/EmptyView";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
 import {
@@ -62,6 +63,10 @@ function MyPostStorage() {
   }, [activeCategory]);
 
   const renderMyPosts = () => {
+    if (!posts.length) {
+      return <EmptyView text="작성한 고민글이 없습니다" />;
+    }
+
     return posts.map((post) => {
       const {
         _id,
@@ -119,6 +124,10 @@ function MyPostStorage() {
   };
 
   const renderMyComments = () => {
+    if (!comments.length) {
+      return <EmptyView text="작성한 고민글이 없습니다." />;
+    }
+
     return comments.map((comment) => {
       const {
         _id,
@@ -284,6 +293,19 @@ const styles = StyleSheet.create({
   deleteButtonText: {
     color: "black",
     fontSize: 17
+  },
+  emptyContainer: {
+    marginTop: "40%",
+    alignItems: "center"
+  },
+  emptyBoxImage: {
+    width: 100,
+    height: 100
+  },
+  emptyText: {
+    marginTop: 20,
+    color: "#ffffff",
+    fontSize: 20
   }
 });
 
