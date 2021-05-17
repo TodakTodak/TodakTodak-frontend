@@ -25,6 +25,7 @@ function MyPostStorage({ navigation }) {
   const [isLoading, setIsLoading] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
+  const [] = useState("");
 
   const user = useSelector((state) => state.user);
 
