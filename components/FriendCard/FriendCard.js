@@ -5,19 +5,23 @@ import {
   View,
   Text
 } from "react-native";
-import { useNavigation } from "@react-navigation/native"
+import { useSelector, useDispatch } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import Button from "../../components/Button/Button";
 
 import {
-  patchPendingFriend,
-  rejectPendingFriend
-} from "../../api/userApi";
+  rejectWaitingFriend,
+  acceptWaitingFriend
+} from "../../redux/userSlice";
 
 import avatar from "../../assets/pngs/avatar.png";
 
-function FriendCard({ friend, user }) {
+function FriendCard({ friend }) {
   const [friendStatus, setFriendStatus] = useState("");
+
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
   const navigation = useNavigation();
 
   const { friendInfo, chatRoomId, status } = friend;
@@ -55,20 +59,7 @@ function FriendCard({ friend, user }) {
       user: user.email
     };
 
-    try {
-      const response = await patchPendingFriend(friendInfo);
-
-      if (response.errorMessage) {
-        console.log("에러발생");
-        return;
-      }
-
-      setFriendStatus("수락");
-    } catch (err) {
-      console.log(err.message, "에러 터짐");
-
-      setErrorMessage("요청에 실패했습니다");
-    }
+    dispatch(acceptWaitingFriend(friendInfo));
   };
 
   const rejectFriend = async (friendEmail) => {
@@ -77,20 +68,7 @@ function FriendCard({ friend, user }) {
       user: user.email
     };
 
-    try {
-      const response = await rejectPendingFriend(friendInfo);
-
-      if (response.errorMessage) {
-        console.log("에러 발생");
-        return;
-      }
-
-      setFriendStatus("삭제 조치");
-    } catch (err) {
-      console.log(err.message, "에러 터짐");
-
-      setErrorMessage("요청에 실패했습니다");
-    }
+    dispatch(rejectWaitingFriend(friendInfo));
   };
 
   return (

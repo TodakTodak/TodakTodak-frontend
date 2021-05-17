@@ -47,7 +47,7 @@ export async function getWaitingFriends(userInfo) {
   return await response.json();
 }
 
-export async function patchPendingFriend(friendInfo) {
+export async function acceptPendingFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
     method: "PATCH",
     headers: {

@@ -8,6 +8,7 @@ import {
   ScrollView
 } from "react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import Title from "../../components/Title/Title";
@@ -24,13 +25,15 @@ import { addFriend } from "../../api/userApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Answer({ route, navigation }) {
+function Answer({ route }) {
   const [comment, setComment] = useState("");
+  const [message, setMessage] = useState("");
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
-  const [message, setMessage] = useState("");
 
+  const navigation = useNavigation();
   const user = useSelector((state) => state.user);
+
   const { commentInfo, postId } = route.params;
 
   useEffect(() => {
@@ -111,7 +114,7 @@ function Answer({ route, navigation }) {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <View>
+        <ScrollView>
           <Title
             imageStyle={styles.titleImage}
             text={`${commentInfo.user}님의 답변`}
@@ -192,7 +195,7 @@ function Answer({ route, navigation }) {
               </ImageBackground>
             </View>
           </View>
-        </View>
+        </ScrollView>
         <AlertModal
           message={message}
           modalVisable={isModalVisible}

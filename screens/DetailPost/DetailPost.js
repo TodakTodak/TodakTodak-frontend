@@ -6,6 +6,7 @@ import {
   View,
 } from "react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 import {
   Ionicons,
   AntDesign,
@@ -28,12 +29,14 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route, navigation }) {
+function DetailPost({ route }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
 
+  const navigation = useNavigation();
   const user = useSelector((state) => state.user);
+
   const { postId } = route.params;
 
   useEffect(() => {

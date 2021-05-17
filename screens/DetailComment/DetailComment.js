@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
-  TouchableWithoutFeedback,
-  ImageBackground,
+  View,
   Keyboard,
   StyleSheet,
-  View
+  ImageBackground,
+  TouchableWithoutFeedback
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -20,32 +20,11 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 function DetailComment({ route }) {
   const [content, setContent] = useState("");
-  const [isPostLike, setIsPostLike] = useState(false);
-  const user = useSelector((state) => state.user);
+
   const navigation = useNavigation();
-  const {
-    likes,
-    postId,
-    myComment
-  } = route.params;
+  const user = useSelector((state) => state.user);
 
-  useEffect(() => {
-    if (myComment) {
-      setContent(myComment);
-    }
-  }, []);
-
-  useEffect(() => {
-    if (likes) {
-      if (likes.includes(user.email)) {
-        setIsPostLike(true);
-
-        return;
-      }
-
-      setIsPostLike(false);
-    }
-  }, []);
+  const { postId } = route.params;
 
   const handleAddCommentButtonClick = async () => {
     const commentInfo = {
