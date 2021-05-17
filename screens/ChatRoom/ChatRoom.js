@@ -20,15 +20,15 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 let socket;
 
-function ChatRoom({ route, navigation }) {
+function CHAT_ROOM({ route, navigation }) {
   const [chats, setChats] = useState([]);
   const [comment, setComment] = useState("");
   const scrollRef = useRef();
 
-  const { userNickname, chatRoomId } = route.params;
+  const { userNickname, CHAT_ROOMId } = route.params;
 
   useEffect(() => {
-    const joinUserInfo = { userNickname, chatRoomId };
+    const joinUserInfo = { userNickname, CHAT_ROOMId };
 
     socket = io.connect(SERVER_URL);
 
@@ -69,7 +69,7 @@ function ChatRoom({ route, navigation }) {
       const chatInfo = {
         userNickname,
         comment: comment.trim(),
-        chatRoomId
+        CHAT_ROOMId
       };
 
       if (!comment) return;
@@ -205,4 +205,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default ChatRoom;
+export default CHAT_ROOM;

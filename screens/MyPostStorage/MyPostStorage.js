@@ -24,11 +24,11 @@ import {
   fetchMyComments,
 } from "../../redux/userSlice";
 
-import { ANSWER, DETAILPOST } from "../../constants/navigationName";
+import { ANSWER, DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MyPostStorage() {
+function MY_POST_STORAGE() {
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
 
   const dispatch = useDispatch();
@@ -75,7 +75,7 @@ function MyPostStorage() {
       } = post;
 
       const handlePostClick = () => (
-        navigation.navigate(DETAILPOST, { postId: _id })
+        navigation.navigate(DETAIL_POST, { postId: _id })
       );
 
       const handleDeleteButtonClick = () => (
@@ -307,4 +307,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MyPostStorage;
+export default MY_POST_STORAGE;

@@ -33,11 +33,11 @@ import {
   FRIEND,
   EMPLOYMENT
 } from "../../constants/category";
-import { DETAILPOST } from "../../constants/navigationName";
+import { DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function CounselingCenter() {
+function COUNSELING_CENTER() {
   const [page, setPage] = useState(1);
   const [postCategory, setPostCategory] = useState(EMPLOYMENT);
 
@@ -122,7 +122,7 @@ function CounselingCenter() {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate(DETAILPOST, { postId: bestPost[postCategory]._id });
+    navigation.navigate(DETAIL_POST, { postId: bestPost[postCategory]._id });
   };
 
   return (
@@ -196,7 +196,7 @@ function CounselingCenter() {
                   } = item;
 
                   const handlePostClick = () => (
-                    navigation.navigate(DETAILPOST, { postId: _id })
+                    navigation.navigate(DETAIL_POST, { postId: _id })
                   );
 
                   return (
@@ -305,4 +305,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default CounselingCenter;
+export default COUNSELING_CENTER;

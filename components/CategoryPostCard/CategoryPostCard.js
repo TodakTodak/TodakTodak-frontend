@@ -7,6 +7,12 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+import {
+  BLACK,
+  CATEGORYCARDTITLE,
+  CATEGORYCARDBACKGROUND
+} from "../../constants/color";
+
 function CategoryPostCard({
   likes,
   title,
@@ -64,8 +70,8 @@ const styles = StyleSheet.create({
     marginTop: 40,
     paddingLeft: 10,
     borderRadius: 10,
-    backgroundColor: "#fcd0a1",
-    shadowColor: "#000000",
+    backgroundColor: CATEGORYCARDBACKGROUND,
+    shadowColor: BLACK,
     shadowOffset: {
       width: 10,
       height: 10
@@ -81,7 +87,7 @@ const styles = StyleSheet.create({
   postTitle: {
     minWidth: "40%",
     margin: 10,
-    color: "#9e0031",
+    color: CATEGORYCARDTITLE,
     fontSize: 17,
     fontWeight: "bold"
   },
@@ -91,7 +97,7 @@ const styles = StyleSheet.create({
   postContent: {
     margin: 10,
     marginRight: 10,
-    color: "#000000",
+    color: BLACK,
     fontWeight: "600"
   },
   likeWrapper: {

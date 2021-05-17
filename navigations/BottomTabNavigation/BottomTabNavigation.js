@@ -3,56 +3,56 @@ import { StyleSheet, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 
 import Friends from "../../screens/Friends/Friends";
-import WriteWorry from "../../screens/WriteWorry/WriteWorry";
-import UserInfoRoom from "../../screens/UserInfoRoom/UserInfoRoom";
-import MyPostStorage from "../../screens/MyPostStorage/MyPostStorage";
-import CounselingCenter from "../../screens/CounselingCenter/CounselingCenter";
+import WRITE_WORRY from "../../screens/WRITE_WORRY/WRITE_WORRY";
+import USER_INFO_ROOM from "../../screens/USER_INFO_ROOM/USER_INFO_ROOM";
+import MY_POST_STORAGE from "../../screens/MY_POST_STORAGE/MY_POST_STORAGE";
+import COUNSELING_CENTER from "../../screens/COUNSELING_CENTER/COUNSELING_CENTER";
 
 import {
   FRIENDS,
-  WRITEWORRY,
-  USERINFOROOM,
+  WRITE_WORRY,
+  USER_INFO_ROOM,
   FRIENDSLABEL,
-  MYPOSTSTORAGE,
-  WRITEWORRYLABEL,
-  COUNSELINGCENTER,
-  USERINFOROOMLABEL,
-  MYPOSTSTORAGELABEL,
-  COUNSELINGCENTERLABEL
+  MY_POST_STORAGE,
+  WRITE_WORRYLABEL,
+  COUNSELING_CENTER,
+  USER_INFO_ROOMLABEL,
+  MY_POST_STORAGELABEL,
+  COUNSELING_CENTERLABEL
 } from "../../constants/navigationName";
 
 import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
 import friends from "../../assets/pngs/friends.png";
 import feather from "../../assets/pngs/feather.png";
-import userInfoRoom from "../../assets/pngs/home.png";
+import USER_INFO_ROOM from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
-function BottomTabNavigation() {
+function BOTTOM_TAB_NAVIGATION() {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
-      initialRouteName={MYPOSTSTORAGE}
+      initialRouteName={MY_POST_STORAGE}
       tabBarOptions={{
         activeTintColor: "#e91e63"
       }}
     >
       <Tab.Screen
-        name={USERINFOROOM}
-        component={UserInfoRoom}
+        name={USER_INFO_ROOM}
+        component={USER_INFO_ROOM}
         options={{
-          tabBarLabel: USERINFOROOMLABEL,
+          tabBarLabel: USER_INFO_ROOMLABEL,
           tabBarIcon: () => (
-            <Image source={userInfoRoom} style={styles.imageStyle} />
+            <Image source={USER_INFO_ROOM} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name={MYPOSTSTORAGE}
-        component={MyPostStorage}
+        name={MY_POST_STORAGE}
+        component={MY_POST_STORAGE}
         options={{
-          tabBarLabel: MYPOSTSTORAGELABEL,
+          tabBarLabel: MY_POST_STORAGELABEL,
           tabBarIcon: () => (
             <Image source={letter} style={styles.imageStyle} />
           )
@@ -69,21 +69,21 @@ function BottomTabNavigation() {
         }}
       />
       <Tab.Screen
-        name={COUNSELINGCENTER}
-        component={CounselingCenter}
+        name={COUNSELING_CENTER}
+        component={COUNSELING_CENTER}
         options={{
-          tabBarLabel: COUNSELINGCENTERLABEL,
+          tabBarLabel: COUNSELING_CENTERLABEL,
           tabBarIcon: () => (
             <Image source={love} style={styles.imageStyle} />
           )
         }}
       />
       <Tab.Screen
-        name={WRITEWORRY}
-        component={WriteWorry}
+        name={WRITE_WORRY}
+        component={WRITE_WORRY}
         initialParams={{ postInfo: {} }}
         options={{
-          tabBarLabel: WRITEWORRYLABEL,
+          tabBarLabel: WRITE_WORRYLABEL,
           tabBarIcon: () => (
             <Image source={feather} style={styles.imageStyle} />
           )
@@ -100,4 +100,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BottomTabNavigation;
+export default BOTTOM_TAB_NAVIGATION;

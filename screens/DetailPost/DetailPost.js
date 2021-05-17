@@ -22,20 +22,20 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
   patchPostLike,
-  getDetailPost,
+  getDETAIL_POST,
   patchPostCommentLike
 } from "../../api/postApi";
 
 import {
   ANSWER,
-  WRITEWORRY,
-  DETAILCOMMENT
+  WRITE_WORRY,
+  DETAIL_COMMENT
 } from  "../../constants/navigationName";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route }) {
+function DETAIL_POST({ route }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -50,7 +50,7 @@ function DetailPost({ route }) {
       setIsLoading(true);
 
       try {
-        const response = await getDetailPost(postId);
+        const response = await getDETAIL_POST(postId);
 
         if (response.errorMessage) {
           console.log("에러발생");
@@ -75,7 +75,7 @@ function DetailPost({ route }) {
   }, [navigation]);
 
   const handleAddCommentButtonClick = () => {
-    navigation.navigate(DETAILCOMMENT, { postId });
+    navigation.navigate(DETAIL_COMMENT, { postId });
   };
 
   const handleLikeButtonClick = async () => {
@@ -103,7 +103,7 @@ function DetailPost({ route }) {
   };
 
   const handleModifyButtonClick = () => {
-    navigation.navigate(WRITEWORRY, { postInfo });
+    navigation.navigate(WRITE_WORRY, { postInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {
@@ -277,4 +277,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DetailPost;
+export default DETAIL_POST;

@@ -15,7 +15,7 @@ import {
   acceptWaitingFriend
 } from "../../redux/userSlice";
 
-import { CHATROOM } from "../../constants/navigationName";
+import { CHAT_ROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
 
@@ -26,7 +26,7 @@ function FriendCard({ friend }) {
   const dispatch = useDispatch();
   const navigation = useNavigation();
 
-  const { friendInfo, chatRoomId, status } = friend;
+  const { friendInfo, CHAT_ROOMId, status } = friend;
 
   useEffect(() => {
     switch (status) {
@@ -48,10 +48,10 @@ function FriendCard({ friend }) {
     }
   }, [friend]);
 
-  const handleEnterChatRoomClick = () => {
-    navigation.navigate(CHATROOM, {
+  const handleEnterCHAT_ROOMClick = () => {
+    navigation.navigate(CHAT_ROOM, {
       userNickname: user.nickname,
-      chatRoomId
+      CHAT_ROOMId
     });
   };
 
@@ -122,7 +122,7 @@ function FriendCard({ friend }) {
             text="채팅하기"
             buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
-            handleClick={handleEnterChatRoomClick}
+            handleClick={handleEnterCHAT_ROOMClick}
           />
         </View>
       }

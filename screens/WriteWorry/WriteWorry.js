@@ -19,8 +19,8 @@ import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
 
 import {
-  DETAILPOST,
-  MYPOSTSTORAGE
+  DETAIL_POST,
+  MY_POST_STORAGE
 } from "../../constants/navigationName";
 import {
   PAIN,
@@ -33,7 +33,7 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry({ navigation, route }) {
+function WRITE_WORRY({ navigation, route }) {
   const [postType, setPostType] = useState("");
   const [category, setCategory] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -134,7 +134,7 @@ function WriteWorry({ navigation, route }) {
     } catch (err) {
       console.log(err.message);
     } finally {
-      navigation.navigate(MYPOSTSTORAGE);
+      navigation.navigate(MY_POST_STORAGE);
     }
   };
 
@@ -154,7 +154,7 @@ function WriteWorry({ navigation, route }) {
     } catch (err) {
       console.log(err.message);
     } finally {
-      navigation.navigate(DETAILPOST, { postId: postInfo._id });
+      navigation.navigate(DETAIL_POST, { postId: postInfo._id });
     }
   };
 
@@ -279,4 +279,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default WriteWorry;
+export default WRITE_WORRY;

@@ -3,7 +3,7 @@ import {
   View,
   Text,
   Modal,
-  StyleSheet,
+  StyleSheet
 } from "react-native";
 
 import Button from "../../components/Button/Button";

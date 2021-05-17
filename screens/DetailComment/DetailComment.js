@@ -18,7 +18,7 @@ import { patchComment } from "../../api/postApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailComment({ route }) {
+function DETAIL_COMMENT({ route }) {
   const [content, setContent] = useState("");
 
   const navigation = useNavigation();
@@ -152,4 +152,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DetailComment;
+export default DETAIL_COMMENT;
