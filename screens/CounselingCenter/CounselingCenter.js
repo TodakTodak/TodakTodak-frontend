@@ -53,23 +53,6 @@ function CounselingCenter() {
   ];
 
   useEffect(() => {
-    const unSubscribe = navigation.addListener("focus" , () => {
-      setPostCategory("취업");
-
-      const initialCategoryInfo = {
-        category: "취업",
-        page: 0
-      };
-
-      setPage(1);
-      dispatch(categoryPostSlice.actions.resetPostState());
-      dispatch(fetchEmploymentPosts(initialCategoryInfo));
-    });
-
-    return unSubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
     const categoryInfo = {
       category: postCategory,
       page: 0

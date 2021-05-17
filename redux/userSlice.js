@@ -9,8 +9,8 @@ import {
   rejectPendingFriend,
   acceptPendingFriend
 } from "../api/userApi";
-
 import { getMyComments } from "../api/commentApi";
+import { deletePost } from "../api/postApi";
 
 export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
@@ -155,6 +155,23 @@ export const fetchMyComments = createAsyncThunk(
   }
 );
 
+export const deleteMyPost = createAsyncThunk(
+  "post/deleteMyPost",
+  async (postId, thunkAPI) => {
+    try {
+      const response = await deletePost(postId);
+
+      if (!response.errorMessage) {
+        return response;
+      }
+
+      return thunkAPI.rejectWithValue(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+);
+
 const initialState = {
   email: "",
   message: null,
@@ -287,6 +304,17 @@ export const userSlice = createSlice({
     [fetchMyComments.rejected]: (state, { payload }) => {
       state.message = payload.errorMessage;
       state.isLoading = false;
+    },
+    [deleteMyPost.fulfilled]: (state, { payload }) => {
+      state.isLoading = false;
+      state.posts = payload.posts;
+    },
+    [deleteMyPost.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [deleteMyPost.rejected]: (state, { payload }) => {
+      state.isLoading = false;
+      state.errorMessage = payload.errorMessage;
     }
   }
 });

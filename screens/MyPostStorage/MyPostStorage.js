@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import {
-  ImageBackground,
+  Text,
+  View,
   StyleSheet,
   ScrollView,
-  View,
-  Text
+  ImageBackground,
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -12,10 +12,15 @@ import { AntDesign } from "@expo/vector-icons";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
+import Button from "../../components/Button/Button";
 import PostCard from "../../components/PostCard/PostCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
-import { fetchMyPosts, fetchMyComments } from "../../redux/userSlice";
+import {
+  deleteMyPost,
+  fetchMyPosts,
+  fetchMyComments,
+} from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -47,10 +52,10 @@ function MyPostStorage() {
   }, [navigation]);
 
   useEffect(() => {
-    if (activeCategory === "나의 고민들" && !isFetchedPosts) {
+    if (activeCategory === "나의 고민들") {
       dispatch(fetchMyPosts(email));
     }
-    if (activeCategory === "나의 위로들" && !isFetchedComments) {
+    if (activeCategory === "나의 위로들") {
       dispatch(fetchMyComments(email));
     }
   }, [activeCategory]);
@@ -69,6 +74,10 @@ function MyPostStorage() {
         navigation.navigate("DetailPost", { postId: _id })
       );
 
+      const handleDeleteButtonClick = () => (
+        dispatch(deleteMyPost(_id))
+      );
+
       return (
         <PostCard
           key={_id}
@@ -83,16 +92,24 @@ function MyPostStorage() {
                 {category} / {createdAt.substring(0, 10)}
               </Text>
             </View>
-            <View style={styles.likeWrapper}>
-              <AntDesign
-                style={styles.likeIcon}
-                size={15}
-                color="red"
-                name="heart"
+            <View>
+              <View style={styles.likeWrapper}>
+                <AntDesign
+                  style={styles.likeIcon}
+                  size={15}
+                  color="red"
+                  name="heart"
+                />
+                <Text style={styles.postContent}>
+                  {likes.length}
+                </Text>
+              </View>
+              <Button
+                text="삭제"
+                buttonStyle={styles.deleteButton}
+                textStyle={styles.deleteButtonText}
+                handleClick={handleDeleteButtonClick}
               />
-              <Text style={styles.postContent}>
-                {likes.length}
-              </Text>
             </View>
           </View>
         </PostCard>
@@ -131,16 +148,23 @@ function MyPostStorage() {
                 {createdAt.substring(0, 10)}
               </Text>
             </View>
-            <View style={styles.likeWrapper}>
-              <AntDesign
-                style={styles.likeIcon}
-                size={15}
-                color="red"
-                name="heart"
+            <View>
+              <View style={styles.likeWrapper}>
+                <AntDesign
+                  style={styles.likeIcon}
+                  size={15}
+                  color="red"
+                  name="heart"
+                />
+                <Text style={styles.postContent}>
+                  {likes.length}
+                </Text>
+              </View>
+              <Button
+                text="삭제"
+                buttonStyle={styles.deleteButton}
+                textStyle={styles.deleteButtonText}
               />
-              <Text style={styles.postContent}>
-                {likes.length}
-              </Text>
             </View>
           </View>
         </PostCard>
@@ -245,6 +269,15 @@ const styles = StyleSheet.create({
   },
   likeIcon: {
     paddingTop: 11
+  },
+  deleteButton: {
+    width: "100%",
+    height: "auto",
+    backgroundColor: "rgba(0, 0, 0, 0)",
+  },
+  deleteButtonText: {
+    color: "black",
+    fontSize: 17
   }
 });
 
