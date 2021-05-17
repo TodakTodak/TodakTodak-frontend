@@ -2,14 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Keyboard,
-  StyleSheet,
-  ScrollView,
   ImageBackground,
   TouchableWithoutFeedback,
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
+
+import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -22,12 +22,8 @@ import {
 } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
+import { RED } from "../../constants/color";
 import { DETAIL_POST } from "../../constants/navigationName";
-import {
-  RED,
-  BLACK,
-  TRANSPARENCY
-} from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -212,54 +208,5 @@ function Answer({ route }) {
     </TouchableWithoutFeedback>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center"
-  },
-  container: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center"
-  },
-  postContentsWrapper: {
-    width: "90%",
-    marginTop: 30,
-    borderRadius: 20,
-    overflow: "hidden"
-  },
-  titleImage: {
-    left: "15%"
-  },
-  contents: {
-    height: 530,
-    marginTop: 30,
-    backgroundColor: TRANSPARENCY,
-    fontSize: 20
-  },
-  letterPage: {
-    width: "100%"
-  },
-  buttonWrapper: {
-    flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center"
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  button: {
-    minWidth: "20%",
-    backgroundColor: TRANSPARENCY
-  },
-  buttonText: {
-    color: BLACK,
-    fontSize: 18
-  }
-});
 
 export default Answer;

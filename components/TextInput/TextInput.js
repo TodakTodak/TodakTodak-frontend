@@ -1,11 +1,7 @@
 import React from "react";
-import {
-  View,
-  TextInput,
-  StyleSheet
-} from "react-native";
+import { View, TextInput } from "react-native";
 
-import { WHITE } from "../../constants/color";
+import styles from "./styles";
 
 function TextInputBox({
   type,
@@ -32,22 +28,5 @@ function TextInputBox({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  textInputContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-evenly",
-    marginBottom: 20
-  },
-  textInput: {
-    width: "90%",
-    height: 45,
-    backgroundColor: WHITE,
-    borderRadius: 20,
-    paddingLeft: 10,
-    fontSize: 18
-  }
-});
 
 export default TextInputBox;

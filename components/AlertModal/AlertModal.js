@@ -2,17 +2,12 @@ import React from "react";
 import {
   View,
   Text,
-  Modal,
-  StyleSheet
+  Modal
 } from "react-native";
 
 import Button from "../../components/Button/Button";
 
-import {
-  BLACK,
-  TRANSPARENCY,
-  MODALBACKGROUND
-} from "../../constants/color";
+import styles from "./styles";
 
 function AlertModal({
   message,
@@ -42,30 +37,5 @@ function AlertModal({
     </Modal>
   );
 };
-
-const styles = StyleSheet.create({
-  friendModal: {
-    width: "60%",
-    height: "15%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "100%",
-    marginRight: "auto",
-    marginLeft: "auto",
-    backgroundColor: MODALBACKGROUND,
-    borderRadius: 30
-  },
-  text: {
-    fontSize: 15
-  },
-  modalButton: {
-    backgroundColor: TRANSPARENCY
-  },
-  modalButtonText: {
-    marginTop: 15,
-    fontSize: 17,
-    color: BLACK
-  }
-});
 
 export default AlertModal;

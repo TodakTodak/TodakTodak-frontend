@@ -1,14 +1,9 @@
 import React from "react";
-import {
-  View,
-  Text,
-  StyleSheet
-} from "react-native";
+import { View, Text } from "react-native";
 
-import {
-  WHITE,
-  CATEGORY_DEFAULT_BACKGROUND
-} from "../../constants/color";
+import styles from "./styles";
+
+import { CATEGORY_DEFAULT_BACKGROUND } from "../../constants/color";
 
 function Category({
   title,
@@ -33,23 +28,5 @@ function Category({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  categoryContainer: {
-    width: "50%",
-    alignItems: "center"
-  },
-  categoryWrapper: {
-    width: "50%",
-    height: 30,
-    justifyContent: "center",
-    alignItems: "center",
-    borderRadius: 10,
-  },
-  categoryTitle: {
-    color: WHITE,
-    fontSize: 20
-  }
-});
 
 export default Category;

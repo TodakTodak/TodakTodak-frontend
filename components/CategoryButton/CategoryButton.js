@@ -2,12 +2,12 @@ import React from "react";
 import {
   View,
   Text,
-  StyleSheet,
   TouchableOpacity
 } from "react-native";
 
+import styles from "./styles";
+
 import {
-  WHITE,
   CATEGORY_ACTIVE_COLOR,
   OPACITY_BACKGROUND
 } from "../../constants/color";
@@ -42,32 +42,5 @@ function CategoryButton({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  categoryContainer: {
-    width: "50%",
-    alignItems: "center",
-    marginBottom: 30
-  },
-  categoryWrapper: {
-    width: "75%",
-    height: 40,
-    justifyContent: "center",
-    alignItems: "center",
-    padding: 5,
-    borderRadius: 10
-  },
-  categoryTitle: {
-    color: WHITE,
-    fontSize: 15
-  },
-  titleBottomBar: {
-    width: 100,
-    height: 8,
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 10
-  }
-});
 
 export default CategoryButton;

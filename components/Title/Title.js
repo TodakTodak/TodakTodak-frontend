@@ -1,12 +1,7 @@
 import React from "react";
-import {
-  Text,
-  View,
-  Image,
-  StyleSheet
-} from "react-native";
+import { Text, View, Image } from "react-native";
 
-import { WHITE } from "../../constants/color";
+import styles from "./styles";
 
 import titleImage from "../../assets/pngs/moon.png";
 
@@ -28,26 +23,5 @@ function Title({
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  title: {
-    position: "relative",
-    alignItems: "center",
-    height: 55,
-    marginTop: "30%"
-  },
-  titleText: {
-    color: WHITE,
-    fontSize: 40,
-    fontWeight: "bold"
-  },
-  titleImage: {
-    width: 50,
-    height: 50,
-    position: "absolute",
-    top: "-45%",
-    left: "20%"
-  },
-});
 
 export default Title;

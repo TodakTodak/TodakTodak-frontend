@@ -2,11 +2,10 @@ import React from "react";
 import {
   View,
   Text,
-  Image,
-  StyleSheet
+  Image
 } from "react-native";
 
-import { WHITE } from "../../constants/color";
+import styles from "./styles";
 
 import emptyBox from "../../assets/pngs/emptyBox.png";
 
@@ -20,21 +19,5 @@ const EmptyView = ({ text, viewStyle }) => {
     </View>
   );
 };
-
-const styles = StyleSheet.create({
-  emptyContainer: {
-    alignItems: "center",
-    marginTop: "40%"
-  },
-  emptyBoxImage: {
-    width: 100,
-    height: 100
-  },
-  emptyText: {
-    marginTop: 20,
-    color: WHITE,
-    fontSize: 20
-  }
-});
 
 export default EmptyView;
