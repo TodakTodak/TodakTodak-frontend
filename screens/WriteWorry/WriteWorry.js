@@ -177,35 +177,35 @@ function WriteWorry({ navigation, route }) {
               source={letterPage}
             >
               <TextInput
-                style={styles.postTitle}
-                handleInputChange={handlePostTitleChange}
                 value={postTitle}
+                style={styles.postTitle}
                 placeholder="고민의 제목을 적어주세요"
+                handleInputChange={handlePostTitleChange}
               />
               <TextInput
-                style={styles.contents}
                 isMultiline={true}
-                handleInputChange={handleWorryContentsChange}
                 value={worryContents}
+                style={styles.contents}
                 placeholder="고민 거리를 작성해보세요"
+                handleInputChange={handleWorryContentsChange}
               />
               <Picker
-                handleChange={handlePostPickerChange}
-                itemList={postTypes}
                 label="공개 여부"
                 value={postType}
+                itemList={postTypes}
+                handleChange={handlePostPickerChange}
               />
               <Picker
-                handleChange={handleAnonymousePickerChange}
-                itemList={anonymousTypes}
                 label="익명 여부"
                 value={anonymousType}
+                itemList={anonymousTypes}
+                handleChange={handleAnonymousePickerChange}
               />
               <Picker
-                handleChange={handleCategoryPickerChange}
-                itemList={categoryTypes}
                 label="고민 카테고리"
                 value={category}
+                itemList={categoryTypes}
+                handleChange={handleCategoryPickerChange}
               />
             </ImageBackground>
           </View>

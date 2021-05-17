@@ -6,26 +6,24 @@ import {
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
 import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
-import TextInput from "../../components/TextInput/TextInput";
 import Button from "../../components/Button/Button";
 import ChatLog from "../../components/ChatLog/ChatLog";
+import TextInput from "../../components/TextInput/TextInput";
 
 import { SERVER_URL } from "@env";
 
 import backgroundImage from "../../assets/pngs/background.png";
-import home from "../../assets/pngs/home.png";
 
 let socket;
 
-function ChatRoom({ route }) {
-  const [comment, setComment] = useState("");
+function ChatRoom({ route, navigation }) {
   const [chats, setChats] = useState([]);
-  const navigation = useNavigation();
+  const [comment, setComment] = useState("");
   const scrollRef = useRef();
+
   const { userNickname, chatRoomId } = route.params;
 
   useEffect(() => {
@@ -80,8 +78,8 @@ function ChatRoom({ route }) {
     }
   };
 
-  const handleHomeButtonClick = () => {
-    navigation.navigate("Home");
+  const handleFriendsButtonClick = () => {
+    navigation.navigate("Friends");
   };
 
   const renderChats = () => {
@@ -112,11 +110,10 @@ function ChatRoom({ route }) {
     >
       <View style={styles.wrapper}>
         <Button
-          text="홈으로"
-          image={home}
-          imageStyle={styles.homeButtonImage}
-          buttonStyle={styles.homeButton}
-          handleClick={handleHomeButtonClick}
+          text="친구창으로"
+          buttonStyle={styles.friendsRoute}
+          imageStyle={styles.friendsRouteImage}
+          handleClick={handleFriendsButtonClick}
         />
         <KeyboardAvoidingView
           style={styles.container}
@@ -125,8 +122,8 @@ function ChatRoom({ route }) {
           <Title text="소통방" imageStyle={styles.titleImage} />
           <ScrollView
             ref={scrollRef}
-            onContentSizeChange={scrollToBottom}
             style={styles.contentsWrapper}
+            onContentSizeChange={scrollToBottom}
           >
             {renderChats()}
           </ScrollView>
@@ -158,7 +155,7 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1
   },
-  homeButton: {
+  friendsRoute: {
     position: "absolute",
     width: "30%",
     height: "10%",
@@ -166,7 +163,7 @@ const styles = StyleSheet.create({
     backgroundColor: "rgba(0, 0, 0, 0)",
     zIndex: 1
   },
-  homeButtonImage: {
+  friendsRouteImage: {
     width: 30,
     height: 30,
     marginRight: 10
