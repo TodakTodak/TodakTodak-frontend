@@ -15,7 +15,7 @@ import { userSlice } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function USER_INFO_ROOM() {
+function UserInfoRoom() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
@@ -78,4 +78,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default USER_INFO_ROOM;
+export default UserInfoRoom;

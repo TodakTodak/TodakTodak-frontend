@@ -32,7 +32,7 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WRITE_WORRY({ navigation, route }) {
+function WriteWorry({ navigation, route }) {
   const [postType, setPostType] = useState("");
   const [category, setCategory] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -278,4 +278,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default WRITE_WORRY;
+export default WriteWorry;

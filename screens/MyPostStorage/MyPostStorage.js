@@ -28,7 +28,7 @@ import { ANSWER, DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MY_POST_STORAGE() {
+function MyPostStorage() {
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
 
   const dispatch = useDispatch();
@@ -307,4 +307,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default MY_POST_STORAGE;
+export default MyPostStorage;

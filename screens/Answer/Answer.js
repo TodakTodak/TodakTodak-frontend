@@ -23,7 +23,11 @@ import {
 import { addFriend } from "../../api/userApi";
 
 import { DETAIL_POST } from "../../constants/navigationName";
-import { TRANSPARENCY, BLACK } from "../../constants/color";
+import {
+  RED,
+  BLACK,
+  TRANSPARENCY
+} from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -117,7 +121,7 @@ function Answer({ route }) {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <ScrollView>
+        <View>
           <Title
             imageStyle={styles.titleImage}
             text={`${commentInfo.user}님의 답변`}
@@ -141,7 +145,7 @@ function Answer({ route }) {
                       <>
                         <Ionicons
                           size={25}
-                          color="red"
+                          color={RED}
                           name="document"
                         />
                         <Button
@@ -154,7 +158,7 @@ function Answer({ route }) {
                       <>
                         <AntDesign
                           size={25}
-                          color="red"
+                          color={RED}
                           name="adduser"
                         />
                         <Button
@@ -169,7 +173,7 @@ function Answer({ route }) {
                   <View style={styles.buttonContainer}>
                     <AntDesign
                       size={25}
-                      color="red"
+                      color={RED}
                       name={isCommentLike ? "like1" : "like2"}
                     />
                     <Button
@@ -183,7 +187,7 @@ function Answer({ route }) {
                     <View style={styles.buttonContainer}>
                       <AntDesign
                         size={25}
-                        color="red"
+                        color={RED}
                         name="inbox"
                       />
                       <Button
@@ -198,7 +202,7 @@ function Answer({ route }) {
               </ImageBackground>
             </View>
           </View>
-        </ScrollView>
+        </View>
         <AlertModal
           message={message}
           modalVisable={isModalVisible}

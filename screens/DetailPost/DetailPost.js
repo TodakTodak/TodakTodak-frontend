@@ -22,7 +22,7 @@ import SimpleComment from "../../components/SimpleComment/SimpleComment";
 
 import {
   patchPostLike,
-  getDETAIL_POST,
+  getDetailPost,
   patchPostCommentLike
 } from "../../api/postApi";
 
@@ -40,7 +40,7 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DETAIL_POST({ route }) {
+function DetailPost({ route }) {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -55,7 +55,7 @@ function DETAIL_POST({ route }) {
       setIsLoading(true);
 
       try {
-        const response = await getDETAIL_POST(postId);
+        const response = await getDetailPost(postId);
 
         if (response.errorMessage) {
           console.log("에러발생");
@@ -282,4 +282,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default DETAIL_POST;
+export default DetailPost;

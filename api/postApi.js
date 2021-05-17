@@ -59,7 +59,7 @@ export async function patchPostCommentLike(likeInfo) {
   return await response.json();
 }
 
-export async function getDETAIL_POST(postId) {
+export async function getDetailPost(postId) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
     method: "GET"
   });
