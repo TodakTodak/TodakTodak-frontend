@@ -1,12 +1,13 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
-  StyleSheet,
   ScrollView,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+
+import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -19,8 +20,6 @@ import {
   fetchMyFriends,
   fetchWaitingFriends
 } from "../../redux/userSlice";
-
-import { CATEGORY_ACTIVE_COLOR, TRANSPARENCY } from "../../constants/color";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -123,39 +122,5 @@ function Friends() {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%"
-  },
-  container: {
-    width: "100%",
-    height: "100%"
-  },
-  friendsContainer: {
-    width: "100%",
-    height: "70%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  categoryWrapper: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 40
-  },
-  activeCategoryBackground: {
-    backgroundColor: CATEGORY_ACTIVE_COLOR
-  },
-  loadingWrapper: {
-    width: "80%",
-    height: "80%",
-    marginLeft: 30
-  },
-  loading: {
-    backgroundColor: TRANSPARENCY
-  }
-});
 
 export default Friends;

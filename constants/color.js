@@ -18,8 +18,10 @@ export const COURSE_COLOR = "rgba(239, 255, 56, 0.3)";
 export const FRIEND_COLOR = "rgba(120, 255, 56, 0.3)";
 export const PAIN_COLOR = "rgba(255, 56, 56, 0.3)";
 export const LOADING_BACKGROUND = "#222542";
+export const LOGOUT_BACKGROUND = "rgba(249, 255, 180, 0.8)";
 
 export const RED = "red";
+export const CORAL = "coral";
 export const YELLOW = "yellow";
 export const BLACK = "#000000";
 export const WHITE = "#FFFFFF";

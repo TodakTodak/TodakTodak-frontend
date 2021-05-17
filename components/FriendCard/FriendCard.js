@@ -1,10 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  View,
-  Text,
-  Image,
-  StyleSheet
-} from "react-native";
+import { View, Text, Image } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -15,6 +10,8 @@ import {
   acceptWaitingFriend
 } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import { CHAT_ROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
@@ -22,9 +19,9 @@ import avatar from "../../assets/pngs/avatar.png";
 function FriendCard({ friend }) {
   const [friendStatus, setFriendStatus] = useState("");
 
-  const user = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const navigation = useNavigation();
+  const user = useSelector((state) => state.user);
 
   const { friendInfo, chatRoomId, status } = friend;
 
@@ -129,57 +126,5 @@ function FriendCard({ friend }) {
     </View>
   );
 }
-
-const styles = StyleSheet.create({
-  friend: {
-    width: "90%",
-    minHeight: "20%",
-    maxHeight: "15%",
-    justifyContent: "space-between",
-    alignItems: "center",
-    flexDirection: "row",
-    margin: 10,
-    marginLeft: 20,
-    padding: 5,
-    borderRadius: 10,
-    backgroundColor: "#ffffff",
-  },
-  friendInfoWrapper: {
-    width: "60%",
-    marginLeft: 15,
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  friendInfo: {
-    justifyContent: "center"
-  },
-  friendAvatar: {
-    width: 35,
-    height: 35,
-    borderRadius: 50,
-    backgroundColor: "yellow",
-    marginRight: 10
-  },
-  friendName: {
-    fontSize: 15
-  },
-  friendStatusText: {
-    color: "coral",
-    fontSize: 15
-  },
-  buttons: {
-    width: "50%",
-    flexDirection: "row"
-  },
-  friendButton: {
-    width: "20%",
-    minWidth: "20%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
-  },
-  buttonText: {
-    fontSize: 15,
-    color: "#000000"
-  }
-});
 
 export default FriendCard;

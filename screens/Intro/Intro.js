@@ -1,12 +1,10 @@
 import React, { useEffect } from "react";
-import {
-  View,
-  StyleSheet,
-  ImageBackground
-} from "react-native";
+import { View, ImageBackground } from "react-native";
 import { useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
+
+import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -62,25 +60,5 @@ function Intro() {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center"
-  },
-  titleContainer: {
-    flex: 1
-  },
-  titleImage: {
-    top: "-5%"
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-evenly",
-    marginBottom: 20
-  }
-});
 
 export default Intro;

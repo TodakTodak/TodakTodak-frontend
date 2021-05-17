@@ -2,13 +2,14 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
-  StyleSheet,
   ScrollView,
   ImageBackground,
 } from "react-native";
-import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector, useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
+
+import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -224,87 +225,5 @@ function MyPostStorage() {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center"
-  },
-  container: {
-    width: "100%",
-    height: "100%"
-  },
-  categorysWrapper: {
-    width: "100%",
-    flexDirection: "row",
-    alignItems: "center",
-    marginTop: 40
-  },
-  thudamCategory: {
-    backgroundColor: "rgba(239, 255, 56, 0.3)"
-  },
-  postsWrapper: {
-    width: "100%",
-    flexDirection: "row"
-  },
-  postStyle: {
-    height: 520,
-    backgroundColor: "rgba(0, 0, 0, 0)",
-    fontSize: 30
-  },
-  loadingWrapper: {
-    width: "80%",
-    height: "80%",
-    marginLeft: 30
-  },
-  loading: {
-    backgroundColor: "rgba(0, 0, 0, 0)"
-  },
-  postContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between"
-  },
-  postTitle: {
-    margin: 10,
-    color: "#9e0031",
-    fontSize: 17,
-    fontWeight: "bold"
-  },
-  postContent: {
-    margin: 10,
-    color: "#000000",
-    fontSize: 15,
-    fontWeight: "600"
-  },
-  likeWrapper: {
-    flexDirection: "row"
-  },
-  likeIcon: {
-    paddingTop: 11
-  },
-  deleteButton: {
-    width: "100%",
-    height: "auto",
-    backgroundColor: "rgba(0, 0, 0, 0)",
-  },
-  deleteButtonText: {
-    color: "black",
-    fontSize: 17
-  },
-  emptyContainer: {
-    marginTop: "40%",
-    alignItems: "center"
-  },
-  emptyBoxImage: {
-    width: 100,
-    height: 100
-  },
-  emptyText: {
-    marginTop: 20,
-    color: "#ffffff",
-    fontSize: 20
-  }
-});
 
 export default MyPostStorage;

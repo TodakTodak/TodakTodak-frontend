@@ -1,12 +1,13 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
   View,
-  StyleSheet,
   ScrollView,
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
 import io from "socket.io-client";
+
+import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -15,11 +16,6 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import { SERVER_URL } from "@env";
 import { FRIENDS } from "../../constants/navigationName";
-
-import {
-  TRANSPARENCY,
-  OPACITY_BACKGROUND
-} from "../../constants/color";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -152,62 +148,5 @@ function ChatRoom({ route, navigation }) {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%"
-  },
-  wrapper: {
-    flex: 1
-  },
-  friendsRoute: {
-    position: "absolute",
-    width: "30%",
-    height: "10%",
-    top: 20,
-    backgroundColor: TRANSPARENCY,
-    zIndex: 1
-  },
-  friendsRouteImage: {
-    width: 30,
-    height: 30,
-    marginRight: 10
-  },
-  container: {
-    flex: 1,
-    width: "100%",
-    height: "100%"
-  },
-  titleImage: {
-    left: "27%",
-  },
-  contentsWrapper: {
-    flex: 1,
-    width: "90%",
-    margin: 20,
-    backgroundColor: OPACITY_BACKGROUND,
-    borderRadius: 30
-  },
-  inputWrapper: {
-    width: "75%",
-    height: "5%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    margin: 15,
-    marginBottom: 30,
-    borderRadius: 10
-  },
-  textInput: {
-    width: "95%"
-  },
-  sendButton: {
-    width: "20%",
-    minHeight: 45
-  },
-  sendButtonText: {
-    fontSize: 15,
-  }
-});
 
 export default ChatRoom;

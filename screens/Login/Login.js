@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import {
   View,
-  StyleSheet,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 
+import styles from "./styles";
 
 import Loading from "../Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -77,30 +77,5 @@ function Login() {
     </ImageBackground>
   );
 }
-
-const styles = StyleSheet.create({
-  backgroundContainer: {
-    width: "100%",
-    height: "100%",
-    alignItems: "center"
-  },
-  container: {
-    width: "100%",
-    height: "100%"
-  },
-  loginButton: {
-    width: "90%"
-  },
-  buttonContainer: {
-    flexDirection: "row",
-    width: "100%",
-    justifyContent: "space-evenly",
-    marginBottom: 20
-  },
-  textInputContainer: {
-    marginTop: 150,
-    marginBottom: 20
-  }
-});
 
 export default Login;
