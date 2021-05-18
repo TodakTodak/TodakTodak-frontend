@@ -7,6 +7,8 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 
+import styles from "./styles";
+
 import Title from "../../components/Title/Title";
 import Picker from "../../components/Picker/Picker";
 import Button from "../../components/Button/Button";

@@ -45,10 +45,10 @@ function FriendCard({ friend }) {
     }
   }, [friend]);
 
-  const handleEnterCHAT_ROOMClick = () => {
+  const handleEnterChatRoomClick = () => {
     navigation.navigate(CHAT_ROOM, {
-      userNickname: user.nickname,
-      chatRoomId
+      chatRoomId,
+      userNickname: user.nickname
     });
   };
 
@@ -119,7 +119,7 @@ function FriendCard({ friend }) {
             text="채팅하기"
             buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
-            handleClick={handleEnterCHAT_ROOMClick}
+            handleClick={handleEnterChatRoomClick}
           />
         </View>
       }

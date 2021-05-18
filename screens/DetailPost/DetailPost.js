@@ -6,20 +6,15 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Ionicons,
-  AntDesign,
-  FontAwesome
-} from "@expo/vector-icons";
 
 import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
-import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
+import DetailPostButtons from "./DetailPostButtons/DetailPostButtons";
 
 import {
   patchPostLike,
@@ -32,7 +27,6 @@ import {
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
-import { RED } from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -76,8 +70,20 @@ function DetailPost({ route }) {
     return unsubscribe;
   }, [navigation]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const handleAddCommentButtonClick = () => {
     navigation.navigate(DETAIL_COMMENT, { postId });
+  };
+
+  const handleCommentClick = (commentInfo) => {
+    navigation.navigate(ANSWER, { commentInfo });
+  };
+
+  const handleModifyButtonClick = () => {
+    navigation.navigate(WRITE_WORRY, { postInfo });
   };
 
   const handleLikeButtonClick = async () => {
@@ -100,19 +106,11 @@ function DetailPost({ route }) {
     }
   };
 
-  const handleCommentClick = (commentInfo) => {
-    navigation.navigate(ANSWER, { commentInfo });
-  };
-
-  const handleModifyButtonClick = () => {
-    navigation.navigate(WRITE_WORRY, { postInfo });
-  };
-
   const handleCommentLikeClick = async (commentId) => {
     const likeInfo = {
-      user: user.email,
+      postId,
       commentId,
-      postId
+      user: user.email
     };
 
     try {
@@ -142,21 +140,24 @@ function DetailPost({ route }) {
     );
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <ImageBackground
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <ScrollView style={styles.container} contentContainerStyle="center">
-        <View>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle="center"
+      >
+        <>
           <Title
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
-            text={postInfo.isAnonymous ? "익명의 고민" : `${postInfo.ownerNickname}의 고민`}
+            text={
+              postInfo.isAnonymous
+              ? "익명의 고민"
+              : `${postInfo.ownerNickname}의 고민`
+            }
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground
@@ -172,55 +173,20 @@ function DetailPost({ route }) {
                   value={postInfo.contents}
                 />
               </View>
-              <View style={styles.buttonWrapper}>
-                <View style={styles.buttonContainer}>
-                  <AntDesign
-                    size={25}
-                    color={RED}
-                    name={isPostLike ? "like1" : "like2"}
-                  />
-                  <Button
-                    text="위로하기"
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                    handleClick={handleLikeButtonClick}
-                  />
-                </View>
-                <View style={styles.buttonContainer}>
-                  <FontAwesome
-                    size={25}
-                    color={RED}
-                    name="comment-o"
-                  />
-                  <Button
-                    text="댓글 달기"
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                    handleClick={handleAddCommentButtonClick}
-                  />
-                </View>
-                {postInfo.owner === user.email &&
-                  <View style={styles.buttonContainer}>
-                    <Ionicons
-                      size={25}
-                      color={RED}
-                      name="document"
-                    />
-                    <Button
-                      text="수정 하기"
-                      buttonStyle={styles.button}
-                      textStyle={styles.buttonText}
-                      handleClick={handleModifyButtonClick}
-                    />
-                  </View>
-                }
-              </View>
+              <DetailPostButtons
+                user={user}
+                postInfo={postInfo}
+                isPostLike={isPostLike}
+                handleLikeButtonClick={handleLikeButtonClick}
+                handleModifyButtonClick={handleModifyButtonClick}
+                handleAddCommentButtonClick={handleAddCommentButtonClick}
+              />
             </ImageBackground>
           </View>
           <View style={styles.commentContainer}>
             {postInfo.comments && renderComments()}
           </View>
-        </View>
+        </>
       </ScrollView>
     </ImageBackground>
   );

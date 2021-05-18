@@ -26,10 +26,16 @@ function ChatRoom({ route, navigation }) {
   const [comment, setComment] = useState("");
   const scrollRef = useRef();
 
-  const { userNickname, chatRoomId } = route.params;
+  const {
+    chatRoomId,
+    userNickname
+  } = route.params;
 
   useEffect(() => {
-    const joinUserInfo = { userNickname, chatRoomId };
+    const joinUserInfo = {
+      chatRoomId,
+      userNickname
+    };
 
     socket = io.connect(SERVER_URL);
 
@@ -68,9 +74,9 @@ function ChatRoom({ route, navigation }) {
   const handleSendChatClick = () => {
     if (socket) {
       const chatInfo = {
+        chatRoomId,
         userNickname,
-        comment: comment.trim(),
-        chatRoomId
+        comment: comment.trim()
       };
 
       if (!comment) return;

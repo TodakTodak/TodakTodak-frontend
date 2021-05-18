@@ -5,8 +5,8 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
-import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 import styles from "./styles";
 
