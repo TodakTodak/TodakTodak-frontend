@@ -8,10 +8,10 @@ import {
 import styles from "./styles";
 
 function Button({
-  handleClick,
-  buttonStyle,
+  text,
   textStyle,
-  text
+  buttonStyle,
+  handleClick
 }) {
   return (
     <TouchableOpacity

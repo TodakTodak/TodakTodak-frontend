@@ -18,8 +18,8 @@ function Picker({
       <View style={styles.selector}>
         <PickerSelect
           value={value}
-          onValueChange={(value) => handleChange(value)}
           items={itemList}
+          onValueChange={(value) => handleChange(value)}
         />
       </View>
     </View>

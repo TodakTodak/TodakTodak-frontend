@@ -5,12 +5,12 @@ import styles from "./styles";
 
 function PostCard({
   children,
-  handleClick,
+  handleClick
 }) {
   return (
     <TouchableOpacity
-      style={styles.postCard}
       onPress={handleClick}
+      style={styles.postCard}
     >
       {children}
     </TouchableOpacity>

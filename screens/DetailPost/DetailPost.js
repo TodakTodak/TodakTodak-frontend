@@ -6,20 +6,16 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import {
-  Ionicons,
-  AntDesign,
-  FontAwesome
-} from "@expo/vector-icons";
 
 import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
-import Button from "../../components/Button/Button";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
+import DetailPostButtons from "./DetailPostButtons/DetailPostButtons";
 
 import {
   patchPostLike,
@@ -32,15 +28,15 @@ import {
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
-import { RED } from "../../constants/color";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route }) {
+const DetailPost = ({ route }) => {
   const [postInfo, setPostInfo] = useState({});
-  const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPostLike, setIsPostLike] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
@@ -55,7 +51,7 @@ function DetailPost({ route }) {
         const response = await getDetailPost(postId);
 
         if (response.errorMessage) {
-          console.log("에러발생");
+          setErrorMessage(response.errorMessage);
           return;
         }
 
@@ -67,7 +63,7 @@ function DetailPost({ route }) {
 
         setPostInfo(response.post);
       } catch (err) {
-        console.log(err.message);
+        setErrorMessage("에러가 발생했습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -76,8 +72,24 @@ function DetailPost({ route }) {
     return unsubscribe;
   }, [navigation]);
 
+  if (isLoading) {
+    return <Loading />;
+  }
+
   const handleAddCommentButtonClick = () => {
     navigation.navigate(DETAIL_COMMENT, { postId });
+  };
+
+  const handleCommentClick = (commentInfo) => {
+    navigation.navigate(ANSWER, { commentInfo });
+  };
+
+  const handleModifyButtonClick = () => {
+    navigation.navigate(WRITE_WORRY, { postInfo });
+  };
+
+  const clearMessage = () => {
+    setErrorMessage(null);
   };
 
   const handleLikeButtonClick = async () => {
@@ -90,42 +102,34 @@ function DetailPost({ route }) {
       const response = await patchPostLike(likeInfo);
 
       if (response.errorMessage) {
-        console.log("에러 발생");
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       setIsPostLike((isPostLike) => !isPostLike);
     } catch (err) {
-      console.log(err.message);
+      setErrorMessage("에러가 발생했습니다.");
     }
-  };
-
-  const handleCommentClick = (commentInfo) => {
-    navigation.navigate(ANSWER, { commentInfo });
-  };
-
-  const handleModifyButtonClick = () => {
-    navigation.navigate(WRITE_WORRY, { postInfo });
   };
 
   const handleCommentLikeClick = async (commentId) => {
     const likeInfo = {
-      user: user.email,
+      postId,
       commentId,
-      postId
+      user: user.email
     };
 
     try {
       const response = await patchPostCommentLike(likeInfo);
 
       if (response.errorMessage) {
-        console.log("에러 발생");
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       setPostInfo(response.populatedPost);
     } catch (err) {
-      console.log("에러 발생");
+      setErrorMessage("에러가 발생했습니다.");
     }
   };
 
@@ -142,21 +146,24 @@ function DetailPost({ route }) {
     );
   };
 
-  if (isLoading) {
-    return <Loading />;
-  }
-
   return (
     <ImageBackground
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <ScrollView style={styles.container} contentContainerStyle="center">
-        <View>
+      <ScrollView
+        style={styles.container}
+        contentContainerStyle="center"
+      >
+        <>
           <Title
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
-            text={postInfo.isAnonymous ? "익명의 고민" : `${postInfo.ownerNickname}의 고민`}
+            text={
+              postInfo.isAnonymous
+                ? "익명의 고민"
+                : `${postInfo.ownerNickname}님의 고민`
+            }
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground
@@ -172,56 +179,27 @@ function DetailPost({ route }) {
                   value={postInfo.contents}
                 />
               </View>
-              <View style={styles.buttonWrapper}>
-                <View style={styles.buttonContainer}>
-                  <AntDesign
-                    size={25}
-                    color={RED}
-                    name={isPostLike ? "like1" : "like2"}
-                  />
-                  <Button
-                    text="위로하기"
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                    handleClick={handleLikeButtonClick}
-                  />
-                </View>
-                <View style={styles.buttonContainer}>
-                  <FontAwesome
-                    size={25}
-                    color={RED}
-                    name="comment-o"
-                  />
-                  <Button
-                    text="댓글 달기"
-                    buttonStyle={styles.button}
-                    textStyle={styles.buttonText}
-                    handleClick={handleAddCommentButtonClick}
-                  />
-                </View>
-                {postInfo.owner === user.email &&
-                  <View style={styles.buttonContainer}>
-                    <Ionicons
-                      size={25}
-                      color={RED}
-                      name="document"
-                    />
-                    <Button
-                      text="수정 하기"
-                      buttonStyle={styles.button}
-                      textStyle={styles.buttonText}
-                      handleClick={handleModifyButtonClick}
-                    />
-                  </View>
-                }
-              </View>
+              <DetailPostButtons
+                user={user}
+                postInfo={postInfo}
+                isPostLike={isPostLike}
+                handleLikeButtonClick={handleLikeButtonClick}
+                handleModifyButtonClick={handleModifyButtonClick}
+                handleAddCommentButtonClick={handleAddCommentButtonClick}
+              />
             </ImageBackground>
           </View>
           <View style={styles.commentContainer}>
             {postInfo.comments && renderComments()}
           </View>
-        </View>
+        </>
       </ScrollView>
+      {errorMessage &&
+        <AlertModal
+          message={errorMessage}
+          handleModalClose={clearMessage}
+        />
+      }
     </ImageBackground>
   );
 }

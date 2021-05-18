@@ -2,7 +2,6 @@ import { StyleSheet } from "react-native";
 
 import {
   BLACK,
-  WHITE,
   TRANSPARENCY
 } from "../../constants/color";
 
@@ -46,8 +45,9 @@ const styles = StyleSheet.create({
   },
   buttonWrapper: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center"
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10
   },
   goodButtonContainer: {
     flexDirection: "row",
@@ -56,8 +56,7 @@ const styles = StyleSheet.create({
   },
   sendButton: {
     width: "30%",
-    margin: 20,
-    backgroundColor: WHITE
+    backgroundColor: TRANSPARENCY
   },
   buttonText: {
     color: BLACK,

@@ -13,7 +13,7 @@ function AlertModal({
   message,
   textStyles,
   ModalStyle,
-  modalVisable,
+  isModalVisible,
   handleModalClose
 }) {
 
@@ -21,7 +21,7 @@ function AlertModal({
     <Modal
       transparent={true}
       animationType="slide"
-      visible={modalVisable}
+      visible={isModalVisible}
     >
       <View style={[styles.friendModal, ModalStyle]}>
         <Text style={[styles.text, textStyles]}>

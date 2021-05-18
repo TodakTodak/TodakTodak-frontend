@@ -1,10 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import {
-  YELLOW,
-  TRANSPARENCY,
-  OPACITY_BACKGROUND
-} from "../../constants/color";
+import { OPACITY_BACKGROUND } from "../../constants/color";
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -15,15 +11,6 @@ const styles = StyleSheet.create({
   container: {
     width: "100%",
     height: "100%"
-  },
-  sendButton: {
-    left: "64%",
-    width: "35%",
-    backgroundColor: TRANSPARENCY
-  },
-  buttonText: {
-    color: YELLOW,
-    fontSize: 15
   },
   writeWrapper: {
     width: "90%",
