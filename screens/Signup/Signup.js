@@ -3,6 +3,7 @@ import {
   View,
   ImageBackground
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
@@ -18,11 +19,13 @@ import { LOGIN } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Signup({ navigation }) {
+const Signup = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [nickname, setNickname] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
+
+  const navigation = useNavigation();
 
   const handleSignupButtonClick = async () => {
     try {
