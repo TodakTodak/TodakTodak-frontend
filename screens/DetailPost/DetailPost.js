@@ -13,6 +13,7 @@ import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import SimpleComment from "../../components/SimpleComment/SimpleComment";
 import DetailPostButtons from "./DetailPostButtons/DetailPostButtons";
 
@@ -33,8 +34,9 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 const DetailPost = ({ route }) => {
   const [postInfo, setPostInfo] = useState({});
-  const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [isPostLike, setIsPostLike] = useState(false);
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
@@ -49,7 +51,7 @@ const DetailPost = ({ route }) => {
         const response = await getDetailPost(postId);
 
         if (response.errorMessage) {
-          console.log("에러발생");
+          setErrorMessage(response.errorMessage);
           return;
         }
 
@@ -61,7 +63,7 @@ const DetailPost = ({ route }) => {
 
         setPostInfo(response.post);
       } catch (err) {
-        console.log(err.message);
+        setErrorMessage("에러가 발생했습니다.");
       } finally {
         setIsLoading(false);
       }
@@ -86,6 +88,10 @@ const DetailPost = ({ route }) => {
     navigation.navigate(WRITE_WORRY, { postInfo });
   };
 
+  const clearMessage = () => {
+    setErrorMessage(null);
+  };
+
   const handleLikeButtonClick = async () => {
     const likeInfo = {
       postId,
@@ -96,13 +102,13 @@ const DetailPost = ({ route }) => {
       const response = await patchPostLike(likeInfo);
 
       if (response.errorMessage) {
-        console.log("에러 발생");
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       setIsPostLike((isPostLike) => !isPostLike);
     } catch (err) {
-      console.log(err.message);
+      setErrorMessage("에러가 발생했습니다.");
     }
   };
 
@@ -117,13 +123,13 @@ const DetailPost = ({ route }) => {
       const response = await patchPostCommentLike(likeInfo);
 
       if (response.errorMessage) {
-        console.log("에러 발생");
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       setPostInfo(response.populatedPost);
     } catch (err) {
-      console.log("에러 발생");
+      setErrorMessage("에러가 발생했습니다.");
     }
   };
 
@@ -188,6 +194,12 @@ const DetailPost = ({ route }) => {
           </View>
         </>
       </ScrollView>
+      {errorMessage &&
+        <AlertModal
+          message={errorMessage}
+          handleModalClose={clearMessage}
+        />
+      }
     </ImageBackground>
   );
 }

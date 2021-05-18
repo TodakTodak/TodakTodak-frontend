@@ -20,7 +20,7 @@ const MyComments = () => {
   const { comments } = useSelector((state) => state.user);
 
   if (!comments.length) {
-    return <EmptyView text="작성한 고민글이 없습니다." />;
+    return <EmptyView text="작성한 위로글이 없습니다." />;
   }
 
   return comments.map((comment) => {

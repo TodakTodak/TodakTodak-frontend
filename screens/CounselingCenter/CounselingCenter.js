@@ -11,6 +11,7 @@ import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 import CategoryPosts from "./CategoryPosts/CategoryPosts";
@@ -157,6 +158,10 @@ const CounselingCenter = () => {
     });
   };
 
+  const clearErrorMessage = () => {
+    dispatch(categoryPostSlice.actions.clearMessage());
+  };
+
   return (
     <ImageBackground
       source={backgroundImage}
@@ -199,6 +204,12 @@ const CounselingCenter = () => {
             </>
         }
       </View>
+      {message &&
+        <AlertModal
+          message={message}
+          handleModalClose={clearErrorMessage}
+        />
+      }
     </ImageBackground>
   );
 }

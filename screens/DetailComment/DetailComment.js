@@ -21,13 +21,20 @@ import { patchComment } from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 const DetailComment = ({ route }) => {
   const [content, setContent] = useState("");
+  const [errorMessage, setErrorMessage] = useState(null);
 
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
+
   const { postId } = route.params;
+
+  const clearErrorMessage = () => {
+    setErrorMessage(null);
+  };
 
   const handleAddCommentButtonClick = async () => {
     const commentInfo = {
@@ -40,13 +47,13 @@ const DetailComment = ({ route }) => {
       const response = await patchComment(commentInfo);
 
       if (response.errorMessage) {
-        console.log("에러 발생");
+        setErrorMessage(response.errorMessage);
         return;
       }
 
       navigation.goBack();
     } catch (err) {
-      console.log(err.message);
+      setErrorMessage("에러가 발생했습니다");
     }
   };
 
@@ -91,6 +98,12 @@ const DetailComment = ({ route }) => {
             </View>
           </ImageBackground>
         </View>
+        {errorMessage &&
+          <AlertModal
+            message={errorMessage}
+            handleModalClose={clearErrorMessage}
+          />
+        }
       </ImageBackground>
     </TouchableWithoutFeedback>
   );

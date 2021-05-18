@@ -12,6 +12,7 @@ const styles = StyleSheet.create({
   friend: {
     width: "90%",
     minHeight: "20%",
+    minHeight: "10%",
     maxHeight: "15%",
     justifyContent: "space-between",
     alignItems: "center",

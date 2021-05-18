@@ -12,6 +12,16 @@ import {
 
 import styles from "./styles";
 
+import {
+  FRIEND,
+  PENDING,
+  CHECK_STATUS,
+  REJECT_FRIEND,
+  REQUEST_FRIEND,
+  RECEIVE_REJECT,
+  SENDING_PENDING,
+  RECEIVE_PENDING
+} from "../../constants/friendStatus";
 import { CHAT_ROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
@@ -27,20 +37,20 @@ function FriendCard({ friend }) {
 
   useEffect(() => {
     switch (status) {
-      case "SendPending":
-        setFriendStatus("대기 중");
+      case SENDING_PENDING:
+        setFriendStatus(PENDING);
         break;
 
-      case "ReceivePending":
-        setFriendStatus("수락 여부 체크");
+      case RECEIVE_PENDING:
+        setFriendStatus(CHECK_STATUS);
         break;
 
-      case "ReceiveReject":
-        setFriendStatus("친구 거절");
+      case RECEIVE_REJECT:
+        setFriendStatus(REJECT_FRIEND);
         break;
 
       default:
-        setFriendStatus("친구");
+        setFriendStatus(FRIEND);
         break;
     }
   }, [friend]);
@@ -72,22 +82,22 @@ function FriendCard({ friend }) {
 
   return (
     <View
-      key={friendInfo.nickname}
       style={styles.friend}
+      key={friendInfo.nickname}
     >
       <View style={styles.friendInfoWrapper}>
         <Image source={avatar} style={styles.friendAvatar} />
         <View style={styles.friendInfo}>
           <Text style={styles.friendName}>
-            {friendStatus === "대기 중:" ? "요청 친구:" : ""}{" "}
+            {friendStatus === `${PENDING}:` ? `${REQUEST_FRIEND}:` : ""}{" "}
             {friendInfo.nickname}
           </Text>
-          {friendStatus !== "친구" &&
+          {friendStatus !== FRIEND &&
             <Text style={styles.friendStatusText}>{friendStatus}</Text>
           }
         </View>
       </View>
-      {friendStatus === "수락 여부 체크" &&
+      {friendStatus === CHECK_STATUS &&
         <View style={styles.buttons}>
           <Button
             text="수락"
@@ -103,7 +113,7 @@ function FriendCard({ friend }) {
           />
         </View>
       }
-      {friendStatus === "친구 거절" &&
+      {friendStatus === REJECT_FRIEND &&
         <View style={styles.buttons}>
           <Button
             text="삭제"
@@ -113,7 +123,7 @@ function FriendCard({ friend }) {
           />
         </View>
       }
-      {friendStatus === "친구" &&
+      {friendStatus === FRIEND &&
         <View style={styles.buttons}>
           <Button
             text="채팅하기"

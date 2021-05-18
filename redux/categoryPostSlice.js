@@ -102,7 +102,7 @@ export const fetchPainPosts = createAsyncThunk(
 );
 
 const initialState = {
-  message: "",
+  message: null,
   isLoading: false,
   isFetched: {
     "취업": false,
@@ -133,6 +133,9 @@ export const categoryPostSlice = createSlice({
   reducers: {
     resetPostState: () => {
       return initialState;
+    },
+    clearMessage: (state) => {
+      state.message = null;
     }
   },
   extraReducers: {

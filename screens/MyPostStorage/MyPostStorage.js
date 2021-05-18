@@ -13,11 +13,13 @@ import MyPosts from "./MyPosts/MyPosts";
 import MyComments from "./MyComments/MyComments";
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
 import {
+  userSlice,
   fetchMyPosts,
-  fetchMyComments,
+  fetchMyComments
 } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
@@ -29,6 +31,7 @@ function MyPostStorage() {
   const navigation = useNavigation();
   const {
     email,
+    message,
     isLoading,
     isFetchedPosts,
     isFetchedComments
@@ -51,6 +54,10 @@ function MyPostStorage() {
       dispatch(fetchMyComments(email));
     }
   }, [activeCategory]);
+
+  const clearMessage = () => {
+    dispatch(userSlice.actions.clearMessage());
+  };
 
   return (
     <ImageBackground
@@ -76,18 +83,24 @@ function MyPostStorage() {
             categoryStyle={styles.thudamCategory}
           />
         </View>
-        {isLoading ?
-          <View style={styles.loadingWrapper}>
-            <Loading style={styles.loading} />
-          </View> :
-          <ScrollView styles={styles.postsWrapper}>
-            {activeCategory === "나의 고민들" ?
-              <MyPosts /> :
-              <MyComments />
-            }
-          </ScrollView>
+        {isLoading
+          ? <View style={styles.loadingWrapper}>
+              <Loading style={styles.loading} />
+            </View>
+          : <ScrollView styles={styles.postsWrapper}>
+              {activeCategory === "나의 고민들"
+                ? <MyPosts />
+                : <MyComments />
+              }
+            </ScrollView>
         }
       </View>
+      {message &&
+        <AlertModal
+          message={message}
+          handleModalClose={clearMessage}
+        />
+      }
     </ImageBackground>
   );
 }

@@ -12,6 +12,7 @@ import styles from "./styles";
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import EmptyView from "../../components/EmptyView/EmptyView";
+import AlertModal from "../../components/AlertModal/AlertModal";
 import FriendCard from "../../components/FriendCard/FriendCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
@@ -64,6 +65,10 @@ function Friends() {
     }
   }, [activeCategory]);
 
+  const clearMessage = () => {
+    dispatch(userSlice.actions.clearMessage());
+  };
+
   const renderFriends = () => {
     if (activeCategory === "나의 인연들") {
       if (!friendList.length) {
@@ -83,10 +88,7 @@ function Friends() {
     }
 
     return waitingFriendList.map((friend, index) =>
-      <FriendCard
-        key={index}
-        friend={friend}
-      />
+      <FriendCard key={index} friend={friend} />
     );
   };
 
@@ -119,6 +121,12 @@ function Friends() {
           </ScrollView>
         }
       </View>
+      {errorMessage &&
+        <AlertModal
+          message={errorMessage}
+          handleModalClose={clearMessage}
+        />
+      }
     </ImageBackground>
   );
 }
