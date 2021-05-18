@@ -3,7 +3,8 @@ import {
   View,
   Keyboard,
   ImageBackground,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView
 } from "react-native";
 import { useSelector } from "react-redux";
 
@@ -164,7 +165,7 @@ function WriteWorry({ navigation, route }) {
       style={styles.backgroundContainer}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <View style={styles.container}>
+        <ScrollView style={styles.container}>
           <Title
             text="고민 작성소"
             textStyle={styles.titleText}
@@ -228,7 +229,7 @@ function WriteWorry({ navigation, route }) {
               handleModalClose={clearErrorMessage}
             />
           }
-        </View>
+        </ScrollView>
       </TouchableWithoutFeedback>
     </ImageBackground>
   );

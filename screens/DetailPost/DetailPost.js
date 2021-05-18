@@ -31,7 +31,7 @@ import {
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function DetailPost({ route }) {
+const DetailPost = ({ route }) => {
   const [postInfo, setPostInfo] = useState({});
   const [isPostLike, setIsPostLike] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -155,8 +155,8 @@ function DetailPost({ route }) {
             imageStyle={styles.titleImage}
             text={
               postInfo.isAnonymous
-              ? "익명의 고민"
-              : `${postInfo.ownerNickname}의 고민`
+                ? "익명의 고민"
+                : `${postInfo.ownerNickname}의 고민`
             }
           />
           <View style={styles.postContentsWrapper}>

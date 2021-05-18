@@ -2,9 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   Text,
   View,
-  FlatList,
-  ScrollView,
-  RefreshControl,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
@@ -14,18 +11,18 @@ import styles from "./styles";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
-import EmptyView from "../../components/EmptyView/EmptyView";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
+import CategoryPosts from "./CategoryPosts/CategoryPosts";
 
 import {
   fetchLovePosts,
   fetchPainPosts,
   fetchCoursePosts,
   fetchFriendPosts,
-  fetchEmploymentPosts
+  fetchEmploymentPosts,
+  categoryPostSlice
 } from "../../redux/categoryPostSlice";
-import { categoryPostSlice } from "../../redux/categoryPostSlice";
 
 import {
   PAIN,
@@ -45,7 +42,7 @@ import { DETAIL_POST } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function COUNSELING_CENTER() {
+const CounselingCenter = () => {
   const [page, setPage] = useState(1);
   const [postCategory, setPostCategory] = useState(EMPLOYMENT);
 
@@ -74,30 +71,30 @@ function COUNSELING_CENTER() {
     };
 
     if (!isFetched[postCategory]) {
-      dispatchCategoryInfo(postCategory, categoryInfo);
+      dispatchCategoryInfo(categoryInfo);
     }
   }, [postCategory]);
 
-  const dispatchCategoryInfo = (category, info) => {
-    switch (category) {
+  const dispatchCategoryInfo = (data) => {
+    switch (data.category) {
       case EMPLOYMENT:
-        dispatch(fetchEmploymentPosts(info));
+        dispatch(fetchEmploymentPosts(data));
         break;
 
       case LOVE:
-        dispatch(fetchLovePosts(info));
+        dispatch(fetchLovePosts(data));
         break;
 
       case COURSE:
-        dispatch(fetchCoursePosts(info));
+        dispatch(fetchCoursePosts(data));
         break;
 
       case FRIEND:
-        dispatch(fetchFriendPosts(info));
+        dispatch(fetchFriendPosts(data));
         break;
 
       case PAIN:
-        dispatch(fetchPainPosts(info));
+        dispatch(fetchPainPosts(data));
         break;
 
       default:
@@ -107,12 +104,37 @@ function COUNSELING_CENTER() {
 
   const getCategorys = () => {
     const categoryInfo = {
-      category: postCategory,
-      page
+      page,
+      category: postCategory
     };
 
-    dispatchCategoryInfo(postCategory, categoryInfo);
+    dispatchCategoryInfo(categoryInfo);
     setPage((page) => page + 1);
+  };
+
+  const refreshCategory = () => {
+    const categoryInfo = {
+      page: 0,
+      category: postCategory
+    };
+
+    setPage(1);
+    dispatch(categoryPostSlice.actions.resetPostState());
+    dispatchCategoryInfo(categoryInfo);
+  };
+
+  const renderCategoryPosts = ({ item }) => {
+    const handlePostClick = () => (
+      navigation.navigate(DETAIL_POST, { postId: item._id })
+    );
+
+    return (
+      <CategoryPostCard
+        key={item._id}
+        postInfo={item}
+        handleClick={handlePostClick}
+      />
+    );
   };
 
   const renderCategorys = () => {
@@ -130,7 +152,9 @@ function COUNSELING_CENTER() {
   };
 
   const handleBestPostClick = () => {
-    navigation.navigate(DETAIL_POST, { postId: bestPost[postCategory]._id });
+    navigation.navigate(DETAIL_POST, {
+      postId: bestPost[postCategory]._id
+    });
   };
 
   return (
@@ -144,111 +168,39 @@ function COUNSELING_CENTER() {
           textStyle={styles.titleText}
           imageStyle={styles.titleImage}
         />
-        <View
-          style={styles.categoryWrapper}
-          horizontal={true}
-        >
+        <View style={styles.categoryWrapper}>
           {renderCategorys()}
         </View>
-        {isLoading && !isFetched[postCategory] ?
-          <View style={styles.loadingWrapper}>
-            <Loading style={styles.loading} />
-          </View> :
-          <>
-            <View style={styles.bestPost}>
-              <Text style={styles.bestText}>
-                {postCategory} 카테고리 위로를 많이 받은 고민
-              </Text>
-              {bestPost[postCategory] &&
-                <CategoryPostCard
-                  cardStyle={styles.bestPostCard}
-                  titleStyle={styles.bestPostTitle}
-                  handleClick={handleBestPostClick}
-                  title={bestPost[postCategory].title}
-                  likes={bestPost[postCategory].likes}
-                  createdAt={bestPost[postCategory].createdAt}
-                  isAnonymous={bestPost[postCategory].isAnonymous}
-                  ownerNickname={bestPost[postCategory].ownerNickname}
-                />
-              }
+        {isLoading && !isFetched[postCategory]
+          ? <View style={styles.loadingWrapper}>
+              <Loading style={styles.loading} />
             </View>
-            {0 < post[postCategory].length ?
-              <FlatList
-                refreshControl={
-                  <RefreshControl
-                    onRefresh={() => {
-                      const categoryInfo = {
-                        category: postCategory,
-                        page: 0
-                      };
-
-                      setPage(1);
-                      dispatch(categoryPostSlice.actions.resetPostState());
-                      dispatchCategoryInfo(postCategory, categoryInfo);
-                    }}
+          : <>
+              <View style={styles.bestPost}>
+                <Text style={styles.bestText}>
+                  {postCategory} 카테고리 위로를 많이 받은 고민
+                </Text>
+                {bestPost[postCategory] &&
+                  <CategoryPostCard
+                    cardStyle={styles.bestPostCard}
+                    titleStyle={styles.bestPostTitle}
+                    handleClick={handleBestPostClick}
+                    postInfo={bestPost[postCategory]}
                   />
                 }
-                onEndReached={getCategorys}
-                onEndReachedThreshold={0.9}
-                keyExtractor={(item) => item._id}
-                styles={styles.postsWrapper}
-                data={post[postCategory]}
-                renderItem={({ item }) => {
-                  const {
-                    _id,
-                    likes,
-                    title,
-                    createdAt,
-                    isAnonymous,
-                    ownerNickname
-                  } = item;
-
-                  const handlePostClick = () => (
-                    navigation.navigate(DETAIL_POST, { postId: _id })
-                  );
-
-                  return (
-                    <CategoryPostCard
-                      key={_id}
-                      likes={likes}
-                      title={title}
-                      createdAt={createdAt}
-                      isAnonymous={isAnonymous}
-                      handleClick={handlePostClick}
-                      ownerNickname={ownerNickname}
-                    />
-                  );
-                }}
-              /> :
-              <ScrollView
-                contentContainerStyle={styles.emptyContainer}
-                refreshControl={
-                  <RefreshControl
-                    onRefresh={() => {
-                      setPostCategory(postCategory);
-                      const categoryInfo = {
-                        category: postCategory,
-                        page: 0
-                      };
-
-                      setPage(1);
-                      dispatch(categoryPostSlice.actions.resetPostState());
-                      dispatchCategoryInfo(postCategory, categoryInfo);
-                    }}
-                  />
-                }
-              >
-                <EmptyView
-                  text="해당 카테고리의 고민이 없습니다."
-                  viewStyle={styles.emptyContainer}
-                />
-              </ScrollView>
-            }
-          </>
+              </View>
+              <CategoryPosts
+                post={post}
+                category={postCategory}
+                getCategorys={getCategorys}
+                refreshCategory={refreshCategory}
+                renderCategoryPosts={renderCategoryPosts}
+              />
+            </>
         }
       </View>
     </ImageBackground>
   );
 }
 
-export default COUNSELING_CENTER;
+export default CounselingCenter;

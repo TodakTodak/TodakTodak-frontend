@@ -11,15 +11,19 @@ import styles from "./styles";
 import { RED } from "../../constants/color";
 
 function CategoryPostCard({
-  likes,
-  title,
-  createdAt,
+  postInfo,
   cardStyle,
   titleStyle,
-  handleClick,
-  isAnonymous,
-  ownerNickname
+  handleClick
 }) {
+  const {
+    likes,
+    title,
+    createdAt,
+    isAnonymous,
+    ownerNickname,
+  } = postInfo;
+
   return (
     <TouchableOpacity
       style={[ styles.postCard, cardStyle ]}
