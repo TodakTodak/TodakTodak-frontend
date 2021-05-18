@@ -7,14 +7,15 @@ import {
   ScrollView
 } from "react-native";
 import { useSelector } from "react-redux";
+import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import Picker from "../../components/Picker/Picker";
-import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
+import WriteWorryButtons from "./WriteWorryButtons/WriteWorryButtons";
 
 import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
@@ -30,11 +31,17 @@ import {
   FRIEND,
   EMPLOYMENT
 } from "../../constants/category";
+import {
+  PUBLIC,
+  PRIVATE,
+  NICKNAME,
+  ANONYMOUNS
+} from "../../constants/postInfo";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function WriteWorry({ navigation, route }) {
+const WriteWorry = ({ route }) => {
   const [postType, setPostType] = useState("");
   const [category, setCategory] = useState("");
   const [postTitle, setPostTitle] = useState("");
@@ -42,6 +49,7 @@ function WriteWorry({ navigation, route }) {
   const [worryContents, setWorryContents] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
+  const navigation = useNavigation();
   const user = useSelector((state) => state.user);
   const { postInfo } = route.params;
 
@@ -59,8 +67,8 @@ function WriteWorry({ navigation, route }) {
         setPostTitle(title);
         setCategory(category);
         setWorryContents(contents);
-        setPostType(isPublic ? "Public" : "Private");
-        setAnonymousType(isAnonymous ? "anonymouns" : "nickname");
+        setPostType(isPublic ? PUBLIC : PRIVATE);
+        setAnonymousType(isAnonymous ? ANONYMOUNS : NICKNAME);
       } else {
         setPostType("");
         setCategory("");
@@ -74,19 +82,19 @@ function WriteWorry({ navigation, route }) {
   }, [navigation]);
 
   const postTypes = [
-    { label: "Public", value: "Public" },
-    { label: "Private", value: "Private" }
+    { label: PUBLIC, value: PUBLIC },
+    { label: PRIVATE, value: PRIVATE }
   ];
   const anonymousTypes = [
-    { label: "anonymouns", value: "anonymouns" },
-    { label: "nickname", value: "nickname" }
+    { label: NICKNAME, value: NICKNAME },
+    { label: ANONYMOUNS, value: ANONYMOUNS }
   ];
   const categoryTypes = [
+    { label: PAIN, value: PAIN },
     { label: LOVE, value: LOVE },
     { label: COURSE, value: COURSE },
-    { label: EMPLOYMENT, value: EMPLOYMENT },
     { label: FRIEND, value: FRIEND },
-    { label: PAIN, value: PAIN }
+    { label: EMPLOYMENT, value: EMPLOYMENT }
   ];
 
   const handlePostPickerChange = (item) => {
@@ -133,7 +141,7 @@ function WriteWorry({ navigation, route }) {
     try {
       await postNewWorryPost(postInfo);
     } catch (err) {
-      console.log(err.message);
+      setErrorMessage("에러가 발생했습니다.");
     } finally {
       navigation.navigate(MY_POST_STORAGE);
     }
@@ -171,20 +179,11 @@ function WriteWorry({ navigation, route }) {
             textStyle={styles.titleText}
             imageStyle={styles.titleImage}
           />
-          {0 < Object.keys(postInfo).length ?
-            <Button
-              text="고민 수정하기"
-              textStyle={styles.buttonText}
-              buttonStyle={styles.sendButton}
-              handleClick={handleModifyButtonClick}
-            /> :
-            <Button
-              text="고민 제출하기"
-              textStyle={styles.buttonText}
-              buttonStyle={styles.sendButton}
-              handleClick={handleSubmitButtonClick}
-            />
-          }
+          <WriteWorryButtons
+            postInfo={postInfo}
+            handleModifyButtonClick={handleModifyButtonClick}
+            handleSubmitButtonClick={handleSubmitButtonClick}
+          />
           <View style={styles.writeWrapper}>
             <ImageBackground
               style={styles.letter}
