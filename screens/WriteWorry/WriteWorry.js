@@ -140,10 +140,10 @@ const WriteWorry = ({ route }) => {
 
     try {
       await postNewWorryPost(postInfo);
+
+      navigation.navigate(MY_POST_STORAGE);
     } catch (err) {
       setErrorMessage("에러가 발생했습니다.");
-    } finally {
-      navigation.navigate(MY_POST_STORAGE);
     }
   };
 
@@ -160,10 +160,10 @@ const WriteWorry = ({ route }) => {
 
     try {
       await patchPost(modifyPostInfo);
-    } catch (err) {
-      console.log(err.message);
-    } finally {
+
       navigation.navigate(DETAIL_POST, { postId: postInfo._id });
+    } catch (err) {
+      setErrorMessage("에러가 발생했습니다.");
     }
   };
 

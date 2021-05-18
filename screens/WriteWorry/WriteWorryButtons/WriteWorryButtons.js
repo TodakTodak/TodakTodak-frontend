@@ -2,6 +2,8 @@ import React from "react";
 
 import styles from "./styles";
 
+import Button from "../../../components/Button/Button";
+
 const WriteWorryButtons = ({
   postInfo,
   handleModifyButtonClick,

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Text,
   View,
@@ -11,19 +11,30 @@ import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { userSlice } from "../../redux/userSlice";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function UserInfoRoom() {
+const UserInfoRoom = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
   const handleLogoutButtonClick = async () => {
-    await SecureStore.deleteItemAsync("userInfo");
-    dispatch(userSlice.actions.resetUserState());
+    try {
+      await SecureStore.deleteItemAsync("userInfo");
+      dispatch(userSlice.actions.resetUserState());
+    } catch (err) {
+      setIsModalVisible(false);
+    }
   };
+
+  const handleModalCloseButton = () => (
+    setIsModalVisible(true)
+  );
 
   return (
     <ImageBackground
@@ -46,6 +57,11 @@ function UserInfoRoom() {
             handleClick={handleLogoutButtonClick}
           />
         </View>
+        <AlertModal
+          message="로그아웃에 실패했습니다."
+          isModalVisible={isModalVisible}
+          handleModalClose={handleModalCloseButton}
+        />
     </ImageBackground>
   );
 }

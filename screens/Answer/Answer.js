@@ -153,7 +153,7 @@ const Answer = ({ route }) => {
         </View>
         <AlertModal
           message={message}
-          modalVisable={isModalVisible}
+          isModalVisible={isModalVisible}
           handleModalClose={handleModalCloseButton}
         />
       </ImageBackground>
