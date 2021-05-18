@@ -8,7 +8,7 @@ import {
 
 import Button from "../../../components/Button/Button";
 
-import styles from "../styles";
+import styles from "./styles";
 import { RED } from "../../../constants/color";
 
 const DetailPostButtons = ({

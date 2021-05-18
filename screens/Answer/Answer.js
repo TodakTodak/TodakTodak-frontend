@@ -7,14 +7,13 @@ import {
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import styles from "./styles";
 
 import Title from "../../components/Title/Title";
-import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
+import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
 import {
   patchComment,
@@ -22,13 +21,12 @@ import {
 } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
-import { RED } from "../../constants/color";
 import { DETAIL_POST } from "../../constants/navigationName";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Answer({ route }) {
+const Answer = ({ route }) => {
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
   const [isCommentLike, setIsCommentLike] = useState(false);
@@ -60,12 +58,14 @@ function Answer({ route }) {
       const response = await patchCommentLike(commentLikeInfo);
 
       if (response.errorMessage) {
-        console.log("에러발생");
+        setMessage(response.errorMessage);
+        setIsModalVisible(true);
       }
 
       setIsCommentLike((isCommentLike) => !isCommentLike);
     } catch (err) {
-      console.log(err.message);
+      setMessage("에러가 발생했습니다");
+      setIsModalVisible(true);
     }
   };
 
@@ -85,7 +85,8 @@ function Answer({ route }) {
 
       setIsModalVisible(true);
     } catch (err) {
-      console.log(err.message);
+      setMessage("에러가 발생했습니다");
+      setIsModalVisible(true);
     }
   };
 
@@ -107,7 +108,8 @@ function Answer({ route }) {
 
       navigation.navigate(navigation.goBack());
     } catch (err) {
-      console.log(err.message);
+      setMessage("에러가 발생했습니다");
+      setIsModalVisible(true);
     }
   };
 
@@ -135,66 +137,16 @@ function Answer({ route }) {
                   handleInputChange={setComment}
                   style={styles.contents}
                 />
-                <View style={styles.buttonWrapper}>
-                  <View style={styles.buttonContainer}>
-                    {commentInfo.user === user.email ?
-                      <>
-                        <Ionicons
-                          size={25}
-                          color={RED}
-                          name="document"
-                        />
-                        <Button
-                          text="수정 하기"
-                          buttonStyle={styles.button}
-                          textStyle={styles.buttonText}
-                          handleClick={handleModifyButtonClick}
-                        />
-                      </> :
-                      <>
-                        <AntDesign
-                          size={25}
-                          color={RED}
-                          name="adduser"
-                        />
-                        <Button
-                          text="친구추가"
-                          buttonStyle={styles.button}
-                          textStyle={styles.buttonText}
-                          handleClick={handleAddFriendClick}
-                        />
-                      </>
-                    }
-                  </View>
-                  <View style={styles.buttonContainer}>
-                    <AntDesign
-                      size={25}
-                      color={RED}
-                      name={isCommentLike ? "like1" : "like2"}
-                    />
-                    <Button
-                      text="쓰담쓰담"
-                      buttonStyle={styles.button}
-                      textStyle={styles.buttonText}
-                      handleClick={handleCommentLikeClick}
-                    />
-                  </View>
-                  {postId &&
-                    <View style={styles.buttonContainer}>
-                      <AntDesign
-                        size={25}
-                        color={RED}
-                        name="inbox"
-                      />
-                      <Button
-                        text="게시물로"
-                        buttonStyle={styles.button}
-                        textStyle={styles.buttonText}
-                        handleClick={handleRoutePostButtonClick}
-                      />
-                    </View>
-                  }
-                </View>
+                <AnswerButtons
+                  user={user}
+                  postId={postId}
+                  commentInfo={commentInfo}
+                  isCommentLike={isCommentLike}
+                  handleAddFriendClick={handleAddFriendClick}
+                  handleCommentLikeClick={handleCommentLikeClick}
+                  handleModifyButtonClick={handleModifyButtonClick}
+                  handleRoutePostButtonClick={handleRoutePostButtonClick}
+                />
               </ImageBackground>
             </View>
           </View>

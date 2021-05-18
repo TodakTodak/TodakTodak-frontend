@@ -16,12 +16,21 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import { SERVER_URL } from "@env";
 import { FRIENDS } from "../../constants/navigationName";
+import {
+  JOIN_ROOM,
+  SEND_CHAT,
+  LEAVE_USER,
+  RECEIVE_CHAT,
+  JOIN_USER_MESSAGE,
+  LEAVE_USER_MESSAGE,
+  RECEIVE_INITAL_CHATS
+} from "../../constants/socketEvents";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
 let socket;
 
-function ChatRoom({ route, navigation }) {
+const ChatRoom = ({ route, navigation }) => {
   const [chats, setChats] = useState([]);
   const [comment, setComment] = useState("");
   const scrollRef = useRef();
@@ -39,26 +48,26 @@ function ChatRoom({ route, navigation }) {
 
     socket = io.connect(SERVER_URL);
 
-    socket.emit("join room", joinUserInfo);
+    socket.emit(JOIN_ROOM, joinUserInfo);
 
-    socket.on("receive chat", (data) =>
+    socket.on(RECEIVE_CHAT, (data) =>
       setChats((chats) => [...chats, data])
     );
 
-    socket.on("receive inital chats", (data) =>
+    socket.on(RECEIVE_INITAL_CHATS, (data) =>
       setChats(data)
     );
 
-    socket.on("join user message", (data) =>
+    socket.on(JOIN_USER_MESSAGE, (data) =>
       setChats((chats) => [...chats, data])
     );
 
-    socket.on("leave user message", (data) =>
+    socket.on(LEAVE_USER_MESSAGE, (data) =>
       setChats((chats) => [...chats, data])
     );
 
     return () => {
-      socket.emit("leave user", joinUserInfo);
+      socket.emit(LEAVE_USER, joinUserInfo);
       socket.removeAllListeners();
     };
   }, []);
@@ -81,7 +90,7 @@ function ChatRoom({ route, navigation }) {
 
       if (!comment) return;
 
-      socket.emit("send chat", chatInfo);
+      socket.emit(SEND_CHAT, chatInfo);
       setComment("");
     }
   };

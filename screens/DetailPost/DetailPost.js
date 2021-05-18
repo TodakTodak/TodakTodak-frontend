@@ -156,7 +156,7 @@ const DetailPost = ({ route }) => {
             text={
               postInfo.isAnonymous
                 ? "익명의 고민"
-                : `${postInfo.ownerNickname}의 고민`
+                : `${postInfo.ownerNickname}님의 고민`
             }
           />
           <View style={styles.postContentsWrapper}>

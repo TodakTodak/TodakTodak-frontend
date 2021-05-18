@@ -183,9 +183,9 @@ const CounselingCenter = () => {
                 {bestPost[postCategory] &&
                   <CategoryPostCard
                     cardStyle={styles.bestPostCard}
+                    postInfo={bestPost[postCategory]}
                     titleStyle={styles.bestPostTitle}
                     handleClick={handleBestPostClick}
-                    postInfo={bestPost[postCategory]}
                   />
                 }
               </View>
