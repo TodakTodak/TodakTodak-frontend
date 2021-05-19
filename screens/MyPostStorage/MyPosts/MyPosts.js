@@ -21,7 +21,7 @@ const MyPosts = () => {
   const { posts } = useSelector((state) => state.user);
 
   if (!posts.length) {
-    return <EmptyView text="작성한 고민글이 업습니다" />;
+    return <EmptyView text="작성한 고민글이 없습니다" />;
   }
 
   return posts.map((post) => {

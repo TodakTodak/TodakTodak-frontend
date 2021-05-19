@@ -33,7 +33,12 @@ function FriendCard({ friend }) {
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
 
-  const { friendInfo, chatRoomId, status } = friend;
+  const {
+    status,
+    friendInfo,
+    chatRoomId,
+    unreadMessageCount
+  } = friend;
 
   useEffect(() => {
     switch (status) {
@@ -57,8 +62,9 @@ function FriendCard({ friend }) {
 
   const handleEnterChatRoomClick = () => {
     navigation.navigate(CHAT_ROOM, {
-      chatRoomId,
-      userNickname: user.nickname
+      user,
+      friendInfo,
+      chatRoomId
     });
   };
 
@@ -117,8 +123,8 @@ function FriendCard({ friend }) {
         <View style={styles.buttons}>
           <Button
             text="삭제"
-            buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
+            buttonStyle={styles.friendButton}
             handleClick={() => rejectFriend(friendInfo.email)}
           />
         </View>
@@ -127,10 +133,15 @@ function FriendCard({ friend }) {
         <View style={styles.buttons}>
           <Button
             text="채팅하기"
-            buttonStyle={styles.friendButton}
             textStyle={styles.buttonText}
+            buttonStyle={styles.friendButton}
             handleClick={handleEnterChatRoomClick}
           />
+          <View style={styles.unreadMessageCount}>
+            <Text style={styles.unreadMessageCountText}>
+              {unreadMessageCount}
+            </Text>
+          </View>
         </View>
       }
     </View>

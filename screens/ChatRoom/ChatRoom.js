@@ -40,14 +40,16 @@ const ChatRoom = ({ route, navigation }) => {
   const scrollRef = useRef();
 
   const {
-    chatRoomId,
-    userNickname
+    user,
+    friendInfo,
+    chatRoomId
   } = route.params;
 
   useEffect(() => {
     const joinUserInfo = {
-      chatRoomId,
-      userNickname
+      user,
+      friendInfo,
+      chatRoomId
     };
 
     socket = io.connect(SERVER_URL);
@@ -87,8 +89,9 @@ const ChatRoom = ({ route, navigation }) => {
   const handleSendChatClick = () => {
     if (socket) {
       const chatInfo = {
+        user,
+        friendInfo,
         chatRoomId,
-        userNickname,
         comment: comment.trim()
       };
 

@@ -5,15 +5,14 @@ import {
   BLACK,
   CORAL,
   YELLOW,
-  TRANSPARENCY
+  TRANSPARENCY,
+  UNREAD_MESSAGE_COUNT
 } from "../../constants/color";
 
 const styles = StyleSheet.create({
   friend: {
     width: "90%",
-    minHeight: "20%",
-    minHeight: "10%",
-    maxHeight: "15%",
+    height: 70,
     justifyContent: "space-between",
     alignItems: "center",
     flexDirection: "row",
@@ -48,7 +47,8 @@ const styles = StyleSheet.create({
   },
   buttons: {
     width: "50%",
-    flexDirection: "row"
+    flexDirection: "row",
+    alignItems: "center"
   },
   friendButton: {
     width: "20%",
@@ -58,6 +58,19 @@ const styles = StyleSheet.create({
   buttonText: {
     fontSize: 15,
     color: BLACK
+  },
+  unreadMessageCount: {
+    width: "auto",
+    height: 20,
+    paddingLeft: 5,
+    paddingRight: 5,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: UNREAD_MESSAGE_COUNT,
+    borderRadius: 5
+  },
+  unreadMessageCountText: {
+    color: WHITE
   }
 });
 

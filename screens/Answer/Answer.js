@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Keyboard,
+  ScrollView,
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
@@ -106,9 +107,10 @@ const Answer = ({ route }) => {
     try {
       await patchComment(modifyCommentInfo);
 
-      navigation.navigate(navigation.goBack());
+      navigation.goBack();
     } catch (err) {
-      setMessage("에러가 발생했습니다");
+      console.log(err.message);
+      setMessage("에러가 발생");
       setIsModalVisible(true);
     }
   };
@@ -125,11 +127,11 @@ const Answer = ({ route }) => {
             text={`${commentInfo.user}님의 답변`}
           />
           <View style={styles.postContentsWrapper}>
-            <View>
-              <ImageBackground
-                style={styles.letterPage}
-                source={letterPage}
-              >
+            <ImageBackground
+              style={styles.letterPage}
+              source={letterPage}
+            >
+              <ScrollView>
                 <TextInput
                   value={comment}
                   editable={commentInfo.user === user.email}
@@ -147,8 +149,8 @@ const Answer = ({ route }) => {
                   handleModifyButtonClick={handleModifyButtonClick}
                   handleRoutePostButtonClick={handleRoutePostButtonClick}
                 />
-              </ImageBackground>
-            </View>
+              </ScrollView>
+            </ImageBackground>
           </View>
         </View>
         <AlertModal

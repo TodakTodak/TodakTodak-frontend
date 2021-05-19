@@ -2,9 +2,9 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Keyboard,
+  ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback,
-  ScrollView
+  TouchableWithoutFeedback
 } from "react-native";
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -139,9 +139,13 @@ const WriteWorry = ({ route }) => {
     }
 
     try {
-      await postNewWorryPost(postInfo);
+      const response = await postNewWorryPost(postInfo);
 
-      navigation.navigate(MY_POST_STORAGE);
+      if (response.errorMessage) {
+        setErrorMessage(response.errorMessage);
+      } else {
+        navigation.navigate(MY_POST_STORAGE);
+      }
     } catch (err) {
       setErrorMessage("에러가 발생했습니다.");
     }
@@ -189,37 +193,39 @@ const WriteWorry = ({ route }) => {
               style={styles.letter}
               source={letterPage}
             >
-              <TextInput
-                value={postTitle}
-                style={styles.postTitle}
-                placeholder="고민의 제목을 적어주세요"
-                handleInputChange={handlePostTitleChange}
-              />
-              <TextInput
-                isMultiline={true}
-                value={worryContents}
-                style={styles.contents}
-                placeholder="고민 거리를 작성해보세요"
-                handleInputChange={handleWorryContentsChange}
-              />
-              <Picker
-                label="공개 여부"
-                value={postType}
-                itemList={postTypes}
-                handleChange={handlePostPickerChange}
-              />
-              <Picker
-                label="익명 여부"
-                value={anonymousType}
-                itemList={anonymousTypes}
-                handleChange={handleAnonymousePickerChange}
-              />
-              <Picker
-                label="고민 카테고리"
-                value={category}
-                itemList={categoryTypes}
-                handleChange={handleCategoryPickerChange}
-              />
+              <ScrollView>
+                <TextInput
+                  value={postTitle}
+                  style={styles.postTitle}
+                  placeholder="고민의 제목을 적어주세요"
+                  handleInputChange={handlePostTitleChange}
+                />
+                <TextInput
+                  isMultiline={true}
+                  value={worryContents}
+                  style={styles.contents}
+                  placeholder="고민 거리를 작성해보세요"
+                  handleInputChange={handleWorryContentsChange}
+                />
+                <Picker
+                  label="공개 여부"
+                  value={postType}
+                  itemList={postTypes}
+                  handleChange={handlePostPickerChange}
+                />
+                <Picker
+                  label="익명 여부"
+                  value={anonymousType}
+                  itemList={anonymousTypes}
+                  handleChange={handleAnonymousePickerChange}
+                />
+                <Picker
+                  label="고민 카테고리"
+                  value={category}
+                  itemList={categoryTypes}
+                  handleChange={handleCategoryPickerChange}
+                />
+              </ScrollView>
             </ImageBackground>
           </View>
           {errorMessage &&

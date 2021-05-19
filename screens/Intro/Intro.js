@@ -25,16 +25,12 @@ function Intro() {
 
   useEffect(() => {
     (async function authLogin() {
-      try {
         const userInfo = await SecureStore.getItemAsync("userInfo");
         const parsedUserInfo = JSON.parse(userInfo);
 
-        if (parsedUserInfo.email) {
+        if (parsedUserInfo && parsedUserInfo.email) {
           dispatch(fetchLogin(parsedUserInfo));
         }
-      } catch (err) {
-        setErrorMessage("에러가 발생했습니다.");
-      }
     })();
   }, []);
 

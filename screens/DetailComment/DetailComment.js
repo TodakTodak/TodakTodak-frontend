@@ -3,7 +3,8 @@ import {
   View,
   Keyboard,
   ImageBackground,
-  TouchableWithoutFeedback
+  TouchableWithoutFeedback,
+  ScrollView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector } from "react-redux";
@@ -73,29 +74,33 @@ const DetailComment = ({ route }) => {
             source={letterPage}
             style={styles.letterPage}
           >
-            <View style={styles.categoryWrapper}>
-              <TextInput
-                value={content}
-                editable={true}
-                isMultiline={true}
-                style={styles.contents}
-                placeholder="답글을 달아주세요"
-                handleInputChange={setContent}
-              />
-            </View>
-            <View style={styles.buttonWrapper}>
-              <FontAwesome
-                size={25}
-                color={RED}
-                name="comment-o"
-              />
-              <Button
-                text="댓글 달기"
-                textStyle={styles.buttonText}
-                buttonStyle={styles.sendButton}
-                handleClick={handleAddCommentButtonClick}
-              />
-            </View>
+            <ScrollView>
+              <View>
+                <View style={styles.categoryWrapper}>
+                  <TextInput
+                    value={content}
+                    editable={true}
+                    isMultiline={true}
+                    style={styles.contents}
+                    placeholder="답글을 달아주세요"
+                    handleInputChange={setContent}
+                  />
+                </View>
+                <View style={styles.buttonWrapper}>
+                  <FontAwesome
+                    size={25}
+                    color={RED}
+                    name="comment-o"
+                  />
+                  <Button
+                    text="댓글 달기"
+                    textStyle={styles.buttonText}
+                    buttonStyle={styles.sendButton}
+                    handleClick={handleAddCommentButtonClick}
+                  />
+                </View>
+              </View>
+            </ScrollView>
           </ImageBackground>
         </View>
         {errorMessage &&
