@@ -1,8 +1,15 @@
 import { SERVER_URL } from "@env";
 
+import {
+  GET,
+  POST,
+  PATCH,
+  DELETE
+} from "../constants/httpMethod";
+
 export async function postNewWorryPost(postInfo) {
   const response = await fetch(`${SERVER_URL}/post`, {
-    method: "POST",
+    method: POST,
     headers: {
       "Content-Type": "application/json"
     },
@@ -14,7 +21,7 @@ export async function postNewWorryPost(postInfo) {
 
 export async function getCategoryPosts(category, page) {
   const response = await fetch(`${SERVER_URL}/post/category/${category}`, {
-    method: "GET",
+    method: GET,
     headers: {
       "page": page
     }
@@ -25,7 +32,7 @@ export async function getCategoryPosts(category, page) {
 
 export async function patchComment(commentInfo) {
   const response = await fetch(`${SERVER_URL}/post/comments`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -37,7 +44,7 @@ export async function patchComment(commentInfo) {
 
 export async function patchPostLike(likeInfo) {
   const response = await fetch(`${SERVER_URL}/post/like`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -49,7 +56,7 @@ export async function patchPostLike(likeInfo) {
 
 export async function patchPostCommentLike(likeInfo) {
   const response = await fetch(`${SERVER_URL}/post/comments/like`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -61,7 +68,7 @@ export async function patchPostCommentLike(likeInfo) {
 
 export async function getDetailPost(postId) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
-    method: "GET"
+    method: GET
   });
 
   return await response.json();
@@ -69,7 +76,7 @@ export async function getDetailPost(postId) {
 
 export async function patchPost(postInfo) {
   const response = await fetch(`${SERVER_URL}/post`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -81,7 +88,7 @@ export async function patchPost(postInfo) {
 
 export async function deletePost(postId) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
-    method: "DELETE"
+    method: DELETE
   });
 
   return await response.json();

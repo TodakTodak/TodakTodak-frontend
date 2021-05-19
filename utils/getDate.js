@@ -1,7 +1,16 @@
 const formatDate = (time) => {
   const date = new Date(time);
-  const hour = date.getHours();
-  const minute = date.getMinutes();
+
+  let hour = date.getHours();
+  let minute = date.getMinutes();
+
+  if (hour < 10) {
+    hour = `0${hour}`;
+  }
+
+  if (minute < 10) {
+    minute = `0${minute}`;
+  }
 
   return `${hour}:${minute}`;
 };

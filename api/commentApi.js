@@ -1,8 +1,17 @@
 import { SERVER_URL } from "@env";
 
+import {
+  GET,
+  PATCH,
+  DELETE
+} from "../constants/httpMethod";
+
 export async function getMyComments(userEmail) {
-  const response = await fetch(`${SERVER_URL}/comment/${userEmail}`, {
-    method: "GET"
+  const response = await fetch(`${SERVER_URL}/comment`, {
+    method: GET,
+    headers: {
+      userEmail
+    }
   });
 
   return await response.json();
@@ -10,7 +19,7 @@ export async function getMyComments(userEmail) {
 
 export async function patchCommentLike(commentLikeInfo) {
   const response = await fetch(`${SERVER_URL}/comment/like`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -22,7 +31,7 @@ export async function patchCommentLike(commentLikeInfo) {
 
 export async function patchComment(commentInfo) {
   const response = await fetch(`${SERVER_URL}/comment`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -34,7 +43,7 @@ export async function patchComment(commentInfo) {
 
 export async function deleteComment(commentId) {
   const response = await fetch(`${SERVER_URL}/comment/${commentId}`, {
-    method: "DELETE"
+    method: DELETE
   });
 
   return await response.json();

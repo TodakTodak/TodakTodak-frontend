@@ -14,7 +14,7 @@ import {
 
 const Stack = createStackNavigator();
 
-function AuthStackNavigation() {
+const AuthStackNavigation = () => {
   return (
     <NavigationContainer>
       <Stack.Navigator initialRouteName={INTRO} headerMode="none">
