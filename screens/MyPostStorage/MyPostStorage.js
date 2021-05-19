@@ -30,26 +30,33 @@ function MyPostStorage() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
-    email,
     message,
     isLoading,
-    accessToken
+    accessToken,
+    isFetchedPosts,
+    isFetchedComments
   } = useSelector((state) => state.user);
 
   useEffect(() => {
     const unSubscribe = navigation.addListener("focus", () => {
-      setActiveCategory("나의 고민들");
-      dispatch(fetchMyPosts(accessToken));
+      dispatch(userSlice.actions.resetFetched());
+
+      if (activeCategory === "나의 고민들") {
+        dispatch(fetchMyPosts(accessToken));
+      }
+      if (activeCategory === "나의 위로들") {
+        dispatch(fetchMyComments(accessToken));
+      }
     });
 
     return unSubscribe;
   }, [navigation]);
 
   useEffect(() => {
-    if (activeCategory === "나의 고민들") {
+    if (activeCategory === "나의 고민들" && !isFetchedPosts) {
       dispatch(fetchMyPosts(accessToken));
     }
-    if (activeCategory === "나의 위로들") {
+    if (activeCategory === "나의 위로들" && !isFetchedComments) {
       dispatch(fetchMyComments(accessToken));
     }
   }, [activeCategory]);
