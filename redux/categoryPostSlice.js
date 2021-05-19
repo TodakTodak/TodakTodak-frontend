@@ -12,9 +12,8 @@ import {
 export const fetchEmploymentPosts = createAsyncThunk(
   "post/fetchEmploymentPosts",
   async (categoryInfo, thunkAPI) => {
-    const { category, page } = categoryInfo;
     try {
-      const response = await getCategoryPosts(category, page);
+      const response = await getCategoryPosts(categoryInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -30,9 +29,8 @@ export const fetchEmploymentPosts = createAsyncThunk(
 export const fetchLovePosts = createAsyncThunk(
   "post/fetchLovePosts",
   async (categoryInfo, thunkAPI) => {
-    const { category, page } = categoryInfo;
     try {
-      const response = await getCategoryPosts(category, page);
+      const response = await getCategoryPosts(categoryInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -48,9 +46,8 @@ export const fetchLovePosts = createAsyncThunk(
 export const fetchCoursePosts = createAsyncThunk(
   "post/fetchCoursePosts",
   async (categoryInfo, thunkAPI) => {
-    const { category, page } = categoryInfo;
     try {
-      const response = await getCategoryPosts(category, page);
+      const response = await getCategoryPosts(categoryInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -67,9 +64,8 @@ export const fetchCoursePosts = createAsyncThunk(
 export const fetchFriendPosts = createAsyncThunk(
   "post/fetchFriendPosts",
   async (categoryInfo, thunkAPI) => {
-    const { category, page } = categoryInfo;
     try {
-      const response = await getCategoryPosts(category, page);
+      const response = await getCategoryPosts(categoryInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -86,9 +82,8 @@ export const fetchFriendPosts = createAsyncThunk(
 export const fetchPainPosts = createAsyncThunk(
   "post/fetchPainPosts",
   async (categoryInfo, thunkAPI) => {
-    const { category, page } = categoryInfo;
     try {
-      const response = await getCategoryPosts(category, page);
+      const response = await getCategoryPosts(categoryInfo);
 
       if (!response.errorMessage) {
         return response;

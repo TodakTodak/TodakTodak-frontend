@@ -53,10 +53,12 @@ const Answer = ({ route }) => {
   const handleCommentLikeClick = async () => {
     try {
       const commentLikeInfo = {
-        user: user.email,
         commentId: commentInfo._id
       };
-      const response = await patchCommentLike(commentLikeInfo);
+      const response = await patchCommentLike(
+        commentLikeInfo,
+        user.accessToken
+      );
 
       if (response.errorMessage) {
         setMessage(response.errorMessage);
@@ -73,10 +75,12 @@ const Answer = ({ route }) => {
   const handleAddFriendClick = async () => {
     try {
       const friendInfo = {
-        currentUser: user.email,
         targetUser: commentInfo.user
       };
-      const response = await addFriend(friendInfo);
+      const response = await addFriend(
+        friendInfo,
+        user.accessToken
+      );
 
       if (response.errorMessage) {
         setMessage(response.errorMessage);
@@ -105,7 +109,7 @@ const Answer = ({ route }) => {
       commentId: commentInfo._id
     };
     try {
-      await patchComment(modifyCommentInfo);
+      await patchComment(modifyCommentInfo, user.accessToken);
 
       navigation.goBack();
     } catch (err) {

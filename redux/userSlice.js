@@ -55,9 +55,9 @@ export const fetchSignup = createAsyncThunk(
 
 export const fetchMyFriends = createAsyncThunk(
   "user/fetchMyFriends",
-  async (userEmail, thunkAPI) => {
+  async (accessToken, thunkAPI) => {
     try {
-      const response = await getFriends(userEmail);
+      const response = await getFriends(accessToken);
 
       if (!response.errorMessage) {
         return response;
@@ -72,9 +72,9 @@ export const fetchMyFriends = createAsyncThunk(
 
 export const fetchWaitingFriends = createAsyncThunk(
   "user/fetchWaitingFriends",
-  async (userEmail, thunkAPI) => {
+  async (accessToken, thunkAPI) => {
     try {
-      const response = await getWaitingFriends(userEmail);
+      const response = await getWaitingFriends(accessToken);
 
       if (!response.errorMessage) {
         return response;
@@ -123,9 +123,9 @@ export const acceptWaitingFriend = createAsyncThunk(
 
 export const fetchMyPosts = createAsyncThunk(
   "user/fetchMyPosts",
-  async (userEmail, thunkAPI) => {
+  async (accessToken, thunkAPI) => {
     try {
-      const response = await getMyPosts(userEmail);
+      const response = await getMyPosts(accessToken);
 
       if (!response.errorMessage) {
         return response;
@@ -140,9 +140,9 @@ export const fetchMyPosts = createAsyncThunk(
 
 export const fetchMyComments = createAsyncThunk(
   "user/fetchMyComments",
-  async (userEmail, thunkAPI) => {
+  async (accessToken, thunkAPI) => {
     try {
-      const response = await getMyComments(userEmail);
+      const response = await getMyComments(accessToken);
 
       if (!response.errorMessage) {
         return response;
@@ -157,9 +157,9 @@ export const fetchMyComments = createAsyncThunk(
 
 export const deleteMyPost = createAsyncThunk(
   "post/deleteMyPost",
-  async (postId, thunkAPI) => {
+  async (requestInfo, thunkAPI) => {
     try {
-      const response = await deletePost(postId);
+      const response = await deletePost(requestInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -174,9 +174,9 @@ export const deleteMyPost = createAsyncThunk(
 
 export const deleteMyComment = createAsyncThunk(
   "post/deleteMyComment",
-  async (commentId, thunkAPI) => {
+  async (requestInfo, thunkAPI) => {
     try {
-      const response = await deleteComment(commentId);
+      const response = await deleteComment(requestInfo);
 
       if (!response.errorMessage) {
         return response;

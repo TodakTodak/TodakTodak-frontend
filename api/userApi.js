@@ -31,24 +31,14 @@ export async function putLogin(userInfo) {
   return await response.json();
 }
 
-export async function addFriend(friendInfo) {
+export async function addFriend(friendInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/auth/friend`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(friendInfo)
-  });
-
-  return await response.json();
-}
-
-export async function getWaitingFriends(userInfo) {
-  const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
-    method: GET,
-    headers: {
-      "user": userInfo
-    }
   });
 
   return await response.json();
@@ -58,7 +48,8 @@ export async function acceptPendingFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": friendInfo.accessToken
     },
     body: JSON.stringify(friendInfo)
   });
@@ -70,7 +61,8 @@ export async function rejectPendingFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/rejectFriend`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": friendInfo.accessToken
     },
     body: JSON.stringify(friendInfo)
   });
@@ -78,22 +70,33 @@ export async function rejectPendingFriend(friendInfo) {
   return await response.json();
 }
 
-export async function getFriends(userEmail) {
+export async function getFriends(accessToken) {
   const response = await fetch(`${SERVER_URL}/auth/friend`, {
     method: GET,
     headers: {
-      "user": userEmail
+      "Authorization": accessToken
     }
   });
 
   return await response.json();
 }
 
-export async function getMyPosts(userEmail) {
+export async function getWaitingFriends(accessToken) {
+  const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
+    method: GET,
+    headers: {
+      "Authorization": accessToken
+    }
+  });
+
+  return await response.json();
+}
+
+export async function getMyPosts(accessToken) {
   const response = await fetch(`${SERVER_URL}/auth/posts`, {
     method: GET,
     headers: {
-      "usereMail": userEmail
+      "Authorization": accessToken
     }
   });
 

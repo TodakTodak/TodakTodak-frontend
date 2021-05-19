@@ -56,6 +56,7 @@ const CounselingCenter = () => {
     isLoading,
     isFetched
   } = useSelector((state) => state.post);
+  const { accessToken } = useSelector((state) => state.user);
 
   const categorys = [
     { title: PAIN, color: PAIN_COLOR },
@@ -68,6 +69,7 @@ const CounselingCenter = () => {
   useEffect(() => {
     const categoryInfo = {
       page: 0,
+      accessToken,
       category: postCategory
     };
 
@@ -106,6 +108,7 @@ const CounselingCenter = () => {
   const getCategorys = () => {
     const categoryInfo = {
       page,
+      accessToken,
       category: postCategory
     };
 
@@ -116,6 +119,7 @@ const CounselingCenter = () => {
   const refreshCategory = () => {
     const categoryInfo = {
       page: 0,
+      accessToken,
       category: postCategory
     };
 
