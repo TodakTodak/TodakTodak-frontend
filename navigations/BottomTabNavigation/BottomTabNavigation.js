@@ -30,7 +30,7 @@ import home from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
-function BOTTOM_TAB_NAVIGATION() {
+const BottomTabNavigation = () => {
   return (
     <Tab.Navigator
       backBehavior="initialRoute"
@@ -101,4 +101,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default BOTTOM_TAB_NAVIGATION;
+export default BottomTabNavigation;

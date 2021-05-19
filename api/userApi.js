@@ -1,8 +1,15 @@
 import { SERVER_URL } from "@env";
 
+import {
+  GET,
+  PUT,
+  POST,
+  PATCH
+} from "../constants/httpMethod";
+
 export async function postSignup(userInfo) {
   const response = await fetch(`${SERVER_URL}/auth`, {
-    method: "POST",
+    method: POST,
     headers: {
       "Content-Type": "application/json"
     },
@@ -14,7 +21,7 @@ export async function postSignup(userInfo) {
 
 export async function putLogin(userInfo) {
   const response = await fetch(`${SERVER_URL}/auth`, {
-    method: "PUT",
+    method: PUT,
     headers: {
       "Content-Type": "application/json"
     },
@@ -26,7 +33,7 @@ export async function putLogin(userInfo) {
 
 export async function addFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/friend`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -38,7 +45,7 @@ export async function addFriend(friendInfo) {
 
 export async function getWaitingFriends(userInfo) {
   const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
-    method: "GET",
+    method: GET,
     headers: {
       "user": userInfo
     }
@@ -49,7 +56,7 @@ export async function getWaitingFriends(userInfo) {
 
 export async function acceptPendingFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/waitingFriend`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -61,7 +68,7 @@ export async function acceptPendingFriend(friendInfo) {
 
 export async function rejectPendingFriend(friendInfo) {
   const response = await fetch(`${SERVER_URL}/auth/rejectFriend`, {
-    method: "PATCH",
+    method: PATCH,
     headers: {
       "Content-Type": "application/json"
     },
@@ -73,7 +80,7 @@ export async function rejectPendingFriend(friendInfo) {
 
 export async function getFriends(userEmail) {
   const response = await fetch(`${SERVER_URL}/auth/friend`, {
-    method: "GET",
+    method: GET,
     headers: {
       "user": userEmail
     }
@@ -84,7 +91,7 @@ export async function getFriends(userEmail) {
 
 export async function getMyPosts(userEmail) {
   const response = await fetch(`${SERVER_URL}/auth/posts`, {
-    method: "GET",
+    method: GET,
     headers: {
       "usereMail": userEmail
     }

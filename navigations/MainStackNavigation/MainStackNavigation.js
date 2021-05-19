@@ -4,7 +4,7 @@ import { useSelector } from "react-redux";
 import AuthStackNavigation from "../AuthStackNavigation/AuthStackNavigation";
 import UserScreenNavigation from "../UserScreenNavigation/UserScreenNavigation";
 
-function MainStackNavigation() {
+const MainStackNavigation = () => {
   const user = useSelector((state) => state.user);
 
   return (
