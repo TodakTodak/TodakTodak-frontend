@@ -10,7 +10,7 @@ export async function getMyComments(userEmail) {
   const response = await fetch(`${SERVER_URL}/comment`, {
     method: GET,
     headers: {
-      userEmail,
+      userEmail
     }
   });
 
