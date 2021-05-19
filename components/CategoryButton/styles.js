@@ -9,7 +9,7 @@ const styles = StyleSheet.create({
     marginBottom: 30
   },
   categoryWrapper: {
-    width: "75%",
+    width: "80%",
     height: 40,
     justifyContent: "center",
     alignItems: "center",

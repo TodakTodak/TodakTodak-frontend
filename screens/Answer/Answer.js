@@ -128,7 +128,7 @@ const Answer = ({ route }) => {
         <View>
           <Title
             imageStyle={styles.titleImage}
-            text={`${commentInfo.user}님의 답변`}
+            text={`${commentInfo.nickname}님의 답변`}
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground

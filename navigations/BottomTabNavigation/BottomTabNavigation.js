@@ -1,6 +1,7 @@
 import React from "react";
 import { StyleSheet, Image } from "react-native";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
+import { AntDesign } from "@expo/vector-icons";
 
 import Friends from "../../screens/Friends/Friends";
 import WriteWorry from "../../screens/WriteWorry/WriteWorry";
@@ -26,7 +27,6 @@ import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
 import friends from "../../assets/pngs/friends.png";
 import feather from "../../assets/pngs/feather.png";
-import home from "../../assets/pngs/home.png";
 
 const Tab = createBottomTabNavigator();
 
@@ -39,16 +39,6 @@ const BottomTabNavigation = () => {
         activeTintColor: BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR
       }}
     >
-      <Tab.Screen
-        name={USER_INFO_ROOM}
-        component={UserInfoRoom}
-        options={{
-          tabBarLabel: USER_INFO_ROOMLABEL,
-          tabBarIcon: () => (
-            <Image source={home} style={styles.imageStyle} />
-          )
-        }}
-      />
       <Tab.Screen
         name={MY_POST_STORAGE}
         component={MyPostStorage}
@@ -87,6 +77,16 @@ const BottomTabNavigation = () => {
           tabBarLabel: WRITE_WORRYLABEL,
           tabBarIcon: () => (
             <Image source={feather} style={styles.imageStyle} />
+          )
+        }}
+      />
+      <Tab.Screen
+        name={USER_INFO_ROOM}
+        component={UserInfoRoom}
+        options={{
+          tabBarLabel: USER_INFO_ROOMLABEL,
+          tabBarIcon: () => (
+            <AntDesign name="setting" size={24} color="black" />
           )
         }}
       />

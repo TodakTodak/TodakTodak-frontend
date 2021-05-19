@@ -26,7 +26,7 @@ function SimpleComment({
     >
       <View style={styles.comment}>
         <Text style={styles.commentText}>
-          {`답변자: ${postComment.user}`}
+          {`답변자: ${postComment.nickname}`}
         </Text>
       </View>
       <View style={styles.goodButtonContainer}>

@@ -30,7 +30,6 @@ function Friends() {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
-    email,
     isLoading,
     friendList,
     accessToken,

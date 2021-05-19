@@ -21,10 +21,12 @@ const styles = StyleSheet.create({
     minHeight: 60,
     maxHeight: 60,
     flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 30
   },
   catagoryContainer: {
-    width: "20%"
+    width: "19%"
   },
   categoryStyle: {
     width: "90%"
