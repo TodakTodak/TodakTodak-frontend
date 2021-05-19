@@ -48,7 +48,7 @@ const DetailPost = ({ route }) => {
       setIsLoading(true);
 
       try {
-        const response = await getDetailPost(postId);
+        const response = await getDetailPost(postId, user.accessToken);
 
         if (response.errorMessage) {
           setErrorMessage(response.errorMessage);
@@ -93,13 +93,10 @@ const DetailPost = ({ route }) => {
   };
 
   const handleLikeButtonClick = async () => {
-    const likeInfo = {
-      postId,
-      user: user.email
-    };
+    const likeInfo = { postId };
 
     try {
-      const response = await patchPostLike(likeInfo);
+      const response = await patchPostLike(likeInfo, user.accessToken);
 
       if (response.errorMessage) {
         setErrorMessage(response.errorMessage);
@@ -113,14 +110,10 @@ const DetailPost = ({ route }) => {
   };
 
   const handleCommentLikeClick = async (commentId) => {
-    const likeInfo = {
-      postId,
-      commentId,
-      user: user.email
-    };
+    const likeInfo = { postId, commentId };
 
     try {
-      const response = await patchPostCommentLike(likeInfo);
+      const response = await patchPostCommentLike(likeInfo, user.accessToken);
 
       if (response.errorMessage) {
         setErrorMessage(response.errorMessage);

@@ -39,13 +39,12 @@ const DetailComment = ({ route }) => {
 
   const handleAddCommentButtonClick = async () => {
     const commentInfo = {
-      user,
       postId,
       content: content.trim()
     };
 
     try {
-      const response = await patchComment(commentInfo);
+      const response = await patchComment(commentInfo, user.accessToken);
 
       if (response.errorMessage) {
         setErrorMessage(response.errorMessage);

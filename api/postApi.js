@@ -7,11 +7,12 @@ import {
   DELETE
 } from "../constants/httpMethod";
 
-export async function postNewWorryPost(postInfo) {
+export async function postNewWorryPost(postInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/post`, {
     method: POST,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(postInfo)
   });
@@ -19,22 +20,30 @@ export async function postNewWorryPost(postInfo) {
   return await response.json();
 }
 
-export async function getCategoryPosts(category, page) {
+export async function getCategoryPosts(categoryInfo) {
+  const {
+    page,
+    category,
+    accessToken
+  } = categoryInfo;
+
   const response = await fetch(`${SERVER_URL}/post/category/${category}`, {
     method: GET,
     headers: {
-      "page": page
+      "page": page,
+      "Authorization": accessToken
     }
   });
 
   return await response.json();
 }
 
-export async function patchComment(commentInfo) {
+export async function patchComment(commentInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/post/comments`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(commentInfo)
   });
@@ -42,11 +51,12 @@ export async function patchComment(commentInfo) {
   return await response.json();
 }
 
-export async function patchPostLike(likeInfo) {
+export async function patchPostLike(likeInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/post/like`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(likeInfo)
   });
@@ -54,11 +64,12 @@ export async function patchPostLike(likeInfo) {
   return await response.json();
 }
 
-export async function patchPostCommentLike(likeInfo) {
+export async function patchPostCommentLike(likeInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/post/comments/like`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(likeInfo)
   });
@@ -66,19 +77,23 @@ export async function patchPostCommentLike(likeInfo) {
   return await response.json();
 }
 
-export async function getDetailPost(postId) {
+export async function getDetailPost(postId, accessToken) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
-    method: GET
+    method: GET,
+    headers: {
+      "Authorization": accessToken
+    }
   });
 
   return await response.json();
 }
 
-export async function patchPost(postInfo) {
+export async function patchPost(postInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/post`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(postInfo)
   });
@@ -86,9 +101,12 @@ export async function patchPost(postInfo) {
   return await response.json();
 }
 
-export async function deletePost(postId) {
+export async function deletePost({ postId, accessToken }) {
   const response = await fetch(`${SERVER_URL}/post/${postId}`, {
-    method: DELETE
+    method: DELETE,
+    headers: {
+      "Authorization": accessToken
+    },
   });
 
   return await response.json();

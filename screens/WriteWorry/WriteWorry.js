@@ -123,7 +123,6 @@ const WriteWorry = ({ route }) => {
 
   const handleSubmitButtonClick = async () => {
     const postInfo = {
-      user,
       postType,
       category,
       postTitle,
@@ -139,13 +138,14 @@ const WriteWorry = ({ route }) => {
     }
 
     try {
-      const response = await postNewWorryPost(postInfo);
+      const response = await postNewWorryPost(postInfo, user.accessToken);
 
       if (response.errorMessage) {
         setErrorMessage(response.errorMessage);
-      } else {
-        navigation.navigate(MY_POST_STORAGE);
+        return;
       }
+
+      navigation.navigate(MY_POST_STORAGE);
     } catch (err) {
       setErrorMessage("에러가 발생했습니다.");
     }
@@ -153,7 +153,6 @@ const WriteWorry = ({ route }) => {
 
   const handleModifyButtonClick = async () => {
     const modifyPostInfo = {
-      user,
       postType,
       category,
       postTitle,
@@ -162,8 +161,15 @@ const WriteWorry = ({ route }) => {
       postId: postInfo._id
     };
 
+    const incorrectMessage = validatePostInfo(modifyPostInfo);
+
+    if (incorrectMessage) {
+      setErrorMessage(incorrectMessage);
+      return;
+    }
+
     try {
-      await patchPost(modifyPostInfo);
+      await patchPost(modifyPostInfo, user.accessToken);
 
       navigation.navigate(DETAIL_POST, { postId: postInfo._id });
     } catch (err) {

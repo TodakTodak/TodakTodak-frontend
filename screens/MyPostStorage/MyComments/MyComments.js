@@ -17,7 +17,7 @@ import { ANSWER } from "../../../constants/navigationName";
 const MyComments = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { comments } = useSelector((state) => state.user);
+  const { comments, accessToken } = useSelector((state) => state.user);
 
   if (!comments.length) {
     return <EmptyView text="작성한 위로글이 없습니다." />;
@@ -40,7 +40,7 @@ const MyComments = () => {
     };
 
     const handleDeleteButtonClick = () => (
-      dispatch(deleteMyComment(_id))
+      dispatch(deleteMyComment({ commentId: _id, accessToken }))
     );
 
     return (

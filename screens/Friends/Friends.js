@@ -33,10 +33,9 @@ function Friends() {
     email,
     isLoading,
     friendList,
+    accessToken,
     errorMessage,
-    waitingFriendList,
-    isFetchedFriendList,
-    isFetchedWaitingFriendList
+    waitingFriendList
   } = useSelector((state) => state.user);
 
   useEffect(() => {
@@ -44,11 +43,11 @@ function Friends() {
 
     const unSubscribe = navigation.addListener("focus", () => {
       if (activeCategory === "나의 인연들") {
-        dispatch(fetchMyFriends(email));
+        dispatch(fetchMyFriends(accessToken));
       }
 
       if (activeCategory === "요청한 인연들") {
-        dispatch(fetchWaitingFriends(email));
+        dispatch(fetchWaitingFriends(accessToken));
       }
     });
 
@@ -56,12 +55,12 @@ function Friends() {
   }, [navigation]);
 
   useEffect(() => {
-    if (activeCategory === "나의 인연들" && !isFetchedFriendList) {
-      dispatch(fetchMyFriends(email));
+    if (activeCategory === "나의 인연들") {
+      dispatch(fetchMyFriends(accessToken));
     }
 
-    if (activeCategory === "요청한 인연들" && !isFetchedWaitingFriendList) {
-      dispatch(fetchWaitingFriends(email));
+    if (activeCategory === "요청한 인연들") {
+      dispatch(fetchWaitingFriends(accessToken));
     }
   }, [activeCategory]);
 

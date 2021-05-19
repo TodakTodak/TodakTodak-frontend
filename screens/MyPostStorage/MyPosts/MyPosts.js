@@ -18,7 +18,7 @@ import { DETAIL_POST } from "../../../constants/navigationName";
 const MyPosts = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const { posts } = useSelector((state) => state.user);
+  const { posts, accessToken } = useSelector((state) => state.user);
 
   if (!posts.length) {
     return <EmptyView text="작성한 고민글이 없습니다" />;
@@ -34,11 +34,11 @@ const MyPosts = () => {
     } = post;
 
     const handlePostClick = () => (
-      navigation.navigate(DETAIL_POST, { postId: _id })
+      navigation.navigate(DETAIL_POST, { accessToken, postId: _id })
     );
 
     const handleDeleteButtonClick = () => (
-      dispatch(deleteMyPost(_id))
+      dispatch(deleteMyPost({ postId: _id, accessToken }))
     );
 
     return (

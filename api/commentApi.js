@@ -6,22 +6,23 @@ import {
   DELETE
 } from "../constants/httpMethod";
 
-export async function getMyComments(userEmail) {
+export async function getMyComments(accessToken) {
   const response = await fetch(`${SERVER_URL}/comment`, {
     method: GET,
     headers: {
-      userEmail
+      "Authorization": accessToken
     }
   });
 
   return await response.json();
 }
 
-export async function patchCommentLike(commentLikeInfo) {
+export async function patchCommentLike(commentLikeInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/comment/like`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(commentLikeInfo)
   });
@@ -29,11 +30,12 @@ export async function patchCommentLike(commentLikeInfo) {
   return await response.json();
 }
 
-export async function patchComment(commentInfo) {
+export async function patchComment(commentInfo, accessToken) {
   const response = await fetch(`${SERVER_URL}/comment`, {
     method: PATCH,
     headers: {
-      "Content-Type": "application/json"
+      "Content-Type": "application/json",
+      "Authorization": accessToken
     },
     body: JSON.stringify(commentInfo)
   });
@@ -41,9 +43,12 @@ export async function patchComment(commentInfo) {
   return await response.json();
 }
 
-export async function deleteComment(commentId) {
+export async function deleteComment({ commentId, accessToken }) {
   const response = await fetch(`${SERVER_URL}/comment/${commentId}`, {
-    method: DELETE
+    method: DELETE,
+    headers: {
+      "Authorization": accessToken
+    }
   });
 
   return await response.json();

@@ -71,7 +71,7 @@ function FriendCard({ friend }) {
   const acceptFriend = async (friendEmail) => {
     const friendInfo = {
       friendEmail,
-      user: user.email
+      accessToken: user.accessToken
     };
 
     dispatch(acceptWaitingFriend(friendInfo));
@@ -80,7 +80,7 @@ function FriendCard({ friend }) {
   const rejectFriend = async (friendEmail) => {
     const friendInfo = {
       friendEmail,
-      user: user.email
+      accessToken: user.accessToken
     };
 
     dispatch(rejectWaitingFriend(friendInfo));
