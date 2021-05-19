@@ -15,7 +15,8 @@ const styles = StyleSheet.create({
   },
   postContentsWrapper: {
     width: "90%",
-    marginTop: 30,
+    height: "70%",
+    marginTop: 40,
     borderRadius: 20,
     overflow: "hidden"
   },
@@ -23,7 +24,7 @@ const styles = StyleSheet.create({
     left: "15%"
   },
   contents: {
-    height: 530,
+    height: 500,
     marginTop: 30,
     backgroundColor: TRANSPARENCY,
     fontSize: 20

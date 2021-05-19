@@ -19,6 +19,7 @@ export const FRIEND_COLOR = "rgba(120, 255, 56, 0.3)";
 export const PAIN_COLOR = "rgba(255, 56, 56, 0.3)";
 export const LOADING_BACKGROUND = "#222542";
 export const LOGOUT_BACKGROUND = "rgba(249, 255, 180, 0.8)";
+export const UNREAD_MESSAGE_COUNT = "#c0392b";
 
 export const RED = "red";
 export const CORAL = "coral";

@@ -16,7 +16,8 @@ const styles = StyleSheet.create({
     height: "100%"
   },
   postContentsWrapper: {
-    width: "90%",
+    width: "85%",
+    height: "73%",
     margin: 20,
     borderRadius: 20,
     overflow: "hidden"
@@ -35,10 +36,10 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   contents: {
-    height: 500,
+    height: 550,
     marginTop: 30,
     backgroundColor: TRANSPARENCY,
-    fontSize: 25,
+    fontSize: 20
   },
   letterPage: {
     width: "100%"

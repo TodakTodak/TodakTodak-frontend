@@ -53,8 +53,8 @@ function Login() {
             placeholder="이메일을 입력해주세요"
           />
           <TextInput
-            type="password"
             value={password}
+            type="password"
             isPassword={true}
             handleInputChange={setPassword}
             placeholder="비밀번호를 입력해주세요"
