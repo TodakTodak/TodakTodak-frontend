@@ -3,6 +3,7 @@ import { View, Text } from "react-native";
 import { useSelector } from "react-redux";
 
 import styles from "./styles";
+import formatDate from "../../utils/getDate";
 
 function ChatLog({
   comment,
@@ -42,7 +43,7 @@ function ChatLog({
           {comment}
         </Text>
         <Text style={styles.chatDate}>
-          {Date(createdAt).substring(16, 21)}
+          {formatDate(createdAt)}
         </Text>
       </View>
     </View>
