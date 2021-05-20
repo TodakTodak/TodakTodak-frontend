@@ -7,8 +7,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import EmptyView from "../../components/EmptyView/EmptyView";
 import AlertModal from "../../components/AlertModal/AlertModal";
@@ -21,15 +19,23 @@ import {
   fetchWaitingFriends
 } from "../../redux/userSlice";
 
+import styles from "./styles";
+
+import {
+  MY_FRIENDS,
+  WAITING_FRIENDS,
+  NOT_EXIST_FRIEND,
+  NOT_EXIST_WAITING_FRIEND
+} from "../../constants/friendStatus";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Friends() {
-  const [activeCategory, setActiveCategory] = useState("나의 인연들");
+const Friends = () => {
+  const [activeCategory, setActiveCategory] = useState(MY_FRIENDS);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
-    isLoading,
     friendList,
     accessToken,
     errorMessage,
@@ -40,11 +46,11 @@ function Friends() {
     dispatch(userSlice.actions.resetFriendFetchedStatus());
 
     const unSubscribe = navigation.addListener("focus", () => {
-      if (activeCategory === "나의 인연들") {
+      if (activeCategory === MY_FRIENDS) {
         dispatch(fetchMyFriends(accessToken));
       }
 
-      if (activeCategory === "요청한 인연들") {
+      if (activeCategory === WAITING_FRIENDS) {
         dispatch(fetchWaitingFriends(accessToken));
       }
     });
@@ -53,11 +59,11 @@ function Friends() {
   }, [navigation]);
 
   useEffect(() => {
-    if (activeCategory === "나의 인연들") {
+    if (activeCategory === MY_FRIENDS) {
       dispatch(fetchMyFriends(accessToken));
     }
 
-    if (activeCategory === "요청한 인연들") {
+    if (activeCategory === WAITING_FRIENDS) {
       dispatch(fetchWaitingFriends(accessToken));
     }
   }, [activeCategory]);
@@ -67,9 +73,9 @@ function Friends() {
   };
 
   const renderFriends = () => {
-    if (activeCategory === "나의 인연들") {
+    if (activeCategory === MY_FRIENDS) {
       if (!friendList.length) {
-        return <EmptyView text="아직 인연들이 없습니다." />;
+        return <EmptyView text={NOT_EXIST_FRIEND} />;
       }
 
       return friendList.map((friend, index) =>
@@ -78,7 +84,7 @@ function Friends() {
     }
 
     if (!waitingFriendList.length) {
-      return <EmptyView text="요청 인연들이 없습니다." />;
+      return <EmptyView text={NOT_EXIST_WAITING_FRIEND} />;
     }
 
     return waitingFriendList.map((friend, index) =>
@@ -92,28 +98,23 @@ function Friends() {
       style={styles.backgroundContainer}
     >
       <View style={styles.container}>
-        <Title text="나의 인연들" imageStyle={styles.titleImage} />
+        <Title text={MY_FRIENDS} imageStyle={styles.titleImage} />
         <View style={styles.categoryWrapper}>
           <CategoryButton
-            title="나의 인연들"
+            title={MY_FRIENDS}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />
           <CategoryButton
-            title="요청한 인연들"
+            title={WAITING_FRIENDS}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />
         </View>
-        {/* {isLoading ?
-          <View style={styles.loadingWrapper}>
-            <Loading style={styles.loading} />
-          </View> : */}
-          <ScrollView styles={styles.friendsContainer}>
-            {renderFriends()}
-            <View style={{ height: 200 }} />
-          </ScrollView>
-        {/* } */}
+        <ScrollView styles={styles.friendsContainer}>
+          {renderFriends()}
+          <View style={{ height: 200 }} />
+        </ScrollView>
       </View>
       {errorMessage &&
         <AlertModal

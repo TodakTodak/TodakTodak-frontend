@@ -2,9 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-import styles from "./styles";
-
 import Button from "../../../components/Button/Button";
+
+import styles from "./styles";
 
 import { RED } from "../../../constants/color";
 
@@ -20,6 +20,34 @@ const AnswerButtons = ({
 }) => {
   return (
     <View style={styles.buttonWrapper}>
+      <View style={styles.buttonContainer}>
+        <AntDesign
+          size={25}
+          color={RED}
+          name={isCommentLike ? "like1" : "like2"}
+        />
+        <Button
+          text="쓰담쓰담"
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+          handleClick={handleCommentLikeClick}
+        />
+      </View>
+      {postId &&
+        <View style={styles.buttonContainer}>
+          <AntDesign
+            size={25}
+            color={RED}
+            name="inbox"
+          />
+          <Button
+            text="게시물로"
+            buttonStyle={styles.button}
+            textStyle={styles.buttonText}
+            handleClick={handleRoutePostButtonClick}
+          />
+        </View>
+      }
       <View style={styles.buttonContainer}>
         {commentInfo.user === user.email
           ? <>
@@ -50,34 +78,6 @@ const AnswerButtons = ({
             </>
         }
       </View>
-      <View style={styles.buttonContainer}>
-        <AntDesign
-          size={25}
-          color={RED}
-          name={isCommentLike ? "like1" : "like2"}
-        />
-        <Button
-          text="쓰담쓰담"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleCommentLikeClick}
-        />
-      </View>
-      {postId &&
-        <View style={styles.buttonContainer}>
-          <AntDesign
-            size={25}
-            color={RED}
-            name="inbox"
-          />
-          <Button
-            text="게시물로"
-            buttonStyle={styles.button}
-            textStyle={styles.buttonText}
-            handleClick={handleRoutePostButtonClick}
-          />
-        </View>
-      }
     </View>
   );
 };

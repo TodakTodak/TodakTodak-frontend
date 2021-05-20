@@ -1,5 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { View, Text, Image } from "react-native";
+import {
+  View,
+  Text,
+  Image
+} from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
@@ -26,7 +30,7 @@ import { CHAT_ROOM } from "../../constants/navigationName";
 
 import avatar from "../../assets/pngs/avatar.png";
 
-function FriendCard({ friend }) {
+const FriendCard = ({ friend }) => {
   const [friendStatus, setFriendStatus] = useState("");
 
   const dispatch = useDispatch();

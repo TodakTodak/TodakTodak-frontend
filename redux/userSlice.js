@@ -10,7 +10,11 @@ import {
   acceptPendingFriend
 } from "../api/userApi";
 import { deletePost } from "../api/postApi";
-import { getMyComments, deleteComment } from "../api/commentApi";
+import {
+  getMyComments,
+  deleteComment,
+  patchComment
+} from "../api/commentApi";
 
 export const fetchLogin = createAsyncThunk(
   "user/fetchLogin",
@@ -143,6 +147,23 @@ export const fetchMyComments = createAsyncThunk(
   async (accessToken, thunkAPI) => {
     try {
       const response = await getMyComments(accessToken);
+
+      if (!response.errorMessage) {
+        return response;
+      }
+
+      return thunkAPI.rejectWithValue(response);
+    } catch (err) {
+      console.error(err.message);
+    }
+  }
+);
+
+export const patchMyComment = createAsyncThunk(
+  "user/patchMyComments",
+  async (requestInfo, thunkAPI) => {
+    try {
+      const response = await patchComment(requestInfo);
 
       if (!response.errorMessage) {
         return response;
@@ -322,6 +343,17 @@ export const userSlice = createSlice({
       state.message = payload.errorMessage;
       state.isLoading = false;
     },
+    [patchMyComment.fulfilled]: (state, { payload }) => {
+      state.comments = payload.comments;
+      state.isLoading = false;
+    },
+    [patchMyComment.pending]: (state) => {
+      state.isLoading = true;
+    },
+    [patchMyComment.rejected]: (state, { payload }) => {
+      state.message = payload.errorMessage;
+      state.isLoading = false;
+    },
     [deleteMyPost.fulfilled]: (state, { payload }) => {
       state.isLoading = false;
       state.posts = payload.posts;
@@ -330,19 +362,19 @@ export const userSlice = createSlice({
       state.isLoading = true;
     },
     [deleteMyPost.rejected]: (state, { payload }) => {
+      state.message = payload.errorMessage;
       state.isLoading = false;
-      state.errorMessage = payload.errorMessage;
     },
     [deleteMyComment.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.comments = payload.comments;
+      state.isLoading = false;
     },
     [deleteMyComment.pending]: (state) => {
       state.isLoading = true;
     },
     [deleteMyComment.rejected]: (state, { payload }) => {
+      state.message = payload.errorMessage;
       state.isLoading = false;
-      state.errorMessage = payload.errorMessage;
     }
   }
 });

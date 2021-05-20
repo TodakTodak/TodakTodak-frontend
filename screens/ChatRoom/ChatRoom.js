@@ -11,12 +11,12 @@ import {
 } from "react-native";
 import io from "socket.io-client";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import ChatLog from "../../components/ChatLog/ChatLog";
 import TextInput from "../../components/TextInput/TextInput";
+
+import styles from "./styles";
 
 import { SERVER_URL } from "@env";
 import { FRIENDS } from "../../constants/navigationName";

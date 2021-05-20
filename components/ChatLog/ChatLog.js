@@ -5,12 +5,12 @@ import { useSelector } from "react-redux";
 import styles from "./styles";
 import formatDate from "../../utils/getDate";
 
-function ChatLog({
+const ChatLog = ({
   comment,
   createdAt,
   userNickname,
   systemMessage
-}) {
+}) => {
   const currentUser = useSelector((state) => state.user);
 
   if (systemMessage) {
@@ -24,9 +24,9 @@ function ChatLog({
   return (
     <View
       style={
-        userNickname === currentUser.nickname ?
-          styles.myChatInfo :
-          styles.friendChatInfo
+        userNickname === currentUser.nickname
+          ? styles.myChatInfo
+          : styles.friendChatInfo
       }
     >
       <Text style={styles.nickname}>
@@ -34,9 +34,9 @@ function ChatLog({
       </Text>
       <View
         style={
-          userNickname === currentUser.nickname ?
-            styles.myChatBox :
-            styles.friendChatBox
+          userNickname === currentUser.nickname
+            ? styles.myChatBox
+            : styles.friendChatBox
         }
       >
         <Text style={styles.chatText}>

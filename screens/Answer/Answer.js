@@ -6,23 +6,23 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
-
-import styles from "./styles";
 
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
-import {
-  patchComment,
-  patchCommentLike
-} from "../../api/commentApi";
+import { patchCommentLike } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
 
+import { patchMyComment } from "../../redux/userSlice";
+
+import styles from "./styles";
+
 import { DETAIL_POST } from "../../constants/navigationName";
+import { SERVER_ERROR } from "../../constants/message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -33,6 +33,7 @@ const Answer = ({ route }) => {
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
 
@@ -67,7 +68,7 @@ const Answer = ({ route }) => {
 
       setIsCommentLike((isCommentLike) => !isCommentLike);
     } catch (err) {
-      setMessage("에러가 발생했습니다");
+      setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
   };
@@ -90,7 +91,7 @@ const Answer = ({ route }) => {
 
       setIsModalVisible(true);
     } catch (err) {
-      setMessage("에러가 발생했습니다");
+      setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
   };
@@ -103,20 +104,18 @@ const Answer = ({ route }) => {
     navigation.navigate(DETAIL_POST, { postId });
   };
 
-  const handleModifyButtonClick = async () => {
+  const handleModifyButtonClick = () => {
     const modifyCommentInfo = {
       comment,
       commentId: commentInfo._id
     };
-    try {
-      await patchComment(modifyCommentInfo, user.accessToken);
 
-      navigation.goBack();
-    } catch (err) {
-      console.log(err.message);
-      setMessage("에러가 발생");
-      setIsModalVisible(true);
-    }
+    dispatch(patchMyComment({
+      commentInfo: modifyCommentInfo,
+      accessToken: user.accessToken
+    }));
+
+    navigation.goBack();
   };
 
   return (

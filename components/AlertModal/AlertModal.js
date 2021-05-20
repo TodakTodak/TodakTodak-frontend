@@ -9,13 +9,13 @@ import Button from "../../components/Button/Button";
 
 import styles from "./styles";
 
-function AlertModal({
+const AlertModal = ({
   message,
   textStyles,
   ModalStyle,
   isModalVisible,
   handleModalClose
-}) {
+}) => {
 
   return (
     <Modal

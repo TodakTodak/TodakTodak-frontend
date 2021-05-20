@@ -30,7 +30,7 @@ export async function patchCommentLike(commentLikeInfo, accessToken) {
   return await response.json();
 }
 
-export async function patchComment(commentInfo, accessToken) {
+export async function patchComment({ commentInfo, accessToken }) {
   const response = await fetch(`${SERVER_URL}/comment`, {
     method: PATCH,
     headers: {

@@ -4,12 +4,12 @@ import PickerSelect from "react-native-picker-select";
 
 import styles from "./styles";
 
-function Picker({
+const Picker = ({
   label,
   value,
   itemList,
   handleChange
-}) {
+}) => {
   return (
     <View style={styles.pickerContainer}>
       <Text style={styles.pickerLabel}>

@@ -4,13 +4,13 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 
-import styles from "../MyPosts/styles";
-
 import Button from "../../../components/Button/Button";
 import PostCard from "../../../components/PostCard/PostCard";
 import EmptyView from "../../../components/EmptyView/EmptyView";
 
 import { deleteMyComment } from "../../../redux/userSlice";
+
+import styles from "../MyPosts/styles";
 
 import { ANSWER } from "../../../constants/navigationName";
 
@@ -51,7 +51,7 @@ const MyComments = () => {
         <View style={styles.postContainer}>
           <View>
             <Text style={styles.postTitle}>
-              {content.substring(0, 8)}
+              {9 < content.length ? `${content.substring(0, 8)}...` : content}
             </Text>
             <Text style={styles.postContent}>
               {createdAt.substring(0, 10)}

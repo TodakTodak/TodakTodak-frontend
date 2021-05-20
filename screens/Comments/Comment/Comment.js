@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import {
   View,
   Text,
-  StyleSheet,
   ImageBackground
 } from "react-native";
 import { useSelector } from "react-redux";
@@ -10,6 +9,9 @@ import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
 import Button from "../../../components/Button/Button";
 
+import styles from "./styles";
+
+import { SERVER_ERROR } from "../../../constants/message";
 import letterPage from "../../../assets/pngs/letterPage.png";
 
 import { patchCommentLike } from "../../../api/commentApi";
@@ -46,8 +48,7 @@ const Comment = ({
 
       setIsLike((isLike) => !isLike);
     } catch (err) {
-      console.log(err.message);
-      alertMessage("에러가 발생했습니다");
+      alertMessage(SERVER_ERROR);
     }
   };
 
@@ -68,7 +69,7 @@ const Comment = ({
       }
 
     } catch (err) {
-      alertMessage("에러가 발생했습니다");
+      alertMessage(SERVER_ERROR);
     }
   };
 
@@ -108,84 +109,26 @@ const Comment = ({
                 handleClick={handleLikeClick}
               />
             </View>
-            <View style={styles.addFriendWrapper}>
-              <AntDesign
-                size={15}
-                color="red"
-                name="adduser"
-              />
-              <Button
-                text="친추"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleAddFriendClick}
-              />
-            </View>
+            {comment.user !== email &&
+              <View style={styles.addFriendWrapper}>
+                <AntDesign
+                  size={15}
+                  color="red"
+                  name="adduser"
+                />
+                <Button
+                  text="친추"
+                  buttonStyle={styles.button}
+                  textStyle={styles.buttonText}
+                  handleClick={handleAddFriendClick}
+                />
+              </View>
+            }
           </View>
         </View>
       </ImageBackground>
     </View>
-    );
+  );
 };
-
-const styles = StyleSheet.create({
-  commentBackground: {
-    width: "100%",
-    height: "100%"
-  },
-  commentsContainer: {
-    width: "90%",
-    height: "auto",
-    minHeight: "7%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    margin: 15,
-    borderRadius: 13,
-    overflow: "hidden"
-  },
-  commentWrapper: {
-    flexDirection: "row",
-    padding: 10,
-    paddingLeft: 15
-  },
-  commentUserInfo: {
-    width: "80%",
-    marginRight: 10
-  },
-  userInfo: {
-    flexDirection: "row",
-    alignItems: "center",
-    marginBottom: 10
-  },
-  userNickname: {
-    marginLeft: 10
-  },
-  commentContent: {
-    fontWeight: "bold"
-  },
-  buttonWrapper: {
-    width: "30%",
-    justifyContent: "flex-start",
-    paddingRight: 10
-  },
-  commentLikeWrapper: {
-    width: "60%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10
-  },
-  addFriendWrapper: {
-    flexDirection: "row",
-    alignItems: "center"
-  },
-  button: {
-    width: "60%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
-  },
-  buttonText: {
-    fontSize: 13,
-    color: "black"
-  }
-});
 
 export default Comment;

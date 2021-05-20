@@ -10,34 +10,28 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
-import Picker from "../../components/Picker/Picker";
-import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
+import WorryInputs from "./WorryInputs/WorryInputs";
+import WorryInfoPickers from "./WorryInfoPickers/WorryInfoPickers";
 import WriteWorryButtons from "./WriteWorryButtons/WriteWorryButtons";
 
 import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
+
+import styles from "./styles";
 
 import {
   DETAIL_POST,
   MY_POST_STORAGE
 } from "../../constants/navigationName";
 import {
-  PAIN,
-  LOVE,
-  COURSE,
-  FRIEND,
-  EMPLOYMENT
-} from "../../constants/category";
-import {
   PUBLIC,
   PRIVATE,
   NICKNAME,
   ANONYMOUNS
 } from "../../constants/postInfo";
+import { SERVER_ERROR } from "../../constants/message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -82,42 +76,6 @@ const WriteWorry = ({ route }) => {
     return unSubscribe;
   }, [navigation]);
 
-  const postTypes = [
-    { label: PUBLIC, value: PUBLIC },
-    { label: PRIVATE, value: PRIVATE }
-  ];
-  const anonymousTypes = [
-    { label: NICKNAME, value: NICKNAME },
-    { label: ANONYMOUNS, value: ANONYMOUNS }
-  ];
-  const categoryTypes = [
-    { label: PAIN, value: PAIN },
-    { label: LOVE, value: LOVE },
-    { label: COURSE, value: COURSE },
-    { label: FRIEND, value: FRIEND },
-    { label: EMPLOYMENT, value: EMPLOYMENT }
-  ];
-
-  const handlePostPickerChange = (item) => {
-    setPostType(item);
-  };
-
-  const handleAnonymousePickerChange = (item) => {
-    setAnonymousType(item);
-  };
-
-  const handleCategoryPickerChange = (item) => {
-    setCategory(item);
-  };
-
-  const handleWorryContentsChange = (contents) => {
-    setWorryContents(contents);
-  };
-
-  const handlePostTitleChange = (title) => {
-    setPostTitle(title);
-  };
-
   const clearErrorMessage = () => {
     setErrorMessage(null);
   };
@@ -148,7 +106,7 @@ const WriteWorry = ({ route }) => {
 
       navigation.navigate(MY_POST_STORAGE);
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 
@@ -174,7 +132,7 @@ const WriteWorry = ({ route }) => {
 
       navigation.navigate(DETAIL_POST, { postId: postInfo._id });
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 
@@ -202,36 +160,19 @@ const WriteWorry = ({ route }) => {
                 source={letterPage}
               >
                 <ScrollView>
-                  <TextInput
-                    value={postTitle}
-                    style={styles.postTitle}
-                    placeholder="고민의 제목을 적어주세요"
-                    handleInputChange={handlePostTitleChange}
+                  <WorryInputs
+                    postTitle={postTitle}
+                    worryContents={worryContents}
+                    handleTitleChange={setPostTitle}
+                    handleContentsChange={setWorryContents}
                   />
-                  <TextInput
-                    isMultiline={true}
-                    value={worryContents}
-                    style={styles.contents}
-                    placeholder="고민 거리를 작성해보세요"
-                    handleInputChange={handleWorryContentsChange}
-                  />
-                  <Picker
-                    label="공개 여부"
-                    value={postType}
-                    itemList={postTypes}
-                    handleChange={handlePostPickerChange}
-                  />
-                  <Picker
-                    label="익명 여부"
-                    value={anonymousType}
-                    itemList={anonymousTypes}
-                    handleChange={handleAnonymousePickerChange}
-                  />
-                  <Picker
-                    label="고민 카테고리"
-                    value={category}
-                    itemList={categoryTypes}
-                    handleChange={handleCategoryPickerChange}
+                  <WorryInfoPickers
+                    postType={postType}
+                    category={category}
+                    anonymousType={anonymousType}
+                    handlePostPickerChange={setPostType}
+                    handleCategoryPickerChange={setCategory}
+                    handleAnonymousePickerChange={setAnonymousType}
                   />
                 </ScrollView>
               </ImageBackground>

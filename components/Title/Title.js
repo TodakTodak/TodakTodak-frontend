@@ -5,12 +5,12 @@ import styles from "./styles";
 
 import titleImage from "../../assets/pngs/moon.png";
 
-function Title({
+const Title = ({
   text,
   textStyle,
   titleStyle,
   imageStyle
-}) {
+}) => {
   return (
     <View style={[ styles.title, titleStyle ]}>
       <Image

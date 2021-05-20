@@ -4,19 +4,19 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import * as SecureStore from "expo-secure-store";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { fetchLogin, userSlice } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import { LOGIN, SIGNUP } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Intro() {
+const Intro = () => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const dispatch = useDispatch();
@@ -26,6 +26,9 @@ function Intro() {
   useEffect(() => {
     (async function authLogin() {
         const userInfo = await SecureStore.getItemAsync("userInfo");
+
+        if (!userInfo) return;
+
         const parsedUserInfo = JSON.parse(userInfo);
 
         if (parsedUserInfo && parsedUserInfo.email) {

@@ -7,12 +7,12 @@ import {
 
 import styles from "./styles";
 
-function Button({
+const Button =({
   text,
   textStyle,
   buttonStyle,
   handleClick
-}) {
+}) => {
   return (
     <TouchableOpacity
       style={[ styles.button, buttonStyle ]}

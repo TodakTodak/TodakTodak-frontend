@@ -3,6 +3,7 @@ export const LOGIN = "Login";
 export const SIGNUP = "Signup"
 export const ANSWER = "Answer";
 export const FRIENDS = "Friends";
+export const COMMENTS = "Comments";
 export const CHAT_ROOM = "ChatRoom";
 export const WRITE_WORRY = "WriteWorry";
 export const DETAIL_POST = "DetailPost";

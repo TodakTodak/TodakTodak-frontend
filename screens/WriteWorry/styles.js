@@ -27,15 +27,6 @@ const styles = StyleSheet.create({
   letter: {
     width: "100%",
     height: "100%"
-  },
-  postTitle: {
-    height: 35,
-    margin: 30,
-    marginBottom: 0,
-    borderRadius: 10
-  },
-  contents: {
-    height: 230
   }
 });
 

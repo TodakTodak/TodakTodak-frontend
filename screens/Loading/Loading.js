@@ -5,7 +5,7 @@ import loading from "../../assets/loading.json";
 
 import { LOADING_BACKGROUND } from "../../constants/color";
 
-function Loading({ style }) {
+const Loading = ({ style }) => {
   return (
     <LotteView
       loop

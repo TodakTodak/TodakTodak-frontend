@@ -1,13 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   ScrollView,
   ImageBackground
 } from "react-native";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
-
-import styles from "./styles";
 
 import MyPosts from "./MyPosts/MyPosts";
 import MyComments from "./MyComments/MyComments";
@@ -22,13 +20,14 @@ import {
   fetchMyComments
 } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MyPostStorage() {
+const MyPostStorage = () => {
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
 
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const {
     message,
     isLoading,
@@ -37,29 +36,17 @@ function MyPostStorage() {
     isFetchedComments
   } = useSelector((state) => state.user);
 
-  useEffect(() => {
-    const unSubscribe = navigation.addListener("focus", () => {
-      dispatch(userSlice.actions.resetFetched());
+  useFocusEffect(useCallback(() => {
+    dispatch(userSlice.actions.resetFetched());
 
-      if (activeCategory === "나의 고민들") {
-        dispatch(fetchMyPosts(accessToken));
-      }
-      if (activeCategory === "나의 위로들") {
-        dispatch(fetchMyComments(accessToken));
-      }
-    });
-
-    return unSubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
-    if (activeCategory === "나의 고민들" && !isFetchedPosts) {
+    if (activeCategory === "나의 고민들") {
       dispatch(fetchMyPosts(accessToken));
     }
-    if (activeCategory === "나의 위로들" && !isFetchedComments) {
+
+    if (activeCategory === "나의 위로들") {
       dispatch(fetchMyComments(accessToken));
     }
-  }, [activeCategory]);
+  }, [dispatch, fetchMyPosts, fetchMyComments, activeCategory]));
 
   const clearMessage = () => {
     dispatch(userSlice.actions.clearMessage());

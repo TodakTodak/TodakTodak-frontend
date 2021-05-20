@@ -21,7 +21,10 @@ import {
   MY_POST_STORAGELABEL,
   COUNSELING_CENTERLABEL
 } from "../../constants/navigationName";
-import { BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR } from "../../constants/color";
+import {
+  BLACK,
+  BOTTOM_TAB_NAVIGATION_ACTIVE_COLOR
+} from "../../constants/color";
 
 import love from "../../assets/pngs/love.png";
 import letter from "../../assets/pngs/letter.png";
@@ -86,7 +89,7 @@ const BottomTabNavigation = () => {
         options={{
           tabBarLabel: USER_INFO_ROOMLABEL,
           tabBarIcon: () => (
-            <AntDesign name="setting" size={24} color="black" />
+            <AntDesign name="setting" size={24} color={BLACK} />
           )
         }}
       />

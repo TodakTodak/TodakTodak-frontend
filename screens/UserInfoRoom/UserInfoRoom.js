@@ -7,13 +7,13 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import * as SecureStore from "expo-secure-store";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { userSlice } from "../../redux/userSlice";
+
+import styles from "./styles";
 
 import backgroundImage from "../../assets/pngs/background.png";
 

@@ -129,6 +129,11 @@ export const categoryPostSlice = createSlice({
     resetPostState: () => {
       return initialState;
     },
+    refreshPostCategory: (state, { payload }) => {
+      state.isFetched[payload] = false;
+      state.post[payload] = [];
+      state.bestPost[payload] = [];
+    },
     clearMessage: (state) => {
       state.message = null;
     }

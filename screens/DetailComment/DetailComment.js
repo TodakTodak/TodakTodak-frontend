@@ -11,19 +11,20 @@ import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view
 import { useSelector } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
+import AlertModal from "../../components/AlertModal/AlertModal";
+
+import styles from "./styles";
 
 import { RED } from "../../constants/color";
+import { SERVER_ERROR } from "../../constants/message";
 
 import { patchComment } from "../../api/postApi";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
-import AlertModal from "../../components/AlertModal/AlertModal";
 
 const DetailComment = ({ route }) => {
   const [content, setContent] = useState("");
@@ -54,7 +55,7 @@ const DetailComment = ({ route }) => {
 
       navigation.goBack();
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 
