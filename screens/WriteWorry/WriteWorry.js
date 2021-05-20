@@ -31,7 +31,7 @@ import {
   NICKNAME,
   ANONYMOUNS
 } from "../../constants/postInfo";
-import { SERVER_ERROR } from "../../constants/Message";
+import { SERVER_ERROR } from "../../constants/message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";

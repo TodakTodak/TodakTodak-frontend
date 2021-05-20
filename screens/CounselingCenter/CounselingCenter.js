@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   Text,
   View,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
@@ -45,7 +45,7 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 const CounselingCenter = () => {
   const [page, setPage] = useState(1);
-  const [postCategory, setPostCategory] = useState(EMPLOYMENT);
+  const [postCategory, setPostCategory] = useState(PAIN);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -66,7 +66,11 @@ const CounselingCenter = () => {
     { title: EMPLOYMENT, color: EMPLOYMENT_COLOR }
   ];
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
+    dispatch(categoryPostSlice.actions.resetPostState());
+  }, []));
+
+  useFocusEffect(useCallback(() => {
     const categoryInfo = {
       page: 0,
       accessToken,
@@ -76,7 +80,7 @@ const CounselingCenter = () => {
     if (!isFetched[postCategory]) {
       dispatchCategoryInfo(categoryInfo);
     }
-  }, [postCategory]);
+  }, [postCategory, accessToken, isFetched]));
 
   const dispatchCategoryInfo = (data) => {
     switch (data.category) {
@@ -117,15 +121,8 @@ const CounselingCenter = () => {
   };
 
   const refreshCategory = () => {
-    const categoryInfo = {
-      page: 0,
-      accessToken,
-      category: postCategory
-    };
-
     setPage(1);
-    dispatch(categoryPostSlice.actions.resetPostState());
-    dispatchCategoryInfo(categoryInfo);
+    dispatch(categoryPostSlice.actions.refreshPostCategory(postCategory));
   };
 
   const renderCategoryPosts = ({ item }) => {
@@ -155,7 +152,7 @@ const CounselingCenter = () => {
       />
     );
   };
-
+  console.log(isLoading, "---------------------------------------------------------------")
   const handleBestPostClick = () => {
     navigation.navigate(DETAIL_POST, {
       postId: bestPost[postCategory]._id
@@ -200,6 +197,7 @@ const CounselingCenter = () => {
               </View>
               <CategoryPosts
                 post={post}
+                isFetched={isFetched}
                 category={postCategory}
                 getCategorys={getCategorys}
                 refreshCategory={refreshCategory}

@@ -51,7 +51,7 @@ const MyComments = () => {
         <View style={styles.postContainer}>
           <View>
             <Text style={styles.postTitle}>
-              {content.substring(0, 8)}
+              {9 < content.length ? `${content.substring(0, 8)}...` : content}
             </Text>
             <Text style={styles.postContent}>
               {createdAt.substring(0, 10)}

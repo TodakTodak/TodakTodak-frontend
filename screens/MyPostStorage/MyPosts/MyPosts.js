@@ -48,7 +48,7 @@ const MyPosts = () => {
         <View style={styles.postContainer}>
           <View>
             <Text style={styles.postTitle}>
-              {title}
+              {9 < title.length ? `${title.substring(0, 8)}...` : title}
             </Text>
             <Text style={styles.postContent}>
               {category} / {createdAt.substring(0, 10)}

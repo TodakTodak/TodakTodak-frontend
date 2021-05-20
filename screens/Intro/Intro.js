@@ -26,6 +26,9 @@ const Intro = () => {
   useEffect(() => {
     (async function authLogin() {
         const userInfo = await SecureStore.getItemAsync("userInfo");
+
+        if (!userInfo) return;
+
         const parsedUserInfo = JSON.parse(userInfo);
 
         if (parsedUserInfo && parsedUserInfo.email) {

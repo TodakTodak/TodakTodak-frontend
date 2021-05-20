@@ -12,25 +12,15 @@ import styles from "../styles";
 const CategoryPosts = ({
   post,
   category,
+  isFetched,
   getCategorys,
   refreshCategory,
   renderCategoryPosts
 }) => {
   return (
     <>
-      {0 < post[category].length
-        ? <FlatList
-            refreshControl={
-              <RefreshControl onRefresh={refreshCategory} />
-            }
-            data={post[category]}
-            onEndReached={getCategorys}
-            onEndReachedThreshold={0.9}
-            styles={styles.postsWrapper}
-            renderItem={renderCategoryPosts}
-            keyExtractor={(item) => item._id}
-          />
-        : <ScrollView
+      {post[category].length < 1 && isFetched[category]
+        ? <ScrollView
             contentContainerStyle={styles.emptyContainer}
             refreshControl={
               <RefreshControl onRefresh={refreshCategory} />
@@ -41,6 +31,17 @@ const CategoryPosts = ({
               viewStyle={styles.emptyContainer}
             />
           </ScrollView>
+          : <FlatList
+              refreshControl={
+                <RefreshControl onRefresh={refreshCategory} />
+              }
+              data={post[category]}
+              onEndReached={getCategorys}
+              onEndReachedThreshold={0.9}
+              styles={styles.postsWrapper}
+              renderItem={renderCategoryPosts}
+              keyExtractor={(item) => item._id}
+            />
       }
     </>
   );

@@ -22,10 +22,11 @@ import {
 } from "../../api/postApi";
 
 import {
+  COMMENTS,
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
-import { SERVER_ERROR } from "../../constants/Message";
+import { SERVER_ERROR } from "../../constants/message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -83,7 +84,7 @@ const DetailPost = ({ route }) => {
   };
 
   const handleCommentsButtonClick = () => {
-    navigation.navigate("Comments", { comments: postInfo.comments });
+    navigation.navigate(COMMENTS, { comments: postInfo.comments });
   };
 
   const clearMessage = () => {

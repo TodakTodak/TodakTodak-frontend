@@ -38,8 +38,8 @@ const Comment = ({
         commentId: comment._id
       };
       const response = await patchCommentLike(
-        accessToken,
-        commentLikeInfo
+        commentLikeInfo,
+        accessToken
       );
 
       if (response.errorMessage) {
@@ -48,7 +48,6 @@ const Comment = ({
 
       setIsLike((isLike) => !isLike);
     } catch (err) {
-      console.log(err.message);
       alertMessage(SERVER_ERROR);
     }
   };
@@ -110,19 +109,21 @@ const Comment = ({
                 handleClick={handleLikeClick}
               />
             </View>
-            <View style={styles.addFriendWrapper}>
-              <AntDesign
-                size={15}
-                color="red"
-                name="adduser"
-              />
-              <Button
-                text="친추"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleAddFriendClick}
-              />
-            </View>
+            {comment.user !== email &&
+              <View style={styles.addFriendWrapper}>
+                <AntDesign
+                  size={15}
+                  color="red"
+                  name="adduser"
+                />
+                <Button
+                  text="친추"
+                  buttonStyle={styles.button}
+                  textStyle={styles.buttonText}
+                  handleClick={handleAddFriendClick}
+                />
+              </View>
+            }
           </View>
         </View>
       </ImageBackground>

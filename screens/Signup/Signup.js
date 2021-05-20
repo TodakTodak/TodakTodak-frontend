@@ -17,7 +17,7 @@ import { validateSignupInfo } from "../../validation/authValidation";
 import styles from "./styles";
 
 import { LOGIN } from "../../constants/navigationName";
-import { SERVER_ERROR } from "../../constants/Message";
+import { SERVER_ERROR } from "../../constants/message";
 
 import backgroundImage from "../../assets/pngs/background.png";
 

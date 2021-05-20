@@ -6,7 +6,7 @@ import {
   ImageBackground,
   TouchableWithoutFeedback
 } from "react-native";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
@@ -14,11 +14,10 @@ import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
-import {
-  patchComment,
-  patchCommentLike
-} from "../../api/commentApi";
+import { patchCommentLike } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
+
+import { patchMyComment } from "../../redux/userSlice";
 
 import styles from "./styles";
 
@@ -34,6 +33,7 @@ const Answer = ({ route }) => {
   const [isCommentLike, setIsCommentLike] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
 
+  const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
 
@@ -104,19 +104,18 @@ const Answer = ({ route }) => {
     navigation.navigate(DETAIL_POST, { postId });
   };
 
-  const handleModifyButtonClick = async () => {
+  const handleModifyButtonClick = () => {
     const modifyCommentInfo = {
       comment,
       commentId: commentInfo._id
     };
-    try {
-      await patchComment(modifyCommentInfo, user.accessToken);
 
-      navigation.goBack();
-    } catch (err) {
-      setMessage(SERVER_ERROR);
-      setIsModalVisible(true);
-    }
+    dispatch(patchMyComment({
+      commentInfo: modifyCommentInfo,
+      accessToken: user.accessToken
+    }));
+
+    navigation.goBack();
   };
 
   return (
