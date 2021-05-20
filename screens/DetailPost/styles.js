@@ -12,8 +12,20 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
+  postContainer: {
+    justifyContent: "center",
+    alignItems: "center"
+  },
+  title: {
+    marginBottom: 20
+  },
+  titleImage: {
+    left: "-10%"
+  },
   postContentsWrapper: {
     width: "90%",
+    justifyContent: "center",
+    alignItems: "center",
     margin: 20,
     borderRadius: 20,
     overflow: "hidden"
@@ -23,7 +35,7 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   contents: {
-    height: 550,
+    height: 400,
     backgroundColor: TRANSPARENCY,
     fontSize: 20
   },

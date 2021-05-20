@@ -4,6 +4,7 @@ import {
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import styles from "./styles";
 
@@ -43,37 +44,39 @@ function Login() {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <View style={styles.container}>
-        <Title text="토닥 토닥" />
-        <View style={styles.textInputContainer}>
-          <TextInput
-            value={email}
-            type="emailAddress"
-            handleInputChange={setEmail}
-            placeholder="이메일을 입력해주세요"
-          />
-          <TextInput
-            value={password}
-            type="password"
-            isPassword={true}
-            handleInputChange={setPassword}
-            placeholder="비밀번호를 입력해주세요"
-          />
+      <KeyboardAwareScrollView>
+        <View style={styles.container}>
+          <Title text="토닥 토닥" />
+          <View style={styles.textInputContainer}>
+            <TextInput
+              value={email}
+              type="emailAddress"
+              handleInputChange={setEmail}
+              placeholder="이메일을 입력해주세요"
+            />
+            <TextInput
+              value={password}
+              type="password"
+              isPassword={true}
+              handleInputChange={setPassword}
+              placeholder="비밀번호를 입력해주세요"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              text="로그인"
+              handleClick={handleLoginClick}
+              buttonStyle={styles.loginButton}
+            />
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            text="로그인"
-            handleClick={handleLoginClick}
-            buttonStyle={styles.loginButton}
+        {message &&
+          <AlertModal
+            message={message}
+            handleModalClose={handleModalCloseButton}
           />
-        </View>
-      </View>
-      {message &&
-        <AlertModal
-          message={message}
-          handleModalClose={handleModalCloseButton}
-        />
-      }
+        }
+      </KeyboardAwareScrollView>
     </ImageBackground>
   );
 }

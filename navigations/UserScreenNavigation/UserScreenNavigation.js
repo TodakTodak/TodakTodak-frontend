@@ -9,6 +9,7 @@ import ChatRoom from "../../screens/ChatRoom/ChatRoom";
 import WriteWorry from "../../screens/WriteWorry/WriteWorry";
 import DetailPost from "../../screens/DetailPost/DetailPost";
 import DetailComment from "../../screens/DetailComment/DetailComment";
+import Comments from "../../screens/Comments/Comments";
 
 import {
   ANSWER,
@@ -31,6 +32,7 @@ const UserScreenNavigation = () => {
         <Stack.Screen name={WRITE_WORRY} component={WriteWorry} />
         <Stack.Screen name={DETAIL_POST} component={DetailPost} />
         <Stack.Screen name={DETAIL_COMMENT} component={DetailComment} />
+        <Stack.Screen name={"Comments"} component={Comments} />
       </Stack.Navigator>
     </NavigationContainer>
   );

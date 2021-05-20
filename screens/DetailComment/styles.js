@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 
 import {
+  WHITE,
   BLACK,
   TRANSPARENCY
 } from "../../constants/color";
@@ -8,19 +9,20 @@ import {
 const styles = StyleSheet.create({
   backgroundContainer: {
     width: "100%",
-    height: "100%",
-    alignItems: "center"
+    height: "100%"
   },
   container: {
     width: "100%",
-    height: "100%"
+    alignItems: "center"
   },
   postContentsWrapper: {
-    width: "85%",
-    height: "73%",
+    width: "90%",
     margin: 20,
     borderRadius: 20,
     overflow: "hidden"
+  },
+  title: {
+    marginBottom: 40,
   },
   titleText: {
     fontSize: 40
@@ -28,15 +30,15 @@ const styles = StyleSheet.create({
   titleImage: {
     width: 50,
     height: 50,
-    top: "-25%",
-    left: "-10%"
+    top: "-30%",
+    left: "-30%"
   },
   categoryWrapper: {
     alignItems: "center",
     marginTop: 10
   },
   contents: {
-    height: 550,
+    height: 400,
     marginTop: 30,
     backgroundColor: TRANSPARENCY,
     fontSize: 20
@@ -45,10 +47,20 @@ const styles = StyleSheet.create({
     width: "100%"
   },
   buttonWrapper: {
-    flexDirection: "row",
+    width: "20%",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10
+    margin: 10,
+    paddingTop: 10,
+    borderRadius: 10,
+    backgroundColor: WHITE,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 4
   },
   goodButtonContainer: {
     flexDirection: "row",
@@ -56,12 +68,12 @@ const styles = StyleSheet.create({
     alignItems: "center"
   },
   sendButton: {
-    width: "30%",
+    width: "100%",
     backgroundColor: TRANSPARENCY
   },
   buttonText: {
     color: BLACK,
-    fontSize: 20
+    fontSize: 10
   },
   commentContainer: {
     width: "100%",

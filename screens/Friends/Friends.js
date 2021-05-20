@@ -9,7 +9,6 @@ import { useNavigation } from "@react-navigation/native";
 
 import styles from "./styles";
 
-import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import EmptyView from "../../components/EmptyView/EmptyView";
 import AlertModal from "../../components/AlertModal/AlertModal";
@@ -106,15 +105,15 @@ function Friends() {
             handleClick={setActiveCategory}
           />
         </View>
-        {isLoading ?
+        {/* {isLoading ?
           <View style={styles.loadingWrapper}>
             <Loading style={styles.loading} />
-          </View> :
+          </View> : */}
           <ScrollView styles={styles.friendsContainer}>
             {renderFriends()}
             <View style={{ height: 200 }} />
           </ScrollView>
-        }
+        {/* } */}
       </View>
       {errorMessage &&
         <AlertModal

@@ -2,11 +2,12 @@ import React, { useState } from "react";
 import {
   View,
   Keyboard,
+  ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback,
-  ScrollView
+  TouchableWithoutFeedback
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 import { useSelector } from "react-redux";
 import { FontAwesome } from "@expo/vector-icons";
 
@@ -63,18 +64,20 @@ const DetailComment = ({ route }) => {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <Title
-          text="댓글 작성"
-          textStyle={styles.titleText}
-          imageStyle={styles.titleImage}
-        />
-        <View style={styles.postContentsWrapper}>
-          <ImageBackground
-            source={letterPage}
-            style={styles.letterPage}
-          >
-            <ScrollView>
-              <View>
+        <KeyboardAwareScrollView>
+          <ScrollView contentContainerStyle={styles.container}>
+            <View style={styles.title}>
+              <Title
+                text="댓글 작성"
+                textStyle={styles.titleText}
+                imageStyle={styles.titleImage}
+              />
+            </View>
+            <View style={styles.postContentsWrapper}>
+              <ImageBackground
+                source={letterPage}
+                style={styles.letterPage}
+              >
                 <View style={styles.categoryWrapper}>
                   <TextInput
                     value={content}
@@ -85,23 +88,23 @@ const DetailComment = ({ route }) => {
                     handleInputChange={setContent}
                   />
                 </View>
-                <View style={styles.buttonWrapper}>
-                  <FontAwesome
-                    size={25}
-                    color={RED}
-                    name="comment-o"
-                  />
-                  <Button
-                    text="댓글 달기"
-                    textStyle={styles.buttonText}
-                    buttonStyle={styles.sendButton}
-                    handleClick={handleAddCommentButtonClick}
-                  />
-                </View>
-              </View>
-            </ScrollView>
-          </ImageBackground>
-        </View>
+              </ImageBackground>
+            </View>
+            <View style={styles.buttonWrapper}>
+              <FontAwesome
+                size={25}
+                color={RED}
+                name="comment-o"
+              />
+              <Button
+                text="댓글 달기"
+                textStyle={styles.buttonText}
+                buttonStyle={styles.sendButton}
+                handleClick={handleAddCommentButtonClick}
+              />
+            </View>
+          </ScrollView>
+        </KeyboardAwareScrollView>
         {errorMessage &&
           <AlertModal
             message={errorMessage}
