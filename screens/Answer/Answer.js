@@ -23,6 +23,7 @@ import { addFriend } from "../../api/userApi";
 import styles from "./styles";
 
 import { DETAIL_POST } from "../../constants/navigationName";
+import { SERVER_ERROR } from "../../constants/message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -67,7 +68,7 @@ const Answer = ({ route }) => {
 
       setIsCommentLike((isCommentLike) => !isCommentLike);
     } catch (err) {
-      setMessage("에러가 발생했습니다");
+      setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
   };
@@ -90,7 +91,7 @@ const Answer = ({ route }) => {
 
       setIsModalVisible(true);
     } catch (err) {
-      setMessage("에러가 발생했습니다");
+      setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
   };
@@ -113,8 +114,7 @@ const Answer = ({ route }) => {
 
       navigation.goBack();
     } catch (err) {
-      console.log(err.message);
-      setMessage("에러가 발생");
+      setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
   };

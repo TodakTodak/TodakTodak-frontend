@@ -19,6 +19,7 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 import styles from "./styles";
 
 import { RED } from "../../constants/color";
+import { SERVER_ERROR } from "../../constants/message";
 
 import { patchComment } from "../../api/postApi";
 
@@ -54,7 +55,7 @@ const DetailComment = ({ route }) => {
 
       navigation.goBack();
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 

@@ -1,5 +1,7 @@
 import { StyleSheet } from "react-native";
 
+import { BLACK, TRANSPARENCY } from "../../../constants/color";
+
 const styles = StyleSheet.create({
   commentBackground: {
     width: "100%",
@@ -52,11 +54,11 @@ const styles = StyleSheet.create({
   },
   button: {
     width: "60%",
-    backgroundColor: "rgba(0, 0, 0, 0)"
+    backgroundColor: TRANSPARENCY
   },
   buttonText: {
     fontSize: 13,
-    color: "black"
+    color: BLACK
   }
 });
 

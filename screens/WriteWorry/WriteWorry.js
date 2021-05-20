@@ -31,6 +31,7 @@ import {
   NICKNAME,
   ANONYMOUNS
 } from "../../constants/postInfo";
+import { SERVER_ERROR } from "../../constants/Message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -105,7 +106,7 @@ const WriteWorry = ({ route }) => {
 
       navigation.navigate(MY_POST_STORAGE);
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 
@@ -131,7 +132,7 @@ const WriteWorry = ({ route }) => {
 
       navigation.navigate(DETAIL_POST, { postId: postInfo._id });
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 

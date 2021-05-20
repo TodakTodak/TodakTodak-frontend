@@ -25,6 +25,7 @@ import {
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
+import { SERVER_ERROR } from "../../constants/Message";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
@@ -60,7 +61,7 @@ const DetailPost = ({ route }) => {
 
         setPostInfo(response.post);
       } catch (err) {
-        setErrorMessage("에러가 발생했습니다.");
+        setErrorMessage(SERVER_ERROR);
       } finally {
         setIsLoading(false);
       }
@@ -102,7 +103,7 @@ const DetailPost = ({ route }) => {
 
       setIsPostLike((isPostLike) => !isPostLike);
     } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 

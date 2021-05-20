@@ -17,6 +17,7 @@ import { validateSignupInfo } from "../../validation/authValidation";
 import styles from "./styles";
 
 import { LOGIN } from "../../constants/navigationName";
+import { SERVER_ERROR } from "../../constants/Message";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
@@ -52,7 +53,7 @@ const Signup = () => {
 
       navigation.navigate(LOGIN);
     } catch (error) {
-      setErrorMessage("에러가 발생했습니다");
+      setErrorMessage(SERVER_ERROR);
     }
   };
 

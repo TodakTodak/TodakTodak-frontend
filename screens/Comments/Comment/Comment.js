@@ -7,10 +7,11 @@ import {
 import { useSelector } from "react-redux";
 import { AntDesign, FontAwesome } from "@expo/vector-icons";
 
-import styles from "./styles";
-
 import Button from "../../../components/Button/Button";
 
+import styles from "./styles";
+
+import { SERVER_ERROR } from "../../../constants/message";
 import letterPage from "../../../assets/pngs/letterPage.png";
 
 import { patchCommentLike } from "../../../api/commentApi";
@@ -48,7 +49,7 @@ const Comment = ({
       setIsLike((isLike) => !isLike);
     } catch (err) {
       console.log(err.message);
-      alertMessage("에러가 발생했습니다");
+      alertMessage(SERVER_ERROR);
     }
   };
 
@@ -69,7 +70,7 @@ const Comment = ({
       }
 
     } catch (err) {
-      alertMessage("에러가 발생했습니다");
+      alertMessage(SERVER_ERROR);
     }
   };
 
