@@ -7,8 +7,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import styles from "./styles";
-
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import AlertModal from "../../components/AlertModal/AlertModal";
@@ -24,6 +22,8 @@ import {
   fetchEmploymentPosts,
   categoryPostSlice
 } from "../../redux/categoryPostSlice";
+
+import styles from "./styles";
 
 import {
   PAIN,

@@ -8,18 +8,18 @@ import {
 import styles from "./styles";
 
 import {
-  CATEGORY_ACTIVE_COLOR,
-  OPACITY_BACKGROUND
+  OPACITY_BACKGROUND,
+  CATEGORY_ACTIVE_COLOR
 } from "../../constants/color";
 
-function CategoryButton({
+const CategoryButton = ({
   title,
   titleStyle,
   focusValue,
   handleClick,
   categoryContainerStyle,
   categoryColor = CATEGORY_ACTIVE_COLOR
-}) {
+}) => {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <TouchableOpacity
@@ -29,9 +29,9 @@ function CategoryButton({
           styles.categoryWrapper,
           {
             backgroundColor:
-              focusValue === title ?
-                categoryColor :
-                OPACITY_BACKGROUND
+              focusValue === title
+                ? categoryColor
+                : OPACITY_BACKGROUND
           }
         ]}
       >

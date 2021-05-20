@@ -5,9 +5,9 @@ import {
   RefreshControl
 } from "react-native";
 
-import styles from "../styles";
-
 import EmptyView from "../../../components/EmptyView/EmptyView";
+
+import styles from "../styles";
 
 const CategoryPosts = ({
   post,

@@ -3,7 +3,7 @@ import { View, TextInput } from "react-native";
 
 import styles from "./styles";
 
-function TextInputBox({
+const TextInputBox = ({
   type,
   style,
   value,
@@ -12,7 +12,7 @@ function TextInputBox({
   handleInputChange,
   isPassword = false,
   isMultiline = false
-}) {
+}) => {
   return (
     <View style={styles.textInputContainer}>
       <TextInput

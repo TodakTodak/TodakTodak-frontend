@@ -2,9 +2,9 @@ import React from "react";
 import { View } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
-import styles from "./styles";
-
 import Button from "../../../components/Button/Button";
+
+import styles from "./styles";
 
 import { RED } from "../../../constants/color";
 

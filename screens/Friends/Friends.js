@@ -7,8 +7,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import EmptyView from "../../components/EmptyView/EmptyView";
 import AlertModal from "../../components/AlertModal/AlertModal";
@@ -21,15 +19,16 @@ import {
   fetchWaitingFriends
 } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Friends() {
+const Friends = () => {
   const [activeCategory, setActiveCategory] = useState("나의 인연들");
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
-    isLoading,
     friendList,
     accessToken,
     errorMessage,
@@ -105,15 +104,10 @@ function Friends() {
             handleClick={setActiveCategory}
           />
         </View>
-        {/* {isLoading ?
-          <View style={styles.loadingWrapper}>
-            <Loading style={styles.loading} />
-          </View> : */}
-          <ScrollView styles={styles.friendsContainer}>
-            {renderFriends()}
-            <View style={{ height: 200 }} />
-          </ScrollView>
-        {/* } */}
+        <ScrollView styles={styles.friendsContainer}>
+          {renderFriends()}
+          <View style={{ height: 200 }} />
+        </ScrollView>
       </View>
       {errorMessage &&
         <AlertModal

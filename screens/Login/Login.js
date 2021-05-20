@@ -6,8 +6,6 @@ import {
 import { useDispatch, useSelector } from "react-redux";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import styles from "./styles";
-
 import Loading from "../Loading/Loading";
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -16,9 +14,11 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { fetchLogin, userSlice } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
-function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 

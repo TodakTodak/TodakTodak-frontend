@@ -10,18 +10,18 @@ import styles from "./styles";
 
 import { RED } from "../../constants/color";
 
-function CategoryPostCard({
+const CategoryPostCard = ({
   postInfo,
   cardStyle,
   titleStyle,
   handleClick
-}) {
+}) => {
   const {
     likes,
     title,
     createdAt,
     isAnonymous,
-    ownerNickname,
+    ownerNickname
   } = postInfo;
 
   return (

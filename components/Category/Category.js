@@ -5,13 +5,13 @@ import styles from "./styles";
 
 import { CATEGORY_DEFAULT_BACKGROUND } from "../../constants/color";
 
-function Category({
+const Category = ({
   title,
   titleStyle,
   categoryStyle,
   categoryContainerStyle,
   categoryColor = CATEGORY_DEFAULT_BACKGROUND
-}) {
+}) => {
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <View

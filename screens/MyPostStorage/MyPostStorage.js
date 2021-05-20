@@ -7,8 +7,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 
-import styles from "./styles";
-
 import MyPosts from "./MyPosts/MyPosts";
 import MyComments from "./MyComments/MyComments";
 import Loading from "../../screens/Loading/Loading";
@@ -22,9 +20,11 @@ import {
   fetchMyComments
 } from "../../redux/userSlice";
 
+import styles from "./styles";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
-function MyPostStorage() {
+const MyPostStorage = () => {
   const [activeCategory, setActiveCategory] = useState("나의 고민들");
 
   const dispatch = useDispatch();

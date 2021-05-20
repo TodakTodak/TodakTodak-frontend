@@ -10,8 +10,6 @@ import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Picker from "../../components/Picker/Picker";
 import TextInput from "../../components/TextInput/TextInput";
@@ -20,6 +18,8 @@ import WriteWorryButtons from "./WriteWorryButtons/WriteWorryButtons";
 
 import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
+
+import styles from "./styles";
 
 import {
   DETAIL_POST,

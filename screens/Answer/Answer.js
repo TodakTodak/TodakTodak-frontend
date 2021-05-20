@@ -9,8 +9,6 @@ import {
 import { useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
@@ -21,6 +19,8 @@ import {
   patchCommentLike
 } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
+
+import styles from "./styles";
 
 import { DETAIL_POST } from "../../constants/navigationName";
 

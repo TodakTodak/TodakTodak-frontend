@@ -6,8 +6,6 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import styles from "./styles";
-
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
 import TextInput from "../../components/TextInput/TextInput";
@@ -15,6 +13,8 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { postSignup } from "../../api/userApi";
 import { validateSignupInfo } from "../../validation/authValidation";
+
+import styles from "./styles";
 
 import { LOGIN } from "../../constants/navigationName";
 

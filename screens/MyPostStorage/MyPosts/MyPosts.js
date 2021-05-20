@@ -4,16 +4,15 @@ import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 import { AntDesign } from "@expo/vector-icons";
 
-import styles from "./styles";
-
 import Button from "../../../components/Button/Button";
 import PostCard from "../../../components/PostCard/PostCard";
 import EmptyView from "../../../components/EmptyView/EmptyView";
 
 import { deleteMyPost } from "../../../redux/userSlice";
 
-import { DETAIL_POST } from "../../../constants/navigationName";
+import styles from "./styles";
 
+import { DETAIL_POST } from "../../../constants/navigationName";
 
 const MyPosts = () => {
   const dispatch = useDispatch();

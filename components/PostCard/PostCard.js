@@ -3,10 +3,10 @@ import { TouchableOpacity } from "react-native";
 
 import styles from "./styles";
 
-function PostCard({
+const PostCard = ({
   children,
   handleClick
-}) {
+}) => {
   return (
     <TouchableOpacity
       onPress={handleClick}
