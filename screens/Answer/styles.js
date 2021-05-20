@@ -15,16 +15,18 @@ const styles = StyleSheet.create({
   },
   postContentsWrapper: {
     width: "90%",
-    height: "70%",
+    justifyContent: "center",
+    alignItems: "center",
     marginTop: 40,
+    marginBottom: 30,
     borderRadius: 20,
     overflow: "hidden"
   },
   titleImage: {
-    left: "15%"
+    left: "-10%"
   },
   contents: {
-    height: 500,
+    height: 400,
     marginTop: 30,
     backgroundColor: TRANSPARENCY,
     fontSize: 20

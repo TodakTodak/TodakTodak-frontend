@@ -17,7 +17,8 @@ const DetailPostButtons = ({
   isPostLike,
   handleLikeButtonClick,
   handleModifyButtonClick,
-  handleAddCommentButtonClick
+  handleAddCommentButtonClick,
+  handleViewCommentsButtonClick
 }) => {
   return (
     <View style={styles.buttonWrapper}>
@@ -45,6 +46,19 @@ const DetailPostButtons = ({
           buttonStyle={styles.button}
           textStyle={styles.buttonText}
           handleClick={handleAddCommentButtonClick}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <FontAwesome
+          size={25}
+          color={RED}
+          name="comments"
+        />
+        <Button
+          text="댓글 보기"
+          buttonStyle={styles.button}
+          textStyle={styles.buttonText}
+          handleClick={handleViewCommentsButtonClick}
         />
       </View>
       {postInfo.owner === user.email &&

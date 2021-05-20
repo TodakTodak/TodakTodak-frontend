@@ -4,6 +4,7 @@ import {
   ImageBackground
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import styles from "./styles";
 
@@ -64,43 +65,45 @@ const Signup = () => {
       source={backgroundImage}
       style={styles.backgroundContainer}
     >
-      <View style={styles.loginContainer}>
-        <Title text="토닥 토닥" />
-        <View style={styles.textInputContainer}>
-          <TextInput
-            value={email}
-            type="emailAddress"
-            handleInputChange={setEmail}
-            placeholder="이메일을 입력해주세요"
-          />
-          <TextInput
-            value={password}
-            type="password"
-            isPassword={true}
-            handleInputChange={setPassword}
-            placeholder="비밀번호를 입력해주세요"
-          />
-          <TextInput
-            value={nickname}
-            type="nickname"
-            handleInputChange={setNickname}
-            placeholder="닉네임을 입력해주세요"
-          />
+      <KeyboardAwareScrollView>
+        <View style={styles.loginContainer}>
+          <Title text="토닥 토닥" />
+          <View style={styles.textInputContainer}>
+            <TextInput
+              value={email}
+              type="emailAddress"
+              handleInputChange={setEmail}
+              placeholder="이메일을 입력해주세요"
+            />
+            <TextInput
+              value={password}
+              type="password"
+              isPassword={true}
+              handleInputChange={setPassword}
+              placeholder="비밀번호를 입력해주세요"
+            />
+            <TextInput
+              value={nickname}
+              type="nickname"
+              handleInputChange={setNickname}
+              placeholder="닉네임을 입력해주세요"
+            />
+          </View>
+          <View style={styles.buttonContainer}>
+            <Button
+              text="회원 가입"
+              buttonStyle={styles.loginButton}
+              handleClick={handleSignupButtonClick}
+            />
+          </View>
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            text="회원 가입"
-            buttonStyle={styles.loginButton}
-            handleClick={handleSignupButtonClick}
+        {errorMessage &&
+          <AlertModal
+            message={errorMessage}
+            handleModalClose={clearErrorMessage}
           />
-        </View>
-      </View>
-      {errorMessage &&
-        <AlertModal
-          message={errorMessage}
-          handleModalClose={clearErrorMessage}
-        />
-      }
+        }
+      </KeyboardAwareScrollView>
     </ImageBackground>
   );
 }

@@ -9,12 +9,13 @@ import store from "./redux/store";
 
 const cacheBackgroundImage = async () => {
   const images = [
-    require("./assets/pngs/background.png"),
     require("./assets/pngs/home.png"),
-    require("./assets/pngs/feather.png"),
     require("./assets/pngs/love.png"),
+    require("./assets/pngs/letter.png"),
+    require("./assets/pngs/feather.png"),
     require("./assets/pngs/friends.png"),
-    require("./assets/pngs/letter.png")
+    require("./assets/pngs/background.png"),
+    require("./assets/pngs/letterPage.png")
   ];
 
   const cacheImages = images.map((image) =>

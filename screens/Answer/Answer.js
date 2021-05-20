@@ -125,7 +125,7 @@ const Answer = ({ route }) => {
         source={backgroundImage}
         style={styles.backgroundContainer}
       >
-        <View>
+        <View style={styles.container}>
           <Title
             imageStyle={styles.titleImage}
             text={`${commentInfo.nickname}님의 답변`}
@@ -143,19 +143,19 @@ const Answer = ({ route }) => {
                   handleInputChange={setComment}
                   style={styles.contents}
                 />
-                <AnswerButtons
-                  user={user}
-                  postId={postId}
-                  commentInfo={commentInfo}
-                  isCommentLike={isCommentLike}
-                  handleAddFriendClick={handleAddFriendClick}
-                  handleCommentLikeClick={handleCommentLikeClick}
-                  handleModifyButtonClick={handleModifyButtonClick}
-                  handleRoutePostButtonClick={handleRoutePostButtonClick}
-                />
               </ScrollView>
             </ImageBackground>
           </View>
+          <AnswerButtons
+            user={user}
+            postId={postId}
+            commentInfo={commentInfo}
+            isCommentLike={isCommentLike}
+            handleAddFriendClick={handleAddFriendClick}
+            handleCommentLikeClick={handleCommentLikeClick}
+            handleModifyButtonClick={handleModifyButtonClick}
+            handleRoutePostButtonClick={handleRoutePostButtonClick}
+          />
         </View>
         <AlertModal
           message={message}

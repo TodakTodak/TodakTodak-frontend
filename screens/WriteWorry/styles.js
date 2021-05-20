@@ -15,9 +15,9 @@ const styles = StyleSheet.create({
   writeWrapper: {
     width: "90%",
     height: "70%",
-    marginTop: 0,
+    marginTop: 10,
     marginRight: "auto",
-    marginBottom: 0,
+    marginBottom: 30,
     marginLeft: "auto",
     alignItems: "center",
     borderRadius: 20,

@@ -1,25 +1,42 @@
 import { StyleSheet } from "react-native";
 
-import { BLACK, TRANSPARENCY } from "../../../constants/color";
+import {
+  BLACK,
+  WHITE,
+  TRANSPARENCY
+} from "../../../constants/color";
 
 const styles = StyleSheet.create({
   buttonWrapper: {
+    width: "90%",
     flexDirection: "row",
-    justifyContent: "space-around",
-    alignItems: "center"
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginTop: 30
   },
   buttonContainer: {
-    flexDirection: "row",
+    width: "20%",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    margin: 0,
+    paddingTop: 10,
+    borderRadius: 10,
+    backgroundColor: WHITE,
+    shadowColor: "black",
+    shadowOffset: {
+      width: 10,
+      height: 10
+    },
+    shadowOpacity: 0.4,
+    shadowRadius: 4
   },
   button: {
-    minWidth: "20%",
+    width: "100%",
     backgroundColor: TRANSPARENCY
   },
   buttonText: {
     color: BLACK,
-    fontSize: 18
+    fontSize: 10
   }
 });
 

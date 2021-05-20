@@ -14,17 +14,14 @@ import Title from "../../components/Title/Title";
 import Category from "../../components/Category/Category";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
-import SimpleComment from "../../components/SimpleComment/SimpleComment";
 import DetailPostButtons from "./DetailPostButtons/DetailPostButtons";
 
 import {
   patchPostLike,
-  getDetailPost,
-  patchPostCommentLike
+  getDetailPost
 } from "../../api/postApi";
 
 import {
-  ANSWER,
   WRITE_WORRY,
   DETAIL_COMMENT
 } from  "../../constants/navigationName";
@@ -80,12 +77,12 @@ const DetailPost = ({ route }) => {
     navigation.navigate(DETAIL_COMMENT, { postId });
   };
 
-  const handleCommentClick = (commentInfo) => {
-    navigation.navigate(ANSWER, { commentInfo });
-  };
-
   const handleModifyButtonClick = () => {
     navigation.navigate(WRITE_WORRY, { postInfo });
+  };
+
+  const handleCommentsButtonClick = () => {
+    navigation.navigate("Comments", { comments: postInfo.comments });
   };
 
   const clearMessage = () => {
@@ -109,36 +106,6 @@ const DetailPost = ({ route }) => {
     }
   };
 
-  const handleCommentLikeClick = async (commentId) => {
-    const likeInfo = { postId, commentId };
-
-    try {
-      const response = await patchPostCommentLike(likeInfo, user.accessToken);
-
-      if (response.errorMessage) {
-        setErrorMessage(response.errorMessage);
-        return;
-      }
-
-      setPostInfo(response.populatedPost);
-    } catch (err) {
-      setErrorMessage("에러가 발생했습니다.");
-    }
-  };
-
-  const renderComments = () => {
-    const postComments = postInfo.comments;
-
-    return postComments.map((postComment) =>
-      <SimpleComment
-        key={postComment._id}
-        postComment={postComment}
-        handleCommentClick={handleCommentClick}
-        handleLikeIconClick={handleCommentLikeClick}
-      />
-    );
-  };
-
   return (
     <ImageBackground
       source={backgroundImage}
@@ -146,18 +113,19 @@ const DetailPost = ({ route }) => {
     >
       <ScrollView
         style={styles.container}
-        contentContainerStyle="center"
       >
-        <>
-          <Title
-            textStyle={styles.titleText}
-            imageStyle={styles.titleImage}
-            text={
-              postInfo.isAnonymous
-                ? "익명의 고민"
-                : `${postInfo.ownerNickname}님의 고민`
-            }
-          />
+        <View style={styles.postContainer}>
+          <View style={styles.title}>
+            <Title
+              textStyle={styles.titleText}
+              imageStyle={styles.titleImage}
+              text={
+                postInfo.isAnonymous
+                  ? "익명의 고민"
+                  : `${postInfo.ownerNickname}님의 고민`
+              }
+            />
+          </View>
           <View style={styles.postContentsWrapper}>
             <ImageBackground
               style={styles.letterPage}
@@ -172,20 +140,18 @@ const DetailPost = ({ route }) => {
                   value={postInfo.contents}
                 />
               </View>
-              <DetailPostButtons
-                user={user}
-                postInfo={postInfo}
-                isPostLike={isPostLike}
-                handleLikeButtonClick={handleLikeButtonClick}
-                handleModifyButtonClick={handleModifyButtonClick}
-                handleAddCommentButtonClick={handleAddCommentButtonClick}
-              />
             </ImageBackground>
           </View>
-          <View style={styles.commentContainer}>
-            {postInfo.comments && renderComments()}
-          </View>
-        </>
+          <DetailPostButtons
+            user={user}
+            postInfo={postInfo}
+            isPostLike={isPostLike}
+            handleLikeButtonClick={handleLikeButtonClick}
+            handleModifyButtonClick={handleModifyButtonClick}
+            handleAddCommentButtonClick={handleAddCommentButtonClick}
+            handleViewCommentsButtonClick={handleCommentsButtonClick}
+          />
+        </View>
       </ScrollView>
       {errorMessage &&
         <AlertModal
