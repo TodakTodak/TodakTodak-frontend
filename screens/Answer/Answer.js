@@ -14,15 +14,15 @@ import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
-import { patchCommentLike } from "../../api/commentApi";
 import { addFriend } from "../../api/userApi";
+import { patchCommentLike } from "../../api/commentApi";
 
 import { patchMyComment } from "../../redux/userSlice";
 
 import styles from "./styles";
 
-import { DETAIL_POST } from "../../constants/navigationName";
 import { SERVER_ERROR } from "../../constants/message";
+import { DETAIL_POST } from "../../constants/navigationName";
 
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";

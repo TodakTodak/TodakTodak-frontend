@@ -13,13 +13,14 @@ import { deleteMyComment } from "../../../redux/userSlice";
 import styles from "../MyPosts/styles";
 
 import { ANSWER } from "../../../constants/navigationName";
+import { CONTENTS_TITLE_LIMIT } from "../../../constants/category";
 
 const MyComments = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const { comments, accessToken } = useSelector((state) => state.user);
 
-  if (!comments.length) {
+  if (!comments || !comments.length) {
     return <EmptyView text="작성한 위로글이 없습니다." />;
   }
 
@@ -51,7 +52,10 @@ const MyComments = () => {
         <View style={styles.postContainer}>
           <View>
             <Text style={styles.postTitle}>
-              {9 < content.length ? `${content.substring(0, 8)}...` : content}
+              {CONTENTS_TITLE_LIMIT < content.length
+                ? `${content.substring(0, 8)}...`
+                : content
+              }
             </Text>
             <Text style={styles.postContent}>
               {createdAt.substring(0, 10)}

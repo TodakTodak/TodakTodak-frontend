@@ -9,6 +9,7 @@ import { AntDesign } from "@expo/vector-icons";
 import styles from "./styles";
 
 import { RED } from "../../constants/color";
+import { CONTENTS_TITLE_LIMIT } from "../../constants/category";
 
 const CategoryPostCard = ({
   postInfo,
@@ -34,7 +35,10 @@ const CategoryPostCard = ({
           <View style={styles.cardWrapper}>
             <View>
               <Text style={[styles.postTitle, titleStyle]}>
-                {9 < title.length ? `${title.substring(0, 8)}...` : title}
+                {CONTENTS_TITLE_LIMIT < title.length
+                  ? `${title.substring(0, 8)}...`
+                  : title
+                }
               </Text>
               <View style={styles.postContentsWrapper}>
                 <Text style={styles.postContent}>
