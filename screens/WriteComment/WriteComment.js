@@ -26,7 +26,7 @@ import { patchComment } from "../../api/postApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-const DetailComment = ({ route }) => {
+const WriteComment = ({ route }) => {
   const [content, setContent] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -91,19 +91,19 @@ const DetailComment = ({ route }) => {
                 </View>
               </ImageBackground>
             </View>
-            <View style={styles.buttonWrapper}>
+            <Button
+              text="댓글 달기"
+              textStyle={styles.buttonText}
+              buttonStyle={styles.buttonWrapper}
+              handleClick={handleAddCommentButtonClick}
+            >
               <FontAwesome
+                style={styles.buttonIcon}
                 size={25}
                 color={RED}
                 name="comment-o"
               />
-              <Button
-                text="댓글 달기"
-                textStyle={styles.buttonText}
-                buttonStyle={styles.sendButton}
-                handleClick={handleAddCommentButtonClick}
-              />
-            </View>
+            </Button>
           </ScrollView>
         </KeyboardAwareScrollView>
         {errorMessage &&
@@ -117,4 +117,4 @@ const DetailComment = ({ route }) => {
   );
 }
 
-export default DetailComment;
+export default WriteComment;

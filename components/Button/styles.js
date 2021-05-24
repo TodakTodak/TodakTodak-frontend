@@ -16,14 +16,8 @@ const styles = StyleSheet.create({
     backgroundColor: BUTTON_BACKGROUND
   },
   buttonContents: {
-    flexDirection: "row",
     justifyContent: "center",
     alignItems: "center"
-  },
-  image: {
-    width: 40,
-    height: 40,
-    marginRight: 20
   },
   buttonText: {
     color: WHITE,

@@ -24,7 +24,7 @@ import {
 import {
   COMMENTS,
   WRITE_WORRY,
-  DETAIL_COMMENT
+  WRITE_COMMENT
 } from  "../../constants/navigationName";
 import { SERVER_ERROR } from "../../constants/message";
 
@@ -76,7 +76,7 @@ const DetailPost = ({ route }) => {
   }
 
   const handleAddCommentButtonClick = () => {
-    navigation.navigate(DETAIL_COMMENT, { postId });
+    navigation.navigate(WRITE_COMMENT, { postId });
   };
 
   const handleModifyButtonClick = () => {
@@ -84,7 +84,7 @@ const DetailPost = ({ route }) => {
   };
 
   const handleCommentsButtonClick = () => {
-    navigation.navigate(COMMENTS, { comments: postInfo.comments });
+    navigation.navigate(COMMENTS, { postId: postInfo._id });
   };
 
   const clearMessage = () => {

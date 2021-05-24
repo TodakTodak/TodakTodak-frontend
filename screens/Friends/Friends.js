@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
 import Title from "../../components/Title/Title";
+import Loading from "../../screens/Loading/Loading";
 import EmptyView from "../../components/EmptyView/EmptyView";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import FriendCard from "../../components/FriendCard/FriendCard";
@@ -36,6 +37,7 @@ const Friends = () => {
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const {
+    isLoading,
     friendList,
     accessToken,
     errorMessage,
@@ -111,10 +113,15 @@ const Friends = () => {
             handleClick={setActiveCategory}
           />
         </View>
-        <ScrollView styles={styles.friendsContainer}>
-          {renderFriends()}
-          <View style={{ height: 200 }} />
-        </ScrollView>
+        {isLoading
+          ? <View style={styles.loadingWrapper}>
+              <Loading style={styles.loading} />
+            </View>
+          : <ScrollView styles={styles.friendsContainer}>
+              {renderFriends()}
+              <View style={{ height: 200 }} />
+            </ScrollView>
+        }
       </View>
       {errorMessage &&
         <AlertModal

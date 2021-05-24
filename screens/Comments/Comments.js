@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   View,
   ScrollView,
   ImageBackground
 } from "react-native";
+import { useSelector } from "react-redux";
 
 import Comment from "./Comment/Comment";
 import Title from "../../components/Title/Title";
@@ -12,17 +13,38 @@ import AlertModal from "../../components/AlertModal/AlertModal";
 
 import styles from "./styles";
 
+import { getPostComments } from "../../api/postApi";
+
 import backgroundImage from "../../assets/pngs/background.png";
 
 const Comments = ({ route }) => {
   const [message, setMessage] = useState(null);
-  const { comments } = route.params;
+  const [comments, setComments] = useState(null);
+
+  const { postId } = route.params;
+  const { accessToken } = useSelector((state) => state.user);
+
+  useEffect(() => {
+    const getTagetPostComments = async () => {
+      const response = await getPostComments(postId, accessToken);
+
+      if (response.errorMessage) {
+        return console.log("에러");
+      }
+
+      setComments(response.comments);
+    };
+
+    getTagetPostComments();
+  }, []);
 
   const clearErrorMessage = () => {
     setMessage(null);
   };
 
   const renderComments = () => {
+    if (!comments) return;
+
     return comments.map((comment) =>
       <Comment
         key={comment._id}
@@ -44,7 +66,7 @@ const Comments = ({ route }) => {
         />
       </View>
       <ScrollView contentContainerStyle={styles.container}>
-        {comments.length < 1
+        {comments && comments.length < 1
           ? <EmptyView text="댓글이 없습니다." />
           : renderComments()
         }

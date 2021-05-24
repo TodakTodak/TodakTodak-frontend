@@ -57,7 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: TRANSPARENCY
   },
   buttonText: {
-    fontSize: 13,
+    fontSize: 10,
     color: BLACK
   }
 });

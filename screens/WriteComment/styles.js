@@ -51,7 +51,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 10,
-    paddingTop: 10,
+    padding: 10,
     borderRadius: 10,
     backgroundColor: WHITE,
     shadowColor: BLACK,
@@ -62,23 +62,13 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.4,
     shadowRadius: 4
   },
-  goodButtonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center"
-  },
-  sendButton: {
-    width: "100%",
-    backgroundColor: TRANSPARENCY
-  },
   buttonText: {
     color: BLACK,
-    fontSize: 10
+    fontSize: 10,
+    fontWeight: "bold"
   },
-  commentContainer: {
-    width: "100%",
-    alignItems: "center",
-    marginTop: 5
+  buttonIcon: {
+    padding: 10
   }
 });
 

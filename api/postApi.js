@@ -106,7 +106,18 @@ export async function deletePost({ postId, accessToken }) {
     method: DELETE,
     headers: {
       "Authorization": accessToken
-    },
+    }
+  });
+
+  return await response.json();
+}
+
+export async function getPostComments(postId, accessToken) {
+  const response = await fetch(`${SERVER_URL}/post/comments/${postId}`, {
+    method: GET,
+    headers: {
+      "Authorization": accessToken
+    }
   });
 
   return await response.json();

@@ -154,7 +154,7 @@ const ChatRoom = ({ route, navigation }) => {
           <View style={styles.inputWrapper}>
             <TextInput
               value={comment}
-              placeholder="채팅 치는 창"
+              placeholder="위로말을 해주세요..."
               style={styles.textInput}
               handleInputChange={setComment}
             />

@@ -23,59 +23,59 @@ const DetailPostButtons = ({
 }) => {
   return (
     <View style={styles.buttonWrapper}>
-      <View style={styles.buttonContainer}>
+      <Button
+        text="위로 하기"
+        textStyle={styles.buttonText}
+        buttonStyle={styles.buttonContainer}
+        handleClick={handleLikeButtonClick}
+      >
         <AntDesign
+          style={styles.buttonIcon}
           size={25}
           color={RED}
-          name={isPostLike ? "like1" : "like2"}
+          name={isPostLike ? "heart" : "hearto"}
         />
-        <Button
-          text="위로하기"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleLikeButtonClick}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
+      </Button>
+      <Button
+        text="댓글 달기"
+        textStyle={styles.buttonText}
+        buttonStyle={styles.buttonContainer}
+        handleClick={handleAddCommentButtonClick}
+      >
         <FontAwesome
+          style={styles.buttonIcon}
           size={25}
           color={RED}
           name="comment-o"
         />
-        <Button
-          text="댓글 달기"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleAddCommentButtonClick}
-        />
-      </View>
-      <View style={styles.buttonContainer}>
+      </Button>
+      <Button
+        text="댓글 보기"
+        textStyle={styles.buttonText}
+        buttonStyle={styles.buttonContainer}
+        handleClick={handleViewCommentsButtonClick}
+      >
         <FontAwesome
+          style={styles.buttonIcon}
           size={25}
           color={RED}
           name="comments"
         />
-        <Button
-          text="댓글 보기"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleViewCommentsButtonClick}
-        />
-      </View>
+      </Button>
       {postInfo.owner === user.email &&
-        <View style={styles.buttonContainer}>
+        <Button
+          text="수정 하기"
+          textStyle={styles.buttonText}
+          buttonStyle={styles.buttonContainer}
+          handleClick={handleModifyButtonClick}
+        >
           <Ionicons
+            style={styles.buttonIcon}
             size={25}
             color={RED}
             name="document"
           />
-          <Button
-            text="수정 하기"
-            buttonStyle={styles.button}
-            textStyle={styles.buttonText}
-            handleClick={handleModifyButtonClick}
-          />
-        </View>
+        </Button>
       }
     </View>
   );

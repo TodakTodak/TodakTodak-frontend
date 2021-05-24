@@ -9,75 +9,55 @@ import styles from "./styles";
 import { RED } from "../../../constants/color";
 
 const AnswerButtons = ({
-  user,
   postId,
-  commentInfo,
   isCommentLike,
-  handleAddFriendClick,
   handleCommentLikeClick,
   handleModifyButtonClick,
   handleRoutePostButtonClick
 }) => {
   return (
     <View style={styles.buttonWrapper}>
-      <View style={styles.buttonContainer}>
+      <Button
+        text="쓰담 쓰담"
+        textStyle={styles.buttonText}
+        buttonStyle={styles.buttonContainer}
+        handleClick={handleCommentLikeClick}
+      >
         <AntDesign
+          style={styles.buttonIcon}
           size={25}
           color={RED}
-          name={isCommentLike ? "like1" : "like2"}
+          name={isCommentLike ? "heart" : "hearto"}
         />
-        <Button
-          text="쓰담쓰담"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleCommentLikeClick}
-        />
-      </View>
+      </Button>
       {postId &&
-        <View style={styles.buttonContainer}>
+        <Button
+          text="게시물로"
+          textStyle={styles.buttonText}
+          buttonStyle={styles.buttonContainer}
+          handleClick={handleRoutePostButtonClick}
+        >
           <AntDesign
+            style={styles.buttonIcon}
             size={25}
             color={RED}
             name="inbox"
           />
-          <Button
-            text="게시물로"
-            buttonStyle={styles.button}
-            textStyle={styles.buttonText}
-            handleClick={handleRoutePostButtonClick}
-          />
-        </View>
+        </Button>
       }
-      <View style={styles.buttonContainer}>
-        {commentInfo.user === user.email
-          ? <>
-              <Ionicons
-                size={25}
-                color={RED}
-                name="document"
-              />
-              <Button
-                text="수정 하기"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleModifyButtonClick}
-              />
-            </>
-          : <>
-              <AntDesign
-                size={25}
-                color={RED}
-                name="adduser"
-              />
-              <Button
-                text="친구추가"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleAddFriendClick}
-              />
-            </>
-        }
-      </View>
+        <Button
+          text="수정하기"
+          textStyle={styles.buttonText}
+          buttonStyle={styles.buttonContainer}
+          handleClick={handleModifyButtonClick}
+        >
+          <Ionicons
+            style={styles.buttonIcon}
+            size={25}
+            color={RED}
+            name="document"
+          />
+      </Button>
     </View>
   );
 };
