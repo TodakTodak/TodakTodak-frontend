@@ -80,7 +80,7 @@ const CounselingCenter = () => {
     if (!isFetched[postCategory]) {
       dispatchCategoryInfo(categoryInfo);
     }
-  }, [postCategory, accessToken, isFetched]));
+  }, [postCategory, isFetched]));
 
   const dispatchCategoryInfo = (data) => {
     switch (data.category) {
@@ -152,7 +152,7 @@ const CounselingCenter = () => {
       />
     );
   };
-  console.log(isLoading, "---------------------------------------------------------------")
+
   const handleBestPostClick = () => {
     navigation.navigate(DETAIL_POST, {
       postId: bestPost[postCategory]._id

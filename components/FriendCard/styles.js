@@ -56,7 +56,7 @@ const styles = StyleSheet.create({
     backgroundColor: TRANSPARENCY
   },
   buttonText: {
-    fontSize: 15,
+    fontSize: 13,
     color: BLACK
   },
   unreadMessageCount: {

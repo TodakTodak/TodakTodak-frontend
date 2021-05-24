@@ -1,5 +1,5 @@
 import React from "react";
-import { View } from "react-native";
+import { View, TouchableHighlight, Text } from "react-native";
 import { AntDesign, Ionicons } from "@expo/vector-icons";
 
 import Button from "../../../components/Button/Button";
@@ -20,64 +20,53 @@ const AnswerButtons = ({
 }) => {
   return (
     <View style={styles.buttonWrapper}>
-      <View style={styles.buttonContainer}>
-        <AntDesign
-          size={25}
-          color={RED}
-          name={isCommentLike ? "like1" : "like2"}
-        />
-        <Button
-          text="쓰담쓰담"
-          buttonStyle={styles.button}
-          textStyle={styles.buttonText}
-          handleClick={handleCommentLikeClick}
-        />
-      </View>
-      {postId &&
-        <View style={styles.buttonContainer}>
+      <TouchableHighlight
+        style={styles.buttonContainer}
+        onPress={handleCommentLikeClick}
+        underlayColor="rgba(255, 255, 255, 0.6)"
+      >
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
           <AntDesign
+            style={{ padding: 10 }}
             size={25}
             color={RED}
-            name="inbox"
+            name={isCommentLike ? "heart" : "hearto"}
           />
-          <Button
-            text="게시물로"
-            buttonStyle={styles.button}
-            textStyle={styles.buttonText}
-            handleClick={handleRoutePostButtonClick}
-          />
+          <Text style={{ fontWeight: "bold", fontSize: 10 }}>쓰담쓰담</Text>
         </View>
+      </TouchableHighlight>
+      {postId &&
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          onPress={handleRoutePostButtonClick}
+          underlayColor="rgba(255, 255, 255, 0.6)"
+        >
+          <View style={{ justifyContent: "center", alignItems: "center" }}>
+            <AntDesign
+              style={{ padding: 10 }}
+              size={25}
+              color={RED}
+              name="inbox"
+            />
+            <Text style={{ fontWeight: "bold", fontSize: 10 }}>게시물로</Text>
+          </View>
+        </TouchableHighlight>
       }
-      <View style={styles.buttonContainer}>
-        {commentInfo.user === user.email
-          ? <>
-              <Ionicons
-                size={25}
-                color={RED}
-                name="document"
-              />
-              <Button
-                text="수정 하기"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleModifyButtonClick}
-              />
-            </>
-          : <>
-              <AntDesign
-                size={25}
-                color={RED}
-                name="adduser"
-              />
-              <Button
-                text="친구추가"
-                buttonStyle={styles.button}
-                textStyle={styles.buttonText}
-                handleClick={handleAddFriendClick}
-              />
-            </>
-        }
-      </View>
+        <TouchableHighlight
+          style={styles.buttonContainer}
+          onPress={handleModifyButtonClick}
+          underlayColor="rgba(255, 255, 255, 0.6)"
+        >
+        <View style={{ justifyContent: "center", alignItems: "center" }}>
+          <Ionicons
+            style={{ padding: 10 }}
+            size={25}
+            color={RED}
+            name="document"
+          />
+            <Text style={{ fontWeight: "bold", fontSize: 10 }}>수정하기</Text>
+        </View>
+      </TouchableHighlight>
     </View>
   );
 };

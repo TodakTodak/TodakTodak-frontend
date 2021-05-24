@@ -4,7 +4,9 @@ import {
   Keyboard,
   ScrollView,
   ImageBackground,
-  TouchableWithoutFeedback
+  TouchableHighlight,
+  TouchableWithoutFeedback,
+  Text
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -91,19 +93,21 @@ const DetailComment = ({ route }) => {
                 </View>
               </ImageBackground>
             </View>
-            <View style={styles.buttonWrapper}>
-              <FontAwesome
-                size={25}
-                color={RED}
-                name="comment-o"
-              />
-              <Button
-                text="댓글 달기"
-                textStyle={styles.buttonText}
-                buttonStyle={styles.sendButton}
-                handleClick={handleAddCommentButtonClick}
-              />
-            </View>
+            <TouchableHighlight
+              style={styles.buttonWrapper}
+              onPress={handleAddCommentButtonClick}
+              underlayColor="rgba(255, 255, 255, 0.6)"
+            >
+              <View style={{ justifyContent: "center", alignItems: "center" }}>
+                <FontAwesome
+                  style={{ padding: 10 }}
+                  size={25}
+                  color={RED}
+                  name="comment-o"
+                />
+                <Text style={{ fontWeight: "bold", fontSize: 10 }}>댓글 달기</Text>
+              </View>
+            </TouchableHighlight>
           </ScrollView>
         </KeyboardAwareScrollView>
         {errorMessage &&

@@ -84,7 +84,7 @@ const DetailPost = ({ route }) => {
   };
 
   const handleCommentsButtonClick = () => {
-    navigation.navigate(COMMENTS, { comments: postInfo.comments });
+    navigation.navigate(COMMENTS, { postId: postInfo._id });
   };
 
   const clearMessage = () => {

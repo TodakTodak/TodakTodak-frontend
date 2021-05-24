@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
     justifyContent: "center",
     alignItems: "center",
     margin: 0,
-    paddingTop: 10,
+    padding: 10,
     borderRadius: 10,
     backgroundColor: WHITE,
     shadowColor: BLACK,
@@ -36,7 +36,11 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     color: BLACK,
-    fontSize: 10
+    fontSize: 10,
+    fontWeight: "bold"
+  },
+  buttonIcon: {
+    padding: 10
   }
 });
 

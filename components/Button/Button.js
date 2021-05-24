@@ -7,8 +7,9 @@ import {
 
 import styles from "./styles";
 
-const Button =({
+const Button = ({
   text,
+  children,
   textStyle,
   buttonStyle,
   handleClick
@@ -19,6 +20,7 @@ const Button =({
       onPress={handleClick}
     >
       <View style={styles.buttonContents}>
+        {children}
         <Text style={[ styles.buttonText, textStyle ]}>
           {text}
         </Text>
