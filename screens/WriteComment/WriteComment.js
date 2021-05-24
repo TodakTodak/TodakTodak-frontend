@@ -4,9 +4,7 @@ import {
   Keyboard,
   ScrollView,
   ImageBackground,
-  TouchableHighlight,
-  TouchableWithoutFeedback,
-  Text
+  TouchableWithoutFeedback
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
@@ -28,7 +26,7 @@ import { patchComment } from "../../api/postApi";
 import letterPage from "../../assets/pngs/letterPage.png";
 import backgroundImage from "../../assets/pngs/background.png";
 
-const DetailComment = ({ route }) => {
+const WriteComment = ({ route }) => {
   const [content, setContent] = useState("");
   const [errorMessage, setErrorMessage] = useState(null);
 
@@ -93,21 +91,19 @@ const DetailComment = ({ route }) => {
                 </View>
               </ImageBackground>
             </View>
-            <TouchableHighlight
-              style={styles.buttonWrapper}
-              onPress={handleAddCommentButtonClick}
-              underlayColor="rgba(255, 255, 255, 0.6)"
+            <Button
+              text="댓글 달기"
+              textStyle={styles.buttonText}
+              buttonStyle={styles.buttonWrapper}
+              handleClick={handleAddCommentButtonClick}
             >
-              <View style={{ justifyContent: "center", alignItems: "center" }}>
-                <FontAwesome
-                  style={{ padding: 10 }}
-                  size={25}
-                  color={RED}
-                  name="comment-o"
-                />
-                <Text style={{ fontWeight: "bold", fontSize: 10 }}>댓글 달기</Text>
-              </View>
-            </TouchableHighlight>
+              <FontAwesome
+                style={styles.buttonIcon}
+                size={25}
+                color={RED}
+                name="comment-o"
+              />
+            </Button>
           </ScrollView>
         </KeyboardAwareScrollView>
         {errorMessage &&
@@ -121,4 +117,4 @@ const DetailComment = ({ route }) => {
   );
 }
 
-export default DetailComment;
+export default WriteComment;
