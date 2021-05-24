@@ -14,13 +14,13 @@ const FriendList = ({ friendList }) => {
     <>
       {(!friendList || friendList.length < 1)
         ? <EmptyView
-            text={NOT_EXIST_FRIEND}
-          />
+          text={NOT_EXIST_FRIEND}
+        />
         : <FlatList
-            data={friendList}
-            renderItem={renderFriends}
-            keyExtractor={(item) => item._id}
-          />
+          data={friendList}
+          renderItem={renderFriends}
+          keyExtractor={(item) => item._id}
+        />
       }
     </>
   );

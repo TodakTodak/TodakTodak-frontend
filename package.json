@@ -21,6 +21,7 @@
     "expo-font": "~9.1.0",
     "expo-secure-store": "^10.1.0",
     "expo-status-bar": "~1.0.4",
+    "lodash": "^4.17.21",
     "lottie-react-native": "^4.0.2",
     "react": "16.13.1",
     "react-dom": "16.13.1",
@@ -40,7 +41,16 @@
     "socket.io-client": "^4.1.1"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0"
+    "@babel/core": "^7.9.0",
+    "@testing-library/jest-native": "^4.0.1",
+    "@testing-library/react-native": "^7.2.0",
+    "react-test-renderer": "^17.0.2"
+  },
+  "jest": {
+    "preset": "react-native",
+    "setupFilesAfterEnv": [
+      "@testing-library/jest-native/extend-expect"
+    ]
   },
   "private": true
 }

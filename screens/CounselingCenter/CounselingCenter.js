@@ -6,13 +6,14 @@ import {
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
+import { debounce } from "lodash";
 
+import CategoryPosts from "./CategoryPosts/CategoryPosts";
 import Loading from "../../screens/Loading/Loading";
 import Title from "../../components/Title/Title";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
-import CategoryPosts from "./CategoryPosts/CategoryPosts";
 
 import {
   fetchLovePosts,
@@ -78,7 +79,7 @@ const CounselingCenter = () => {
     };
 
     if (!isFetched[postCategory]) {
-      dispatchCategoryInfo(categoryInfo);
+      debounceDispatchCategoryInfo(categoryInfo);
     }
   }, [postCategory, isFetched]));
 
@@ -109,6 +110,10 @@ const CounselingCenter = () => {
     }
   };
 
+  const debounceDispatchCategoryInfo = useCallback(debounce((data) =>
+    dispatchCategoryInfo(data), 500
+  ), []);
+
   const getCategorys = () => {
     const categoryInfo = {
       page,
@@ -116,7 +121,7 @@ const CounselingCenter = () => {
       category: postCategory
     };
 
-    dispatchCategoryInfo(categoryInfo);
+    debounceDispatchCategoryInfo(categoryInfo);
     setPage((page) => page + 1);
   };
 
