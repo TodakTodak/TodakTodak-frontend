@@ -19,7 +19,7 @@ const MyPosts = () => {
   const navigation = useNavigation();
   const { posts, accessToken } = useSelector((state) => state.user);
 
-  if (!posts.length) {
+  if (!posts || !posts.length) {
     return <EmptyView text="작성한 고민글이 없습니다" />;
   }
 

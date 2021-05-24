@@ -11,9 +11,9 @@ import {
 } from "../api/userApi";
 import { deletePost } from "../api/postApi";
 import {
+  patchComment,
   getMyComments,
   deleteComment,
-  patchComment
 } from "../api/commentApi";
 
 export const fetchLogin = createAsyncThunk(
@@ -216,14 +216,10 @@ const initialState = {
   nickname: "",
   accessToken: "",
   isLoading: false,
-  posts: [],
-  comments: [],
-  friendList: [],
-  waitingFriendList: [],
-  isFetchedPosts: false,
-  isFetchedComments: false,
-  isFetchedFriendList: false,
-  isFetchedWaitingFriendList: false
+  posts: null,
+  comments: null,
+  friendList: null,
+  waitingFriendList: null
 };
 
 export const userSlice = createSlice({
@@ -239,10 +235,6 @@ export const userSlice = createSlice({
     resetFriendFetchedStatus: (state) => {
       state.isFetchedFriendList = false;
       state.isFetchedWaitingFriendList = false;
-    },
-    resetFetched: (state) => {
-      state.isFetchedPosts = false;
-      state.isFetchedComments = false;
     }
   },
   extraReducers: {
@@ -321,7 +313,7 @@ export const userSlice = createSlice({
     },
     [fetchMyPosts.fulfilled]: (state, { payload }) => {
       state.posts = payload.postsInfo;
-      state.isFetchedPosts = true;
+      // state.isFetchedPosts = true;
       state.isLoading = false;
     },
     [fetchMyPosts.pending]: (state) => {
@@ -333,7 +325,7 @@ export const userSlice = createSlice({
     },
     [fetchMyComments.fulfilled]: (state, { payload }) => {
       state.comments = payload.comments;
-      state.isFetchedComments = true;
+      // state.isFetchedComments = true;
       state.isLoading = false;
     },
     [fetchMyComments.pending]: (state) => {

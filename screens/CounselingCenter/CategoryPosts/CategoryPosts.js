@@ -4,19 +4,38 @@ import {
   ScrollView,
   RefreshControl
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 
 import EmptyView from "../../../components/EmptyView/EmptyView";
+import CategoryPostCard from "../../../components/CategoryPostCard/CategoryPostCard";
 
 import styles from "../styles";
+
+import { DETAIL_POST } from "../../../constants/navigationName";
 
 const CategoryPosts = ({
   post,
   category,
   isFetched,
   getCategorys,
-  refreshCategory,
-  renderCategoryPosts
+  refreshCategory
 }) => {
+  const navigation = useNavigation();
+
+  const renderCategoryPosts = ({ item }) => {
+    const handlePostClick = () => (
+      navigation.navigate(DETAIL_POST, { postId: item._id })
+    );
+
+    return (
+      <CategoryPostCard
+        key={item._id}
+        postInfo={item}
+        handleClick={handlePostClick}
+      />
+    );
+  };
+
   return (
     <>
       {post[category].length < 1 && isFetched[category]

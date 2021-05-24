@@ -31,14 +31,10 @@ const MyPostStorage = () => {
   const {
     message,
     isLoading,
-    accessToken,
-    isFetchedPosts,
-    isFetchedComments
+    accessToken
   } = useSelector((state) => state.user);
 
   useFocusEffect(useCallback(() => {
-    dispatch(userSlice.actions.resetFetched());
-
     if (activeCategory === "나의 고민들") {
       dispatch(fetchMyPosts(accessToken));
     }

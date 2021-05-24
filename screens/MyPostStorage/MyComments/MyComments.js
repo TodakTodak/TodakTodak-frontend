@@ -20,7 +20,7 @@ const MyComments = () => {
   const navigation = useNavigation();
   const { comments, accessToken } = useSelector((state) => state.user);
 
-  if (!comments.length) {
+  if (!comments || !comments.length) {
     return <EmptyView text="작성한 위로글이 없습니다." />;
   }
 

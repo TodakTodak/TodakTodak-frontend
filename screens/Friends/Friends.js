@@ -1,17 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
-  ScrollView,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useFocusEffect } from "@react-navigation/native";
 
+import FriendList from "./FriendList/FriendList";
 import Title from "../../components/Title/Title";
 import Loading from "../../screens/Loading/Loading";
-import EmptyView from "../../components/EmptyView/EmptyView";
 import AlertModal from "../../components/AlertModal/AlertModal";
-import FriendCard from "../../components/FriendCard/FriendCard";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
 import {
@@ -24,9 +22,7 @@ import styles from "./styles";
 
 import {
   MY_FRIENDS,
-  WAITING_FRIENDS,
-  NOT_EXIST_FRIEND,
-  NOT_EXIST_WAITING_FRIEND
+  WAITING_FRIENDS
 } from "../../constants/friendStatus";
 
 import backgroundImage from "../../assets/pngs/background.png";
@@ -35,7 +31,6 @@ const Friends = () => {
   const [activeCategory, setActiveCategory] = useState(MY_FRIENDS);
 
   const dispatch = useDispatch();
-  const navigation = useNavigation();
   const {
     isLoading,
     friendList,
@@ -44,23 +39,9 @@ const Friends = () => {
     waitingFriendList
   } = useSelector((state) => state.user);
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {
     dispatch(userSlice.actions.resetFriendFetchedStatus());
 
-    const unSubscribe = navigation.addListener("focus", () => {
-      if (activeCategory === MY_FRIENDS) {
-        dispatch(fetchMyFriends(accessToken));
-      }
-
-      if (activeCategory === WAITING_FRIENDS) {
-        dispatch(fetchWaitingFriends(accessToken));
-      }
-    });
-
-    return unSubscribe;
-  }, [navigation]);
-
-  useEffect(() => {
     if (activeCategory === MY_FRIENDS) {
       dispatch(fetchMyFriends(accessToken));
     }
@@ -68,30 +49,16 @@ const Friends = () => {
     if (activeCategory === WAITING_FRIENDS) {
       dispatch(fetchWaitingFriends(accessToken));
     }
-  }, [activeCategory]);
+  }, [
+    userSlice,
+    accessToken,
+    activeCategory,
+    fetchMyFriends,
+    fetchWaitingFriends
+  ]));
 
   const clearMessage = () => {
     dispatch(userSlice.actions.clearMessage());
-  };
-
-  const renderFriends = () => {
-    if (activeCategory === MY_FRIENDS) {
-      if (!friendList.length) {
-        return <EmptyView text={NOT_EXIST_FRIEND} />;
-      }
-
-      return friendList.map((friend, index) =>
-        <FriendCard key={index} friend={friend} />
-      );
-    }
-
-    if (!waitingFriendList.length) {
-      return <EmptyView text={NOT_EXIST_WAITING_FRIEND} />;
-    }
-
-    return waitingFriendList.map((friend, index) =>
-      <FriendCard key={index} friend={friend} />
-    );
   };
 
   return (
@@ -117,10 +84,12 @@ const Friends = () => {
           ? <View style={styles.loadingWrapper}>
               <Loading style={styles.loading} />
             </View>
-          : <ScrollView styles={styles.friendsContainer}>
-              {renderFriends()}
-              <View style={{ height: 200 }} />
-            </ScrollView>
+          : <FriendList
+              friendList={activeCategory === MY_FRIENDS
+                ? friendList
+                : waitingFriendList
+              }
+            />
         }
       </View>
       {errorMessage &&

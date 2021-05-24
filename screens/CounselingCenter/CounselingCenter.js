@@ -125,20 +125,6 @@ const CounselingCenter = () => {
     dispatch(categoryPostSlice.actions.refreshPostCategory(postCategory));
   };
 
-  const renderCategoryPosts = ({ item }) => {
-    const handlePostClick = () => (
-      navigation.navigate(DETAIL_POST, { postId: item._id })
-    );
-
-    return (
-      <CategoryPostCard
-        key={item._id}
-        postInfo={item}
-        handleClick={handlePostClick}
-      />
-    );
-  };
-
   const renderCategorys = () => {
     return categorys.map((category) =>
       <CategoryButton
@@ -201,7 +187,6 @@ const CounselingCenter = () => {
                 category={postCategory}
                 getCategorys={getCategorys}
                 refreshCategory={refreshCategory}
-                renderCategoryPosts={renderCategoryPosts}
               />
             </>
         }
