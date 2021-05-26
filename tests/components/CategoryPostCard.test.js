@@ -3,15 +3,20 @@ import { render } from "@testing-library/react-native";
 
 import CategoryPostCard from "../../components/CategoryPostCard/CategoryPostCard";
 
-import { TEST_TEXT } from "../../constants/testCotents";
+import {
+  TEST_TEXT,
+  MOCK_DATE,
+  MOCK_USER_NAME,
+  MOCK_USER_EMAIL
+} from "../../constants/testCotents";
 
 describe("<CategoryPostCard />", () => {
   const mockPostInfo = {
     title: TEST_TEXT,
     isAnonymous: true,
-    createdAt: "2015-05-15",
-    ownerNickname: "takhyun",
-    likes: ["takhyun@gmail.com"]
+    createdAt: MOCK_DATE,
+    likes: [MOCK_USER_EMAIL],
+    ownerNickname: MOCK_USER_NAME
   };
 
   it("sholud postInfo empty Object (empty data)", () => {

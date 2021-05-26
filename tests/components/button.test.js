@@ -1,10 +1,9 @@
 import React from "react";
 import { render, fireEvent } from "@testing-library/react-native";
-import { AntDesign } from "@expo/vector-icons";
 
 import Button from "../../components/Button/Button";
 
-import { TEST_ID, TEST_TEXT } from "../../constants/testCotents";
+import { TEST_TEXT } from "../../constants/testCotents";
 
 describe("<Button />", () => {
   it("should render button text", () => {
