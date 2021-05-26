@@ -5,7 +5,7 @@ import EmptyView from "../../components/EmptyView/EmptyView";
 
 import { TEST_TEXT } from "../../constants/testContents";
 
-describe("<AlertModal />", () => {
+describe("<EmptyView />", () => {
   it("should render EmptyView text", () => {
     const { getByText } = render(
       <EmptyView text={TEST_TEXT} />
