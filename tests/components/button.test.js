@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import Button from "../../components/Button/Button";
 
-import { TEST_TEXT } from "../../constants/testCotents";
+import { TEST_TEXT } from "../../constants/testContents";
 
 describe("<Button />", () => {
   it("should render button text", () => {

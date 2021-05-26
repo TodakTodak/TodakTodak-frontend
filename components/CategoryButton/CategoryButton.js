@@ -11,7 +11,7 @@ import {
   OPACITY_BACKGROUND,
   CATEGORY_ACTIVE_COLOR
 } from "../../constants/color";
-import { TEST_ID } from "../../constants/testCotents";
+import { TEST_ID } from "../../constants/testContents";
 
 const CategoryButton = ({
   title,
