@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import AlertModal from "../../components/AlertModal/AlertModal";
 
-import { TEST_TEXT } from "../../constants/testCotents";
+import { TEST_TEXT } from "../../constants/testContents";
 
 describe("<AlertModal />", () => {
   it("should render AlertModal text", () => {

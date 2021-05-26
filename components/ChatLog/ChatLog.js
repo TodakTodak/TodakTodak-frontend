@@ -5,7 +5,7 @@ import { useSelector } from "react-redux";
 import styles from "./styles";
 import formatDate from "../../utils/getDate";
 
-import { TEST_ID } from "../../constants/testCotents";
+import { TEST_ID } from "../../constants/testContents";
 
 const ChatLog = ({
   comment,

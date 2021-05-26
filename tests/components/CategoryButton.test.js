@@ -3,7 +3,7 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
-import { TEST_ID, TEST_TEXT } from "../../constants/testCotents";
+import { TEST_ID, TEST_TEXT } from "../../constants/testContents";
 import { OPACITY_BACKGROUND } from "../../constants/color";
 
 describe("<CategoryButton />", () => {

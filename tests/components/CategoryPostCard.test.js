@@ -8,7 +8,7 @@ import {
   MOCK_DATE,
   MOCK_USER_NAME,
   MOCK_USER_EMAIL
-} from "../../constants/testCotents";
+} from "../../constants/testContents";
 
 describe("<CategoryPostCard />", () => {
   const mockPostInfo = {

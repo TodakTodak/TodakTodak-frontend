@@ -10,14 +10,13 @@ import {
   TEST_ID,
   TEST_TEXT,
   MOCK_USER_NAME
-} from "../../constants/testCotents";
+} from "../../constants/testContents";
 import {
   YELLOW,
   FRIEND_CHAT_BACKGROUND
 } from "../../constants/color";
 
 jest.mock("react-redux", () => ({
-  ...jest.requireActual("react-redux"),
   useSelector: jest.fn()
 }));
 
