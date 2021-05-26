@@ -3,15 +3,14 @@ import { render } from "@testing-library/react-native";
 
 import Category from "../../components/Category/Category";
 
-describe("<Category />", () => {
-  const testText = "category-title";
+import { TEST_TEXT } from "../../constants/testCotents";
 
+describe("<Category />", () => {
   it("should render category title", () => {
     const { getByText } = render(
-      <Category title={testText} />
+      <Category title={TEST_TEXT} />
     );
-
-    const CategoryText = getByText(testText);
+    const CategoryText = getByText(TEST_TEXT);
 
     expect(CategoryText).not.toBeNull();
   });

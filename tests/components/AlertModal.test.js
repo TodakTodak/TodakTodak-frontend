@@ -3,14 +3,14 @@ import { render, fireEvent } from "@testing-library/react-native";
 
 import AlertModal from "../../components/AlertModal/AlertModal";
 
-describe("<AlertModal />", () => {
-  const testText = "modal-text";
+import { TEST_TEXT } from "../../constants/testCotents";
 
+describe("<AlertModal />", () => {
   it("should render AlertModal text", () => {
     const { getByText } = render(
-      <AlertModal message={testText} />
+      <AlertModal message={TEST_TEXT} />
     );
-    const AlertModalText = getByText(testText);
+    const AlertModalText = getByText(TEST_TEXT);
 
     expect(AlertModalText).not.toBeNull();
   });
@@ -18,7 +18,7 @@ describe("<AlertModal />", () => {
   it("should press modal closingButton", () => {
     const onPressMock = jest.fn();
     const { getByText } = render(
-      <AlertModal message={testText} handleModalClose={onPressMock} />
+      <AlertModal message={TEST_TEXT} handleModalClose={onPressMock} />
     );
 
     fireEvent.press(getByText("닫기"));

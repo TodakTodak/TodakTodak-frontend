@@ -11,6 +11,7 @@ import {
   OPACITY_BACKGROUND,
   CATEGORY_ACTIVE_COLOR
 } from "../../constants/color";
+import { TEST_ID } from "../../constants/testCotents";
 
 const CategoryButton = ({
   title,
@@ -23,6 +24,7 @@ const CategoryButton = ({
   return (
     <View style={[styles.categoryContainer, categoryContainerStyle]}>
       <TouchableOpacity
+        testID={TEST_ID}
         accessibilityRole="button"
         onPress={() => handleClick(title)}
         style={[
