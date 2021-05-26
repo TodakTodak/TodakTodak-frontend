@@ -1,9 +1,7 @@
 ## 토닥토닥
----
 토닥토닥은 개인의 고민을 작성하고, 공유하며 서로를 위로해줄 수 있는 앱입니다.
 
 ## Motivation
----
 개인의 고민을 친한 친구들이나 가족들에게 말할 수 있지만 때론 나라는 걸 밝히지 않고,
 이야기하고 싶은 고민들을 편하게 털어놓고 싶은 공간이 필요했습니다.
 
@@ -12,7 +10,6 @@
 앱으로 개발하게 되었습니다.
 
 ## Feather
----
 - 나의 고민을 작성, 수정, 삭제를 할 수 있습니다.
 - 작성된 고민에 좋아요(토닥 토닥) 기능을 사용할 수 있습니다.
 - 작성된 고민에 댓글을 달거나, 댓글들을 확인할 수 있습니다.
@@ -22,7 +19,6 @@
 - 내가 읽지 않는 메시지 수를 보여줍니다.
 
 ## Installation
----
 ### Client
 ```
 SERVER_URL=<YOUR_NETWORK_ADDRESS>
@@ -38,7 +34,6 @@ SECRET_TOKEN=<SECRET_STRING>
 - 개인의 MongoDB 계정 및 Cluster가 필요합니다.
 
 ## Technology stack
----
 ### Client
 - React-Native
   - 앱 개발을 위해 React-native를 선택했습니다.
@@ -60,14 +55,13 @@ SECRET_TOKEN=<SECRET_STRING>
 
 
 ## Develop period
----
 <2021/05/03 ~ 2021/05/21>
 
 ### 05/03 ~ 05/06
 - 개발 아이디어 선정 및 Figma를 통한 mockup design 및 Schema 작성
   - Figma 주소: [https://www.figma.com/file/wCZKddLMLTedTdmOQCdiCU/토닥-토닥?node-id=0%3A1&frame-preset-name=iPhone 11 Pro %2F X](https://www.figma.com/file/wCZKddLMLTedTdmOQCdiCU/%ED%86%A0%EB%8B%A5-%ED%86%A0%EB%8B%A5?node-id=0%3A1&frame-preset-name=iPhone%2011%20Pro%20%2F%20X)
 
-  - Schema 주소: [https://lucid.app/lucidchart/invitations/accept/inv_64ccebb4-c87b-4aa6-8b8d-cb89bd36c925]
+  - Schema 주소: https://lucid.app/lucidchart/invitations/accept/inv_64ccebb4-c87b-4aa6-8b8d-cb89bd36c925
 
 ### 05/06 ~ 07
 - Client쪽 초기 Layout 작업 및 Server 초기 상태 구축, schema 작성
@@ -82,7 +76,6 @@ SECRET_TOKEN=<SECRET_STRING>
 - 버그 수정 및 코드 리팩토링 작업
 
 ## 구현 중 어려웠고, 고민했던 점
----
 - React Native를 활용한 프로젝트 시작에 앞서 기본 React와의 차이점 그리고
   개념적인 골자를 이해하는데 시간을 투자했습니다.
 

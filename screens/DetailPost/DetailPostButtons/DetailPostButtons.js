@@ -11,6 +11,7 @@ import Button from "../../../components/Button/Button";
 import styles from "./styles";
 
 import { RED } from "../../../constants/color";
+import { TEST_ID } from "../../../constants/testCotents";
 
 const DetailPostButtons = ({
   user,
@@ -30,9 +31,9 @@ const DetailPostButtons = ({
         handleClick={handleLikeButtonClick}
       >
         <AntDesign
-          style={styles.buttonIcon}
           size={25}
           color={RED}
+          style={styles.buttonIcon}
           name={isPostLike ? "heart" : "hearto"}
         />
       </Button>

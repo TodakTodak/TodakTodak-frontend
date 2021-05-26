@@ -5,13 +5,15 @@ import { useSelector } from "react-redux";
 import styles from "./styles";
 import formatDate from "../../utils/getDate";
 
+import { TEST_ID } from "../../constants/testCotents";
+
 const ChatLog = ({
   comment,
   createdAt,
   userNickname,
   systemMessage
 }) => {
-  const currentUser = useSelector((state) => state.user);
+  const { nickname } = useSelector((state) => state.user);
 
   if (systemMessage) {
     return (
@@ -24,7 +26,7 @@ const ChatLog = ({
   return (
     <View
       style={
-        userNickname === currentUser.nickname
+        userNickname === nickname
           ? styles.myChatInfo
           : styles.friendChatInfo
       }
@@ -33,8 +35,9 @@ const ChatLog = ({
         {userNickname}
       </Text>
       <View
+        testID={TEST_ID}
         style={
-          userNickname === currentUser.nickname
+          userNickname === nickname
             ? styles.myChatBox
             : styles.friendChatBox
         }
