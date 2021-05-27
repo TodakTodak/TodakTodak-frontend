@@ -1,6 +1,6 @@
 import { StyleSheet } from "react-native";
 
-import { CATEGORY_ACTIVE_COLOR, TRANSPARENCY } from "../../constants/color";
+import { TRANSPARENCY } from "../../constants/color";
 
 const styles = StyleSheet.create({
   backgroundContainer: {
@@ -11,20 +11,11 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  friendsContainer: {
-    width: "100%",
-    height: "70%",
-    justifyContent: "center",
-    alignItems: "center"
-  },
   categoryWrapper: {
     width: "100%",
     flexDirection: "row",
     alignItems: "center",
     marginTop: 40
-  },
-  activeCategoryBackground: {
-    backgroundColor: CATEGORY_ACTIVE_COLOR
   },
   loadingWrapper: {
     width: "80%",

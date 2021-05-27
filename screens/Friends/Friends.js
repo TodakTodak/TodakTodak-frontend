@@ -67,7 +67,7 @@ const Friends = () => {
       style={styles.backgroundContainer}
     >
       <View style={styles.container}>
-        <Title text={MY_FRIENDS} imageStyle={styles.titleImage} />
+        <Title text={MY_FRIENDS} />
         <View style={styles.categoryWrapper}>
           <CategoryButton
             title={MY_FRIENDS}
