@@ -5,7 +5,7 @@ import {
   TRANSPARENCY,
   CATEGORY_CARD_TITLE,
   CATEGORY_CARD_BACKGROUND
-} from "../../constants/color";
+} from "../../../constants/color";
 
 const styles = StyleSheet.create({
   postCard: {

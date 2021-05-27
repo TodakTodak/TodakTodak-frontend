@@ -10,7 +10,7 @@ import EmptyView from "../../../components/EmptyView/EmptyView";
 
 import { deleteMyComment } from "../../../redux/userSlice";
 
-import styles from "../MyPosts/styles";
+import styles from "./styles";
 
 import { ANSWER } from "../../../constants/navigationName";
 import { CONTENTS_TITLE_LIMIT } from "../../../constants/category";

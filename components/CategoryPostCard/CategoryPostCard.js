@@ -10,12 +10,14 @@ import styles from "./styles";
 
 import { RED } from "../../constants/color";
 import { CONTENTS_TITLE_LIMIT } from "../../constants/category";
+import Button from "../Button/Button";
 
 const CategoryPostCard = ({
   postInfo,
   cardStyle,
   titleStyle,
-  handleClick
+  handleClick,
+  handleDeleteClick
 }) => {
   const {
     likes,
@@ -49,16 +51,26 @@ const CategoryPostCard = ({
                 </Text>
               </View>
             </View>
-            <View style={styles.likeWrapper}>
-              <AntDesign
-                style={styles.likeIcon}
-                size={15}
-                color={RED}
-                name="heart"
-              />
-              <Text style={styles.postContent}>
-                {likes.length}
-              </Text>
+            <View>
+              <View style={styles.likeWrapper}>
+                <AntDesign
+                  size={15}
+                  color={RED}
+                  name="heart"
+                  style={styles.likeIcon}
+                />
+                <Text style={styles.postContent}>
+                  {likes.length}
+                </Text>
+              </View>
+              {handleDeleteClick &&
+                <Button
+                  text="삭제"
+                  handleClick={handleDeleteClick}
+                  buttonStyle={styles.deleteButton}
+                  textStyle={styles.deleteButtonText}
+                />
+              }
             </View>
           </View>
         </TouchableOpacity>

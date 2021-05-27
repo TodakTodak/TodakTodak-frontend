@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import {
   View,
-  ScrollView,
   ImageBackground
 } from "react-native";
 import { useFocusEffect } from "@react-navigation/native";
@@ -54,11 +53,7 @@ const MyPostStorage = () => {
       style={styles.backgroundContainer}
     >
       <View style={styles.container}>
-        <Title
-          text="고민 저장소"
-          textStyle={styles.titleText}
-          imageStyle={styles.titleImage}
-        />
+        <Title text="고민 저장소" />
         <View style={styles.categorysWrapper}>
           <CategoryButton
             title="나의 고민들"
@@ -76,12 +71,12 @@ const MyPostStorage = () => {
           ? <View style={styles.loadingWrapper}>
               <Loading style={styles.loading} />
             </View>
-          : <ScrollView styles={styles.postsWrapper}>
+          : <>
               {activeCategory === "나의 고민들"
                 ? <MyPosts />
                 : <MyComments />
               }
-            </ScrollView>
+            </>
         }
       </View>
       {message &&
