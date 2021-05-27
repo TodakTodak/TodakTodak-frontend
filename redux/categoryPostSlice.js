@@ -21,7 +21,7 @@ export const fetchEmploymentPosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -38,7 +38,7 @@ export const fetchLovePosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -55,7 +55,7 @@ export const fetchCoursePosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -73,7 +73,7 @@ export const fetchFriendPosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -91,7 +91,7 @@ export const fetchPainPosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -140,69 +140,69 @@ export const categoryPostSlice = createSlice({
   },
   extraReducers: {
     [fetchEmploymentPosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.isFetched[EMPLOYMENT] = true;
       state.bestPost[EMPLOYMENT] = payload.highestLikesPost;
       state.post[EMPLOYMENT] = [...state.post[EMPLOYMENT], ...payload.categoryPosts];
+      state.isLoading = false;
     },
     [fetchEmploymentPosts.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchEmploymentPosts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.message = payload.errorMessage;
+      state.isLoading = false;
     },
     [fetchLovePosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.isFetched[LOVE] = true;
       state.bestPost[LOVE] = payload.highestLikesPost;
       state.post[LOVE] = [...state.post[LOVE], ...payload.categoryPosts];
+      state.isLoading = false;
     },
     [fetchLovePosts.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchLovePosts.rejected]: (state) => {
-      state.isLoading = false;
       state.message = payload.errorMessage;
+      state.isLoading = false;
     },
     [fetchCoursePosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.isFetched[COURSE] = true;
       state.bestPost[COURSE] = payload.highestLikesPost;
       state.post[COURSE] = [...state.post[COURSE], ...payload.categoryPosts];
+      state.isLoading = false;
     },
     [fetchCoursePosts.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchCoursePosts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.message = payload.errorMessage;
+      state.isLoading = false;
     },
     [fetchFriendPosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.isFetched[FRIEND] = true;
       state.bestPost[FRIEND] = payload.highestLikesPost;
       state.post[FRIEND] = [...state.post[FRIEND], ...payload.categoryPosts];
+      state.isLoading = false;
     },
     [fetchFriendPosts.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchFriendPosts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.message = payload.errorMessage;
+      state.isLoading = false;
     },
     [fetchPainPosts.fulfilled]: (state, { payload }) => {
-      state.isLoading = false;
       state.isFetched[PAIN] = true;
       state.bestPost[PAIN] = payload.highestLikesPost;
       state.post[PAIN] = [...state.post[PAIN], ...payload.categoryPosts];
+      state.isLoading = false;
     },
     [fetchPainPosts.pending]: (state) => {
       state.isLoading = true;
     },
     [fetchPainPosts.rejected]: (state, { payload }) => {
-      state.isLoading = false;
       state.message = payload.errorMessage;
+      state.isLoading = false;
     }
   }
 });

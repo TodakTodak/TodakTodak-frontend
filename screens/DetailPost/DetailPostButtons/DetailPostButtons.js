@@ -11,7 +11,6 @@ import Button from "../../../components/Button/Button";
 import styles from "./styles";
 
 import { RED } from "../../../constants/color";
-import { TEST_ID } from "../../../constants/testCotents";
 
 const DetailPostButtons = ({
   user,

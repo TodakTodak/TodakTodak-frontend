@@ -35,7 +35,7 @@ export const fetchLogin = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -52,7 +52,7 @@ export const fetchSignup = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -69,7 +69,7 @@ export const fetchMyFriends = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -86,7 +86,7 @@ export const fetchWaitingFriends = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -103,7 +103,7 @@ export const rejectWaitingFriend = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -120,7 +120,7 @@ export const acceptWaitingFriend = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -137,7 +137,7 @@ export const fetchMyPosts = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -154,7 +154,7 @@ export const fetchMyComments = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -171,7 +171,7 @@ export const patchMyComment = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -188,7 +188,7 @@ export const deleteMyPost = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -205,7 +205,7 @@ export const deleteMyComment = createAsyncThunk(
 
       return thunkAPI.rejectWithValue(response);
     } catch (err) {
-      console.error(err.message);
+      thunkAPI.rejectWithValue(err.message);
     }
   }
 );
@@ -313,7 +313,6 @@ export const userSlice = createSlice({
     },
     [fetchMyPosts.fulfilled]: (state, { payload }) => {
       state.posts = payload.postsInfo;
-      // state.isFetchedPosts = true;
       state.isLoading = false;
     },
     [fetchMyPosts.pending]: (state) => {
@@ -325,7 +324,6 @@ export const userSlice = createSlice({
     },
     [fetchMyComments.fulfilled]: (state, { payload }) => {
       state.comments = payload.comments;
-      // state.isFetchedComments = true;
       state.isLoading = false;
     },
     [fetchMyComments.pending]: (state) => {

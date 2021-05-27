@@ -14,7 +14,6 @@ import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
-import { addFriend } from "../../api/userApi";
 import { patchCommentLike } from "../../api/commentApi";
 
 import { patchMyComment } from "../../redux/userSlice";
@@ -35,7 +34,7 @@ const Answer = ({ route }) => {
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
-  const user = useSelector((state) => state.user);
+  const { email, accessToken } = useSelector((state) => state.user);
 
   const { commentInfo, postId } = route.params;
 
@@ -44,7 +43,7 @@ const Answer = ({ route }) => {
   }, []);
 
   useEffect(() => {
-    if (commentInfo.likes.includes(user.email)) {
+    if (commentInfo.likes.includes(email)) {
       setIsCommentLike(true);
     } else {
       setIsCommentLike(false);
@@ -58,7 +57,7 @@ const Answer = ({ route }) => {
       };
       const response = await patchCommentLike(
         commentLikeInfo,
-        user.accessToken
+        accessToken
       );
 
       if (response.errorMessage) {
@@ -67,29 +66,6 @@ const Answer = ({ route }) => {
       }
 
       setIsCommentLike((isCommentLike) => !isCommentLike);
-    } catch (err) {
-      setMessage(SERVER_ERROR);
-      setIsModalVisible(true);
-    }
-  };
-
-  const handleAddFriendClick = async () => {
-    try {
-      const friendInfo = {
-        targetUser: commentInfo.user
-      };
-      const response = await addFriend(
-        friendInfo,
-        user.accessToken
-      );
-
-      if (response.errorMessage) {
-        setMessage(response.errorMessage);
-      } else {
-        setMessage("친구 요청을 했습니다!");
-      }
-
-      setIsModalVisible(true);
     } catch (err) {
       setMessage(SERVER_ERROR);
       setIsModalVisible(true);
@@ -111,8 +87,8 @@ const Answer = ({ route }) => {
     };
 
     dispatch(patchMyComment({
+      accessToken,
       commentInfo: modifyCommentInfo,
-      accessToken: user.accessToken
     }));
 
     navigation.goBack();
@@ -131,26 +107,23 @@ const Answer = ({ route }) => {
           />
           <View style={styles.postContentsWrapper}>
             <ImageBackground
-              style={styles.letterPage}
               source={letterPage}
+              style={styles.letterPage}
             >
               <ScrollView>
                 <TextInput
                   value={comment}
-                  editable={commentInfo.user === user.email}
                   isMultiline={true}
-                  handleInputChange={setComment}
                   style={styles.contents}
+                  handleInputChange={setComment}
+                  editable={commentInfo.user === email}
                 />
               </ScrollView>
             </ImageBackground>
           </View>
           <AnswerButtons
-            user={user}
             postId={postId}
-            commentInfo={commentInfo}
             isCommentLike={isCommentLike}
-            handleAddFriendClick={handleAddFriendClick}
             handleCommentLikeClick={handleCommentLikeClick}
             handleModifyButtonClick={handleModifyButtonClick}
             handleRoutePostButtonClick={handleRoutePostButtonClick}
