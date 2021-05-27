@@ -13,8 +13,8 @@ import styles from "./styles";
 import { RED } from "../../../constants/color";
 
 const DetailPostButtons = ({
-  user,
   postInfo,
+  userEmail,
   isPostLike,
   handleLikeButtonClick,
   handleModifyButtonClick,
@@ -62,7 +62,7 @@ const DetailPostButtons = ({
           name="comments"
         />
       </Button>
-      {postInfo.owner === user.email &&
+      {postInfo.owner === userEmail &&
         <Button
           text="수정 하기"
           textStyle={styles.buttonText}

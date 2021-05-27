@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   ScrollView,
   ImageBackground
 } from "react-native";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 
 import styles from "./styles";
 
@@ -38,42 +38,41 @@ const DetailPost = ({ route }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const navigation = useNavigation();
-  const user = useSelector((state) => state.user);
+  const { email, accessToken } = useSelector((state) => state.user);
 
   const { postId } = route.params;
 
-  useEffect(() => {
-    const unsubscribe = navigation.addListener("focus", async () => {
-      setIsLoading(true);
-
-      try {
-        const response = await getDetailPost(postId, user.accessToken);
-
-        if (response.errorMessage) {
-          setErrorMessage(response.errorMessage);
-          return;
-        }
-
-        if (response.post.likes.includes(user.email)) {
-          setIsPostLike(true);
-        } else {
-          setIsPostLike(false);
-        }
-
-        setPostInfo(response.post);
-      } catch (err) {
-        setErrorMessage(SERVER_ERROR);
-      } finally {
-        setIsLoading(false);
-      }
-    });
-
-    return unsubscribe;
-  }, [navigation]);
+  useFocusEffect(useCallback(() => {
+    getCurrentPostDetailInfo();
+  }, []));
 
   if (isLoading) {
     return <Loading />;
   }
+
+  const getCurrentPostDetailInfo = async () => {
+    setIsLoading(true);
+
+    try {
+      const response = await getDetailPost(postId, accessToken);
+
+      if (response.errorMessage) {
+        return setErrorMessage(response.errorMessage);
+      }
+
+      if (response.post.likes.includes(email)) {
+        setIsPostLike(true);
+      } else {
+        setIsPostLike(false);
+      }
+
+      setPostInfo(response.post);
+    } catch (err) {
+      setErrorMessage(SERVER_ERROR);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleAddCommentButtonClick = () => {
     navigation.navigate(WRITE_COMMENT, { postId });
@@ -95,11 +94,10 @@ const DetailPost = ({ route }) => {
     const likeInfo = { postId };
 
     try {
-      const response = await patchPostLike(likeInfo, user.accessToken);
+      const response = await patchPostLike(likeInfo, accessToken);
 
       if (response.errorMessage) {
-        setErrorMessage(response.errorMessage);
-        return;
+        return setErrorMessage(response.errorMessage);
       }
 
       setIsPostLike((isPostLike) => !isPostLike);
@@ -145,7 +143,7 @@ const DetailPost = ({ route }) => {
             </ImageBackground>
           </View>
           <DetailPostButtons
-            user={user}
+            userEmail={email}
             postInfo={postInfo}
             isPostLike={isPostLike}
             handleLikeButtonClick={handleLikeButtonClick}
