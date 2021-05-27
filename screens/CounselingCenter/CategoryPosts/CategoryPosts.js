@@ -51,15 +51,15 @@ const CategoryPosts = ({
             />
           </ScrollView>
           : <FlatList
-              refreshControl={
-                <RefreshControl onRefresh={refreshCategory} />
-              }
               data={post[category]}
               onEndReached={getCategorys}
               onEndReachedThreshold={0.9}
               styles={styles.postsWrapper}
               renderItem={renderCategoryPosts}
               keyExtractor={(item) => item._id}
+              refreshControl={
+                <RefreshControl onRefresh={refreshCategory} />
+              }
             />
       }
     </>

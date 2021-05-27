@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import {
   View,
+  FlatList,
   ScrollView,
+  RefreshControl,
   ImageBackground
 } from "react-native";
 import { useSelector } from "react-redux";
@@ -25,30 +27,27 @@ const Comments = ({ route }) => {
   const { accessToken } = useSelector((state) => state.user);
 
   useEffect(() => {
-    const getTagetPostComments = async () => {
-      const response = await getPostComments(postId, accessToken);
-
-      if (response.errorMessage) {
-        return console.log("에러");
-      }
-
-      setComments(response.comments);
-    };
-
-    getTagetPostComments();
+    getCurrentPostComments();
   }, []);
+
+  const getCurrentPostComments = async () => {
+    const response = await getPostComments(postId, accessToken);
+
+    if (response.errorMessage) {
+      return setMessage(response.errorMessage);
+    }
+
+    setComments(response.comments);
+  };
 
   const clearErrorMessage = () => {
     setMessage(null);
   };
 
-  const renderComments = () => {
-    if (!comments) return;
-
-    return comments.map((comment) =>
+  const renderComments = ({ item }) => {
+    return (
       <Comment
-        key={comment._id}
-        comment={comment}
+        comment={item}
         alertMessage={setMessage}
       />
     );
@@ -65,13 +64,25 @@ const Comments = ({ route }) => {
           imageStyle={styles.titleImage}
         />
       </View>
-      <ScrollView contentContainerStyle={styles.container}>
-        {comments && comments.length < 1
-          ? <EmptyView text="댓글이 없습니다." />
-          : renderComments()
-        }
-        <View style={{ height: 1000 }} />
-      </ScrollView>
+      {comments && comments.length < 1
+        ? <ScrollView
+            contentContainerStyle={styles.container}
+            refreshControl={
+              <RefreshControl onRefresh={getCurrentPostComments} />
+            }
+          >
+            <EmptyView text="댓글이 없습니다." />
+          </ScrollView>
+        : <FlatList
+            data={comments}
+            renderItem={renderComments}
+            keyExtractor={(item) => item._id}
+            contentContainerStyle={styles.container}
+            refreshControl={
+              <RefreshControl onRefresh={getCurrentPostComments} />
+            }
+          />
+      }
       {message &&
         <AlertModal
           message={message}
