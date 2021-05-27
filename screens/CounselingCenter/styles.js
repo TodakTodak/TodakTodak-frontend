@@ -31,15 +31,6 @@ const styles = StyleSheet.create({
   categoryStyle: {
     width: "90%"
   },
-  postsWrapper: {
-    width: "100%",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: 0,
-    marginRight: "auto",
-    marginBottom: 0,
-    marginLeft: "auto"
-  },
   bestPostCard: {
     marginTop: 10,
     backgroundColor: BEST_POST_CARD_BACKGROUND
@@ -65,9 +56,6 @@ const styles = StyleSheet.create({
   },
   loading: {
     backgroundColor: TRANSPARENCY
-  },
-  emptyContainer: {
-    marginTop: "15%"
   }
 });
 

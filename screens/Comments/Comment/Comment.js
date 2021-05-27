@@ -14,8 +14,8 @@ import styles from "./styles";
 import { SERVER_ERROR } from "../../../constants/message";
 import letterPage from "../../../assets/pngs/letterPage.png";
 
-import { patchCommentLike } from "../../../api/commentApi";
 import { addFriend } from "../../../api/userApi";
+import { patchCommentLike } from "../../../api/commentApi";
 
 const Comment = ({
   comment,
@@ -43,7 +43,7 @@ const Comment = ({
       );
 
       if (response.errorMessage) {
-        alertMessage(response.errorMessage);
+        return alertMessage(response.errorMessage);
       }
 
       setIsLike((isLike) => !isLike);
@@ -67,7 +67,6 @@ const Comment = ({
       } else {
         alertMessage("친구 요청을 했습니다!");
       }
-
     } catch (err) {
       alertMessage(SERVER_ERROR);
     }

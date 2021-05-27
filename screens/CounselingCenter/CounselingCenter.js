@@ -160,11 +160,7 @@ const CounselingCenter = () => {
       style={styles.backgroundContainer}
     >
       <View style={styles.container}>
-        <Title
-          text="고민 상담소"
-          textStyle={styles.titleText}
-          imageStyle={styles.titleImage}
-        />
+        <Title text="고민 상담소" />
         <View style={styles.categoryWrapper}>
           {renderCategorys()}
         </View>

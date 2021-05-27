@@ -42,12 +42,6 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     paddingRight: 10
   },
-  commentLikeWrapper: {
-    width: "60%",
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 10
-  },
   addFriendWrapper: {
     flexDirection: "row",
     alignItems: "center"
