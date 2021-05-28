@@ -20,4 +20,4 @@ const EmptyView = ({ text, viewStyle }) => {
   );
 };
 
-export default EmptyView;
+export default React.memo(EmptyView);

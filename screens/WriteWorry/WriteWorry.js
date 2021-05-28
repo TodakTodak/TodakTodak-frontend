@@ -72,19 +72,19 @@ const WriteWorry = ({ route }) => {
     setAnonymousType(isAnonymous ? ANONYMOUNS : NICKNAME);
   };
 
-  const resetWritingInfo = () => {
+  const resetWritingInfo = useCallback(() => {
     setPostType("");
     setCategory("");
     setPostTitle("");
     setWorryContents("");
     setAnonymousType("");
-  };
+  }, []);
 
-  const clearErrorMessage = () => {
+  const clearErrorMessage = useCallback(() => {
     setErrorMessage(null);
-  };
+  }, []);
 
-  const handleSubmitButtonClick = async () => {
+  const handleSubmitButtonClick = useCallback(async () => {
     const postInfo = {
       postType,
       category,
@@ -110,9 +110,9 @@ const WriteWorry = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  };
+  }, [postType, category, postTitle, anonymousType, worryContents]);
 
-  const handleModifyButtonClick = async () => {
+  const handleModifyButtonClick = useCallback(async () => {
     const modifyPostInfo = {
       postType,
       category,
@@ -135,7 +135,7 @@ const WriteWorry = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  };
+  }, [postType, category, postTitle, anonymousType, worryContents]);
 
   return (
     <ImageBackground
@@ -191,4 +191,4 @@ const WriteWorry = ({ route }) => {
   );
 }
 
-export default WriteWorry;
+export default React.memo(WriteWorry);

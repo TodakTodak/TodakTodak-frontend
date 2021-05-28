@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useState } from "react";
 import {
   View,
   ImageBackground
@@ -25,15 +25,15 @@ const Login = () => {
   const dispatch = useDispatch();
   const { isLoading, message } = useSelector((state) => state.user);
 
-  const handleLoginClick = () => {
+  const handleLoginClick = useCallback(() => {
     const userInfo = { email, password };
 
     dispatch(fetchLogin(userInfo));
-  };
+  }, [email, password]);
 
-  const handleModalCloseButton = () => {
+  const handleModalCloseButton = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());
-  };
+  }, []);
 
   if (isLoading) {
     return <Loading />;
@@ -81,4 +81,4 @@ const Login = () => {
   );
 }
 
-export default Login;
+export default React.memo(Login);

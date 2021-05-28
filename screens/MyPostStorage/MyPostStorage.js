@@ -43,9 +43,9 @@ const MyPostStorage = () => {
     }
   }, [dispatch, fetchMyPosts, fetchMyComments, activeCategory]));
 
-  const clearMessage = () => {
+  const clearMessage = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());
-  };
+  }, []);
 
   return (
     <ImageBackground
@@ -89,4 +89,4 @@ const MyPostStorage = () => {
   );
 }
 
-export default MyPostStorage;
+export default React.memo(MyPostStorage);

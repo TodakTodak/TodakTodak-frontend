@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { View, ImageBackground } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
@@ -42,18 +42,18 @@ const Intro = () => {
     }
   }, []);
 
-  const handleLoginClick = () => {
+  const handleLoginClick = useCallback(() => {
     navigation.navigate(LOGIN);
-  };
+  }, []);
 
-  const handleSignupClick = () => {
+  const handleSignupClick = useCallback(() => {
     navigation.navigate(SIGNUP);
-  };
+  }, []);
 
-  const clearMessage = () => {
+  const clearMessage = useCallback(() => {
     setErrorMessage(null);
     dispatch(userSlice.actions.clearMessage());
-  };
+  }, []);
 
   return (
     <ImageBackground
@@ -80,4 +80,4 @@ const Intro = () => {
   );
 }
 
-export default Intro;
+export default React.memo(Intro);

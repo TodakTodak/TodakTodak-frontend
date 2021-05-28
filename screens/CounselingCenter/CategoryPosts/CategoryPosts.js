@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import {
   FlatList,
   ScrollView,
@@ -22,7 +22,7 @@ const CategoryPosts = ({
 }) => {
   const navigation = useNavigation();
 
-  const renderCategoryPosts = ({ item }) => {
+  const renderCategoryPosts = useCallback(({ item }) => {
     const handlePostClick = () => (
       navigation.navigate(DETAIL_POST, { postId: item._id })
     );
@@ -34,7 +34,7 @@ const CategoryPosts = ({
         handleClick={handlePostClick}
       />
     );
-  };
+  }, [post, category]);
 
   return (
     <>
@@ -64,4 +64,4 @@ const CategoryPosts = ({
   );
 };
 
-export default CategoryPosts;
+export default React.memo(CategoryPosts);

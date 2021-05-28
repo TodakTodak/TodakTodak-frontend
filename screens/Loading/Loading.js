@@ -17,4 +17,4 @@ const Loading = ({ style }) => {
   );
 }
 
-export default Loading;
+export default React.memo(Loading);

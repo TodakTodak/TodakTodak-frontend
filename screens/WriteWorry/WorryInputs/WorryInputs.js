@@ -29,4 +29,4 @@ const WorryInputs = ({
   );
 };
 
-export default WorryInputs;
+export default React.memo(WorryInputs);

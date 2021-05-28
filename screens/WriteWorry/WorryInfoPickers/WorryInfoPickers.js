@@ -64,4 +64,4 @@ const WorryInfoPickers = ({
   );
 };
 
-export default WorryInfoPickers;
+export default React.memo(WorryInfoPickers);

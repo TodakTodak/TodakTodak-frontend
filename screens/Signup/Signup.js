@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   ImageBackground
@@ -29,7 +29,7 @@ const Signup = () => {
 
   const navigation = useNavigation();
 
-  const handleSignupButtonClick = async () => {
+  const handleSignupButtonClick = useCallback(async () => {
     try {
       const signupInfo = {
         email,
@@ -40,26 +40,24 @@ const Signup = () => {
       const incorrectMessage = validateSignupInfo(signupInfo);
 
       if (incorrectMessage) {
-        setErrorMessage(incorrectMessage);
-        return;
+        return setErrorMessage(incorrectMessage);
       }
 
       const response = await postSignup(signupInfo);
 
       if (response.errorMessage) {
-        setErrorMessage(response.errorMessage);
-        return;
+        return setErrorMessage(response.errorMessage);
       }
 
       navigation.navigate(LOGIN);
     } catch (error) {
       setErrorMessage(SERVER_ERROR);
     }
-  };
+  }, [email, password, nickname]);
 
-  const clearErrorMessage = () => {
+  const clearErrorMessage = useCallback(() => {
     setErrorMessage(null);
-  };
+  }, []);
 
   return (
     <ImageBackground
@@ -109,4 +107,4 @@ const Signup = () => {
   );
 }
 
-export default Signup;
+export default React.memo(Signup);

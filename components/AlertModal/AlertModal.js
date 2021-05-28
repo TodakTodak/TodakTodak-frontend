@@ -38,4 +38,4 @@ const AlertModal = ({
   );
 };
 
-export default AlertModal;
+export default React.memo(AlertModal);

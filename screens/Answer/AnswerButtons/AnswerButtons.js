@@ -62,4 +62,4 @@ const AnswerButtons = ({
   );
 };
 
-export default AnswerButtons;
+export default React.memo(AnswerButtons);

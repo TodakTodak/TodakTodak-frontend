@@ -26,4 +26,4 @@ const Picker = ({
   );
 }
 
-export default Picker;
+export default React.memo(Picker);

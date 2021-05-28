@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   Text,
   View,
@@ -23,18 +23,18 @@ const UserInfoRoom = () => {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.user);
 
-  const handleLogoutButtonClick = async () => {
+  const handleLogoutButtonClick = useCallback(async () => {
     try {
       await SecureStore.deleteItemAsync("userInfo");
       dispatch(userSlice.actions.resetUserState());
     } catch (err) {
       setIsModalVisible(false);
     }
-  };
+  }, []);
 
-  const handleModalCloseButton = () => (
+  const handleModalCloseButton = useCallback(() => (
     setIsModalVisible(true)
-  );
+  ), []);
 
   return (
     <ImageBackground
@@ -66,4 +66,4 @@ const UserInfoRoom = () => {
   );
 }
 
-export default UserInfoRoom;
+export default React.memo(UserInfoRoom);

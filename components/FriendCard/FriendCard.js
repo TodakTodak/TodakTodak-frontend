@@ -152,4 +152,4 @@ const FriendCard = ({ friend }) => {
   );
 }
 
-export default FriendCard;
+export default React.memo(FriendCard);

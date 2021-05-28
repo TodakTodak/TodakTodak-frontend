@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Keyboard,
@@ -31,22 +31,22 @@ const WriteComment = ({ route }) => {
   const [errorMessage, setErrorMessage] = useState(null);
 
   const navigation = useNavigation();
-  const user = useSelector((state) => state.user);
+  const { accessToken } = useSelector((state) => state.user);
 
   const { postId } = route.params;
 
-  const clearErrorMessage = () => {
+  const clearErrorMessage = useCallback(() => {
     setErrorMessage(null);
-  };
+  }, []);
 
-  const handleAddCommentButtonClick = async () => {
+  const handleAddCommentButtonClick = useCallback(async () => {
     const commentInfo = {
       postId,
       content: content.trim()
     };
 
     try {
-      const response = await patchComment(commentInfo, user.accessToken);
+      const response = await patchComment(commentInfo, accessToken);
 
       if (response.errorMessage) {
         return setErrorMessage(response.errorMessage);
@@ -56,7 +56,7 @@ const WriteComment = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  };
+  }, [content]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -116,4 +116,4 @@ const WriteComment = ({ route }) => {
   );
 }
 
-export default WriteComment;
+export default React.memo(WriteComment);
