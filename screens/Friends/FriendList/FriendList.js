@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
 import EmptyView from "../../../components/EmptyView/EmptyView";
@@ -7,8 +7,9 @@ import FriendCard from "../../../components/FriendCard/FriendCard";
 import { NOT_EXIST_FRIEND } from "../../../constants/friendStatus";
 
 const FriendList = ({ friendList }) => {
-  const renderFriends = ({ item }) =>
-    <FriendCard friend={item} />;
+  const renderFriends = useCallback(({ item }) => (
+    <FriendCard friend={item} />
+  ), [friendList]);
 
   return (
     <>
@@ -26,4 +27,4 @@ const FriendList = ({ friendList }) => {
   );
 };
 
-export default FriendList;
+export default React.memo(FriendList);

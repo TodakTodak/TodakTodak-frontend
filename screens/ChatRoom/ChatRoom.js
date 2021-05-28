@@ -1,7 +1,8 @@
 import React, {
   useRef,
   useState,
-  useEffect
+  useEffect,
+  useCallback
 } from "react";
 import {
   View,
@@ -85,11 +86,11 @@ const ChatRoom = ({ route }) => {
     scrollToBottom();
   }, [chats]);
 
-  const scrollToBottom = () => (
+  const scrollToBottom = useCallback(() => (
     scrollRef.current.scrollToEnd({ animated: true })
-  );
+  ), []);
 
-  const handleSendChatClick = () => {
+  const handleSendChatClick = useCallback(() => {
     if (socket) {
       const chatInfo = {
         user,
@@ -103,13 +104,13 @@ const ChatRoom = ({ route }) => {
       socket.emit(SEND_CHAT, chatInfo);
       setComment("");
     }
-  };
+  }, [comment]);
 
-  const handleFriendsButtonClick = () => {
+  const handleFriendsButtonClick = useCallback(() => {
     navigation.navigate(FRIENDS);
-  };
+  }, []);
 
-  const renderChatLogs = ({ item }) => {
+  const renderChatLogs = useCallback(({ item }) => {
     return (
       <ChatLog
         comment={item.comment}
@@ -118,7 +119,7 @@ const ChatRoom = ({ route }) => {
         systemMessage={item.systemMessage}
       />
     );
-  };
+  }, [chats]);
 
   return (
     <ImageBackground
@@ -165,4 +166,4 @@ const ChatRoom = ({ route }) => {
   );
 }
 
-export default ChatRoom;
+export default React.memo(ChatRoom);

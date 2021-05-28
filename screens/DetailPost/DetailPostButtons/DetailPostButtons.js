@@ -81,4 +81,4 @@ const DetailPostButtons = ({
   );
 };
 
-export default DetailPostButtons;
+export default React.memo(DetailPostButtons);

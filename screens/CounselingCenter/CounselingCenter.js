@@ -83,7 +83,7 @@ const CounselingCenter = () => {
     }
   }, [postCategory, isFetched]));
 
-  const dispatchCategoryInfo = (data) => {
+  const dispatchCategoryInfo = useCallback((data) => {
     switch (data.category) {
       case EMPLOYMENT:
         dispatch(fetchEmploymentPosts(data));
@@ -108,13 +108,13 @@ const CounselingCenter = () => {
       default:
         break;
     }
-  };
+  }, [postCategory, page]);
 
   const debounceDispatchCategoryInfo = useCallback(debounce((data) =>
     dispatchCategoryInfo(data), 500
   ), []);
 
-  const getCategorys = () => {
+  const getCategorys = useCallback(() => {
     const categoryInfo = {
       page,
       accessToken,
@@ -123,14 +123,14 @@ const CounselingCenter = () => {
 
     debounceDispatchCategoryInfo(categoryInfo);
     setPage((page) => page + 1);
-  };
+  }, [page, postCategory]);
 
-  const refreshCategory = () => {
+  const refreshCategory = useCallback(() => {
     setPage(1);
     dispatch(categoryPostSlice.actions.refreshPostCategory(postCategory));
-  };
+  }, [postCategory]);
 
-  const renderCategorys = () => {
+  const renderCategorys = useCallback(() => {
     return categorys.map((category) =>
       <CategoryButton
         key={category.title}
@@ -142,17 +142,17 @@ const CounselingCenter = () => {
         categoryContainerStyle={styles.catagoryContainer}
       />
     );
-  };
+  }, []);
 
-  const handleBestPostClick = () => {
+  const handleBestPostClick = useCallback(() => {
     navigation.navigate(DETAIL_POST, {
       postId: bestPost[postCategory]._id
     });
-  };
+  }, [bestPost, postCategory]);
 
-  const clearErrorMessage = () => {
+  const clearErrorMessage = useCallback(() => {
     dispatch(categoryPostSlice.actions.clearMessage());
-  };
+  }, []);
 
   return (
     <ImageBackground
@@ -202,4 +202,4 @@ const CounselingCenter = () => {
   );
 }
 
-export default CounselingCenter;
+export default React.memo(CounselingCenter);

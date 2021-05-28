@@ -80,4 +80,4 @@ const CategoryPostCard = ({
   );
 }
 
-export default CategoryPostCard;
+export default React.memo(CategoryPostCard);

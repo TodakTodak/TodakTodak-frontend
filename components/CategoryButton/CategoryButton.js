@@ -45,4 +45,4 @@ const CategoryButton = ({
   );
 }
 
-export default CategoryButton;
+export default React.memo(CategoryButton);

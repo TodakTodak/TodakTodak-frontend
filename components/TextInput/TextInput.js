@@ -29,4 +29,4 @@ const TextInputBox = ({
   );
 }
 
-export default TextInputBox;
+export default React.memo(TextInputBox);

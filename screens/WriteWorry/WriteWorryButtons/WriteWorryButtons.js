@@ -29,4 +29,4 @@ const WriteWorryButtons = ({
   );
 };
 
-export default WriteWorryButtons;
+export default React.memo(WriteWorryButtons);

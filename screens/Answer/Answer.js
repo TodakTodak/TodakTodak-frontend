@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback
+} from "react";
 import {
   View,
   Keyboard,
@@ -50,7 +54,7 @@ const Answer = ({ route }) => {
     }
   }, []);
 
-  const handleCommentLikeClick = async () => {
+  const handleCommentLikeClick = useCallback(async () => {
     try {
       const commentLikeInfo = {
         commentId: commentInfo._id
@@ -70,17 +74,17 @@ const Answer = ({ route }) => {
       setMessage(SERVER_ERROR);
       setIsModalVisible(true);
     }
-  };
+  }, [isCommentLike]);
 
-  const handleModalCloseButton = () => {
+  const handleModalCloseButton = useCallback(() => {
     setIsModalVisible(false);
-  };
+  }, []);
 
-  const handleRoutePostButtonClick = () => {
+  const handleRoutePostButtonClick =  useCallback(() => {
     navigation.navigate(DETAIL_POST, { postId });
-  };
+  }, []);
 
-  const handleModifyButtonClick = () => {
+  const handleModifyButtonClick = useCallback(() => {
     const modifyCommentInfo = {
       comment,
       commentId: commentInfo._id
@@ -92,7 +96,7 @@ const Answer = ({ route }) => {
     }));
 
     navigation.goBack();
-  };
+  }, [comment]);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
@@ -139,4 +143,4 @@ const Answer = ({ route }) => {
   );
 }
 
-export default Answer;
+export default React.memo(Answer);

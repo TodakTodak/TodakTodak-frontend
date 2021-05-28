@@ -1,4 +1,8 @@
-import React, { useEffect, useState } from "react";
+import React, {
+  useState,
+  useEffect,
+  useCallback
+} from "react";
 import {
   View,
   FlatList,
@@ -30,7 +34,7 @@ const Comments = ({ route }) => {
     getCurrentPostComments();
   }, []);
 
-  const getCurrentPostComments = async () => {
+  const getCurrentPostComments = useCallback(async () => {
     const response = await getPostComments(postId, accessToken);
 
     if (response.errorMessage) {
@@ -38,20 +42,20 @@ const Comments = ({ route }) => {
     }
 
     setComments(response.comments);
-  };
+  }, []);
 
-  const clearErrorMessage = () => {
+  const clearErrorMessage = useCallback(() => {
     setMessage(null);
-  };
+  }, []);
 
-  const renderComments = ({ item }) => {
+  const renderComments = useCallback(({ item }) => {
     return (
       <Comment
         comment={item}
         alertMessage={setMessage}
       />
     );
-  };
+  }, [comments]);
 
   return (
     <ImageBackground
@@ -93,4 +97,4 @@ const Comments = ({ route }) => {
   );
 };
 
-export default Comments;
+export default React.memo(Comments);

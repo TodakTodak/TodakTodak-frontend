@@ -57,9 +57,9 @@ const Friends = () => {
     fetchWaitingFriends
   ]));
 
-  const clearMessage = () => {
+  const clearMessage = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());
-  };
+  }, []);
 
   return (
     <ImageBackground
@@ -102,4 +102,4 @@ const Friends = () => {
   );
 }
 
-export default Friends;
+export default React.memo(Friends);

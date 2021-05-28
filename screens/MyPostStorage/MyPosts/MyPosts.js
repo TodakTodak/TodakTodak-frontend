@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ const MyPosts = () => {
     return <EmptyView text="작성한 고민글이 없습니다" />;
   }
 
-  const renderPosts = ({ item }) => {
+  const renderPosts = useCallback(({ item }) => {
     const handlePostClick = () => (
       navigation.navigate(DETAIL_POST, { accessToken, postId: item._id })
     );
@@ -36,7 +36,7 @@ const MyPosts = () => {
         handleDeleteClick={handleDeleteButtonClick}
       />
     );
-  };
+  }, [posts]);
 
   return (
     <FlatList
@@ -47,4 +47,4 @@ const MyPosts = () => {
   );
 };
 
-export default MyPosts;
+export default React.memo(MyPosts);

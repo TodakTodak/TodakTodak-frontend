@@ -53,4 +53,4 @@ const ChatLog = ({
   );
 }
 
-export default ChatLog;
+export default React.memo(ChatLog);

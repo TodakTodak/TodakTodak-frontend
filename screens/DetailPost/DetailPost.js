@@ -50,7 +50,7 @@ const DetailPost = ({ route }) => {
     return <Loading />;
   }
 
-  const getCurrentPostDetailInfo = async () => {
+  const getCurrentPostDetailInfo = useCallback(async () => {
     setIsLoading(true);
 
     try {
@@ -72,25 +72,25 @@ const DetailPost = ({ route }) => {
     } finally {
       setIsLoading(false);
     }
-  };
+  }, []);
 
-  const handleAddCommentButtonClick = () => {
+  const handleAddCommentButtonClick = useCallback(() => {
     navigation.navigate(WRITE_COMMENT, { postId });
-  };
+  }, []);
 
-  const handleModifyButtonClick = () => {
+  const handleModifyButtonClick = useCallback(() => {
     navigation.navigate(WRITE_WORRY, { postInfo });
-  };
+  }, [postInfo]);
 
-  const handleCommentsButtonClick = () => {
+  const handleCommentsButtonClick = useCallback(() => {
     navigation.navigate(COMMENTS, { postId: postInfo._id });
-  };
+  }, [postInfo]);
 
-  const clearMessage = () => {
+  const clearMessage = useCallback(() => {
     setErrorMessage(null);
-  };
+  }, []);
 
-  const handleLikeButtonClick = async () => {
+  const handleLikeButtonClick = useCallback(async () => {
     const likeInfo = { postId };
 
     try {
@@ -104,7 +104,7 @@ const DetailPost = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  };
+  }, [isPostLike]);
 
   return (
     <ImageBackground
@@ -163,4 +163,4 @@ const DetailPost = ({ route }) => {
   );
 }
 
-export default DetailPost;
+export default React.memo(DetailPost);

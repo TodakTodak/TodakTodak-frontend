@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
@@ -19,7 +19,7 @@ const MyComments = () => {
     return <EmptyView text="작성한 위로글이 없습니다." />;
   }
 
-  const renderComments = ({ item }) => {
+  const renderComments = useCallback(({ item }) => {
     const routeDetailComment = () => {
       navigation.navigate(ANSWER, {
         postId: item.post,
@@ -41,7 +41,7 @@ const MyComments = () => {
         handleCardClick={routeDetailComment}
       />
     );
-  };
+  }, [comments]);
 
   return (
     <FlatList
@@ -52,4 +52,4 @@ const MyComments = () => {
   );
 };
 
-export default MyComments;
+export default React.memo(MyComments);
