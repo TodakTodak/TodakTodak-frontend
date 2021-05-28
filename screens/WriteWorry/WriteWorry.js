@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useCallback } from "react";
 import {
   View,
   Keyboard,
@@ -7,7 +7,7 @@ import {
   TouchableWithoutFeedback
 } from "react-native";
 import { useSelector } from "react-redux";
-import { useNavigation } from "@react-navigation/native";
+import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 import Title from "../../components/Title/Title";
@@ -48,33 +48,37 @@ const WriteWorry = ({ route }) => {
   const user = useSelector((state) => state.user);
   const { postInfo } = route.params;
 
-  useEffect(() => {
-    const unSubscribe = navigation.addListener("focus", () => {
-      if (0 < Object.keys(postInfo).length) {
-        const {
-          title,
-          category,
-          isPublic,
-          contents,
-          isAnonymous
-        } = postInfo;
+  useFocusEffect(useCallback(() => {
+    if (0 < Object.keys(postInfo).length) {
+      setWritingInfo();
+    } else {
+      resetWritingInfo();
+    }
+  }, []));
 
-        setPostTitle(title);
-        setCategory(category);
-        setWorryContents(contents);
-        setPostType(isPublic ? PUBLIC : PRIVATE);
-        setAnonymousType(isAnonymous ? ANONYMOUNS : NICKNAME);
-      } else {
-        setPostType("");
-        setCategory("");
-        setPostTitle("");
-        setWorryContents("");
-        setAnonymousType("");
-      }
-    });
+  const setWritingInfo = () => {
+    const {
+      title,
+      category,
+      isPublic,
+      contents,
+      isAnonymous
+    } = postInfo;
 
-    return unSubscribe;
-  }, [navigation]);
+    setPostTitle(title);
+    setCategory(category);
+    setWorryContents(contents);
+    setPostType(isPublic ? PUBLIC : PRIVATE);
+    setAnonymousType(isAnonymous ? ANONYMOUNS : NICKNAME);
+  };
+
+  const resetWritingInfo = () => {
+    setPostType("");
+    setCategory("");
+    setPostTitle("");
+    setWorryContents("");
+    setAnonymousType("");
+  };
 
   const clearErrorMessage = () => {
     setErrorMessage(null);
@@ -92,16 +96,14 @@ const WriteWorry = ({ route }) => {
     const incorrectMessage = validatePostInfo(postInfo);
 
     if (incorrectMessage) {
-      setErrorMessage(incorrectMessage);
-      return;
+      return setErrorMessage(incorrectMessage);
     }
 
     try {
       const response = await postNewWorryPost(postInfo, user.accessToken);
 
       if (response.errorMessage) {
-        setErrorMessage(response.errorMessage);
-        return;
+        return setErrorMessage(response.errorMessage);
       }
 
       navigation.navigate(MY_POST_STORAGE);
@@ -123,8 +125,7 @@ const WriteWorry = ({ route }) => {
     const incorrectMessage = validatePostInfo(modifyPostInfo);
 
     if (incorrectMessage) {
-      setErrorMessage(incorrectMessage);
-      return;
+      return setErrorMessage(incorrectMessage);
     }
 
     try {

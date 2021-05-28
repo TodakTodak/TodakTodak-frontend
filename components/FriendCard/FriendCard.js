@@ -72,22 +72,22 @@ const FriendCard = ({ friend }) => {
     });
   };
 
-  const acceptFriend = async (friendEmail) => {
-    const friendInfo = {
-      friendEmail,
+  const acceptFriend = async () => {
+    const requestInfo = {
+      friendEmail: friendInfo.email,
       accessToken: user.accessToken
     };
 
-    dispatch(acceptWaitingFriend(friendInfo));
+    dispatch(acceptWaitingFriend(requestInfo));
   };
 
-  const rejectFriend = async (friendEmail) => {
-    const friendInfo = {
-      friendEmail,
+  const rejectFriend = async () => {
+    const requestInfo = {
+      friendEmail: friendInfo.email,
       accessToken: user.accessToken
     };
 
-    dispatch(rejectWaitingFriend(friendInfo));
+    dispatch(rejectWaitingFriend(requestInfo));
   };
 
   return (
@@ -113,13 +113,13 @@ const FriendCard = ({ friend }) => {
             text="수락"
             textStyle={styles.buttonText}
             buttonStyle={styles.friendButton}
-            handleClick={() => acceptFriend(friendInfo.email)}
+            handleClick={acceptFriend}
           />
           <Button
             text="거절"
             textStyle={styles.buttonText}
             buttonStyle={styles.friendButton}
-            handleClick={() => rejectFriend(friendInfo.email)}
+            handleClick={rejectFriend}
           />
         </View>
       }
@@ -129,7 +129,7 @@ const FriendCard = ({ friend }) => {
             text="삭제"
             textStyle={styles.buttonText}
             buttonStyle={styles.friendButton}
-            handleClick={() => rejectFriend(friendInfo.email)}
+            handleClick={rejectFriend}
           />
         </View>
       }

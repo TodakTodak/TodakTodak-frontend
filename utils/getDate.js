@@ -1,3 +1,8 @@
+/**
+ * @param {Date} time new Date() format
+ * @returns {String} hh:mm format
+ */
+
 const formatDate = (time) => {
   const date = new Date(time);
 
