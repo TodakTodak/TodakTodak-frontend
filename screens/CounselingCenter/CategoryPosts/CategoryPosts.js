@@ -9,7 +9,7 @@ import { useNavigation } from "@react-navigation/native";
 import EmptyView from "../../../components/EmptyView/EmptyView";
 import CategoryPostCard from "../../../components/CategoryPostCard/CategoryPostCard";
 
-import styles from "../styles";
+import styles from "./styles";
 
 import { DETAIL_POST } from "../../../constants/navigationName";
 
@@ -40,7 +40,6 @@ const CategoryPosts = ({
     <>
       {post[category].length < 1 && isFetched[category]
         ? <ScrollView
-            contentContainerStyle={styles.emptyContainer}
             refreshControl={
               <RefreshControl onRefresh={refreshCategory} />
             }
@@ -51,15 +50,14 @@ const CategoryPosts = ({
             />
           </ScrollView>
           : <FlatList
-              refreshControl={
-                <RefreshControl onRefresh={refreshCategory} />
-              }
               data={post[category]}
               onEndReached={getCategorys}
               onEndReachedThreshold={0.9}
-              styles={styles.postsWrapper}
               renderItem={renderCategoryPosts}
               keyExtractor={(item) => item._id}
+              refreshControl={
+                <RefreshControl onRefresh={refreshCategory} />
+              }
             />
       }
     </>

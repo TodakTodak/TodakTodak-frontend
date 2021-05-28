@@ -12,6 +12,7 @@ import { fetchLogin, userSlice } from "../../redux/userSlice";
 
 import styles from "./styles";
 
+import { SERVER_ERROR } from "../../constants/message";
 import { LOGIN, SIGNUP } from "../../constants/navigationName";
 
 import backgroundImage from "../../assets/pngs/background.png";
@@ -24,7 +25,8 @@ const Intro = () => {
   const { message } = useSelector((state) => state.user);
 
   useEffect(() => {
-    (async function authLogin() {
+    try {
+      (async function authLogin() {
         const userInfo = await SecureStore.getItemAsync("userInfo");
 
         if (!userInfo) return;
@@ -35,6 +37,9 @@ const Intro = () => {
           dispatch(fetchLogin(parsedUserInfo));
         }
     })();
+    } catch (err) {
+      setErrorMessage(SERVER_ERROR);
+    }
   }, []);
 
   const handleLoginClick = () => {

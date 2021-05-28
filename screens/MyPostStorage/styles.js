@@ -1,7 +1,6 @@
 import { StyleSheet } from "react-native";
 
 import {
-  WHITE,
   COURSE_COLOR,
   TRANSPARENCY
 } from "../../constants/color";
@@ -41,19 +40,6 @@ const styles = StyleSheet.create({
   },
   loading: {
     backgroundColor: TRANSPARENCY
-  },
-  emptyContainer: {
-    marginTop: "40%",
-    alignItems: "center"
-  },
-  emptyBoxImage: {
-    width: 100,
-    height: 100
-  },
-  emptyText: {
-    marginTop: 20,
-    color: WHITE,
-    fontSize: 20
   }
 });
 

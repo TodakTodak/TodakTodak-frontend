@@ -10,8 +10,9 @@ const styles = StyleSheet.create({
     width: "100%",
     height: "100%"
   },
-  loginButton: {
-    width: "90%"
+  textInputContainer: {
+    marginTop: 150,
+    marginBottom: 20
   },
   buttonContainer: {
     flexDirection: "row",
@@ -19,9 +20,8 @@ const styles = StyleSheet.create({
     justifyContent: "space-evenly",
     marginBottom: 20
   },
-  textInputContainer: {
-    marginTop: 150,
-    marginBottom: 20
+  loginButton: {
+    width: "90%"
   }
 });
 

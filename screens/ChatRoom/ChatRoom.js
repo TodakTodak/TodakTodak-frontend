@@ -5,10 +5,11 @@ import React, {
 } from "react";
 import {
   View,
-  ScrollView,
+  FlatList,
   ImageBackground,
   KeyboardAvoidingView
 } from "react-native";
+import { useNavigation } from "@react-navigation/native";
 import io from "socket.io-client";
 
 import Title from "../../components/Title/Title";
@@ -34,10 +35,12 @@ import backgroundImage from "../../assets/pngs/background.png";
 
 let socket;
 
-const ChatRoom = ({ route, navigation }) => {
+const ChatRoom = ({ route }) => {
   const [chats, setChats] = useState([]);
   const [comment, setComment] = useState("");
+
   const scrollRef = useRef();
+  const navigation = useNavigation();
 
   const {
     user,
@@ -106,25 +109,15 @@ const ChatRoom = ({ route, navigation }) => {
     navigation.navigate(FRIENDS);
   };
 
-  const renderChats = () => {
-    return chats.map((chat) => {
-      const {
-        comment,
-        createdAt,
-        userNickname,
-        systemMessage
-      } = chat;
-
-      return (
-        <ChatLog
-          key={createdAt}
-          comment={comment}
-          createdAt={createdAt}
-          userNickname={userNickname}
-          systemMessage={systemMessage}
-        />
-      );
-    });
+  const renderChatLogs = ({ item }) => {
+    return (
+      <ChatLog
+        comment={item.comment}
+        createdAt={item.createdAt}
+        userNickname={item.userNickname}
+        systemMessage={item.systemMessage}
+      />
+    );
   };
 
   return (
@@ -144,18 +137,19 @@ const ChatRoom = ({ route, navigation }) => {
           behavior={Platform.OS === "ios" ? "padding" : "height"}
         >
           <Title text="소통방" imageStyle={styles.titleImage} />
-          <ScrollView
+          <FlatList
+            data={chats}
             ref={scrollRef}
+            renderItem={renderChatLogs}
             style={styles.contentsWrapper}
             onContentSizeChange={scrollToBottom}
-          >
-            {renderChats()}
-          </ScrollView>
+            keyExtractor={(item) => item.createdAt}
+          />
           <View style={styles.inputWrapper}>
             <TextInput
               value={comment}
-              placeholder="위로말을 해주세요..."
               style={styles.textInput}
+              placeholder="위로말을 해주세요..."
               handleInputChange={setComment}
             />
             <Button
