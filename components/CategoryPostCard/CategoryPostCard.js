@@ -6,11 +6,12 @@ import {
 } from "react-native";
 import { AntDesign } from "@expo/vector-icons";
 
+import Button from "../Button/Button";
+
 import styles from "./styles";
 
 import { RED } from "../../constants/color";
 import { CONTENTS_TITLE_LIMIT } from "../../constants/category";
-import Button from "../Button/Button";
 
 const CategoryPostCard = ({
   postInfo,
