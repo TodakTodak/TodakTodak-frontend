@@ -1,7 +1,6 @@
 import React, {
   useState,
-  useEffect,
-  useCallback
+  useEffect
 } from "react";
 import {
   View,
@@ -36,7 +35,7 @@ const Comment = ({
     }
   }, []);
 
-  const handleLikeClick = useCallback(async () => {
+  const handleLikeClick = async () => {
     try {
       const commentLikeInfo = {
         commentId: comment._id
@@ -54,9 +53,9 @@ const Comment = ({
     } catch (err) {
       alertMessage(SERVER_ERROR);
     }
-  }, [isLike]);
+  };
 
-  const handleAddFriendClick = (async () => {
+  const handleAddFriendClick = async () => {
     try {
       const friendInfo = {
         targetUser: comment.user
@@ -74,7 +73,7 @@ const Comment = ({
     } catch (err) {
       alertMessage(SERVER_ERROR);
     }
-  }, []);
+  };
 
   return (
     <View style={styles.commentsContainer}>

@@ -13,10 +13,10 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
+import AnswerButtons from "./AnswerButtons/AnswerButtons";
 import Title from "../../components/Title/Title";
 import TextInput from "../../components/TextInput/TextInput";
 import AlertModal from "../../components/AlertModal/AlertModal";
-import AnswerButtons from "./AnswerButtons/AnswerButtons";
 
 import { patchCommentLike } from "../../api/commentApi";
 
@@ -34,7 +34,6 @@ const Answer = ({ route }) => {
   const [comment, setComment] = useState("");
   const [message, setMessage] = useState("");
   const [isCommentLike, setIsCommentLike] = useState(false);
-  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
@@ -65,19 +64,17 @@ const Answer = ({ route }) => {
       );
 
       if (response.errorMessage) {
-        setMessage(response.errorMessage);
-        setIsModalVisible(true);
+        return setMessage(response.errorMessage);
       }
 
       setIsCommentLike((isCommentLike) => !isCommentLike);
     } catch (err) {
       setMessage(SERVER_ERROR);
-      setIsModalVisible(true);
     }
   }, [isCommentLike]);
 
-  const handleModalCloseButton = useCallback(() => {
-    setIsModalVisible(false);
+  const clearErrorMessage = useCallback(() => {
+    setMessage("");
   }, []);
 
   const handleRoutePostButtonClick =  useCallback(() => {
@@ -133,11 +130,12 @@ const Answer = ({ route }) => {
             handleRoutePostButtonClick={handleRoutePostButtonClick}
           />
         </View>
-        <AlertModal
-          message={message}
-          isModalVisible={isModalVisible}
-          handleModalClose={handleModalCloseButton}
-        />
+        {message &&
+          <AlertModal
+            message={message}
+            handleModalClose={clearErrorMessage}
+          />
+        }
       </ImageBackground>
     </TouchableWithoutFeedback>
   );

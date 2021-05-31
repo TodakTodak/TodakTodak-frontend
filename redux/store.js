@@ -1,6 +1,6 @@
-import { configureStore } from "@reduxjs/toolkit";
 import thunk from "redux-thunk";
 import { createLogger } from "redux-logger";
+import { configureStore } from "@reduxjs/toolkit";
 
 import { userSlice } from "./userSlice";
 import { categoryPostSlice } from "./categoryPostSlice";

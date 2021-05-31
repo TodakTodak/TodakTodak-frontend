@@ -46,6 +46,7 @@ const WriteWorry = ({ route }) => {
 
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
+
   const { postInfo } = route.params;
 
   useFocusEffect(useCallback(() => {
@@ -110,7 +111,13 @@ const WriteWorry = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  }, [postType, category, postTitle, anonymousType, worryContents]);
+  }, [
+    postType,
+    category,
+    postTitle,
+    anonymousType,
+    worryContents
+  ]);
 
   const handleModifyButtonClick = useCallback(async () => {
     const modifyPostInfo = {
@@ -121,7 +128,6 @@ const WriteWorry = ({ route }) => {
       worryContents,
       postId: postInfo._id
     };
-
     const incorrectMessage = validatePostInfo(modifyPostInfo);
 
     if (incorrectMessage) {
@@ -135,7 +141,13 @@ const WriteWorry = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  }, [postType, category, postTitle, anonymousType, worryContents]);
+  }, [
+    postType,
+    category,
+    postTitle,
+    anonymousType,
+    worryContents
+  ]);
 
   return (
     <ImageBackground

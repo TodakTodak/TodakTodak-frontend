@@ -50,7 +50,7 @@ const DetailPost = ({ route }) => {
     return <Loading />;
   }
 
-  const getCurrentPostDetailInfo = useCallback(async () => {
+  const getCurrentPostDetailInfo = async () => {
     setIsLoading(true);
 
     try {
@@ -72,25 +72,25 @@ const DetailPost = ({ route }) => {
     } finally {
       setIsLoading(false);
     }
-  }, []);
+  };
 
-  const handleAddCommentButtonClick = useCallback(() => {
+  const handleAddCommentButtonClick = () => {
     navigation.navigate(WRITE_COMMENT, { postId });
-  }, []);
+  };
 
-  const handleModifyButtonClick = useCallback(() => {
+  const handleModifyButtonClick = () => {
     navigation.navigate(WRITE_WORRY, { postInfo });
-  }, [postInfo]);
+  };
 
-  const handleCommentsButtonClick = useCallback(() => {
+  const handleCommentsButtonClick = () => {
     navigation.navigate(COMMENTS, { postId: postInfo._id });
-  }, [postInfo]);
+  };
 
-  const clearMessage = useCallback(() => {
+  const clearMessage = () => {
     setErrorMessage(null);
-  }, []);
+  };
 
-  const handleLikeButtonClick = useCallback(async () => {
+  const handleLikeButtonClick = async () => {
     const likeInfo = { postId };
 
     try {
@@ -104,7 +104,7 @@ const DetailPost = ({ route }) => {
     } catch (err) {
       setErrorMessage(SERVER_ERROR);
     }
-  }, [isPostLike]);
+  };
 
   return (
     <ImageBackground
