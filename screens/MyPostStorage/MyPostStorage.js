@@ -41,7 +41,12 @@ const MyPostStorage = () => {
     if (activeCategory === "나의 위로들") {
       dispatch(fetchMyComments(accessToken));
     }
-  }, [dispatch, fetchMyPosts, fetchMyComments, activeCategory]));
+  }, [
+    dispatch,
+    fetchMyPosts,
+    fetchMyComments,
+    activeCategory
+  ]));
 
   const clearMessage = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());

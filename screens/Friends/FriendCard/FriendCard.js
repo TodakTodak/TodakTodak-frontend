@@ -7,12 +7,12 @@ import {
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
 
-import Button from "../../components/Button/Button";
+import Button from "../../../components/Button/Button";
 
 import {
   rejectWaitingFriend,
   acceptWaitingFriend
-} from "../../redux/userSlice";
+} from "../../../redux/userSlice";
 
 import styles from "./styles";
 
@@ -25,10 +25,10 @@ import {
   RECEIVE_REJECT,
   SENDING_PENDING,
   RECEIVE_PENDING
-} from "../../constants/friendStatus";
-import { CHAT_ROOM } from "../../constants/navigationName";
+} from "../../../constants/friendStatus";
+import { CHAT_ROOM } from "../../../constants/navigationName";
 
-import avatar from "../../assets/pngs/avatar.png";
+import avatar from "../../../assets/pngs/avatar.png";
 
 const FriendCard = ({ friend }) => {
   const [friendStatus, setFriendStatus] = useState("");
@@ -96,14 +96,19 @@ const FriendCard = ({ friend }) => {
       key={friendInfo.nickname}
     >
       <View style={styles.friendInfoWrapper}>
-        <Image source={avatar} style={styles.friendAvatar} />
+        <Image
+          source={avatar}
+          style={styles.friendAvatar}
+        />
         <View style={styles.friendInfo}>
           <Text style={styles.friendName}>
             {friendStatus === `${PENDING}:` ? `${REQUEST_FRIEND}:` : ""}{" "}
             {friendInfo.nickname}
           </Text>
           {friendStatus !== FRIEND &&
-            <Text style={styles.friendStatusText}>{friendStatus}</Text>
+            <Text style={styles.friendStatusText}>
+              {friendStatus}
+            </Text>
           }
         </View>
       </View>

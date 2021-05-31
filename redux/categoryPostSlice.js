@@ -130,9 +130,9 @@ export const categoryPostSlice = createSlice({
       return initialState;
     },
     refreshPostCategory: (state, { payload }) => {
-      state.isFetched[payload] = false;
       state.post[payload] = [];
       state.bestPost[payload] = [];
+      state.isFetched[payload] = false;
     },
     clearMessage: (state) => {
       state.message = null;
@@ -161,7 +161,7 @@ export const categoryPostSlice = createSlice({
     [fetchLovePosts.pending]: (state) => {
       state.isLoading = true;
     },
-    [fetchLovePosts.rejected]: (state) => {
+    [fetchLovePosts.rejected]: (state, { payload }) => {
       state.message = payload.errorMessage;
       state.isLoading = false;
     },

@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import * as SecureStore from "expo-secure-store";
+
 import {
   putLogin,
   postSignup,
@@ -13,7 +14,7 @@ import { deletePost } from "../api/postApi";
 import {
   patchComment,
   getMyComments,
-  deleteComment,
+  deleteComment
 } from "../api/commentApi";
 
 export const fetchLogin = createAsyncThunk(
@@ -28,7 +29,10 @@ export const fetchLogin = createAsyncThunk(
           password: userInfo.password
         };
 
-        await SecureStore.setItemAsync("userInfo", JSON.stringify(userLoginInfo));
+        await SecureStore.setItemAsync(
+          "userInfo",
+          JSON.stringify(userLoginInfo)
+          );
 
         return response;
       }

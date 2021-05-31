@@ -1,8 +1,8 @@
 import React, { useCallback } from "react";
 import { FlatList } from "react-native";
 
+import FriendCard from "../FriendCard/FriendCard";
 import EmptyView from "../../../components/EmptyView/EmptyView";
-import FriendCard from "../../../components/FriendCard/FriendCard";
 
 import { NOT_EXIST_FRIEND } from "../../../constants/friendStatus";
 

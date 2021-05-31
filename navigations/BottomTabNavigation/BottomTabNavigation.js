@@ -89,7 +89,11 @@ const BottomTabNavigation = () => {
         options={{
           tabBarLabel: USER_INFO_ROOMLABEL,
           tabBarIcon: () => (
-            <AntDesign name="setting" size={24} color={BLACK} />
+            <AntDesign
+              size={24}
+              name="setting"
+              color={BLACK}
+            />
           )
         }}
       />

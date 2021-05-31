@@ -3,7 +3,7 @@ import { View, TextInput } from "react-native";
 
 import styles from "./styles";
 
-const TextInputBox = ({
+const TextInputWrapper = ({
   type,
   style,
   value,
@@ -29,4 +29,4 @@ const TextInputBox = ({
   );
 }
 
-export default React.memo(TextInputBox);
+export default React.memo(TextInputWrapper);

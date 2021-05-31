@@ -37,7 +37,7 @@ const CategoryPostCard = ({
         >
           <View style={styles.cardWrapper}>
             <View>
-              <Text style={[styles.postTitle, titleStyle]}>
+              <Text style={[ styles.postTitle, titleStyle ]}>
                 {CONTENTS_TITLE_LIMIT < title.length
                   ? `${title.substring(0, 8)}...`
                   : title

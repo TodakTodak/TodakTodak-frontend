@@ -35,10 +35,6 @@ const WriteComment = ({ route }) => {
 
   const { postId } = route.params;
 
-  const clearErrorMessage = useCallback(() => {
-    setErrorMessage(null);
-  }, []);
-
   const handleAddCommentButtonClick = useCallback(async () => {
     const commentInfo = {
       postId,
@@ -57,6 +53,10 @@ const WriteComment = ({ route }) => {
       setErrorMessage(SERVER_ERROR);
     }
   }, [content]);
+
+  const clearErrorMessage = useCallback(() => {
+    setErrorMessage(null);
+  }, []);
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>

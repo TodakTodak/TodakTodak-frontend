@@ -7,7 +7,7 @@ import {
   YELLOW,
   TRANSPARENCY,
   UNREAD_MESSAGE_COUNT
-} from "../../constants/color";
+} from "../../../constants/color";
 
 const styles = StyleSheet.create({
   friend: {

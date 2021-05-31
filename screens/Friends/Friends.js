@@ -7,8 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
 
 import FriendList from "./FriendList/FriendList";
-import Title from "../../components/Title/Title";
 import Loading from "../../screens/Loading/Loading";
+import Title from "../../components/Title/Title";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 

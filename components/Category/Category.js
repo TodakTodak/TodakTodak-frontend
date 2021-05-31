@@ -13,7 +13,7 @@ const Category = ({
   categoryColor = CATEGORY_DEFAULT_BACKGROUND
 }) => {
   return (
-    <View style={[styles.categoryContainer, categoryContainerStyle]}>
+    <View style={[ styles.categoryContainer, categoryContainerStyle ]}>
       <View
         style={[
           styles.categoryWrapper,

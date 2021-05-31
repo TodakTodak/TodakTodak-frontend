@@ -142,7 +142,7 @@ const CounselingCenter = () => {
         categoryContainerStyle={styles.catagoryContainer}
       />
     );
-  }, []);
+  }, [postCategory]);
 
   const handleBestPostClick = useCallback(() => {
     navigation.navigate(DETAIL_POST, {

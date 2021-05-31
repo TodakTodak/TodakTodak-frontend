@@ -11,20 +11,15 @@ import styles from "./styles";
 
 const AlertModal = ({
   message,
-  textStyles,
-  ModalStyle,
-  isModalVisible,
   handleModalClose
 }) => {
-
   return (
     <Modal
       transparent={true}
       animationType="slide"
-      visible={isModalVisible}
     >
-      <View style={[styles.friendModal, ModalStyle]}>
-        <Text style={[styles.text, textStyles]}>
+      <View style={styles.friendModal}>
+        <Text style={styles.text}>
           {message}
         </Text>
         <Button
