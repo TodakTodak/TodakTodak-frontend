@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { render } from "@testing-library/react-native";
 
-import FriendCard from "../../components/FriendCard/FriendCard";
+import FriendCard from "../../screens/Friends/FriendCard/FriendCard";
 
 import {
   MOCK_USER_NAME,

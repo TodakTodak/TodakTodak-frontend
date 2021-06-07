@@ -1,10 +1,12 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   ImageBackground
 } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { useFocusEffect } from "@react-navigation/native";
+
+import useActiveCategory from "../../hooks/useActiveCategory";
 
 import FriendList from "./FriendList/FriendList";
 import Loading from "../../screens/Loading/Loading";
@@ -28,34 +30,24 @@ import {
 import backgroundImage from "../../assets/pngs/background.png";
 
 const Friends = () => {
-  const [activeCategory, setActiveCategory] = useState(MY_FRIENDS);
+  const categoryInfo = {
+    [MY_FRIENDS]: fetchMyFriends,
+    [WAITING_FRIENDS]: fetchWaitingFriends
+  };
 
-  const dispatch = useDispatch();
   const {
     isLoading,
     friendList,
-    accessToken,
     errorMessage,
     waitingFriendList
   } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+
+  const [activeCategory, setActiveCategory] = useActiveCategory(MY_FRIENDS, categoryInfo);
 
   useFocusEffect(useCallback(() => {
     dispatch(userSlice.actions.resetFriendFetchedStatus());
-
-    if (activeCategory === MY_FRIENDS) {
-      dispatch(fetchMyFriends(accessToken));
-    }
-
-    if (activeCategory === WAITING_FRIENDS) {
-      dispatch(fetchWaitingFriends(accessToken));
-    }
-  }, [
-    userSlice,
-    accessToken,
-    activeCategory,
-    fetchMyFriends,
-    fetchWaitingFriends
-  ]));
+  }, []));
 
   const clearMessage = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());
@@ -71,11 +63,13 @@ const Friends = () => {
         <View style={styles.categoryWrapper}>
           <CategoryButton
             title={MY_FRIENDS}
+            categoryInfo={categoryInfo}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />
           <CategoryButton
             title={WAITING_FRIENDS}
+            categoryInfo={categoryInfo}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />

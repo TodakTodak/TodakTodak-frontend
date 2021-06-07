@@ -18,15 +18,16 @@ const CategoryButton = ({
   titleStyle,
   focusValue,
   handleClick,
+  categoryInfo,
   categoryContainerStyle,
   categoryColor = CATEGORY_ACTIVE_COLOR
 }) => {
   return (
-    <View style={[styles.categoryContainer, categoryContainerStyle]}>
+    <View style={[ styles.categoryContainer, categoryContainerStyle ]}>
       <TouchableOpacity
         testID={TEST_ID}
         accessibilityRole="button"
-        onPress={() => handleClick(title)}
+        onPress={() => handleClick(title, categoryInfo)}
         style={[
           styles.categoryWrapper,
           {

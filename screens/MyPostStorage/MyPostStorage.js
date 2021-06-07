@@ -1,9 +1,8 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback } from "react";
 import {
   View,
   ImageBackground
 } from "react-native";
-import { useFocusEffect } from "@react-navigation/native";
 import { useSelector, useDispatch } from "react-redux";
 
 import MyPosts from "./MyPosts/MyPosts";
@@ -13,6 +12,8 @@ import Title from "../../components/Title/Title";
 import AlertModal from "../../components/AlertModal/AlertModal";
 import CategoryButton from "../../components/CategoryButton/CategoryButton";
 
+import useActiveCategory from "../../hooks/useActiveCategory";
+
 import {
   userSlice,
   fetchMyPosts,
@@ -21,32 +22,25 @@ import {
 
 import styles from "./styles";
 
+import {
+  MY_POSTS,
+  MY_COMMENTS
+} from "../../constants/category";
 import backgroundImage from "../../assets/pngs/background.png";
 
 const MyPostStorage = () => {
-  const [activeCategory, setActiveCategory] = useState("나의 고민들");
-
   const dispatch = useDispatch();
   const {
     message,
-    isLoading,
-    accessToken
+    isLoading
   } = useSelector((state) => state.user);
 
-  useFocusEffect(useCallback(() => {
-    if (activeCategory === "나의 고민들") {
-      dispatch(fetchMyPosts(accessToken));
-    }
+  const categoryInfo = {
+    [MY_POSTS]: fetchMyPosts,
+    [MY_COMMENTS]: fetchMyComments
+  };
 
-    if (activeCategory === "나의 위로들") {
-      dispatch(fetchMyComments(accessToken));
-    }
-  }, [
-    dispatch,
-    fetchMyPosts,
-    fetchMyComments,
-    activeCategory
-  ]));
+  const [activeCategory, setActiveCategory] = useActiveCategory(MY_POSTS, categoryInfo);
 
   const clearMessage = useCallback(() => {
     dispatch(userSlice.actions.clearMessage());
@@ -62,11 +56,13 @@ const MyPostStorage = () => {
         <View style={styles.categorysWrapper}>
           <CategoryButton
             title="나의 고민들"
+            categoryInfo={categoryInfo}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
           />
           <CategoryButton
             title="나의 위로들"
+            categoryInfo={categoryInfo}
             focusValue={activeCategory}
             handleClick={setActiveCategory}
             categoryStyle={styles.thudamCategory}

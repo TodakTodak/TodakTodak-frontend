@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   View,
   Text,
@@ -6,6 +6,8 @@ import {
 } from "react-native";
 import { useSelector, useDispatch } from "react-redux";
 import { useNavigation } from "@react-navigation/native";
+
+import useFriendStatus from "../../../hooks/useFriendStatus";
 
 import Button from "../../../components/Button/Button";
 
@@ -21,48 +23,23 @@ import {
   PENDING,
   CHECK_STATUS,
   REJECT_FRIEND,
-  REQUEST_FRIEND,
-  RECEIVE_REJECT,
-  SENDING_PENDING,
-  RECEIVE_PENDING
+  REQUEST_FRIEND
 } from "../../../constants/friendStatus";
 import { CHAT_ROOM } from "../../../constants/navigationName";
 
 import avatar from "../../../assets/pngs/avatar.png";
-
 const FriendCard = ({ friend }) => {
-  const [friendStatus, setFriendStatus] = useState("");
+  const friendStatus = useFriendStatus(friend);
 
   const dispatch = useDispatch();
   const navigation = useNavigation();
   const user = useSelector((state) => state.user);
 
   const {
-    status,
     friendInfo,
     chatRoomId,
     unreadMessageCount
   } = friend;
-
-  useEffect(() => {
-    switch (status) {
-      case SENDING_PENDING:
-        setFriendStatus(PENDING);
-        break;
-
-      case RECEIVE_PENDING:
-        setFriendStatus(CHECK_STATUS);
-        break;
-
-      case RECEIVE_REJECT:
-        setFriendStatus(REJECT_FRIEND);
-        break;
-
-      default:
-        setFriendStatus(FRIEND);
-        break;
-    }
-  }, [friend]);
 
   const handleEnterChatRoomClick = () => {
     navigation.navigate(CHAT_ROOM, {
