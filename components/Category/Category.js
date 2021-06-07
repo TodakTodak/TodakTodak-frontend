@@ -1,3 +1,11 @@
+/**
+ * Component for showing category Info in DetailPost Screen.
+ *
+ * @component
+ *
+ * @param {String} title Post category
+ */
+
 import React from "react";
 import { View, Text } from "react-native";
 

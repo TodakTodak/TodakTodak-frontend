@@ -1,3 +1,12 @@
+/**
+ * Component for button with icon of the user.
+ *
+ * @component
+ *
+ * @param {String} text A content of button
+ * @param {Function} handleClick Function to be executed when the button is clicked
+ */
+
 import React from "react";
 import {
   Text,

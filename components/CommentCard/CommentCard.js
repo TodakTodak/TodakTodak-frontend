@@ -1,3 +1,14 @@
+/**
+ * Component for showing post information of the user.
+ * When pressed, executes something handleCardClick function.
+ *
+ * @component
+ *
+ * @param {Object} comment A comment information
+ * @param {Function} handleCardClick When pressed, executes something
+ * @param {Function} handleDeleteClick When pressed, delete comment
+ */
+
 import React from "react";
 import {
   View,

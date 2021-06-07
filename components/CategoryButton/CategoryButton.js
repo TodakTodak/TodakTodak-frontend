@@ -1,3 +1,16 @@
+/**
+ * Component for showing a category of the user.
+ * When pressed, executes something handleClick function.
+ *
+ * @component
+ *
+ * @param {String} title Category name
+ * @param {String} focusValue Active category name
+ * @param {String} categoryColor Category Button background color
+ * @param {Object} categoryInfo Category information for handle click function
+ * @param {Function} handleClick When pressed, executes something
+ */
+
 import React from "react";
 import {
   View,

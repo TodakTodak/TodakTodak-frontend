@@ -1,3 +1,15 @@
+/**
+ * Component for showing post information of the user.
+ * When pressed, executes something handleClick function.
+ *
+ * @component
+ *
+ * @param {Object} postInfo A post information
+*  The information have likes, title, createdAt, isAnonymous, ownerNickname
+ * @param {Function} handleClick When pressed, executes something
+ * @param {Function} handleDeleteClick When pressed, delete post
+ */
+
 import React from "react";
 import {
   View,

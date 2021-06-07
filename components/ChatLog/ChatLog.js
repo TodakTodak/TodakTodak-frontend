@@ -1,3 +1,14 @@
+/**
+ * Component for showing chat information of the user.
+ *
+ * @component
+ *
+ * @param {String} comment A content of chatting
+ * @param {Date} createdAt A date information when response chat
+ * @param {String} userNickname A current user nickname
+ * @param {String} systemMessage A content of system message
+ */
+
 import React from "react";
 import { View, Text } from "react-native";
 import { useSelector } from "react-redux";

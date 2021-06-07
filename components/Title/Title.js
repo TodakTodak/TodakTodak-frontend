@@ -1,3 +1,11 @@
+/**
+ * Component for showing Screen Title of the user.
+ *
+ * @component
+ *
+ * @param {String} text The screen Title
+ */
+
 import React from "react";
 import {
   Text,
