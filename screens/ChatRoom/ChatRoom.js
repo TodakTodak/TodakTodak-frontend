@@ -11,7 +11,8 @@ import {
   KeyboardAvoidingView
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import io from "socket.io-client";
+
+import useChat from "../../hooks/useChat";
 
 import Title from "../../components/Title/Title";
 import Button from "../../components/Button/Button";
@@ -20,24 +21,13 @@ import TextInput from "../../components/TextInput/TextInput";
 
 import styles from "./styles";
 
-import { SERVER_URL } from "@env";
 import { FRIENDS } from "../../constants/navigationName";
-import {
-  JOIN_ROOM,
-  SEND_CHAT,
-  LEAVE_USER,
-  RECEIVE_CHAT,
-  JOIN_USER_MESSAGE,
-  LEAVE_USER_MESSAGE,
-  RECEIVE_INITAL_CHATS
-} from "../../constants/socketEvents";
+import { SEND_CHAT } from "../../constants/socketEvents";
 
 import backgroundImage from "../../assets/pngs/background.png";
 
-let socket;
-
 const ChatRoom = ({ route }) => {
-  const [chats, setChats] = useState([]);
+  const { chats, socket } = useChat(route.params);
   const [comment, setComment] = useState("");
 
   const scrollRef = useRef();
@@ -48,39 +38,6 @@ const ChatRoom = ({ route }) => {
     friendInfo,
     chatRoomId
   } = route.params;
-
-  useEffect(() => {
-    const joinUserInfo = {
-      user,
-      friendInfo,
-      chatRoomId
-    };
-
-    socket = io.connect(SERVER_URL);
-
-    socket.emit(JOIN_ROOM, joinUserInfo);
-
-    socket.on(RECEIVE_CHAT, (data) =>
-      setChats((chats) => [...chats, data])
-    );
-
-    socket.on(RECEIVE_INITAL_CHATS, (data) =>
-      setChats(data)
-    );
-
-    socket.on(JOIN_USER_MESSAGE, (data) =>
-      setChats((chats) => [...chats, data])
-    );
-
-    socket.on(LEAVE_USER_MESSAGE, (data) =>
-      setChats((chats) => [...chats, data])
-    );
-
-    return () => {
-      socket.emit(LEAVE_USER, joinUserInfo);
-      socket.removeAllListeners();
-    };
-  }, []);
 
   useEffect(() => {
     scrollToBottom();

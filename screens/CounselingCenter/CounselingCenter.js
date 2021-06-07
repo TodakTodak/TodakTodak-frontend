@@ -72,14 +72,14 @@ const CounselingCenter = () => {
   }, []));
 
   useFocusEffect(useCallback(() => {
-    const categoryInfo = {
+    const currentCategoryInfo = {
       page: 0,
       accessToken,
       category: postCategory
     };
 
     if (!isFetched[postCategory]) {
-      debounceDispatchCategoryInfo(categoryInfo);
+      debounceDispatchCategoryInfo(currentCategoryInfo);
     }
   }, [postCategory, isFetched]));
 
