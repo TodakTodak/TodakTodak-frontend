@@ -1,3 +1,11 @@
+/**
+ * Component for showing Empty icon of the user.
+ *
+ * @component
+ *
+ * @param {String} text showing alert message
+ */
+
 import React from "react";
 import {
   View,

@@ -1,3 +1,12 @@
+/**
+ * Component for showing message of the user.
+ *
+ * @component
+ *
+ * @param {String} message A message to inform users
+ * @param {Function} handleModalClose Function to turn off the notification window
+ */
+
 import React from "react";
 import {
   View,
