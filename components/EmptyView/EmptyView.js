@@ -1,5 +1,5 @@
 /**
- * Component for showing Empty icon of the user.
+ * Component for showing Empty icon with text to the user.
  *
  * @component
  *

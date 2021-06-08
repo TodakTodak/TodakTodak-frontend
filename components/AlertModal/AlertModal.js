@@ -1,5 +1,5 @@
 /**
- * Component for showing message of the user.
+ * Component for showing message to the user.
  *
  * @component
  *

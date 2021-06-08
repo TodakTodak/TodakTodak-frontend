@@ -64,7 +64,8 @@ const Answer = ({ route }) => {
       );
 
       if (response.errorMessage) {
-        return setMessage(response.errorMessage);
+        setMessage(response.errorMessage);
+        return;
       }
 
       setIsCommentLike((isCommentLike) => !isCommentLike);

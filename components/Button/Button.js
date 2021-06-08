@@ -1,5 +1,5 @@
 /**
- * Component for button with icon of the user.
+ * Component for button with icon to the user.
  *
  * @component
  *

@@ -1,5 +1,5 @@
 /**
- * Component for showing chat information of the user.
+ * Component for showing chat information to the user.
  *
  * @component
  *

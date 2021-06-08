@@ -27,8 +27,8 @@ const styles = StyleSheet.create({
       width: 10,
       height: 10
     },
-    shadowOpacity: 0.4,
-    shadowRadius: 4
+    shadowRadius: 4,
+    shadowOpacity: 0.4
   },
   button: {
     width: "100%",

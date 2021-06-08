@@ -45,7 +45,8 @@ const WriteComment = ({ route }) => {
       const response = await patchComment(commentInfo, accessToken);
 
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        setErrorMessage(response.errorMessage);
+        return;
       }
 
       navigation.goBack();

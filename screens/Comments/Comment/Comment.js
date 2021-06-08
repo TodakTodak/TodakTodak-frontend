@@ -20,10 +20,7 @@ import letterPage from "../../../assets/pngs/letterPage.png";
 import { addFriend } from "../../../api/userApi";
 import { patchCommentLike } from "../../../api/commentApi";
 
-const Comment = ({
-  comment,
-  alertMessage
-}) => {
+const Comment = ({ comment, alertMessage }) => {
   const [isLike, setIsLike] = useState(false);
   const { email, accessToken } = useSelector((state) => state.user);
 
@@ -46,7 +43,8 @@ const Comment = ({
       );
 
       if (response.errorMessage) {
-        return alertMessage(response.errorMessage);
+        alertMessage(response.errorMessage);
+        return;
       }
 
       setIsLike((isLike) => !isLike);

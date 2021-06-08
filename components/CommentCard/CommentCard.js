@@ -1,5 +1,5 @@
 /**
- * Component for showing post information of the user.
+ * Component for showing post information to the user.
  * When pressed, executes something handleCardClick function.
  *
  * @component

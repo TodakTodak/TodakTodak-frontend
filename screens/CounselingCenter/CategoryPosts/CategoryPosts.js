@@ -49,16 +49,16 @@ const CategoryPosts = ({
               viewStyle={styles.emptyContainer}
             />
           </ScrollView>
-          : <FlatList
-              data={post[category]}
-              onEndReached={getCategorys}
-              onEndReachedThreshold={0.9}
-              renderItem={renderCategoryPosts}
-              keyExtractor={(item) => item._id}
-              refreshControl={
-                <RefreshControl onRefresh={refreshCategory} />
-              }
-            />
+        : <FlatList
+            data={post[category]}
+            onEndReached={getCategorys}
+            onEndReachedThreshold={0.9}
+            renderItem={renderCategoryPosts}
+            keyExtractor={(item) => item._id}
+            refreshControl={
+              <RefreshControl onRefresh={refreshCategory} />
+            }
+          />
       }
     </>
   );

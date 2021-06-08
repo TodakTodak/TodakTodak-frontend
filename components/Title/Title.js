@@ -1,5 +1,5 @@
 /**
- * Component for showing Screen Title of the user.
+ * Component for showing Screen Title.
  *
  * @component
  *

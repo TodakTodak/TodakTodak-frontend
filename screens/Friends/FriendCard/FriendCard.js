@@ -28,6 +28,7 @@ import {
 import { CHAT_ROOM } from "../../../constants/navigationName";
 
 import avatar from "../../../assets/pngs/avatar.png";
+
 const FriendCard = ({ friend }) => {
   const friendStatus = useFriendStatus(friend);
 

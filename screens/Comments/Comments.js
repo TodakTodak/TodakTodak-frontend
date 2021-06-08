@@ -38,7 +38,8 @@ const Comments = ({ route }) => {
     const response = await getPostComments(postId, accessToken);
 
     if (response.errorMessage) {
-      return setMessage(response.errorMessage);
+      setMessage(response.errorMessage);
+      return;
     }
 
     setComments(response.comments);

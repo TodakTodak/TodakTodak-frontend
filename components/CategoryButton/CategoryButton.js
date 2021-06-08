@@ -1,5 +1,5 @@
 /**
- * Component for showing a category of the user.
+ * Component for showing a category to the user.
  * When pressed, executes something handleClick function.
  *
  * @component
