@@ -57,7 +57,8 @@ const DetailPost = ({ route }) => {
       const response = await getDetailPost(postId, accessToken);
 
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        setErrorMessage(response.errorMessage);
+        return;
       }
 
       if (response.post.likes.includes(email)) {
@@ -97,7 +98,8 @@ const DetailPost = ({ route }) => {
       const response = await patchPostLike(likeInfo, accessToken);
 
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        setErrorMessage(response.errorMessage);
+        return;
       }
 
       setIsPostLike((isPostLike) => !isPostLike);

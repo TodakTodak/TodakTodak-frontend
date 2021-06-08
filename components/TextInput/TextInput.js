@@ -1,5 +1,5 @@
 /**
- * Component for Showing Text input box of the user.
+ * Component for Showing Text input box to the user.
  * When typing keyboard, write value in Text input box.
  *
  * @param {String} type Typeof TextInput

@@ -45,18 +45,18 @@ const AnswerButtons = ({
           />
         </Button>
       }
-        <Button
-          text="수정하기"
-          textStyle={styles.buttonText}
-          buttonStyle={styles.buttonContainer}
-          handleClick={handleModifyButtonClick}
-        >
-          <Ionicons
-            style={styles.buttonIcon}
-            size={25}
-            color={RED}
-            name="document"
-          />
+      <Button
+        text="수정하기"
+        textStyle={styles.buttonText}
+        buttonStyle={styles.buttonContainer}
+        handleClick={handleModifyButtonClick}
+      >
+        <Ionicons
+          style={styles.buttonIcon}
+          size={25}
+          color={RED}
+          name="document"
+        />
       </Button>
     </View>
   );

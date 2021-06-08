@@ -40,13 +40,15 @@ const Signup = () => {
       const incorrectMessage = validateSignupInfo(signupInfo);
 
       if (incorrectMessage) {
-        return setErrorMessage(incorrectMessage);
+        setErrorMessage(incorrectMessage);
+        return;
       }
 
       const response = await postSignup(signupInfo);
 
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        setErrorMessage(response.errorMessage);
+        return;
       }
 
       navigation.navigate(LOGIN);

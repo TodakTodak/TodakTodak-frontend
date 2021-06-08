@@ -10,11 +10,11 @@ import { useSelector } from "react-redux";
 import { useNavigation, useFocusEffect } from "@react-navigation/native";
 import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
-import Title from "../../components/Title/Title";
-import AlertModal from "../../components/AlertModal/AlertModal";
 import WorryInputs from "./WorryInputs/WorryInputs";
 import WorryInfoPickers from "./WorryInfoPickers/WorryInfoPickers";
 import WriteWorryButtons from "./WriteWorryButtons/WriteWorryButtons";
+import Title from "../../components/Title/Title";
+import AlertModal from "../../components/AlertModal/AlertModal";
 
 import { postNewWorryPost, patchPost } from "../../api/postApi";
 import { validatePostInfo } from "../../validation/postValidation";
@@ -97,14 +97,16 @@ const WriteWorry = ({ route }) => {
     const incorrectMessage = validatePostInfo(postInfo);
 
     if (incorrectMessage) {
-      return setErrorMessage(incorrectMessage);
+      setErrorMessage(incorrectMessage);
+      return;
     }
 
     try {
       const response = await postNewWorryPost(postInfo, user.accessToken);
 
       if (response.errorMessage) {
-        return setErrorMessage(response.errorMessage);
+        setErrorMessage(response.errorMessage);
+        return;
       }
 
       navigation.navigate(MY_POST_STORAGE);
@@ -131,7 +133,8 @@ const WriteWorry = ({ route }) => {
     const incorrectMessage = validatePostInfo(modifyPostInfo);
 
     if (incorrectMessage) {
-      return setErrorMessage(incorrectMessage);
+      setErrorMessage(incorrectMessage);
+      return;
     }
 
     try {

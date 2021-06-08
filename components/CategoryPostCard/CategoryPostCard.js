@@ -1,5 +1,5 @@
 /**
- * Component for showing post information of the user.
+ * Component for showing post information to the user.
  * When pressed, executes something handleClick function.
  *
  * @component
@@ -44,8 +44,8 @@ const CategoryPostCard = ({
     <>
       {0 < Object.keys(postInfo).length &&
         <TouchableOpacity
-          style={[ styles.postCard, cardStyle ]}
           onPress={handleClick}
+          style={[ styles.postCard, cardStyle ]}
         >
           <View style={styles.cardWrapper}>
             <View>

@@ -20,7 +20,7 @@ const styles = StyleSheet.create({
     position: "absolute",
     top: "-45%",
     left: "20%"
-  },
+  }
 });
 
 export default styles;
