@@ -78,7 +78,6 @@ export const fetchFriendPosts = createAsyncThunk(
   }
 );
 
-
 export const fetchPainPosts = createAsyncThunk(
   "post/fetchPainPosts",
   async (categoryInfo, thunkAPI) => {
