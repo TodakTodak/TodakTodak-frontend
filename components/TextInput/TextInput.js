@@ -18,6 +18,8 @@ import { View, TextInput } from "react-native";
 
 import styles from "./styles";
 
+import { TEST_ID } from "../../constants/testContents";
+
 const TextInputWrapper = ({
   type,
   style,
@@ -31,6 +33,7 @@ const TextInputWrapper = ({
   return (
     <View style={styles.textInputContainer}>
       <TextInput
+        testID={TEST_ID}
         value={value}
         editable={editable}
         textContentType={type}
