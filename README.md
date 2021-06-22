@@ -10,81 +10,83 @@
 앱으로 개발하게 되었습니다.
 
 ## Feather
-<div style="display: flex">
-  <span style="margin-right: 20px">
-    <img src="https://user-images.githubusercontent.com/64253365/122916554-fb071580-d397-11eb-88f2-8b12386c1503.png" width="200">
-    <p>
-      내가 작성한 글, 댓글을 확인, 삭제<br>
-      조회할 수 있습니다.
-    </p>
-  </span>
-  <span>
-    <img src="https://user-images.githubusercontent.com/64253365/122918828-808bc500-d39a-11eb-9757-95b37951519f.png" width="200">
-    <p>
-      카테고리 별로 작성된 고민들을 <br>
-      조회할 수 있습니다.<br>
-      고민을 눌러서 상세보기도 가능합니다<br>
-    </p>
-  </span>
-</div>
-<div style="display: flex">
-  <span style="margin-right: 20px">
-    <img src="https://user-images.githubusercontent.com/64253365/122919696-7ddd9f80-d39b-11eb-9a7e-c5dbe70413cc.png" width="200">
-    <p>
-      고민 상세보기 페이지입니다.<br>
-      좋아요, 댓글 달기, 보기,<br>
-      댓글 작성자의 경우 <br>
-      수정이 가능합니다.<br>
-    </p>
-  </span>
-  <span>
-    <img src="https://user-images.githubusercontent.com/64253365/122919945-c7c68580-d39b-11eb-980d-e47fb3169c29.png" width="200">
-    <p>
-      댓글을 작성하는 스크린입니다.<br>
-    </p>
-  </span>
-</div>
-<div style="display: flex">
-  <span style="margin-right: 20px">
-    <img src="https://user-images.githubusercontent.com/64253365/122920013-dca31900-d39b-11eb-9ae0-7601cc89598b.png" width="200">
-    <p>
-      한 고민글에 작성된 모든 댓글들을<br>
-      확인하는 스크린입니다.<br>
-      각 댓글들에 좋아요를 할 수 있고<br>
-      친구추가 요청을 할 수 있습니다.<br>
-    </p>
-  </span>
-  <span>
-    <img src="https://user-images.githubusercontent.com/64253365/122920075-f2b0d980-d39b-11eb-847c-ea0fa8c871a2.png" width="200">
-    <p>
-      고민을 작성하는 스크린입니다.<br>
-      공개, 익명 여부를 선택할 수 있고<br>
-      고민 카테고리를 선정하여 글을<br>
-      등록할 수 있습니다.
-    </p>
-  </span>
-</div>
-<div style="display: flex">
-  <span style="margin-right: 20px">
-    <img src="https://user-images.githubusercontent.com/64253365/122920133-04927c80-d39c-11eb-87c6-f9075a05b2f1.png" width="200">
-    <p>
-      친구 목록을 확인할 수 있으며,<br>
-      채팅창으로 이동할 수 있고,<br>
-      읽지 않는 메시지 수를 <br>
-      확인할 수 있습니다.<br>
-      상단의 버튼을 통해 대기 중인<br>
-      친구 목록을 확인할 수 있습니다.<br>
-    </p>
-  </span>
-  <span>
-    <img src="https://user-images.githubusercontent.com/64253365/122920197-15db8900-d39c-11eb-954a-be866e42785f.png" width="200">
-    <p>
-      채팅방입니다.<br>
-      상대방과 실시간으로 채팅을<br>
-      할 수 있습니다.<br>
-    </p>
-  </span>
-</div>
+<table style="text-align: center">
+  <tr>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122916554-fb071580-d397-11eb-88f2-8b12386c1503.png" width="230">
+      <p>
+        내가 작성한 글, 댓글을 확인, 삭제<br>
+        조회할 수 있습니다.
+      </p>
+    </td>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122918828-808bc500-d39a-11eb-9757-95b37951519f.png" width="230">
+      <p>
+        카테고리 별로 작성된 고민들을 <br>
+        조회할 수 있습니다.<br>
+        고민을 눌러서 상세보기도 가능합니다<br>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122919696-7ddd9f80-d39b-11eb-9a7e-c5dbe70413cc.png" width="230">
+      <p>
+        고민 상세보기 페이지입니다.<br>
+        좋아요, 댓글 달기, 보기,<br>
+        댓글 작성자의 경우 <br>
+        수정이 가능합니다.<br>
+      </p>
+    </td>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122919945-c7c68580-d39b-11eb-980d-e47fb3169c29.png" width="230">
+      <p>
+        댓글을 작성하는 스크린입니다.<br>
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122920013-dca31900-d39b-11eb-9ae0-7601cc89598b.png" width="230">
+      <p>
+        한 고민글에 작성된 모든 댓글들을<br>
+        확인하는 스크린입니다.<br>
+        각 댓글들에 좋아요를 할 수 있고<br>
+        친구추가 요청을 할 수 있습니다.<br>
+      </p>
+    </td>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122920075-f2b0d980-d39b-11eb-847c-ea0fa8c871a2.png" width="230">
+      <p>
+        고민을 작성하는 스크린입니다.<br>
+        공개, 익명 여부를 선택할 수 있고<br>
+        고민 카테고리를 선정하여 글을<br>
+        등록할 수 있습니다.
+      </p>
+    </td>
+  </tr>
+  <tr>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122920133-04927c80-d39c-11eb-87c6-f9075a05b2f1.png" width="230">
+      <p>
+        친구 목록을 확인할 수 있으며,<br>
+        채팅창으로 이동할 수 있고,<br>
+        읽지 않는 메시지 수를 <br>
+        확인할 수 있습니다.<br>
+        상단의 버튼을 통해 대기 중인<br>
+        친구 목록을 확인할 수 있습니다.<br>
+      </p>
+    </td>
+    <td valign="top">
+      <img src="https://user-images.githubusercontent.com/64253365/122920197-15db8900-d39c-11eb-954a-be866e42785f.png" width="230">
+      <p>
+        채팅방입니다.<br>
+        상대방과 실시간으로 채팅을<br>
+        할 수 있습니다.<br>
+      </p>
+    </td>
+  </tr>
+<table>
 
 ## Installation
 ### Client
