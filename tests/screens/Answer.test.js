@@ -8,9 +8,9 @@ import Answer from "../../screens/Answer/Answer";
 
 import { TEST_ID } from "../../constants/testContents";
 
-jest.mock('@react-navigation/native', () => {
+jest.mock("@react-navigation/native", () => {
   return {
-    ...jest.requireActual('@react-navigation/native'),
+    ...jest.requireActual("@react-navigation/native"),
     useNavigation: () => ({
       navigate: jest.fn(),
       goBack: jest.fn()
@@ -31,12 +31,14 @@ describe("<Answer />", () => {
   it("should rendering based on the received information", (done) => {
     const { getByText, getByTestId } = render(
       <Provider store={store}>
-        <Answer route={{
-          params: {
-            commentInfo: mockCommentInfo,
-            postId: "testId"
-          }
-        }} />
+        <Answer
+          route={{
+            params: {
+              commentInfo: mockCommentInfo,
+              postId: "testId"
+            }
+          }}
+        />
       </Provider>
     );
 
